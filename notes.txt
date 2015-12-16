@@ -1,0 +1,4 @@
+* API "endpoint" - /?webwork maybe
+* POST payload contains most of the info we need. 'pg_object' must be run through base64_decode() 
+* How does access protection work? Maybe for now, we simply rely on WP auth - send to wp-login.php 
+* Make suggestions about "related" questions, whatever that means. Do we use a taxonomy to do this? At least, match based on lesson number + question number

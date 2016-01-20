@@ -25,9 +25,9 @@ class Schema {
 	 * BuddyPress group.
 	 *
 	 * There are three critical pieces of postmeta for each WeBWorK class:
-	 * - 'object_type' can be 'site', 'bp_group', etc.
-	 * - 'object_id' is the numeric ID of the associated WP object. With 'object_type', is a unique identifier.
-	 * - 'remote_class_url' is the URL of the course in WeBWorK.
+	 * - 'webwork_object_type' can be 'site', 'bp_group', etc.
+	 * - 'webwork_object_id' is the numeric ID of the associated WP object. With 'object_type', is a unique identifier.
+	 * - 'webwork_remote_class_url' is the URL of the course in WeBWorK.
 	 *
 	 * @since 1.0.0
 	 */

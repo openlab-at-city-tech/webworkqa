@@ -130,19 +130,7 @@ class WWClass {
 	 * @return bool|Integration
 	 */
 	protected function get_integration_for_object_type( $wp_object_type ) {
-		$integrations = array(
-			'site'           => '\WeBWorK\Integration\Site',
-			'bp_group_forum' => '\WeBWorK\Integration\BPGroupForum',
-		);
-
-		/**
-		 * Filter the integration classes.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array
-		 */
-		$integrations = apply_filters( 'webwork_integration_classes', $integrations );
+		$integrations = webwork()->get_integrations();
 
 		$integration = false;
 		if ( isset( $integrations[ $wp_object_type ] ) ) {

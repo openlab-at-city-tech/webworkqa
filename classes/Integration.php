@@ -40,4 +40,13 @@ interface Integration {
 	 * @return string
 	 */
 	public function get_integration_url( $wp_object_id );
+
+	/**
+	 * Get the current object ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return int
+	 */
+	public static function get_current_object_id();
 }

@@ -9,6 +9,14 @@ namespace WeBWorK;
  */
 class Loader {
 	/**
+	 * Integrations.
+	 *
+	 * @since 1.0.0
+	 * @var array
+	 */
+	protected $integrations = array();
+
+	/**
 	 * Singleton bootstrap.
 	 *
 	 * @since 1.0.0
@@ -35,6 +43,13 @@ class Loader {
 		add_action( 'template_redirect', array( $this, 'catch_post' ) );
 
 		add_action( 'bp_init', array( $this, 'set_up_buddypress' ) );
+
+		/**
+		 * Fires when the WeBWorK plugin has been set up.
+		 *
+		 * @since 1.0.0
+		 */
+		do_action( 'webwork_init' );
 	}
 
 	public function catch_post() {
@@ -72,6 +87,7 @@ class Loader {
 	 * @since 1.0.0
 	 */
 	protected function includes() {
+		include WEBWORK_PLUGIN_DIR . '/includes/functions.php';
 		include WEBWORK_PLUGIN_DIR . '/includes/template.php';
 	}
 
@@ -83,6 +99,27 @@ class Loader {
 	public function set_up_buddypress() {
 		if ( bp_is_active( 'groups' ) ) {
 			bp_register_group_extension( '\WeBWork\BuddyPress\BPGroupExtension' );
+			$this->register_integration( 'bp_group_forum', '\WeBWorK\Integration\BPGroupForum' );
 		}
+	}
+
+	/**
+	 * Get integrations.
+	 *
+	 * @since 1.0.0
+	 */
+	public function get_integrations() {
+		return $this->integrations;
+	}
+
+	/**
+	 * Register an integration.
+	 *
+	 * Does not verify that integration class exists.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_integration( $name, $class ) {
+		$this->integrations[ $name ] = $class;
 	}
 }

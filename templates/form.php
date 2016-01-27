@@ -3,7 +3,6 @@
 <h3><?php esc_html_e( 'Ask a question', 'webwork' ); ?></h3>
 
 <?php $post_data = webwork_get_current_post_data(); ?>
-<?php var_dump( $post_data ); ?>
 
 <?php esc_html_e( 'Problem:', 'webwork' ); ?>
 <div class="webwork-problem">

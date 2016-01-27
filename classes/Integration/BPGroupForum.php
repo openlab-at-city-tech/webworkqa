@@ -55,4 +55,15 @@ class BPGroupForum implements \WeBWorK\Integration {
 
 		return trailingslashit( $group_permalink ) . trailingslashit( 'webwork' );
 	}
+
+	/**
+	 * Get the current WWClass ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return int
+	 */
+	public static function get_current_object_id() {
+		return bp_get_current_group_id();
+	}
 }

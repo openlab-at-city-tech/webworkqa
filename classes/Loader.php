@@ -37,9 +37,6 @@ class Loader {
 		add_action( 'bp_init', array( $this, 'set_up_buddypress' ) );
 	}
 
-	/**
-	 * @todo distinguish between webwork=1 and wp-login.php redirects? POST will not always be available
-	 */
 	public function catch_post() {
 		if ( ! empty( $_GET['webwork'] ) && '1' == $_GET['webwork'] ) {
 			$router = new Router();

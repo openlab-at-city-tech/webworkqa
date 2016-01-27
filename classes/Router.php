@@ -46,7 +46,7 @@ class Router {
 	 * @param string $remote_class_url
 	 */
 	public function set_remote_class_url( $remote_class_url ) {
-		$url_parts = self::sanitize_class_url( $remote_class_url );
+		$url_parts = $this->sanitize_class_url( $remote_class_url );
 		$this->remote_class_url = $url_parts['base'];
 		$this->webwork_user = $url_parts['user'];
 	}
@@ -59,8 +59,8 @@ class Router {
 		// Set up initial data. How this works depends on whether we're coming directly from WW.
 		// This is a POST coming directly from WeBWorK.
 		if ( ! empty( $_POST ) ) {
-			$this->set_remote_class_url( wp_unslash( $_SERVER['HTTP_REFERER'] ) );
 			$this->set_post_data( $_POST );
+			$this->set_remote_class_url( wp_unslash( $_SERVER['HTTP_REFERER'] ) );
 		} else {
 			if ( isset( $_GET['remote_class_url'] ) ) {
 				$this->set_remote_class_url( wp_unslash( $_GET['remote_class_url'] ) );
@@ -203,8 +203,20 @@ class Router {
 	 * @param string $raw_url Raw URL from the HTTP_REFERER header.
 	 * @return array URL parts.
 	 */
-	protected static function sanitize_class_url( $raw_url ) {
+	protected function sanitize_class_url( $raw_url ) {
 		$parts = parse_url( $raw_url );
+
+		// Raw URL may contain a set and problem subpath.
+		$subpath = '';
+		foreach ( array( 'set', 'problem' ) as $key ) {
+			if ( ! empty( $this->post_data[ $key ] ) ) {
+				$subpath .= trailingslashit( $this->post_data[ $key ] );
+			}
+		}
+
+		if ( $subpath && $subpath === substr( $parts['path'], -strlen( $subpath ) ) ) {
+			$parts['path'] = substr( $parts['path'], 0, -strlen( $subpath ) );
+		}
 
 		$retval = array(
 			'base' => trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $parts['path'] ),

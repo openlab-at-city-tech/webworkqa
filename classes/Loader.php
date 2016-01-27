@@ -30,8 +30,11 @@ class Loader {
 	 */
 	private function __construct() {
 		$this->schema = new Schema();
+		$this->includes();
 
 		add_action( 'template_redirect', array( $this, 'catch_post' ) );
+
+		add_action( 'bp_init', array( $this, 'set_up_buddypress' ) );
 	}
 
 	/**
@@ -63,6 +66,26 @@ class Loader {
 			$router->set_remote_class_url( $remote_class_url );
 			$router->set_post_data( $_POST );
 			$router->go();
+		}
+	}
+
+	/**
+	 * Include required files.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function includes() {
+		include WEBWORK_PLUGIN_DIR . '/includes/template.php';
+	}
+
+	/**
+	 * Set up BuddyPress integration.
+	 *
+	 * @since 1.0.0
+	 */
+	public function set_up_buddypress() {
+		if ( bp_is_active( 'groups' ) ) {
+			bp_register_group_extension( '\WeBWork\BuddyPress\BPGroupExtension' );
 		}
 	}
 }

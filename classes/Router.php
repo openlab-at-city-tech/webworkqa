@@ -15,6 +15,14 @@ class Router {
 	protected $remote_class_url;
 
 	/**
+	 * Post data key.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	protected $post_data_key;
+
+	/**
 	 * Post data, as passed to the request.
 	 *
 	 * @since 1.0.0
@@ -101,6 +109,12 @@ class Router {
 
 		// Get a redirect URL from the integration.
 		$redirect = $class->get_integration_url();
+
+		// Append the post_data_key so that the integration can fetch the posted data.
+		$redirect = add_query_arg( 'post_data_key', $this->post_data_key, $redirect );
+
+		wp_safe_redirect( $redirect );
+		die();
 	}
 
 	/**
@@ -109,12 +123,14 @@ class Router {
 	 * @since 1.0.0
 	 */
 	public function store_post_data() {
-		$key = $this->get_post_data_option_key();
-		update_option( $key, $this->post_data );
+		$this->post_data_key = $this->get_post_data_option_key();
+		update_option( $this->post_data_key, $this->post_data );
 	}
 
 	/**
 	 * Get the key to be used when storing the POST data in the options table.
+	 *
+	 * @todo Does this need to use a timestamp? Seems like probably not?
 	 *
 	 * @since 1.0.0
 	 *

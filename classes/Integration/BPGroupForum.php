@@ -2,7 +2,18 @@
 
 namespace WeBWorK\Integration;
 
-class BPGroup implements \WeBWorK\Integration {
+class BPGroupForum implements \WeBWorK\Integration {
+	/**
+	 * Constructor.
+	 *
+	 * Responsible for setting up the Group Extension.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		bp_register_group_extension( '\WeBWork\BuddyPress\BPGroupExtension' );
+	}
+
 	/**
 	 * Get a group object by ID.
 	 *
@@ -42,7 +53,6 @@ class BPGroup implements \WeBWorK\Integration {
 
 		$group_permalink = bp_get_group_permalink( $group );
 
-		// Todo what should these slugs look like?
 		return trailingslashit( $group_permalink ) . trailingslashit( 'webwork' );
 	}
 }

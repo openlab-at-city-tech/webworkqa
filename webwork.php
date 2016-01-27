@@ -10,8 +10,13 @@ Text Domain: webwork
 Domain Path: /languages
 */
 
+define( 'WEBWORK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WEBWORK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
 /**
  * Bootstrap.
+ *
+ * Loaded early to avoid race conditions with BuddyPress (bp_init).
  *
  * @since 1.0.0
  */
@@ -25,7 +30,7 @@ function webwork_init() {
 
 	$GLOBALS['webwork'] = \WeBWorK\Loader::init();
 }
-add_action( 'init', 'webwork_init' );
+add_action( 'init', 'webwork_init', 5 );
 
 /**
  * Autoload logic.

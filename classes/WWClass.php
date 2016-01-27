@@ -131,8 +131,8 @@ class WWClass {
 	 */
 	protected function get_integration_for_object_type( $wp_object_type ) {
 		$integrations = array(
-			'site'     => '\WeBWorK\Integration\Site',
-			'bp_group' => '\WeBWorK\Integration\BPGroup',
+			'site'           => '\WeBWorK\Integration\Site',
+			'bp_group_forum' => '\WeBWorK\Integration\BPGroupForum',
 		);
 
 		/**

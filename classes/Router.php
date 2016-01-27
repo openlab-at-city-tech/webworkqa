@@ -215,11 +215,15 @@ class Router {
 		}
 
 		if ( $subpath && $subpath === substr( $parts['path'], -strlen( $subpath ) ) ) {
-			$parts['path'] = substr( $parts['path'], 0, -strlen( $subpath ) );
+			$base = substr( $parts['path'], 0, -strlen( $subpath ) );
+		} else {
+			$base = $parts['path'];
 		}
 
+		$base = trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $base );
+
 		$retval = array(
-			'base' => trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $parts['path'] ),
+			'base' => $base,
 			'effectiveUser' => '',
 			'user' => '',
 			'key' => '',

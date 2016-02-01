@@ -71,31 +71,8 @@ function webwork_get_current_wwclass() {
 		return false;
 	}
 
-	$query = new \WP_Query( array(
-		'post_type' => 'webwork_class',
-		'meta_query' => array(
-			'relation' => 'OR',
-			'webwork_object_id' => array(
-				'key' => 'webwork_object_id',
-				'value' => $current_object_id,
-			),
-			'webwork_object_type' => array(
-				'key' => 'webwork_object_type',
-				'value' => $current_object_type,
-			),
-		),
-		'no_found_rows' => true,
-		'update_post_term_cache' => false,
-		'fields' => 'ids',
+	return webwork_get_wwclass( array(
+		'object_type' => $current_object_id,
+		'object_id' => $current_object_id,
 	) );
-
-	$retval = false;
-	if ( ! empty( $query->posts ) ) {
-		$wwclass = new \WeBWorK\WWClass( $query->posts[0] );
-		if ( $wwclass->exists() ) {
-			$retval = $wwclass;
-		}
-	}
-
-	return $retval;
 }

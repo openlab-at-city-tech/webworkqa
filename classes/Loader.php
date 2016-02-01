@@ -41,6 +41,7 @@ class Loader {
 		$this->includes();
 
 		add_action( 'template_redirect', array( $this, 'catch_post' ) );
+		add_action( 'template_redirect', array( $this, 'catch_question' ) );
 
 		add_action( 'bp_init', array( $this, 'set_up_buddypress' ) );
 
@@ -79,6 +80,39 @@ class Loader {
 			$router->set_post_data( $_POST );
 			$router->go();
 		}
+	}
+
+	// @todo move to Router.
+	public function catch_question() {
+		if ( empty( $_POST['webwork-question-wp-object-id'] ) || empty( $_POST['webwork-question-wp-object-type'] ) ) {
+			return;
+		}
+
+		$object_id = intval( $_POST['webwork-question-wp-object-id'] );
+		$object_type = wp_unslash( $_POST['webwork-question-wp-object-type'] );
+
+		if ( empty( $_POST['webwork-question-nonce'] ) ) {
+			return;
+		}
+
+		// CSRF protection.
+		$nonce = wp_unslash( $_POST['webwork-question-nonce'] );
+		if ( ! wp_verify_nonce( $nonce, 'webwork_question' ) ) {
+			return;
+		}
+
+		// Authn.
+		$wwclass = webwork_get_wwclass( array(
+			'object_type' => $object_type,
+			'object_id' => $object_id,
+		) );
+
+		if ( ! $wwclass || ! $wwclass->current_user_can_post() ) {
+			return;
+		}
+
+
+
 	}
 
 	/**

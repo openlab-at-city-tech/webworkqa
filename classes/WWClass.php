@@ -27,6 +27,14 @@ class WWClass {
 	protected $wp_object_id;
 
 	/**
+	 * WP object ID.
+	 *
+	 * @since 1.0.0
+	 * @var int
+	 */
+	protected $wp_object_type;
+
+	/**
 	 * WP post object (webwork_course).
 	 *
 	 * @since 1.0.0
@@ -63,12 +71,13 @@ class WWClass {
 		}
 
 		// Get object integration information.
-		$wp_object_type = get_post_meta( $this->class_id, 'webwork_object_type', true );
-		if ( ! $wp_object_type ) {
+		$this->wp_object_type = get_post_meta( $this->class_id, 'webwork_object_type', true );
+		if ( ! $this->wp_object_type ) {
 			return;
 		}
 
-		$this->integration = $this->get_integration_for_object_type( $wp_object_type );
+		// @todo Support multiple integrations per class? Blah.
+		$this->integration = $this->get_integration_for_object_type( $this->wp_object_type );
 		$this->wp_object_id = (int) get_post_meta( $this->class_id, 'webwork_object_id', true );
 
 		if ( ! $this->integration || ! $this->wp_object_id ) {
@@ -120,6 +129,28 @@ class WWClass {
 	 */
 	public function get_integration_url() {
 		return $this->integration->get_integration_url( $this->wp_object_id );
+	}
+
+	/**
+	 * Get the WP object ID for this class.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return int
+	 */
+	public function get_wp_object_id() {
+		return intval( $this->wp_object_id );
+	}
+
+	/**
+	 * Get the WP object type for this class.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	public function get_wp_object_type() {
+		return $this->wp_object_type;
 	}
 
 	/**

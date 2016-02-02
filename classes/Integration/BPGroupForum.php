@@ -101,6 +101,52 @@ class BPGroupForum implements \WeBWorK\Integration {
 	}
 
 	/**
+	 * Get related questions for a set of params.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $wp_object_id
+	 * @param array $args {
+	 *     @type string $set
+	 *     @type int    $problem
+	 * }
+	 * @return \WeBWorK\RelatedQuestions
+	 */
+	public function get_related_questions( $wp_object_id, $args ) {
+		$meta_query = array(
+			'relation' => 'AND',
+			'webwork_problem_set' => array(
+				'key' => 'webwork_problem_set',
+				'value' => $args['set'],
+			),
+			'webwork_problem' => array(
+				'key' => 'webwork_problem',
+				'value' => $args['problem'],
+			),
+		);
+
+		$q = new \WP_Query( array(
+			'post_type' => bbp_get_topic_post_type(),
+			'post_parent' => $this->get_forum_id( $wp_object_id ),
+			'meta_query' => $meta_query,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+		) );
+
+		$questions = array();
+		foreach ( $q->posts as $post ) {
+			$questions[] = array(
+				'title' => $post->post_title,
+				'url' => get_permalink( $post ),
+			);
+		}
+
+		$related = new \WeBWorK\RelatedQuestions();
+		$related->set_questions( $questions );
+		return $related;
+	}
+
+	/**
 	 * Get the current WWClass ID.
 	 *
 	 * @since 1.0.0
@@ -109,5 +155,23 @@ class BPGroupForum implements \WeBWorK\Integration {
 	 */
 	public static function get_current_object_id() {
 		return bp_get_current_group_id();
+	}
+
+	/**
+	 * Get the forum ID from a group id.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return int
+	 */
+	protected function get_forum_id( $group_id ) {
+		$forum_id = 0;
+
+		$forum_ids = bbp_get_group_forum_ids( $group_id );
+		if ( ! empty( $forum_ids ) ) {
+			$forum_id = reset( $forum_ids );
+		}
+
+		return intval( $forum_id );
 	}
 }

@@ -57,6 +57,20 @@ interface Integration {
 	public function post_question( $wp_object_id, $post_data );
 
 	/**
+	 * Get related questions for a set of params.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $wp_object_id
+	 * @param array $args {
+	 *     @type string $set
+	 *     @type int    $problem
+	 * }
+	 * @return \WeBWorK\RelatedQuestions
+	 */
+	public function get_related_questions( $wp_object_id, $args );
+
+	/**
 	 * Get the current object ID.
 	 *
 	 * @since 1.0.0

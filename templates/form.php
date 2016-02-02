@@ -11,14 +11,26 @@
 </div>
 */ ?>
 
-<h3><?php esc_html_e( 'Related Questions', 'webwork' ); ?></h3>
-<p><?php
-printf(
-	esc_html( 'Other questions related to problem %1$s from problem set %2$s:', 'webwork' ),
-	intval( $post_data['problem'] ),
-	esc_html( $post_data['set'] )
-);
-?></p>
+<?php $related_questions = webwork_get_related_questions(); ?>
+<?php if ( count( $related_questions ) ) : ?>
+	<h3><?php esc_html_e( 'Related Questions', 'webwork' ); ?></h3>
+
+	<p><?php
+	printf(
+		esc_html( 'Other questions related to problem %1$s from problem set %2$s:', 'webwork' ),
+		intval( $post_data['problem'] ),
+		esc_html( $post_data['set'] )
+	);
+	?></p>
+
+	<ul>
+	<?php foreach ( $related_questions as $related_question ) : ?>
+		<li>
+			<?php printf( '<a href="%s">%s</a>', esc_url( $related_question['url'] ), esc_html( $related_question['title'] ) ); ?>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+<?php endif; ?>
 
 <form action="" method="post">
 	<p><?php echo esc_html( sprintf( __( 'Problem: %s', 'webwork' ), intval( $post_data['problem'] ) ) ); ?></p>

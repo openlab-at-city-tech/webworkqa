@@ -57,22 +57,54 @@ function webwork_prepare_pg_object( $o ) {
  * @return bool|\WeBWorK\WWClass
  */
 function webwork_get_current_wwclass() {
-	$current_object_id = 0;
-	$current_object_type = '';
-	foreach ( webwork()->get_integrations() as $key => $class ) {
-		$current_object_id = $class::get_current_object_id();
-		if ( $current_object_id ) {
-			$current_object_type = $key;
-			break;
+	static $wwclass;
+
+	if ( empty( $wwclass ) ) {
+		$current_object_id = 0;
+		$current_object_type = '';
+		foreach ( webwork()->get_integrations() as $key => $class ) {
+			$current_object_id = $class::get_current_object_id();
+			if ( $current_object_id ) {
+				$current_object_type = $key;
+				break;
+			}
+		}
+
+		if ( ! $current_object_id ) {
+			return false;
+		}
+
+		$wwclass = webwork_get_wwclass( array(
+			'object_type' => $current_object_id,
+			'object_id' => $current_object_id,
+		) );
+	}
+
+	return $wwclass;
+}
+
+/**
+ * Get a list of related questions.
+ *
+ * @todo make it possible to pass params?
+ *
+ * @since 1.0.0
+ *
+ * @return \WeBWorK\RelatedQuestions
+ */
+function webwork_get_related_questions() {
+	$post_data = webwork_get_current_post_data();
+
+	$args = array();
+	foreach ( array( 'set', 'problem' ) as $key ) {
+		if ( isset( $post_data[ $key ] ) ) {
+			$args[ $key ] = $post_data[ $key ];
 		}
 	}
 
-	if ( ! $current_object_id ) {
+	$wwclass = webwork_get_current_wwclass();
+	if ( ! $wwclass ) {
 		return false;
 	}
-
-	return webwork_get_wwclass( array(
-		'object_type' => $current_object_id,
-		'object_id' => $current_object_id,
-	) );
+	return $wwclass->get_related_questions( $args );
 }

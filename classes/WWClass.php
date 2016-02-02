@@ -165,6 +165,21 @@ class WWClass {
 	}
 
 	/**
+	 * Get related questions for a set of params.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $args {
+	 *     @type string $set
+	 *     @type int    $problem
+	 * }
+	 * @return \WeBWorK\RelatedQuestions
+	 */
+	public function get_related_questions( $args ) {
+		return $this->integration->get_related_questions( $this->wp_object_id, $args );
+	}
+
+	/**
 	 * Get the integration class corresponding to an object type.
 	 *
 	 * @since 1.0.0

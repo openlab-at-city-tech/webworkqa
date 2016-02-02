@@ -27,7 +27,7 @@ printf(
 	<textarea name="webwork-question-text"></textarea>
 
 	<input type="hidden" name="webwork-question-problem" value="<?php echo intval( $post_data['problem'] ); ?>" />
-	<input type="hidden" name="webwork-question-problem-set" value="<?php echo intval( $post_data['set'] ); ?>" />
+	<input type="hidden" name="webwork-question-problem-set" value="<?php echo esc_attr( $post_data['set'] ); ?>" />
 
 	<?php $wwclass = webwork_get_current_wwclass(); ?>
 	<input type="hidden" name="webwork-question-wp-object-id" value="<?php echo intval( $wwclass->get_wp_object_id() ) ; ?>" />

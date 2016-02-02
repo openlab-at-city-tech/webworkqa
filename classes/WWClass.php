@@ -154,6 +154,17 @@ class WWClass {
 	}
 
 	/**
+	 * Post a question to a course.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	public function post_question( $post_data ) {
+		return $this->integration->post_question( $this->wp_object_id, $post_data );
+	}
+
+	/**
 	 * Get the integration class corresponding to an object type.
 	 *
 	 * @since 1.0.0

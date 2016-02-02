@@ -42,6 +42,21 @@ interface Integration {
 	public function get_integration_url( $wp_object_id );
 
 	/**
+	 * Post a question.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int   $wp_object_id
+	 * @param array $post_data {
+	 *     @type string $text
+	 *     @type int    $problem
+	 *     @type int    $problem_set
+	 * }
+	 * @return bool
+	 */
+	public function post_question( $wp_object_id, $post_data );
+
+	/**
 	 * Get the current object ID.
 	 *
 	 * @since 1.0.0

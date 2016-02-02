@@ -111,8 +111,13 @@ class Loader {
 			return;
 		}
 
+		$post_data = array(
+			'text' => isset( $_POST['webwork-question-text'] ) ? wp_unslash( $_POST['webwork-question-text'] ) : '',
+			'problem' => isset( $_POST['webwork-question-problem'] ) ? intval( $_POST['webwork-question-problem'] ) : null,
+			'problem_set' => isset( $_POST['webwork-question-problem-set'] ) ? wp_unslash( $_POST['webwork-question-problem-set'] ) : null,
+		);
 
-
+		$posted = $wwclass->post_question( $post_data );
 	}
 
 	/**

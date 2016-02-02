@@ -57,6 +57,50 @@ class BPGroupForum implements \WeBWorK\Integration {
 	}
 
 	/**
+	 * Post a question.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int   $wp_object_id
+	 * @param array $post_data {
+	 *     @type string $text
+	 *     @type int    $problem
+	 *     @type int    $problem_set
+	 * }
+	 * @return bool
+	 */
+	public function post_question( $wp_object_id, $post_data ) {
+		// @todo ??
+		$post_title = sprintf( 'Question about %s #%s', $post_data['problem_set'], $post_data['problem'] );
+
+		$forum_ids = bbp_get_group_forum_ids( $wp_object_id );
+		if ( empty( $forum_ids ) ) {
+			// @todo better error reporting
+			return false;
+		}
+
+		$forum_id = reset( $forum_ids );
+
+		$topic_data = array(
+			'post_author' => bp_loggedin_user_id(),
+			'post_title' => $post_title,
+			'post_content' => $post_data['text'],
+			'post_parent' => $forum_id,
+		);
+
+		$topic_id = bbp_insert_topic( $topic_data );
+
+		if ( ! $topic_id ) {
+			return false;
+		}
+
+		add_post_meta( $topic_id, 'webwork_problem_set', $post_data['problem_set'] );
+		add_post_meta( $topic_id, 'webwork_problem', $post_data['problem'] );
+
+		return $topic_id;
+	}
+
+	/**
 	 * Get the current WWClass ID.
 	 *
 	 * @since 1.0.0

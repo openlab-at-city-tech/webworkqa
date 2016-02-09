@@ -7,6 +7,14 @@ namespace WeBWorK;
  */
 class Router {
 	/**
+	 * Raw referer for the request.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	protected $remote_referer_url;
+
+	/**
 	 * Remote class URL for the request.
 	 *
 	 * @since 1.0.0
@@ -124,6 +132,11 @@ class Router {
 	 */
 	public function store_post_data() {
 		$this->post_data_key = $this->get_post_data_option_key();
+
+		// Store the remote class URL for later use.
+		$this->post_data['remote_class_url']   = $this->remote_class_url;
+		$this->post_data['remote_referer_url'] = $this->remote_referer_url;
+
 		update_option( $this->post_data_key, $this->post_data );
 	}
 
@@ -213,6 +226,8 @@ class Router {
 				$subpath .= trailingslashit( $this->post_data[ $key ] );
 			}
 		}
+
+		$this->remote_referer_url = $parts['scheme'] . '://' . $parts['host'] . $parts['path'];
 
 		if ( $subpath && $subpath === substr( $parts['path'], -strlen( $subpath ) ) ) {
 			$base = substr( $parts['path'], 0, -strlen( $subpath ) );

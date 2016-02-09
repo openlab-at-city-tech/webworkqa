@@ -39,6 +39,7 @@ class Loader {
 	private function __construct() {
 		$this->schema = new Schema();
 		$this->includes();
+		$this->register_assets();
 
 		add_action( 'template_redirect', array( $this, 'catch_post' ) );
 		add_action( 'template_redirect', array( $this, 'catch_question' ) );
@@ -128,6 +129,28 @@ class Loader {
 	protected function includes() {
 		include WEBWORK_PLUGIN_DIR . '/includes/functions.php';
 		include WEBWORK_PLUGIN_DIR . '/includes/template.php';
+	}
+
+	/**
+	 * Register assets.
+	 *
+	 * @since 1.0.0
+	 */
+	protected function register_assets() {
+		// Scripts.
+		wp_register_script( 'webwork-form-js', WEBWORK_PLUGIN_URL . '/assets/js/webwork-form.js', array( 'jquery' ) );
+
+		$strings = array(
+			'hide_problem' => esc_html__( 'Hide problem', 'webwork' ),
+			'show_problem' => esc_html__( 'Show problem', 'webwork' ),
+			'hide_related' => esc_html__( 'Hide related questions', 'webwork' ),
+			'show_related' => esc_html__( 'Show related questions', 'webwork' ),
+		);
+
+		wp_localize_script( 'webwork-form-js', 'WeBWorK', $strings );
+
+		// Styles.
+		wp_register_style( 'webwork-form-css', WEBWORK_PLUGIN_URL . '/assets/css/webwork-form.css' );
 	}
 
 	/**

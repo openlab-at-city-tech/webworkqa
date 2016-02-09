@@ -1,42 +1,59 @@
+<?php wp_enqueue_script( 'webwork-form-js' ); ?>
+<?php wp_enqueue_style( 'webwork-form-css' ); ?>
+
+<div class="webwork-ask-a-question">
+
 <h2><?php esc_html_e( 'WeBWoRK', 'webwork' ); ?></h2>
 
 <h3><?php esc_html_e( 'Ask a question', 'webwork' ); ?></h3>
 
 <?php $post_data = webwork_get_current_post_data(); ?>
 
-<?php /*
-<?php esc_html_e( 'Problem:', 'webwork' ); ?>
-<div class="webwork-problem">
-	<?php echo( webwork_prepare_pg_object( $post_data['pg_object'] ) ); ?>
+<p>
+<?php
+$source_name = sprintf( 'Problem set %s #%s', esc_html( $post_data['set'] ), intval( $post_data['problem'] ) );
+printf(
+	esc_html__( 'You are asking a question about: %s', 'webwork' ),
+	sprintf( '<a href="%s">%s</a>', esc_url( $post_data['remote_referer_url'] ), $source_name )
+);
+?>
+</p>
+
+<div class="webwork-show-problem">
+	<a href="#" data-content-type="problem" class="problem-toggle section-toggle"><?php esc_html_e( 'Show problem', 'webwork' ); ?></a>
+	<div class="webwork-show-problem-content section-content section-content-hide">
+		<?php echo( webwork_prepare_pg_object( $post_data['pg_object'] ) ); ?>
+	</div>
 </div>
-*/ ?>
 
 <?php $related_questions = webwork_get_related_questions(); ?>
 <?php if ( count( $related_questions ) ) : ?>
-	<h3><?php esc_html_e( 'Related Questions', 'webwork' ); ?></h3>
-
-	<p><?php
-	printf(
-		esc_html( 'Other questions related to problem %1$s from problem set %2$s:', 'webwork' ),
-		intval( $post_data['problem'] ),
-		esc_html( $post_data['set'] )
-	);
-	?></p>
-
-	<ul>
-	<?php foreach ( $related_questions as $related_question ) : ?>
-		<li>
-			<?php printf( '<a href="%s">%s</a>', esc_url( $related_question['url'] ), esc_html( $related_question['title'] ) ); ?>
-		</li>
-	<?php endforeach; ?>
-	</ul>
+<div class="webwork-related-questions">
+	<a href="#" data-content-type="related" class="related-toggle section-toggle"><?php esc_html_e( 'Show related questions', 'webwork' ); ?></a>
+	<div class="webwork-show-related-content section-content section-content-hide">
+		<ul>
+			<?php foreach ( $related_questions as $related_question ) : ?>
+				<li>
+					<?php printf( '<a href="%s">%s</a>', esc_url( $related_question['url'] ), esc_html( $related_question['title'] ) ); ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</div>
 <?php endif; ?>
 
-<form action="" method="post">
-	<p><?php echo esc_html( sprintf( __( 'Problem: %s', 'webwork' ), intval( $post_data['problem'] ) ) ); ?></p>
-	<p><?php echo esc_html( sprintf( __( 'Problem set: %s', 'webwork' ), esc_html( $post_data['set'] ) ) ); ?></p>
+<form action="" method="post" class="webwork-question-form">
+	<label for="webwork-question-subject"><?php esc_html_e( 'Subject', 'webwork' ); ?></label>
+	<input type="text" id="webwork-question-subject" name="webwork-question-subject" />
+	<p class="description"><?php esc_html_e( 'A one-sentence description of your problem.', 'webwork' ); ?></p>
 
-	<textarea name="webwork-question-text"></textarea>
+	<label for="webwork-question-tried"><?php esc_html_e( 'Your problem', 'webwork' ); ?></label>
+	<textarea id="webwork-question-text" name="webwork-question-text"></textarea>
+	<p class="description"><?php esc_html_e( 'A detailed description of the problem you\'re experiencing.', 'webwork' ); ?></p>
+
+	<label for="webwork-question-tried"><?php esc_html_e( 'What you\'ve tried', 'webwork' ); ?></label>
+	<textarea id="webwork-question-text" name="webwork-question-text"></textarea>
+	<p class="description"><?php esc_html_e( 'A summary of the approaches you\'ve attempted so far.', 'webwork' ); ?></p>
 
 	<input type="hidden" name="webwork-question-problem" value="<?php echo intval( $post_data['problem'] ); ?>" />
 	<input type="hidden" name="webwork-question-problem-set" value="<?php echo esc_attr( $post_data['set'] ); ?>" />
@@ -49,3 +66,10 @@
 
 	<input type="submit" value="<?php esc_html_e( 'Submit', 'webwork' ); ?>" />
 </form>
+
+<h3>FOR DEBUG ONLY</h3>
+<p>Here's a dump of all the data WeBWorK sends over:</p>
+
+<pre><?php print_r( $post_data ); ?></pre>
+
+</div><!-- .webwork-ask-a-question -->

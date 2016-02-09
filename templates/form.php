@@ -70,6 +70,6 @@ printf(
 <h3>FOR DEBUG ONLY</h3>
 <p>Here's a dump of all the data WeBWorK sends over:</p>
 
-<pre><?php print_r( $post_data ); ?></pre>
+<pre><?php print_r( array_map( 'esc_html', $post_data ) ); ?></pre>
 
 </div><!-- .webwork-ask-a-question -->

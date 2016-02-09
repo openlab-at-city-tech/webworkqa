@@ -140,7 +140,7 @@ class Loader {
 	 */
 	protected function register_assets() {
 		// Scripts.
-		wp_register_script( 'webwork-form-js', WEBWORK_PLUGIN_URL . '/assets/js/webwork-form.js', array( 'jquery' ) );
+		wp_register_script( 'webwork-form-js', WEBWORK_PLUGIN_URL . 'assets/js/webwork-form.js', array( 'jquery' ) );
 
 		$strings = array(
 			'hide_problem' => esc_html__( 'Hide problem', 'webwork' ),
@@ -152,7 +152,7 @@ class Loader {
 		wp_localize_script( 'webwork-form-js', 'WeBWorK', $strings );
 
 		// Styles.
-		wp_register_style( 'webwork-form-css', WEBWORK_PLUGIN_URL . '/assets/css/webwork-form.css' );
+		wp_register_style( 'webwork-form-css', WEBWORK_PLUGIN_URL . 'assets/css/webwork-form.css' );
 	}
 
 	/**

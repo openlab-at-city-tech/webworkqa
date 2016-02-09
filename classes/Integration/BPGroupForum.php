@@ -63,6 +63,8 @@ class BPGroupForum implements \WeBWorK\Integration {
 	 *
 	 * @param int   $wp_object_id
 	 * @param array $post_data {
+	 *     @type string $subject
+	 *     @type string $tried
 	 *     @type string $text
 	 *     @type int    $problem
 	 *     @type int    $problem_set
@@ -70,9 +72,6 @@ class BPGroupForum implements \WeBWorK\Integration {
 	 * @return bool
 	 */
 	public function post_question( $wp_object_id, $post_data ) {
-		// @todo ??
-		$post_title = sprintf( 'Question about %s #%s', $post_data['problem_set'], $post_data['problem'] );
-
 		$forum_ids = bbp_get_group_forum_ids( $wp_object_id );
 		if ( empty( $forum_ids ) ) {
 			// @todo better error reporting
@@ -81,10 +80,18 @@ class BPGroupForum implements \WeBWorK\Integration {
 
 		$forum_id = reset( $forum_ids );
 
+		$content = sprintf(
+			'<h4>%s</h4><p>%s</p><h4>%s</h4><p>%s</p>',
+			esc_html__( 'My problem', 'webwork' ),
+			$post_data['text'],
+			esc_html__( 'What I\'ve tried', 'webwork' ),
+			$post_data['tried']
+		);
+
 		$topic_data = array(
 			'post_author' => bp_loggedin_user_id(),
-			'post_title' => $post_title,
-			'post_content' => $post_data['text'],
+			'post_title' => $post_data['subject'],
+			'post_content' => $content,
 			'post_parent' => $forum_id,
 		);
 

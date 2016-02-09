@@ -113,6 +113,8 @@ class Loader {
 		}
 
 		$post_data = array(
+			'subject' => isset( $_POST['webwork-question-subject'] ) ? wp_unslash( $_POST['webwork-question-subject'] ) : '',
+			'tried' => isset( $_POST['webwork-question-tried'] ) ? wp_unslash( $_POST['webwork-question-tried'] ) : '',
 			'text' => isset( $_POST['webwork-question-text'] ) ? wp_unslash( $_POST['webwork-question-text'] ) : '',
 			'problem' => isset( $_POST['webwork-question-problem'] ) ? intval( $_POST['webwork-question-problem'] ) : null,
 			'problem_set' => isset( $_POST['webwork-question-problem-set'] ) ? wp_unslash( $_POST['webwork-question-problem-set'] ) : null,

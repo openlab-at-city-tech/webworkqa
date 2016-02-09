@@ -47,12 +47,12 @@ printf(
 	<input type="text" id="webwork-question-subject" name="webwork-question-subject" />
 	<p class="description"><?php esc_html_e( 'A one-sentence description of your problem.', 'webwork' ); ?></p>
 
-	<label for="webwork-question-tried"><?php esc_html_e( 'Your problem', 'webwork' ); ?></label>
+	<label for="webwork-question-text"><?php esc_html_e( 'Your problem', 'webwork' ); ?></label>
 	<textarea id="webwork-question-text" name="webwork-question-text"></textarea>
 	<p class="description"><?php esc_html_e( 'A detailed description of the problem you\'re experiencing.', 'webwork' ); ?></p>
 
 	<label for="webwork-question-tried"><?php esc_html_e( 'What you\'ve tried', 'webwork' ); ?></label>
-	<textarea id="webwork-question-text" name="webwork-question-text"></textarea>
+	<textarea id="webwork-question-tried" name="webwork-question-tried"></textarea>
 	<p class="description"><?php esc_html_e( 'A summary of the approaches you\'ve attempted so far.', 'webwork' ); ?></p>
 
 	<input type="hidden" name="webwork-question-problem" value="<?php echo intval( $post_data['problem'] ); ?>" />

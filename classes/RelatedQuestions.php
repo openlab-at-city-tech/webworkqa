@@ -31,6 +31,17 @@ class RelatedQuestions implements \ArrayAccess, \Iterator {
 		$this->questions = $questions;
 	}
 
+        /**
+         * Whether the current set has questions.
+         *
+         * @since 1.0.0
+         *
+         * @return bool
+         */
+        public function has_questions() {
+                return ! empty( $this->questions );
+        }
+
 	public function offsetSet( $offset, $value ) {
 		if ( is_null( $offset ) ) {
 			$this->questions[] = $value;

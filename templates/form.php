@@ -27,7 +27,7 @@ printf(
 </div>
 
 <?php $related_questions = webwork_get_related_questions(); ?>
-<?php if ( count( $related_questions ) ) : ?>
+<?php if ( $related_questions->has_questions() ) : ?>
 <div class="webwork-related-questions">
 	<a href="#" data-content-type="related" class="related-toggle section-toggle"><?php esc_html_e( 'Show related questions', 'webwork' ); ?></a>
 	<div class="webwork-show-related-content section-content section-content-hide">

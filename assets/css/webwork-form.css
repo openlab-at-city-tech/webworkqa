@@ -1,3 +1,7 @@
+/* probably temporary */
+.webwork-question-form input, .webwork-question-form textarea { width: 100%; }
+
+
 .webwork-ask-a-question label {
 	font-weight: bold;
 }

@@ -120,7 +120,12 @@ class Loader {
 			'problem_set' => isset( $_POST['webwork-question-problem-set'] ) ? wp_unslash( $_POST['webwork-question-problem-set'] ) : null,
 		);
 
-		$posted = $wwclass->post_question( $post_data );
+		$redirect_to = $wwclass->post_question( $post_data );
+
+                if ( $redirect_to ) {
+                        wp_safe_redirect( $redirect_to );
+                        die();
+                }
 	}
 
 	/**

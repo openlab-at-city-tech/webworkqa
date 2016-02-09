@@ -104,7 +104,9 @@ class BPGroupForum implements \WeBWorK\Integration {
 		add_post_meta( $topic_id, 'webwork_problem_set', $post_data['problem_set'] );
 		add_post_meta( $topic_id, 'webwork_problem', $post_data['problem'] );
 
-		return $topic_id;
+                $topic_obj = get_post( $topic_id );
+
+                return bp_get_group_permalink( groups_get_current_group() ) . '/forum/topic/' . $topic_obj->post_name;
 	}
 
 	/**

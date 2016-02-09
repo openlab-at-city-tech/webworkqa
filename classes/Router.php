@@ -251,6 +251,6 @@ class Router {
 			}
 		}
 
-		return untrailingslashit( $retval );
+		return $retval;
 	}
 }

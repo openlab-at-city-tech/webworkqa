@@ -44,7 +44,7 @@ class Schema {
 			'not_found_in_trash' => __( 'No WeBWorK Classes found in Trash.', 'webwork' ),
 		);
 
-		register_post_type( 'webwork_course', array(
+		register_post_type( 'webwork_class', array(
 			'label' => __( 'WebWorK Classes', 'webwork' ),
 			'labels' => $labels,
 			'public' => true, // todo This should be false

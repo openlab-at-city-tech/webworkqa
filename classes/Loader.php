@@ -37,7 +37,17 @@ class Loader {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		$this->schema = new Schema();
+		if ( 1 === get_current_blog_id() ) {
+			$this->server = new Server();
+//			$this->schema = new Schema();
+//			$this->schema->init();
+		} else {
+			$this->client = new Client();
+		}
+
+
+		$this->api = new APIClient();
+
 		$this->includes();
 		$this->register_assets();
 

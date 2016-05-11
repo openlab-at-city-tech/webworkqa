@@ -19,7 +19,7 @@ class APIClient {
 		$root = get_blog_option( 1, 'home' );
 
 		$this->endpoint = $root . '/wp-json/wp/v2/';
-		var_dump( $this->endpoint );
+		//var_dump( $this->endpoint );
 	}
 
 //	public function

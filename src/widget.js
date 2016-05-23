@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import Redux from 'redux';
 import ReduxReact from 'react-redux';
+
+//import 'bootstrap-webpack';
 //import Widget from './components/widget';
 
 // Query DOM for all widget wrapper divs
@@ -53,7 +55,7 @@ var WWQuestionList = React.createClass({
 	render: function() {
 		var rows = [];
 		this.props.questions.forEach(function(question) {
-			rows.push( <WWQuestion question={question} /> );
+			rows.push( <WWQuestion key={question.id} question={question} /> );
 		});
 		return (
 			<div className="ww-question-list">
@@ -73,6 +75,8 @@ var WWQuestion = React.createClass({
 					{this.props.question.content}
 				</div>
 
+				<WWScoreDialog score={this.props.question.score} />
+
 				<WWResponseList responses={this.props.question.responses} />
 			</li>
 		);
@@ -83,7 +87,7 @@ var WWResponseList = React.createClass({
 	render: function() {
 		var rows = [];
 		this.props.responses.forEach( function(response) {
-			rows.push( <WWResponse response={response} /> );
+			rows.push( <WWResponse key={response.id} response={response} /> );
 		});
 
 		return (
@@ -102,8 +106,59 @@ var WWResponse = React.createClass({
 		return (
 			<li>
 				{this.props.response.content}
+				<WWScoreDialog score={this.props.response.score} />
 			</li>
 		);
+	}
+});
+
+var WWScoreDialog = React.createClass({
+	getInitialState: function() {
+		return {
+			score: '0',
+			myvote: ''
+		}
+	},
+
+	render: function() {
+		return (
+			<div className="ww-score">
+				<button disabled={this.state.myvote == 'down'} className="ww-score-up ww-score-vote" onClick={this.toggleUp}>Up</button> 
+				 <span className="ww-score-value">{this.state.score}</span> 
+				<button disabled={this.state.myvote == 'up'} className="ww-score-down ww-score-vote" onClick={this.toggleDown}>Down</button>
+			</div>
+		);
+	},
+
+	toggleUp: function() {
+		if ( this.state.myvote === 'up' ) {
+			this.modScore( -1 );
+			this.setMyVote( '' );
+		} else if ( this.state.myvote === '' ) {
+			this.modScore( 1 );
+			this.setMyVote( 'up' );
+		}
+	},
+
+	toggleDown: function() {
+		if ( this.state.myvote === 'down' ) {
+			this.modScore( 1 );
+			this.setMyVote( '' );
+		} else if ( this.state.myvote === '' ) {
+			this.modScore( -1 );
+			this.setMyVote( 'down' );
+		}
+	},
+
+	modScore: function( val ) {
+		val = ( 1 == val ) ? 1 : -1;
+		this.setState( {
+			score: parseInt( this.state.score ) + val
+		} );
+	},
+
+	setMyVote: function( vote ) {
+		this.setState( { myvote: vote } );
 	}
 });
 
@@ -113,17 +168,33 @@ var problem_data = {
 	summary: 'A bunch of math shit',
 	questions: [
 		{
+			id: 456,
 			content: 'THis is the first question',
+			score: 4,
 			responses: [
-				{ content: 'Your question is bad' },
-				{ content: 'Your question is good' }
+				{
+					id: 659,
+					content: 'Your question is bad',
+					score: 1
+				},
+				{
+					id: 660,
+					content: 'Your question is good',
+					score: 2
+				}
 			]
 		},
 
 		{
+			id: 457,
 			content: 'and this is the second one',
+			score: 5,
 			responses: [
-				{ content: 'Your question is bad' }
+				{ 
+					id: 661,
+					content: 'Your question is bad',
+					score: 3
+				}
 			]
 		}
 	]

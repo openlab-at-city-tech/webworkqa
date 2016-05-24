@@ -100,13 +100,19 @@ var WWAskQuestion = React.createClass({
 
 var WWQuestionList = React.createClass({
 	render: function() {
+		var styles = {
+			ul: {
+				listStyleType: 'none'
+			}
+		};
+
 		var rows = [];
 		this.props.questions.forEach(function(question) {
 			rows.push( <WWQuestion key={question.id} question={question} /> );
 		});
 		return (
 			<div className="ww-question-list">
-				<ul>
+				<ul style={styles.ul}>
 					{rows}
 				</ul>
 			</div>
@@ -116,19 +122,29 @@ var WWQuestionList = React.createClass({
 
 var WWQuestion = React.createClass({
 	render: function() {
-		return (
-			<li>
-				<div className="ww-question-content">
-					{this.props.question.content}
-				</div>
+		var styles = {
+			li: {
+				overflow: 'hidden',
+				marginBottom: '15px'
+			},
+			wwQuestionContent: {
+				paddingLeft: '50px'
+			}
+		};
 
+		return (
+			<li style={styles.li}>
 				<WWScoreDialog
 					score={this.props.score}
 					myvote={this.props.myvote}
 					onVoteChange={this.props.onVoteChange}
 				/>
 
-				<WWResponseList responses={this.props.question.responses} />
+				<div className="ww-question-content" style={styles.wwQuestionContent}>
+					{this.props.question.content}
+
+					<WWResponseList responses={this.props.question.responses} />
+				</div>
 			</li>
 		);
 	}
@@ -139,6 +155,12 @@ WWQuestion = connectToVoteGetter( WWQuestion );
 
 var WWResponseList = React.createClass({
 	render: function() {
+		var styles = {
+			ul: {
+				listStyleType: 'none'
+			}
+		};
+
 		var rows = [];
 		this.props.responses.forEach( function(response) {
 			rows.push( <WWResponse key={response.id} response={response} /> );
@@ -146,8 +168,8 @@ var WWResponseList = React.createClass({
 
 		return (
 			<div className="ww-response-list">
-				Responses
-				<ul>
+				<h3>Responses</h3>
+				<ul style={styles.ul}>
 					{rows}
 				</ul>
 			</div>
@@ -157,14 +179,25 @@ var WWResponseList = React.createClass({
 
 var WWResponse = React.createClass({
 	render: function() {
+		var styles = {
+			li: {
+				overflow: 'hidden',
+				marginBottom: '15px'
+			},
+			wwResponseContent: {
+				paddingLeft: '50px'
+			}
+		};
 		return (
-			<li>
-				{this.props.response.content}
+			<li style={styles.li}>
 				<WWScoreDialog
 					score={this.props.score}
 					myvote={this.props.myvote}
 					onVoteChange={this.props.onVoteChange}
 				/>
+				<div className="ww-response-content" style={styles.wwResponseContent}>
+					{this.props.response.content}
+				</div>
 			</li>
 		);
 	}
@@ -174,19 +207,67 @@ WWResponse = connectToVoteGetter( WWResponse );
 
 var WWScoreDialog = React.createClass({
 	render: function() {
+
+		var styles = {
+			wwScore: {
+				width: '40px',
+				float: 'left'
+			},
+			arrow: {
+				width: '0',
+				height: '0',
+				borderLeft: '20px solid transparent',
+				borderRight: '20px solid transparent',
+			},
+			uparrow: {
+				borderBottom: '20px solid #999'
+			},
+			downarrow: {
+				borderTop: '20px solid #999'
+			},
+			myvoteup: {
+				borderBottom: '20px solid #000'
+			},
+			myvotedown: {
+				borderTop: '20px solid #000'
+			},
+			disabledup: {
+				borderBottom: '20px solid #ddd'
+			},
+			disableddown: {
+				borderTop: '20px solid #ddd'
+			},
+			wwScoreValue: {
+				textAlign: 'center'
+			}
+		}
+
 		return (
-			<div className="ww-score">
-				<button
-					disabled={this.props.myvote == 'down'}
+			<div className="ww-score" style={styles.wwScore}>
+				<div
 					className={this.getClassName('up')}
 					onClick={this.toggleUp}
-					>Up</button>
-				&nbsp;<span className="ww-score-value">{this.props.score}</span>&nbsp;
-				<button
-					disabled={this.props.myvote == 'up' || this.props.score <= 0}
+					style={Object.assign(
+						styles.uparrow,
+						styles.arrow,
+						(this.props.myvote == 'up') ? styles.myvoteup : {},
+						(this.props.myvote == 'down' ) ? styles.disabledup : {}
+					)}></div>
+				<div
+					className="ww-score-value"
+					style={styles.wwScoreValue}
+					>{this.props.score}</div>
+				<div
+					style={Object.assign(
+						styles.downarrow,
+						styles.arrow,
+						(this.props.myvote == 'down') ? styles.myvotedown : {},
+						(this.props.myvote == 'up' || this.props.score <= 0 ) ? styles.disableddown : {}
+
+					)}
 					className={this.getClassName('down')}
 					onClick={this.toggleDown}
-					>Down</button>
+					></div>
 			</div>
 		);
 	},
@@ -196,7 +277,10 @@ var WWScoreDialog = React.createClass({
 	},
 
 	toggleDown: function() {
-		this.props.onVoteChange( 'down' );
+		// Do nothing if the value is 0.
+		if ( this.props.score > 0 ) {
+			this.props.onVoteChange( 'down' );
+		}
 	},
 
 	getClassName: function( mode ) {

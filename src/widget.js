@@ -11,6 +11,53 @@ import ReduxReact from 'react-redux';
 //let widgets = document.querySelectorAll( 'div.react-demo-wrapper' );
 //widgets = Array.prototype.slice.call( widgets );
 
+/**
+ * Higher order component implementing the vote getting functionality.
+ *
+ * Add to component Foo:
+ *     Foo = connectToVoteGetter( Foo );
+ */
+var connectToVoteGetter = function( Component ) {
+	const VoteGetter = React.createClass({
+		getInitialState: function() {
+			return {
+				score: '0',
+				myvote: ''
+			}
+		},
+
+		toggleVote: function( mode ) {
+			// ajax should send the request out and then toggle back to the previous state if it fails
+			let scoreinc = ( mode == 'down' ) ? -1 : 1;
+
+			if ( this.state.myvote === mode ) {
+				this.modScore( 0 - scoreinc );
+				this.setMyVote( '' );
+			} else if ( this.state.myvote === '' ) {
+				this.modScore( scoreinc );
+				this.setMyVote( mode );
+			}
+		},
+
+		modScore: function( val ) {
+			val = ( 1 == val ) ? 1 : -1;
+			this.setState( {
+				score: parseInt( this.state.score ) + val
+			} );
+		},
+
+		setMyVote: function( vote ) {
+			this.setState( { myvote: vote } );
+		},
+
+		render: function() {
+			return <Component {...this.props} {...this.state} onVoteChange={this.toggleVote} />
+		}
+	});
+
+	return VoteGetter;
+};
+
 var WWProblem = React.createClass({
 	render: function() {
 		return (
@@ -75,13 +122,20 @@ var WWQuestion = React.createClass({
 					{this.props.question.content}
 				</div>
 
-				<WWScoreDialog score={this.props.question.score} />
+				<WWScoreDialog
+					score={this.props.score}
+					myvote={this.props.myvote}
+					onVoteChange={this.props.onVoteChange}
+				/>
 
 				<WWResponseList responses={this.props.question.responses} />
 			</li>
 		);
 	}
 });
+
+// Make a vote getter.
+WWQuestion = connectToVoteGetter( WWQuestion );
 
 var WWResponseList = React.createClass({
 	render: function() {
@@ -106,59 +160,43 @@ var WWResponse = React.createClass({
 		return (
 			<li>
 				{this.props.response.content}
-				<WWScoreDialog score={this.props.response.score} />
+				<WWScoreDialog
+					score={this.props.score}
+					myvote={this.props.myvote}
+					onVoteChange={this.props.onVoteChange}
+				/>
 			</li>
 		);
 	}
 });
 
-var WWScoreDialog = React.createClass({
-	getInitialState: function() {
-		return {
-			score: '0',
-			myvote: ''
-		}
-	},
+WWResponse = connectToVoteGetter( WWResponse );
 
+var WWScoreDialog = React.createClass({
 	render: function() {
 		return (
 			<div className="ww-score">
-				<button disabled={this.state.myvote == 'down'} className="ww-score-up ww-score-vote" onClick={this.toggleUp}>Up</button> 
-				 <span className="ww-score-value">{this.state.score}</span> 
-				<button disabled={this.state.myvote == 'up'} className="ww-score-down ww-score-vote" onClick={this.toggleDown}>Down</button>
+				<button
+					disabled={this.props.myvote == 'down'}
+					className="ww-score-up ww-score-vote"
+					onClick={this.toggleUp}
+					>Up</button>
+				&nbsp;<span className="ww-score-value">{this.props.score}</span>&nbsp;
+				<button
+					disabled={this.props.myvote == 'up'}
+					className="ww-score-down ww-score-vote"
+					onClick={this.toggleDown}
+					>Down</button>
 			</div>
 		);
 	},
 
 	toggleUp: function() {
-		if ( this.state.myvote === 'up' ) {
-			this.modScore( -1 );
-			this.setMyVote( '' );
-		} else if ( this.state.myvote === '' ) {
-			this.modScore( 1 );
-			this.setMyVote( 'up' );
-		}
+		this.props.onVoteChange( 'up' );
 	},
 
 	toggleDown: function() {
-		if ( this.state.myvote === 'down' ) {
-			this.modScore( 1 );
-			this.setMyVote( '' );
-		} else if ( this.state.myvote === '' ) {
-			this.modScore( -1 );
-			this.setMyVote( 'down' );
-		}
-	},
-
-	modScore: function( val ) {
-		val = ( 1 == val ) ? 1 : -1;
-		this.setState( {
-			score: parseInt( this.state.score ) + val
-		} );
-	},
-
-	setMyVote: function( vote ) {
-		this.setState( { myvote: vote } );
+		this.props.onVoteChange( 'down' );
 	}
 });
 
@@ -190,7 +228,7 @@ var problem_data = {
 			content: 'and this is the second one',
 			score: 5,
 			responses: [
-				{ 
+				{
 					id: 661,
 					content: 'Your question is bad',
 					score: 3

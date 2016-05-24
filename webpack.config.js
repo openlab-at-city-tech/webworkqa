@@ -13,7 +13,6 @@ var webpackConfig = {
 	// The key is used as the name of the script.
 	entry: {
 		widget: './src/widget.js',
-		admin: './src/admin.js'
 	},
 	output: {
 		path: path.join( __dirname, 'build' ),

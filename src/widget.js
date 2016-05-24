@@ -178,13 +178,13 @@ var WWScoreDialog = React.createClass({
 			<div className="ww-score">
 				<button
 					disabled={this.props.myvote == 'down'}
-					className="ww-score-up ww-score-vote"
+					className={this.getClassName('up')}
 					onClick={this.toggleUp}
 					>Up</button>
 				&nbsp;<span className="ww-score-value">{this.props.score}</span>&nbsp;
 				<button
-					disabled={this.props.myvote == 'up'}
-					className="ww-score-down ww-score-vote"
+					disabled={this.props.myvote == 'up' || this.props.score <= 0}
+					className={this.getClassName('down')}
 					onClick={this.toggleDown}
 					>Down</button>
 			</div>
@@ -197,6 +197,16 @@ var WWScoreDialog = React.createClass({
 
 	toggleDown: function() {
 		this.props.onVoteChange( 'down' );
+	},
+
+	getClassName: function( mode ) {
+		let className = 'ww-score-vote ww-score-' + mode;
+
+		if ( this.props.myvote == mode ) {
+			className += ' ww-myvote';
+		}
+
+		return className;
 	}
 });
 

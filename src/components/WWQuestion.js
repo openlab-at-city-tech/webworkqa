@@ -5,6 +5,11 @@ import connectToVoteGetter from './ConnectToVoteGetter'
 
 var WWQuestion = React.createClass({
 	render: function() {
+		const { title, content } = this.props.question
+		const responses = []
+		const { score, myvote } = this.props;
+		const onVoteChange = function() {}
+
 		var styles = {
 			li: {
 				overflow: 'hidden',
@@ -18,15 +23,15 @@ var WWQuestion = React.createClass({
 		return (
 			<li style={styles.li}>
 				<WWScoreDialog
-					score={this.props.score}
-					myvote={this.props.myvote}
-					onVoteChange={this.props.onVoteChange}
+					score={score}
+					myvote={myvote}
+					onVoteChange={onVoteChange}
 				/>
 
 				<div className="ww-question-content" style={styles.wwQuestionContent}>
-					{this.props.question.content}
+					{content}
 
-					<WWResponseList responses={this.props.question.responses} />
+					<WWResponseList responses={responses} />
 				</div>
 			</li>
 		);

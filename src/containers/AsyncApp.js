@@ -15,29 +15,30 @@ class AsyncApp extends Component {
 	}
 
 	render() {
-		const { problemData, isFetching, didInvalidate } = this.props.problem
-		const { questions } = this.props
+		const { problemData, isFetching, didInvalidate, questions, questionsById } = this.props
 
 		return (
 			<div className="ww-problem">
-				<h2>{problemData.post_title}</h2>
-				<WWProblemSummary content={problemData.post_content} />
+				<h2>{problemData.title}</h2>
+				<WWProblemSummary content={problemData.content} />
 
 				<WWAskQuestion problem_id={problemData.ID} />
-				<WWQuestionList problem_id={problemData.ID} />
+				<WWQuestionList problem_id={problemData.ID} questions={questions} questionsById={questionsById} />
 
 			</div>
 		);
 	}
 }
 
-/* questions={this.props.problem_data.questions} */
-
 function mapStateToProps( state ) {
-	const { problem } = state
+	const { problemData, isFetching, didInvalidate, questions, questionsById  } = state.problem
 
 	return {
-		problem
+		problemData,
+		isFetching,
+		didInvalidate,
+		questions,
+		questionsById
 	}
 }
 

@@ -3,15 +3,19 @@ import WWQuestion from './WWQuestion';
 
 var WWQuestionList = React.createClass({
 	render: function() {
+		const { questions, questionsById } = this.props
+
 		var styles = {
 			ul: {
 				listStyleType: 'none'
 			}
 		};
+		var rows = []
 
-		var rows = [];
-		this.props.questions.forEach(function(question) {
-			rows.push( <WWQuestion key={question.id} question={question} /> );
+		questionsById.forEach(function(questionId) {
+			if ( questions.hasOwnProperty( questionId ) ) {
+				rows.push( <WWQuestion key={questionId} question={questions[questionId]} /> );
+			}
 		});
 		return (
 			<div className="ww-question-list">

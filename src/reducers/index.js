@@ -20,7 +20,9 @@ function votes( state = [], action ) {
 function problem( state = {
 	isFetching: false,
 	didInvalidate: false,
-	problemData: {}
+	problemData: {},
+	questions: {},
+	questionsById: []
 }, action ) {
 	switch ( action.type ) {
 		case REQUEST_PROBLEM :
@@ -33,7 +35,9 @@ function problem( state = {
 			return Object.assign( {}, state, {
 				isFetching: false,
 				didInvalidate: false,
-				problemData: action.problemData.problem
+				problemData: action.problemData,
+				questions: action.questions,
+				questionsById: action.questionsById
 			} );
 
 		default :
@@ -43,8 +47,7 @@ function problem( state = {
 
 const webworkApp = combineReducers({
   votes,
-  problem,
-  questions
+  problem
 })
 
 export default webworkApp

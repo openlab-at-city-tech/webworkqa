@@ -24,7 +24,9 @@ export const receiveProblem = (problemId, json) => {
 	return {
 		type: RECEIVE_PROBLEM,
 		problemId,
-		problemData: json
+		problemData: json.problem,
+		questions: json.questions,
+		questionsById: json.questionsById
 	}
 }
 

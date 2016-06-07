@@ -43,9 +43,36 @@ class Endpoint extends \WP_Rest_Controller {
 		$problem_id = $params['id'];
 
 		$post = get_post( $problem_id );
+		$problem = array(
+			'title' => $post->post_title,
+			'content' => $post->post_content,
+			'ID' => $post->ID,
+		);
+
+		$_questions = get_posts( array(
+			'post_type' => 'webwork_question',
+			'meta_query' => array(
+				array(
+					'key' => 'webwork_problem_id',
+					'value' => $problem_id,
+				),
+			),
+		) );
+
+		$questions = array();
+		foreach ( $_questions as $question ) {
+			$questions[ $question->ID ] = array(
+				'title' => $question->post_title,
+				'content' => $question->post_content,
+			);
+		}
+
+		$questions_by_id = array_keys( $questions );
 
 		$data = array(
-			'problem' => $post,
+			'problem' => $problem,
+			'questions' => $questions,
+			'questionsById' => $questions_by_id,
 		);
 
 		return $data;

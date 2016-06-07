@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import {
 	TOGGLE_VOTE,
-	REQUEST_PROBLEM ,
+	REQUEST_PROBLEM,
 	RECEIVE_PROBLEM
 } from '../actions'
 
@@ -33,19 +33,18 @@ function problem( state = {
 			return Object.assign( {}, state, {
 				isFetching: false,
 				didInvalidate: false,
-				problemData: action.problemData
+				problemData: action.problemData.problem
 			} );
 
 		default :
 			return state
-
-
 	}
 }
 
 const webworkApp = combineReducers({
   votes,
-  problem
+  problem,
+  questions
 })
 
 export default webworkApp

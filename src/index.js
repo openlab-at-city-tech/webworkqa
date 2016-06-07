@@ -1,30 +1,34 @@
 import 'babel-polyfill'
 
 import React from 'react'
+import { render } from 'react-dom'
+import Root from './containers/Root'
+
+render(
+	<Root />,
+	document.getElementById( 'webwork-app' )
+)
+
+/*
 import ReactDOM from 'react-dom'
 
 import Redux from 'redux'
 import ReduxReact from 'react-redux'
+import { Provider } from 'react-redux'
+
 
 import WWProblem from './components/WWProblem'
-
-import thunkMiddleware from 'redux-thunk'
-
-import { createStore, applyMiddleware } from 'redux'
 import { fetchProblem } from './actions'
-import webworkApp from './reducers'
-
-
-let store = createStore(
-	webworkApp,
-	applyMiddleware(
-		thunkMiddleware
-	)
-);
 
 console.log( store.getState() );
 
 store.dispatch( fetchProblem( '101010104019' ) ).then(() => console.log(store.getState()) )
+
+ReactDOM.render(
+	<WWProblem problem_data={problem_data} />,
+	document.getElementById( 'webwork-app' )
+);
+// Now: WP endpoint has to be modified to return a proper Redux store for the problem.
 
 var problem_data = {
 	id: 1234,
@@ -64,8 +68,4 @@ var problem_data = {
 	]
 
 };
-
-ReactDOM.render(
-	<WWProblem problem_data={problem_data} />,
-	document.getElementById( 'webwork-app' )
-);
+*/

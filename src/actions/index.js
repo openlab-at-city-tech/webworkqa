@@ -21,7 +21,6 @@ export const requestProblem = (problemId) => {
 
 export const RECEIVE_PROBLEM = 'RECEIVE_PROBLEM';
 export const receiveProblem = (problemId, json) => {
-	console.log(json);
 	return {
 		type: RECEIVE_PROBLEM,
 		problemId,
@@ -34,7 +33,7 @@ export function fetchProblem( problemId ) {
 		// Inform app that the request has begun.
 		dispatch( requestProblem );
 
-		return fetch( `http://boone.cool/wpmaster/wp-json/wp/v2/problems/${problemId}`)
+		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`)
 			.then( response => response.json() )
 			.then( json => dispatch( receiveProblem( problemId, json ) ) )
 	}

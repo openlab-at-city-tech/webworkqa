@@ -63,8 +63,6 @@ class Schema {
 				'not_found_in_trash' => __( 'No WeBWorK Problems found in Trash.', 'webwork' ),
 			),
 			'public' => true, // todo This should be false
-			'show_in_rest' => true,
-			'rest_base' => 'problems',
 		) );
 
 		register_post_type( 'webwork_question', array(

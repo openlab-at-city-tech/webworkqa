@@ -3,7 +3,7 @@ import WWQuestion from './WWQuestion';
 
 var WWQuestionList = React.createClass({
 	render: function() {
-		const { questions, questionsById } = this.props
+		const { questions, questionsById, handleToggleVote, scores, votes } = this.props
 
 		var styles = {
 			ul: {
@@ -14,7 +14,17 @@ var WWQuestionList = React.createClass({
 
 		questionsById.forEach(function(questionId) {
 			if ( questions.hasOwnProperty( questionId ) ) {
-				rows.push( <WWQuestion key={questionId} question={questions[questionId]} /> );
+				let myVote = votes.hasOwnProperty( questionId ) ? votes[questionId] : '';
+				let score = scores.hasOwnProperty( questionId ) ? scores[questionId] : 0;
+
+				rows.push( <WWQuestion
+						key={questionId}
+						itemId={questionId}
+						question={questions[questionId]}
+						handleToggleVote={handleToggleVote}
+						myVote={myVote}
+						score={score}
+						/> );
 			}
 		});
 		return (

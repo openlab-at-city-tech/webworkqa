@@ -60,11 +60,21 @@ class Endpoint extends \WP_Rest_Controller {
 		) );
 
 		$questions = array();
+		$votes = array();
+		$scores = array();
+		$counter = 0;
 		foreach ( $_questions as $question ) {
 			$questions[ $question->ID ] = array(
 				'title' => $question->post_title,
 				'content' => $question->post_content,
 			);
+
+			// todo
+			$counter++;
+			$vote = $counter % 2 ? 'up' : 'down';
+			$votes[ $question->ID ] = $vote;
+
+			$scores[ $question->ID ] = rand( 0, 10 );
 		}
 
 		$questions_by_id = array_keys( $questions );
@@ -73,6 +83,8 @@ class Endpoint extends \WP_Rest_Controller {
 			'problem' => $problem,
 			'questions' => $questions,
 			'questionsById' => $questions_by_id,
+			'scores' => $scores,
+			'votes' => $votes,
 		);
 
 		return $data;

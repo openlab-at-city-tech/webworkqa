@@ -5,10 +5,13 @@ import connectToVoteGetter from './ConnectToVoteGetter'
 
 var WWQuestion = React.createClass({
 	render: function() {
+		const { handleToggleVote, itemId, myVote, score } = this.props
 		const { title, content } = this.props.question
 		const responses = []
-		const { score, myvote } = this.props;
-		const onVoteChange = function() {}
+//		const { score, myvote } = this.props;
+
+		// todo
+//		const onVoteChange = function() {}
 
 		var styles = {
 			li: {
@@ -24,8 +27,9 @@ var WWQuestion = React.createClass({
 			<li style={styles.li}>
 				<WWScoreDialog
 					score={score}
-					myvote={myvote}
-					onVoteChange={onVoteChange}
+					myVote={myVote}
+					itemId={itemId}
+					handleToggleVote={handleToggleVote}
 				/>
 
 				<div className="ww-question-content" style={styles.wwQuestionContent}>

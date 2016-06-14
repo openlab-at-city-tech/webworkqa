@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-var WWScoreDialog = React.createClass({
-	render: function() {
+class WWScoreDialog extends React.Component {
+	constructor(props) {
+		super(props)
+	}
+
+	render() {
+		const { dispatch, handleToggleVote, itemId, myVote } = this.props
 
 		var styles = {
 			wwScore: {
@@ -41,12 +47,15 @@ var WWScoreDialog = React.createClass({
 			<div className="ww-score" style={styles.wwScore}>
 				<div
 					className={this.getClassName('up')}
-					onClick={this.toggleUp}
+					data-item-id={itemId}
+					onClick={ e => {
+						handleToggleVote( e.target.dataset.itemId, 'up' )
+					} }
 					style={Object.assign(
 						styles.uparrow,
 						styles.arrow,
-						(this.props.myvote == 'up') ? styles.myvoteup : {},
-						(this.props.myvote == 'down' ) ? styles.disabledup : {}
+						(myVote == 'up') ? styles.myvoteup : {},
+						(myVote == 'down' ) ? styles.disabledup : {}
 					)}></div>
 				<div
 					className="ww-score-value"
@@ -65,20 +74,20 @@ var WWScoreDialog = React.createClass({
 					></div>
 			</div>
 		);
-	},
+	}
 
-	toggleUp: function() {
+	toggleUp() {
 		this.props.onVoteChange( 'up' );
-	},
+	}
 
-	toggleDown: function() {
+	toggleDown() {
 		// Do nothing if the value is 0.
 		if ( this.props.score > 0 ) {
 			this.props.onVoteChange( 'down' );
 		}
-	},
+	}
 
-	getClassName: function( mode ) {
+	getClassName( mode ) {
 		let className = 'ww-score-vote ww-score-' + mode;
 
 		if ( this.props.myvote == mode ) {
@@ -87,6 +96,10 @@ var WWScoreDialog = React.createClass({
 
 		return className;
 	}
-});
+}
 
-export default WWScoreDialog;
+function mapStateToProps( state ) {
+	return {}
+}
+
+export default connect( mapStateToProps )( WWScoreDialog );

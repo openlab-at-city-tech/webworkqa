@@ -8,12 +8,6 @@ import React from 'react';
  */
 var connectToVoteGetter = function( Component ) {
 	const VoteGetter = React.createClass({
-		getInitialState: function() {
-			return {
-				score: '0',
-				myvote: ''
-			}
-		},
 
 		toggleVote: function( mode ) {
 			// ajax should send the request out and then toggle back to the previous state if it fails
@@ -40,7 +34,12 @@ var connectToVoteGetter = function( Component ) {
 		},
 
 		render: function() {
-			return <Component {...this.props} {...this.state} onVoteChange={this.toggleVote} />
+			const { itemId, handleToggleVote } = this.props
+			return <Component 
+				handleToggleVote={handleToggleVote}
+				itemId={itemId}
+				{...this.props}
+				/>
 		}
 	});
 

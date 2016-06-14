@@ -1,12 +1,13 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import webworkApp from './reducers'
+import rootReducer from './reducers'
 
 export default function configureStore( initialState ) {
 	return createStore(
-		webworkApp,
+		rootReducer,
 		applyMiddleware(
 			thunkMiddleware
-		)
+		),
+		window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 };

@@ -4,26 +4,39 @@ import { fetchProblem } from '../actions'
 import WWProblemSummary from '../components/WWProblemSummary'
 import WWAskQuestion from '../components/WWAskQuestion'
 import WWQuestionList from '../components/WWQuestionList'
+import { clickVote } from '../actions'
 
 class AsyncApp extends Component {
 	constructor( props ) {
 		super( props )
+		this.handleToggleVote = this.handleToggleVote.bind(this)
 	}
 
 	componentDidMount() {
 		this.props.dispatch( fetchProblem( '101010104019' ) );
 	}
 
+	handleToggleVote( item_id, mode ) {
+		this.props.dispatch( clickVote( item_id, mode ) );
+	}
+
 	render() {
-		const { problemData, isFetching, didInvalidate, questions, questionsById } = this.props
+		const { problem, isFetching, didInvalidate, questions, questionsById, scores, votes } = this.props
 
 		return (
 			<div className="ww-problem">
-				<h2>{problemData.title}</h2>
-				<WWProblemSummary content={problemData.content} />
+				<h2>{problem.title}</h2>
+				<WWProblemSummary content={problem.content} />
 
-				<WWAskQuestion problem_id={problemData.ID} />
-				<WWQuestionList problem_id={problemData.ID} questions={questions} questionsById={questionsById} />
+				<WWAskQuestion problem_id={problem.ID} />
+				<WWQuestionList
+					problem_id={problem.ID}
+					questions={questions}
+					questionsById={questionsById}
+					handleToggleVote={this.handleToggleVote}
+					scores={scores}
+					votes={votes}
+					/>
 
 			</div>
 		);
@@ -31,14 +44,15 @@ class AsyncApp extends Component {
 }
 
 function mapStateToProps( state ) {
-	const { problemData, isFetching, didInvalidate, questions, questionsById  } = state.problem
+	const { problem, questions, questionsById, scores, votes } = state
+//	const { problemData, isFetching, didInvalidate, questions, questionsById, scores, votes } = state.problem
 
 	return {
-		problemData,
-		isFetching,
-		didInvalidate,
+		problem,
 		questions,
-		questionsById
+		questionsById,
+		scores,
+		votes
 	}
 }
 

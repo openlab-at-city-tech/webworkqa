@@ -101,4 +101,26 @@ class Schema {
 			'rest_base' => 'responses',
 		) );
 	}
+
+	public function get_votes_schema() {
+		global $wpdb;
+
+		// todo
+		$root_site = 1;
+
+		$charset_collate = $wpdb->get_charset_collate();
+		$table_prefix    = $wpdb->get_blog_prefix( $root_site );
+
+		$sql = "CREATE TABLE {$table_prefix}webwork_votes (
+			id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			user_id bigint(20) NOT NULL,
+			item_id bigint(20) NOT NULL,
+			value bigint(20),
+			KEY item_id (item_id),
+			KEY user_id (user_id),
+			KEY value (value)
+		) {$charset_collate};";
+
+		return $sql;
+	}
 }

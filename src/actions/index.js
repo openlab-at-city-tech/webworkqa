@@ -106,13 +106,8 @@ export const setScore = (itemId, score) => {
 export function clickVote( itemId, voteType ) {
 	return ( dispatch ) => {
 
-		// scores store should show saved score *excluding current user*
-		// to display, we add current user's vote + saved score
-		// the below feels like it ought to be a dispatch chain
-		// ajax will have to happen somewhere in here. Not clear how that works yet
 		dispatch( sendVote( itemId, voteType ) )
 		dispatch( setVote( itemId, voteType ) )
-//		dispatch( incrScore( itemId, voteType ) )
 	}
 }
 

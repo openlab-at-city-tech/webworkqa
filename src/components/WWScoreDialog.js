@@ -61,10 +61,13 @@ class WWScoreDialog extends React.Component {
 					className={this.getClassName('up')}
 					data-item-id={itemId}
 					onClick={ e => {
-						handleToggleVote(
-							e.target.dataset.itemId,
-							( myVote == 'up' ? '' : 'up' )
-						)
+						// Don't allow 'up' click directly from 'down'.
+						if ( 'down' !== myVote ) {
+							handleToggleVote(
+								e.target.dataset.itemId,
+								( myVote == 'up' ? '' : 'up' )
+							)
+						}
 					} }
 					style={Object.assign(
 						styles.uparrow,
@@ -87,10 +90,13 @@ class WWScoreDialog extends React.Component {
 					className={this.getClassName('down')}
 					data-item-id={itemId}
 					onClick={ e => {
-						handleToggleVote(
-							e.target.dataset.itemId,
-							( myVote == 'down' ? '' : 'down' )
-						)
+						// Don't allow 'down' click directly from 'up'.
+						if ( 'up' !== myVote ) {
+							handleToggleVote(
+								e.target.dataset.itemId,
+								( myVote == 'down' ? '' : 'down' )
+							)
+						}
 					} }
 					></div>
 			</div>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchProblem } from '../actions'
-import WWProblemSummary from '../components/WWProblemSummary'
-import WWAskQuestion from '../components/WWAskQuestion'
-import WWQuestionList from '../components/WWQuestionList'
+import ProblemSummary from '../components/ProblemSummary'
+import AskQuestion from '../components/AskQuestion'
+import QuestionList from '../components/QuestionList'
 import { clickVote } from '../actions'
 
 class AsyncApp extends Component {
@@ -26,10 +26,10 @@ class AsyncApp extends Component {
 		return (
 			<div className="ww-problem">
 				<h2>{problem.title}</h2>
-				<WWProblemSummary content={problem.content} />
+				<ProblemSummary content={problem.content} />
 
-				<WWAskQuestion problem_id={problem.ID} />
-				<WWQuestionList
+				<AskQuestion problem_id={problem.ID} />
+				<QuestionList
 					problem_id={problem.ID}
 					questions={questions}
 					questionsById={questionsById}
@@ -37,7 +37,6 @@ class AsyncApp extends Component {
 					scores={scores}
 					votes={votes}
 					/>
-
 			</div>
 		);
 	}

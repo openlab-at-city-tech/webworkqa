@@ -1,6 +1,6 @@
 import React from 'react';
 
-var WWProblemSummary = React.createClass({
+var ProblemSummary = React.createClass({
 	render: function() {
 		return (
 			<div className="ww-problem-summary">
@@ -10,4 +10,4 @@ var WWProblemSummary = React.createClass({
 	}
 });
 
-export default WWProblemSummary;
+export default ProblemSummary;

@@ -1,7 +1,7 @@
 import React from 'react';
-import WWQuestion from './WWQuestion';
+import Question from './Question';
 
-var WWQuestionList = React.createClass({
+var QuestionList = React.createClass({
 	render: function() {
 		const { questions, questionsById, handleToggleVote, scores, votes } = this.props
 
@@ -17,7 +17,7 @@ var WWQuestionList = React.createClass({
 				let myVote = votes.hasOwnProperty( questionId ) ? votes[questionId] : '';
 				let score = scores.hasOwnProperty( questionId ) ? scores[questionId] : 0;
 
-				rows.push( <WWQuestion
+				rows.push( <Question
 						key={questionId}
 						itemId={questionId}
 						question={questions[questionId]}
@@ -37,4 +37,4 @@ var WWQuestionList = React.createClass({
 	}
 });
 
-export default WWQuestionList;
+export default QuestionList

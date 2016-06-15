@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class WWScoreDialog extends React.Component {
+export default class ScoreDialog extends React.Component {
 	constructor(props) {
 		super(props)
 	}
@@ -120,9 +120,3 @@ class WWScoreDialog extends React.Component {
 		return className;
 	}
 }
-
-function mapStateToProps( state ) {
-	return {}
-}
-
-export default connect( mapStateToProps )( WWScoreDialog );

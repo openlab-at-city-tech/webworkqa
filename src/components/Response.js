@@ -1,8 +1,8 @@
 import React from 'react';
-import WWScoreDialog from './WWScoreDialog';
+import ScoreDialog from './ScoreDialog';
 import connectToVoteGetter from './ConnectToVoteGetter'
 
-var WWResponse = React.createClass({
+var Response = React.createClass({
 	render: function() {
 		var styles = {
 			li: {
@@ -15,7 +15,7 @@ var WWResponse = React.createClass({
 		};
 		return (
 			<li style={styles.li}>
-				<WWScoreDialog
+				<ScoreDialog
 					score={this.props.score}
 					myvote={this.props.myvote}
 					onVoteChange={this.props.onVoteChange}
@@ -28,6 +28,4 @@ var WWResponse = React.createClass({
 	}
 });
 
-WWResponse = connectToVoteGetter( WWResponse );
-
-export default WWResponse;
+export default Response;

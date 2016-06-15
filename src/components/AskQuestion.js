@@ -1,6 +1,6 @@
 import React from 'react';
 
-var WWAskQuestion = React.createClass({
+var AskQuestion = React.createClass({
 	render: function() {
 		return (
 			<div className="ww-ask-question-form">
@@ -15,4 +15,4 @@ var WWAskQuestion = React.createClass({
 	}
 });
 
-export default WWAskQuestion;
+export default AskQuestion;

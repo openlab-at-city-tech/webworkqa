@@ -1,7 +1,7 @@
 import React from 'react';
-import WWResponse from './WWResponse.js';
+import Response from './Response.js';
 
-var WWResponseList = React.createClass({
+var ResponseList = React.createClass({
 	render: function() {
 		var styles = {
 			ul: {
@@ -11,7 +11,7 @@ var WWResponseList = React.createClass({
 
 		var rows = [];
 		this.props.responses.forEach( function(response) {
-			rows.push( <WWResponse key={response.id} response={response} /> );
+			rows.push( <Response key={response.id} response={response} /> );
 		});
 
 		return (
@@ -25,4 +25,4 @@ var WWResponseList = React.createClass({
 	}
 });
 
-export default WWResponseList;
+export default ResponseList;

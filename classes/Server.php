@@ -17,6 +17,9 @@ class Server {
 
 		$this->endpoint = new Server\Endpoint();
 		add_action( 'rest_api_init', array( $this->endpoint, 'register_routes' ) );
+
+		$votes_endpoint = new Server\Vote\Endpoint();
+		add_action( 'rest_api_init', array( $votes_endpoint, 'register_routes' ) );
 	}
 
 	private function check_table() {

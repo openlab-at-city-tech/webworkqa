@@ -70,14 +70,13 @@ class WWScoreDialog extends React.Component {
 
 					)}
 					className={this.getClassName('down')}
-					onClick={this.toggleDown}
+					data-item-id={itemId}
+					onClick={ e => {
+						handleToggleVote( e.target.dataset.itemId, 'down' )
+					} }
 					></div>
 			</div>
 		);
-	}
-
-	toggleUp() {
-		this.props.onVoteChange( 'up' );
 	}
 
 	toggleDown() {

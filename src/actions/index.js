@@ -37,10 +37,43 @@ export const receiveQuestionsById = (questionsById) => {
 	}
 }
 
+function sendVote(itemId, voteType) {
+	return ( dispatch ) => {
+		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/votes/', {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': window.WWData.rest_api_nonce
+			},
+			body: JSON.stringify({
+				item_id: itemId,
+				value: voteType
+			})
+		} )
+			.then( response => response.json() )
+			.then( json => {
+				console.log( json )
+			} );
+
+	}
+}
+
 export const SET_VOTE = 'SET_VOTE'
 export const setVote = (itemId, voteType) => {
 	return {
 		type: SET_VOTE,
+		payload: {
+			itemId,
+			voteType
+		}
+	}
+}
+
+export const TOGGLE_VOTE = 'TOGGLE_VOTE'
+export const toggleVote = (itemId, voteType) => {
+	return {
+		type: TOGGLE_VOTE,
 		payload: {
 			itemId,
 			voteType
@@ -72,16 +105,14 @@ export const setScore = (itemId, score) => {
 
 export function clickVote( itemId, voteType ) {
 	return ( dispatch ) => {
-		dispatch( setVote( itemId, voteType ) );
 
-		let incr = 0;
-		if ( 'up' === voteType ) {
-			incr = 1
-		} else if ( 'down' === voteType ) {
-			incr = -1
-		}
-
-		dispatch( incrScore( itemId, incr ) )
+		// scores store should show saved score *excluding current user*
+		// to display, we add current user's vote + saved score
+		// the below feels like it ought to be a dispatch chain
+		// ajax will have to happen somewhere in here. Not clear how that works yet
+		dispatch( sendVote( itemId, voteType ) )
+		dispatch( toggleVote( itemId, voteType ) )
+		dispatch( incrScore( itemId, voteType ) )
 	}
 }
 
@@ -115,13 +146,4 @@ export function fetchProblem( problemId ) {
 		requestProblem( problemId );
 		return dispatch( doFetchProblem( problemId ) )
 	}
-	/*
-	return dispatch => {
-		// Inform app that the request has begun.
-
-		return doFetchProblem( problemId )
-			.then( response => response.json() )
-			.then( json => dispatch( receiveProblem( problemId, json ) ) )
-	}
-	*/
 }

@@ -3,8 +3,8 @@ import {
 	REQUEST_PROBLEM, RECEIVE_PROBLEM,
 	RECEIVE_QUESTIONS,
 	RECEIVE_QUESTIONS_BY_ID,
-	SET_VOTE,
-	INCR_SCORE, SET_SCORE
+	SET_VOTE, TOGGLE_VOTE,
+	SET_SCORE, INCR_SCORE
 } from '../actions'
 
 function problem( state = {
@@ -75,15 +75,36 @@ function scores( state = {}, action ) {
 }
 
 function votes( state = {}, action ) {
+	let itemId = 0
+	let voteType = ''
+
 	switch ( action.type ) {
 		case SET_VOTE :
-			const { itemId, voteType } = action.payload
-
-			let currentVote = state.hasOwnProperty( itemId ) ? state[itemId] : ''
+			itemId = action.payload.itemId
+			voteType = action.payload.voteType
 
 			return Object.assign( {}, state, {
 				[itemId]: voteType
 			} )
+
+		case TOGGLE_VOTE :
+			itemId = action.payload.itemId
+			voteType = action.payload.voteType
+
+			let currentVote = state.hasOwnProperty( itemId ) ? state[itemId] : ''
+
+			// Do nothing if current vote is up and you click down, or vice versa.
+			if ( '' == currentVote ) {
+				return Object.assign( {}, state, {
+					[itemId]: voteType
+				} )
+			} else if ( currentVote == voteType ) {
+				let newState = Object.assign( {}, state )
+				delete newState[itemId]
+				return newState
+			}
+
+			return state
 
 		default :
 			return state

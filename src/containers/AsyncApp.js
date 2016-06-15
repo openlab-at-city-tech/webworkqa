@@ -16,8 +16,8 @@ class AsyncApp extends Component {
 		this.props.dispatch( fetchProblem( '101010104019' ) );
 	}
 
-	handleToggleVote( item_id, mode ) {
-		this.props.dispatch( clickVote( item_id, mode ) );
+	handleToggleVote( itemId, voteType ) {
+		this.props.dispatch( clickVote( itemId, voteType ) );
 	}
 
 	render() {

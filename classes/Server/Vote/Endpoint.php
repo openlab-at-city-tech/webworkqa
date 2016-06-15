@@ -149,7 +149,8 @@ class Endpoint extends \WP_Rest_Controller {
 		if ( $retval ) {
 			$response->set_status( 201 );
 		} else {
-			$response->set_status( 500 );
+			// We return 200 anyway. Not sure how to give good error feedback here.
+			$response->set_status( 200 );
 		}
 
 		return $response;

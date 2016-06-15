@@ -111,14 +111,21 @@ export function clickVote( itemId, voteType ) {
 		// the below feels like it ought to be a dispatch chain
 		// ajax will have to happen somewhere in here. Not clear how that works yet
 		dispatch( sendVote( itemId, voteType ) )
-		dispatch( toggleVote( itemId, voteType ) )
-		dispatch( incrScore( itemId, voteType ) )
+		dispatch( setVote( itemId, voteType ) )
+//		dispatch( incrScore( itemId, voteType ) )
 	}
 }
 
 function doFetchProblem( problemId ) {
 	return dispatch => {
-		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`)
+		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`,
+		{
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': window.WWData.rest_api_nonce
+			},
+		} )
 			.then( response => response.json() )
 			.then( json => {
 				const { problem, questions, questionsById, scores, votes } = json

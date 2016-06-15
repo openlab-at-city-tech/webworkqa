@@ -7,7 +7,7 @@ class WWScoreDialog extends React.Component {
 	}
 
 	render() {
-		const { dispatch, handleToggleVote, itemId, myVote } = this.props
+		const { dispatch, handleToggleVote, itemId } = this.props
 
 		var styles = {
 			wwScore: {
@@ -43,13 +43,28 @@ class WWScoreDialog extends React.Component {
 			}
 		}
 
+		let myVote = this.props.myVote
+		let score = this.props.score
+		switch ( myVote ) {
+			case 'up' :
+				score++
+				break
+
+			case 'down' :
+				score--
+				break
+		}
+
 		return (
 			<div className="ww-score" style={styles.wwScore}>
 				<div
 					className={this.getClassName('up')}
 					data-item-id={itemId}
 					onClick={ e => {
-						handleToggleVote( e.target.dataset.itemId, 'up' )
+						handleToggleVote(
+							e.target.dataset.itemId,
+							( myVote == 'up' ? '' : 'up' )
+						)
 					} }
 					style={Object.assign(
 						styles.uparrow,
@@ -60,19 +75,22 @@ class WWScoreDialog extends React.Component {
 				<div
 					className="ww-score-value"
 					style={styles.wwScoreValue}
-					>{this.props.score}</div>
+					>{score}</div>
 				<div
 					style={Object.assign(
 						styles.downarrow,
 						styles.arrow,
-						(this.props.myvote == 'down') ? styles.myvotedown : {},
-						(this.props.myvote == 'up' || this.props.score <= 0 ) ? styles.disableddown : {}
+						(myVote == 'down') ? styles.myvotedown : {},
+						(myVote == 'up' || score <= 0 ) ? styles.disableddown : {}
 
 					)}
 					className={this.getClassName('down')}
 					data-item-id={itemId}
 					onClick={ e => {
-						handleToggleVote( e.target.dataset.itemId, 'down' )
+						handleToggleVote(
+							e.target.dataset.itemId,
+							( myVote == 'down' ? '' : 'down' )
+						)
 					} }
 					></div>
 			</div>

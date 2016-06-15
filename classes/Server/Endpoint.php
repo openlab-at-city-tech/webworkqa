@@ -71,13 +71,42 @@ class Endpoint extends \WP_Rest_Controller {
 
 			// todo
 			$counter++;
-			$vote = $counter % 2 ? 'up' : 'down';
-			$votes[ $question->ID ] = $vote;
-
-			$scores[ $question->ID ] = rand( 0, 10 );
 		}
 
 		$questions_by_id = array_keys( $questions );
+
+		// todo find a better way to do this
+		$scores = array();
+		foreach ( $questions_by_id as $qid ) {
+			$vq = new Vote\Query( array(
+				'item_id' => $qid,
+				'user_id__not_in' => array( get_current_user_id() ),
+			) );
+
+			$q_votes = $vq->get();
+			$score = 0;
+			foreach ( $q_votes as $q_vote ) {
+				$score += $q_vote->get_value();
+			}
+
+			$scores[ $qid ] = $score;
+		}
+
+		$vote_query = new Vote\Query( array(
+			'user_id' => get_current_user_id(),
+		) );
+		$vote_data = $vote_query->get();
+
+		$votes = array();
+		foreach ( $vote_data as $vote ) {
+			if ( 1 === $vote->get_value() ) {
+				$value = 'up';
+			} else {
+				$value = 'down';
+			}
+
+			$votes[ $vote->get_item_id() ] = $value;
+		}
 
 		$data = array(
 			'problem' => $problem,

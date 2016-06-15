@@ -22,6 +22,7 @@ class Client {
 			wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js' );
 			wp_localize_script( 'webwork-app', 'WWData', array(
 				'problem_id' => $ww_problem,
+				'rest_api_nonce' => wp_create_nonce( 'wp_rest' )
 			) );
 		}
 

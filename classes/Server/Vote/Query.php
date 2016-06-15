@@ -14,6 +14,7 @@ class Query {
 		$this->r = array_merge( array(
 			'item_id' => null,
 			'user_id' => null,
+			'user_id__not_in' => null,
 		), $args );
 	}
 
@@ -43,6 +44,11 @@ class Query {
 
 		if ( null !== $this->r['item_id'] ) {
 			$where[] = $wpdb->prepare( "item_id = %d", $this->r['item_id'] );
+		}
+
+		if ( is_array( $this->r['user_id__not_in'] ) ) {
+			$user_id__not_in = implode( ',', array_map( 'intval', $this->r['user_id__not_in'] ) );
+			$where[] = "user_id NOT IN ({$user_id__not_in})";
 		}
 
 		if ( $where ) {

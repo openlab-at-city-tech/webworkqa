@@ -3,7 +3,7 @@ import QuestionContainer from '../containers/QuestionContainer';
 
 var QuestionList = React.createClass({
 	render: function() {
-		const { collapsed, handleToggleVote, questions, questionsById } = this.props
+		const { collapsed, questions, questionsById } = this.props
 
 		var styles = {
 			ul: {
@@ -17,7 +17,6 @@ var QuestionList = React.createClass({
 				let isCollapsed = collapsed.hasOwnProperty( questionId );
 
 				rows.push( <QuestionContainer
-						handleToggleVote={handleToggleVote}
 						isCollapsed={isCollapsed}
 						itemId={questionId}
 						key={questionId}

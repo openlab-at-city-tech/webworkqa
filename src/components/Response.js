@@ -1,6 +1,5 @@
 import React from 'react';
 import ScoreDialog from './ScoreDialog';
-import connectToVoteGetter from './ConnectToVoteGetter'
 
 var Response = React.createClass({
 	render: function() {

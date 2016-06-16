@@ -24,6 +24,8 @@ class Client {
 				'problem_id' => $ww_problem,
 				'rest_api_nonce' => wp_create_nonce( 'wp_rest' )
 			) );
+
+			wp_enqueue_style( 'webwork-app', plugins_url() . '/webwork/assets/css/app.css' );
 		}
 
 		return $content;

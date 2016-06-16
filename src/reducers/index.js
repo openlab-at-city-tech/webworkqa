@@ -4,8 +4,27 @@ import {
 	RECEIVE_QUESTIONS,
 	RECEIVE_QUESTIONS_BY_ID,
 	SET_VOTE, TOGGLE_VOTE,
-	SET_SCORE, INCR_SCORE
+	SET_SCORE, INCR_SCORE,
+	TOGGLE_ACCORDION
 } from '../actions'
+
+function collapsed( state = {}, action ) {
+	switch ( action.type ) {
+		case TOGGLE_ACCORDION :
+			const { itemId } = action.payload
+			if ( state.hasOwnProperty( itemId ) ) {
+				let newState = Object.assign( {}, state )
+				delete newState[ itemId ]
+				return newState
+			} else {
+				return Object.assign( {}, state, {
+					[itemId]: '1'
+				} )
+			}
+		default :
+			return state
+	}
+}
 
 function problem( state = {
 	ID: '',
@@ -112,6 +131,7 @@ function votes( state = {}, action ) {
 }
 
 const rootReducer = combineReducers({
+  collapsed,
   problem,
   questions,
   questionsById,

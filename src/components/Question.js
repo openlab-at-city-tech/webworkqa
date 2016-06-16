@@ -1,11 +1,10 @@
 import React from 'react';
 import ScoreDialog from './ScoreDialog';
 import ResponseList from './ResponseList';
-import connectToVoteGetter from './ConnectToVoteGetter'
 
 var Question = React.createClass({
 	render: function() {
-		const { handleToggleVote, itemId, myVote, score } = this.props
+		const { isCollapsed, handleToggleVote, handleToggleAccordion, itemId, myVote, score } = this.props
 		const { title, content } = this.props.question
 		const responses = []
 
@@ -20,7 +19,7 @@ var Question = React.createClass({
 		};
 
 		return (
-			<li style={styles.li}>
+			<li style={styles.li} className={isCollapsed ? 'question-closed' : 'question-open'}>
 				<ScoreDialog
 					score={score}
 					myVote={myVote}
@@ -33,6 +32,14 @@ var Question = React.createClass({
 
 					<ResponseList responses={responses} />
 				</div>
+
+				<a
+					href="#"
+					data-item-id={itemId}
+					onClick={ e => { handleToggleAccordion( e.target.dataset.itemId ) } }
+				>
+					{isCollapsed ? 'Expand' : 'Collapse'}
+				</a>
 			</li>
 		);
 	}

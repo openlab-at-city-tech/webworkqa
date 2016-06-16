@@ -3,7 +3,7 @@ import Question from './Question';
 
 var QuestionList = React.createClass({
 	render: function() {
-		const { questions, questionsById, handleToggleVote, scores, votes } = this.props
+		const { collapsed, handleToggleAccordion, handleToggleVote, questions, questionsById, scores, votes } = this.props
 
 		var styles = {
 			ul: {
@@ -16,12 +16,15 @@ var QuestionList = React.createClass({
 			if ( questions.hasOwnProperty( questionId ) ) {
 				let myVote = votes.hasOwnProperty( questionId ) ? votes[questionId] : '';
 				let score = scores.hasOwnProperty( questionId ) ? scores[questionId] : 0;
+				let isCollapsed = collapsed.hasOwnProperty( questionId );
 
 				rows.push( <Question
-						key={questionId}
-						itemId={questionId}
-						question={questions[questionId]}
+						handleToggleAccordion={handleToggleAccordion}
 						handleToggleVote={handleToggleVote}
+						isCollapsed={isCollapsed}
+						itemId={questionId}
+						key={questionId}
+						question={questions[questionId]}
 						myVote={myVote}
 						score={score}
 						/> );

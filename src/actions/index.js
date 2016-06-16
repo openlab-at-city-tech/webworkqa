@@ -103,9 +103,18 @@ export const setScore = (itemId, score) => {
 	}
 }
 
+export const TOGGLE_ACCORDION = 'TOGGLE_ACCORDION'
+export const toggleAccordion = ( itemId ) => {
+	return {
+		type: TOGGLE_ACCORDION,
+		payload: {
+			itemId
+		}
+	}
+}
+
 export function clickVote( itemId, voteType ) {
 	return ( dispatch ) => {
-
 		dispatch( sendVote( itemId, voteType ) )
 		dispatch( setVote( itemId, voteType ) )
 	}

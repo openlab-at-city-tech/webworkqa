@@ -4,13 +4,12 @@ import { fetchProblem } from '../actions'
 import ProblemSummary from '../components/ProblemSummary'
 import AskQuestion from '../components/AskQuestion'
 import QuestionList from '../components/QuestionList'
-import { toggleAccordion, clickVote } from '../actions'
+import { clickVote } from '../actions'
 
 class AsyncApp extends Component {
 	constructor( props ) {
 		super( props )
 		this.handleToggleVote = this.handleToggleVote.bind(this)
-		this.handleToggleAccordion = this.handleToggleAccordion.bind(this)
 	}
 
 	componentDidMount() {
@@ -19,10 +18,6 @@ class AsyncApp extends Component {
 
 	handleToggleVote( itemId, voteType ) {
 		this.props.dispatch( clickVote( itemId, voteType ) );
-	}
-	
-	handleToggleAccordion( itemId ) {
-		this.props.dispatch( toggleAccordion( itemId ) )
 	}
 
 	render() {
@@ -36,7 +31,6 @@ class AsyncApp extends Component {
 				<AskQuestion problem_id={problem.ID} />
 				<QuestionList
 					collapsed={collapsed}
-					handleToggleAccordion={this.handleToggleAccordion}
 					handleToggleVote={this.handleToggleVote}
 					problem_id={problem.ID}
 					questions={questions}

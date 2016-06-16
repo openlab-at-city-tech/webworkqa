@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ScoreDialog from './ScoreDialog';
 import ResponseList from './ResponseList';
 
-var Question = React.createClass({
-	render: function() {
-		const { isCollapsed, handleToggleVote, handleToggleAccordion, itemId, myVote, score } = this.props
+export default class Question extends Component {
+	render() {
+		const { isCollapsed, onAccordionClick, handleToggleVote, itemId, myVote, score } = this.props
 		const { title, content } = this.props.question
 		const responses = []
 
@@ -36,13 +36,11 @@ var Question = React.createClass({
 				<a
 					href="#"
 					data-item-id={itemId}
-					onClick={ e => { handleToggleAccordion( e.target.dataset.itemId ) } }
+					onClick={ e => { onAccordionClick( e.target.dataset.itemId ) } }
 				>
 					{isCollapsed ? 'Expand' : 'Collapse'}
 				</a>
 			</li>
 		);
 	}
-});
-
-export default Question
+}

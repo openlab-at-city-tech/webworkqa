@@ -1,9 +1,9 @@
 import React from 'react';
-import Question from './Question';
+import QuestionContainer from '../containers/QuestionContainer';
 
 var QuestionList = React.createClass({
 	render: function() {
-		const { collapsed, handleToggleAccordion, handleToggleVote, questions, questionsById, scores, votes } = this.props
+		const { collapsed, handleToggleVote, questions, questionsById, scores, votes } = this.props
 
 		var styles = {
 			ul: {
@@ -18,8 +18,7 @@ var QuestionList = React.createClass({
 				let score = scores.hasOwnProperty( questionId ) ? scores[questionId] : 0;
 				let isCollapsed = collapsed.hasOwnProperty( questionId );
 
-				rows.push( <Question
-						handleToggleAccordion={handleToggleAccordion}
+				rows.push( <QuestionContainer
 						handleToggleVote={handleToggleVote}
 						isCollapsed={isCollapsed}
 						itemId={questionId}

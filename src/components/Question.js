@@ -4,9 +4,11 @@ import ResponseList from './ResponseList';
 
 export default class Question extends Component {
 	render() {
-		const { isCollapsed, onAccordionClick, itemId } = this.props
+		const { collapsed, onAccordionClick, itemId } = this.props
 		const { title, content } = this.props.question
 		const responses = []
+
+		const isCollapsed = collapsed.hasOwnProperty( itemId );
 
 		var styles = {
 			li: {

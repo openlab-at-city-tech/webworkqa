@@ -3,7 +3,7 @@ import QuestionContainer from '../containers/QuestionContainer';
 
 var QuestionList = React.createClass({
 	render: function() {
-		const { collapsed, questions, questionsById } = this.props
+		const { questions, questionsById } = this.props
 
 		var styles = {
 			ul: {
@@ -14,10 +14,7 @@ var QuestionList = React.createClass({
 
 		questionsById.forEach(function(questionId) {
 			if ( questions.hasOwnProperty( questionId ) ) {
-				let isCollapsed = collapsed.hasOwnProperty( questionId );
-
 				rows.push( <QuestionContainer
-						isCollapsed={isCollapsed}
 						itemId={questionId}
 						key={questionId}
 						question={questions[questionId]}

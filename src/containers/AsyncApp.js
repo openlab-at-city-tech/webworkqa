@@ -15,7 +15,7 @@ class AsyncApp extends Component {
 	}
 
 	render() {
-		const { collapsed, problem, isFetching, didInvalidate, questions, questionsById } = this.props
+		const { problem, questions, questionsById } = this.props
 
 		return (
 			<div className="ww-problem">
@@ -24,7 +24,6 @@ class AsyncApp extends Component {
 
 				<AskQuestion problem_id={problem.ID} />
 				<QuestionList
-					collapsed={collapsed}
 					problem_id={problem.ID}
 					questions={questions}
 					questionsById={questionsById}
@@ -35,10 +34,9 @@ class AsyncApp extends Component {
 }
 
 function mapStateToProps( state ) {
-	const { collapsed, problem, questions, questionsById } = state
+	const { problem, questions, questionsById } = state
 
 	return {
-		collapsed,
 		problem,
 		questions,
 		questionsById

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import ScoreDialog from './ScoreDialog';
+import ScoreDialogContainer from '../containers/ScoreDialogContainer';
 import ResponseList from './ResponseList';
 
 export default class Question extends Component {
 	render() {
-		const { isCollapsed, onAccordionClick, handleToggleVote, itemId, myVote, score } = this.props
+		const { isCollapsed, onAccordionClick, itemId } = this.props
 		const { title, content } = this.props.question
 		const responses = []
 
@@ -20,12 +20,7 @@ export default class Question extends Component {
 
 		return (
 			<li style={styles.li} className={isCollapsed ? 'question-closed' : 'question-open'}>
-				<ScoreDialog
-					score={score}
-					myVote={myVote}
-					itemId={itemId}
-					handleToggleVote={handleToggleVote}
-				/>
+				<ScoreDialogContainer itemId={itemId} />
 
 				<div className="ww-question-content" style={styles.wwQuestionContent}>
 					{content}

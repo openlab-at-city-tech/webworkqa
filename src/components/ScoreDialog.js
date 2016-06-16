@@ -7,7 +7,7 @@ export default class ScoreDialog extends React.Component {
 	}
 
 	render() {
-		const { dispatch, handleToggleVote, itemId } = this.props
+		const { itemId, onVoteClick, scores, votes } = this.props
 
 		var styles = {
 			wwScore: {
@@ -43,8 +43,9 @@ export default class ScoreDialog extends React.Component {
 			}
 		}
 
-		let myVote = this.props.myVote
-		let score = this.props.score
+		const myVote = votes.hasOwnProperty( itemId ) ? votes[ itemId ] : '';
+		let score = scores.hasOwnProperty( itemId ) ? scores[ itemId ] : '';
+
 		switch ( myVote ) {
 			case 'up' :
 				score++
@@ -63,7 +64,7 @@ export default class ScoreDialog extends React.Component {
 					onClick={ e => {
 						// Don't allow 'up' click directly from 'down'.
 						if ( 'down' !== myVote ) {
-							handleToggleVote(
+							onVoteClick(
 								e.target.dataset.itemId,
 								( myVote == 'up' ? '' : 'up' )
 							)
@@ -92,7 +93,7 @@ export default class ScoreDialog extends React.Component {
 					onClick={ e => {
 						// Don't allow 'down' click directly from 'up'.
 						if ( 'up' !== myVote ) {
-							handleToggleVote(
+							onVoteClick(
 								e.target.dataset.itemId,
 								( myVote == 'down' ? '' : 'down' )
 							)
@@ -103,16 +104,10 @@ export default class ScoreDialog extends React.Component {
 		);
 	}
 
-	toggleDown() {
-		// Do nothing if the value is 0.
-		if ( this.props.score > 0 ) {
-			this.props.onVoteChange( 'down' );
-		}
-	}
-
 	getClassName( mode ) {
 		let className = 'ww-score-vote ww-score-' + mode;
 
+		// @todo make this function pure
 		if ( this.props.myvote == mode ) {
 			className += ' ww-myvote';
 		}

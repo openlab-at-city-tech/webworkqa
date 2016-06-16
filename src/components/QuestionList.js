@@ -3,7 +3,7 @@ import QuestionContainer from '../containers/QuestionContainer';
 
 var QuestionList = React.createClass({
 	render: function() {
-		const { collapsed, handleToggleVote, questions, questionsById, scores, votes } = this.props
+		const { collapsed, handleToggleVote, questions, questionsById } = this.props
 
 		var styles = {
 			ul: {
@@ -14,8 +14,6 @@ var QuestionList = React.createClass({
 
 		questionsById.forEach(function(questionId) {
 			if ( questions.hasOwnProperty( questionId ) ) {
-				let myVote = votes.hasOwnProperty( questionId ) ? votes[questionId] : '';
-				let score = scores.hasOwnProperty( questionId ) ? scores[questionId] : 0;
 				let isCollapsed = collapsed.hasOwnProperty( questionId );
 
 				rows.push( <QuestionContainer
@@ -24,8 +22,6 @@ var QuestionList = React.createClass({
 						itemId={questionId}
 						key={questionId}
 						question={questions[questionId]}
-						myVote={myVote}
-						score={score}
 						/> );
 			}
 		});

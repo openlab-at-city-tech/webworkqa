@@ -4,20 +4,14 @@ import { fetchProblem } from '../actions'
 import ProblemSummary from '../components/ProblemSummary'
 import AskQuestion from '../components/AskQuestion'
 import QuestionList from '../components/QuestionList'
-import { clickVote } from '../actions'
 
 class AsyncApp extends Component {
 	constructor( props ) {
 		super( props )
-		this.handleToggleVote = this.handleToggleVote.bind(this)
 	}
 
 	componentDidMount() {
 		this.props.dispatch( fetchProblem( '101010104019' ) );
-	}
-
-	handleToggleVote( itemId, voteType ) {
-		this.props.dispatch( clickVote( itemId, voteType ) );
 	}
 
 	render() {
@@ -31,7 +25,6 @@ class AsyncApp extends Component {
 				<AskQuestion problem_id={problem.ID} />
 				<QuestionList
 					collapsed={collapsed}
-					handleToggleVote={this.handleToggleVote}
 					problem_id={problem.ID}
 					questions={questions}
 					questionsById={questionsById}

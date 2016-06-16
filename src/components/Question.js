@@ -4,8 +4,8 @@ import ResponseList from './ResponseList';
 
 export default class Question extends Component {
 	render() {
-		const { collapsed, onAccordionClick, itemId } = this.props
-		const { title, content } = this.props.question
+		const { collapsed, onAccordionClick, itemId, question } = this.props
+		const { title, content } = question
 		const responses = []
 
 		const isCollapsed = collapsed.hasOwnProperty( itemId );

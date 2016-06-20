@@ -1,8 +1,11 @@
 import React from 'react';
-import ScoreDialog from './ScoreDialog';
+import ScoreDialogContainer from '../containers/ScoreDialogContainer';
 
 var Response = React.createClass({
 	render: function() {
+		const { response, responseId } = this.props
+		const { content } = response
+
 		var styles = {
 			li: {
 				overflow: 'hidden',
@@ -14,13 +17,9 @@ var Response = React.createClass({
 		};
 		return (
 			<li style={styles.li}>
-				<ScoreDialog
-					score={this.props.score}
-					myvote={this.props.myvote}
-					onVoteChange={this.props.onVoteChange}
-				/>
+				<ScoreDialogContainer itemId={responseId} />
 				<div className="ww-response-content" style={styles.wwResponseContent}>
-					{this.props.response.content}
+					{content}
 				</div>
 			</li>
 		);

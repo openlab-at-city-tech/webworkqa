@@ -3,6 +3,8 @@ import {
 	REQUEST_PROBLEM, RECEIVE_PROBLEM,
 	RECEIVE_QUESTIONS,
 	RECEIVE_QUESTIONS_BY_ID,
+	RECEIVE_RESPONSE_ID_MAP,
+	RECEIVE_RESPONSES,
 	SET_VOTE, TOGGLE_VOTE,
 	SET_SCORE, INCR_SCORE,
 	TOGGLE_ACCORDION
@@ -63,6 +65,26 @@ function questions( state = {}, action ) {
 function questionsById( state = [], action ) {
 	switch ( action.type ) {
 		case RECEIVE_QUESTIONS_BY_ID :
+			return action.payload
+
+		default :
+			return state
+	}
+}
+
+function responseIdMap( state = {}, action ) {
+	switch ( action.type ) {
+		case RECEIVE_RESPONSE_ID_MAP :
+			return action.payload
+
+		default :
+			return state
+	}
+}
+
+function responses( state = {}, action ) {
+	switch ( action.type ) {
+		case RECEIVE_RESPONSES :
 			return action.payload
 
 		default :
@@ -135,6 +157,8 @@ const rootReducer = combineReducers({
   problem,
   questions,
   questionsById,
+  responseIdMap,
+  responses,
   scores,
   votes,
 })

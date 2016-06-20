@@ -4,9 +4,8 @@ import ResponseList from './ResponseList';
 
 export default class Question extends Component {
 	render() {
-		const { collapsed, onAccordionClick, itemId, question } = this.props
+		const { collapsed, onAccordionClick, itemId, question, responseIdMap, responses } = this.props
 		const { title, content } = question
-		const responses = []
 
 		const isCollapsed = collapsed.hasOwnProperty( itemId );
 
@@ -27,7 +26,7 @@ export default class Question extends Component {
 				<div className="ww-question-content" style={styles.wwQuestionContent}>
 					{content}
 
-					<ResponseList responses={responses} />
+					<ResponseList responseIds={responseIdMap[itemId]} responses={responses} />
 				</div>
 
 				<a

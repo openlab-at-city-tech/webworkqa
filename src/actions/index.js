@@ -37,6 +37,22 @@ export const receiveQuestionsById = (questionsById) => {
 	}
 }
 
+export const RECEIVE_RESPONSES = 'RECEIVE_RESPONSES'
+export const receiveResponses = (responses) => {
+	return {
+		type: RECEIVE_RESPONSES,
+		payload: responses
+	}
+}
+
+export const RECEIVE_RESPONSE_ID_MAP = 'RECEIVE_RESPONSE_ID_MAP'
+export const receiveResponseIdMap = (responseIdMap) => {
+	return {
+		type: RECEIVE_RESPONSE_ID_MAP,
+		payload: responseIdMap
+	}
+}
+
 function sendVote(itemId, voteType) {
 	return ( dispatch ) => {
 		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/votes/', {
@@ -132,20 +148,37 @@ function doFetchProblem( problemId ) {
 		} )
 			.then( response => response.json() )
 			.then( json => {
-				const { problem, questions, questionsById, scores, votes } = json
+				const { problem, questions, questionsById, responseIdMap, responses, scores, votes } = json
+				let score = 0;
+				let vote = 0;
 
 				dispatch( receiveProblem( problemId, problem ) )
+
+				// must dispatch first so that questions can render properly
+				dispatch( receiveResponseIdMap( responseIdMap ) )
+				dispatch( receiveResponses( responses ) )
 				dispatch( receiveQuestions( questions ) )
 				dispatch( receiveQuestionsById( questionsById ) )
 
-				questionsById.forEach( ( itemId ) => {
-					if ( scores.hasOwnProperty( itemId ) ) {
-						dispatch( setScore( itemId, scores[itemId] ) )
+				// Assemble a flat list of all scored items.
+				let scoredItemIds = questionsById
+				console.log(questionsById)
+				questionsById.forEach( ( questionId ) => {
+					if ( responseIdMap.hasOwnProperty( questionId ) ) {
+						scoredItemIds = scoredItemIds.concat( responseIdMap[ questionId ] )
 					}
+				} )
+
+				scoredItemIds.forEach( ( itemId ) => {
+					if ( scores.hasOwnProperty( itemId ) ) {
+						score = scores[ itemId ]
+					}
+					dispatch( setScore( itemId, score ) )
 
 					if ( votes.hasOwnProperty( itemId ) ) {
-						dispatch( setVote( itemId, votes[itemId] ) )
+						vote = votes[ itemId ]
 					}
+					dispatch( setVote( itemId, vote ) )
 				} );
 			} )
 	}

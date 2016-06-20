@@ -60,7 +60,6 @@ class Endpoint extends \WP_Rest_Controller {
 		) );
 
 		$questions = array();
-		$votes = array();
 		$scores = array();
 		$counter = 0;
 		foreach ( $_questions as $question ) {
@@ -108,10 +107,37 @@ class Endpoint extends \WP_Rest_Controller {
 			$votes[ $vote->get_item_id() ] = $value;
 		}
 
+		$response_id_map = array();
+		$responses = array();
+
+		$_responses = get_posts( array(
+			'post_type' => 'webwork_response',
+			'meta_query' => array(
+				array(
+					'key' => 'webwork_question_id',
+					'value' => $questions_by_id,
+					'compare' => 'IN',
+				),
+			),
+		) );
+
+		foreach ( $_responses as $_response ) {
+			$question_id = get_post_meta( $_response->ID, 'webwork_question_id', true );
+			if ( $question_id ) {
+				$response_id_map[ $question_id ][] = $_response->ID;
+			}
+
+			$responses[ $_response->ID ] = array(
+				'content' => $_response->post_content,
+			);
+		}
+
 		$data = array(
 			'problem' => $problem,
 			'questions' => $questions,
 			'questionsById' => $questions_by_id,
+			'responseIdMap' => $response_id_map,
+			'responses' => $responses,
 			'scores' => $scores,
 			'votes' => $votes,
 		);

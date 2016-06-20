@@ -6,6 +6,7 @@ const mapStateToProps = (state) => {
 	const { scores, votes } = state
 	return {
 		scores,
+		userCanVote: window.WWData.user_can_vote,
 		votes
 	}
 }

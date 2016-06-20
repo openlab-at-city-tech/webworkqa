@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { If, Then } from 'react-if'
 
 export default class ScoreDialog extends React.Component {
 	constructor(props) {
@@ -15,8 +16,8 @@ export default class ScoreDialog extends React.Component {
 				float: 'left'
 			},
 			arrow: {
-				width: '0',
-				height: '0',
+				width: '0px',
+				height: '0px',
 				borderLeft: '20px solid transparent',
 				borderRight: '20px solid transparent',
 			},
@@ -58,6 +59,8 @@ export default class ScoreDialog extends React.Component {
 
 		return (
 			<div className="ww-score" style={styles.wwScore}>
+				<If condition={this.props.userCanVote > 0}>
+				<Then>
 				<div
 					className={this.getClassName('up')}
 					data-item-id={itemId}
@@ -76,10 +79,16 @@ export default class ScoreDialog extends React.Component {
 						(myVote == 'up') ? styles.myvoteup : {},
 						(myVote == 'down' ) ? styles.disabledup : {}
 					)}></div>
+				</Then>
+				</If>
+
 				<div
 					className="ww-score-value"
 					style={styles.wwScoreValue}
 					>{score}</div>
+
+				<If condition={this.props.userCanVote > 0}>
+				<Then>
 				<div
 					style={Object.assign(
 						styles.downarrow,
@@ -100,6 +109,8 @@ export default class ScoreDialog extends React.Component {
 						}
 					} }
 					></div>
+				</Then>
+				</If>
 			</div>
 		);
 	}

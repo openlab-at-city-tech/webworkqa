@@ -2,6 +2,8 @@
 .ww-response {
 	border: 1px dashed #ccc;
 	overflow: hidden;
+	padding-bottom: 20px; /* for vote checkbox */
+	position: relative;
 }
 
 .ww-question-header {
@@ -53,4 +55,14 @@
 
 .ww-response {
 	margin-left: 20px;
+}
+
+.ww-score {
+	position: absolute;
+	bottom: 3px;
+	right: 8px;
+}
+
+.ww-score-value {
+	font-style: italic;
 }

@@ -4,12 +4,22 @@ import ResponseList from './ResponseList';
 
 export default class Question extends Component {
 	render() {
-		const { collapsed, onAccordionClick, itemId, question, responseIdMap, responses } = this.props
+		const { answered, collapsed, onAccordionClick, itemId, question, responseIdMap, responses } = this.props
 		const { title, content } = question
 
 		const isCollapsed = collapsed.hasOwnProperty( itemId );
-
 		const isMyQuestion = question.isMyQuestion > 0;
+
+		// Get isAnswered dynamically from the 'answered' state.
+		let isAnswered = false
+		if ( responseIdMap.hasOwnProperty( itemId ) ) {
+			for ( var i = 0; i <= responseIdMap[ itemId ].length; i++ ) {
+				if ( answered.hasOwnProperty( responseIdMap[ itemId ][ i ] ) ) {
+					isAnswered = true
+					break
+				}
+			}
+		}
 
 		var styles = {
 			li: {
@@ -22,23 +32,71 @@ export default class Question extends Component {
 		};
 
 		return (
-			<li style={styles.li} className={isCollapsed ? 'question-closed' : 'question-open'}>
-				<ScoreDialogContainer itemId={itemId} />
+			<li
+			  style={styles.li}
+			  className={this.getClassName( isCollapsed, isMyQuestion, isAnswered )}
+			>
+				<div className="ww-question-header">
+					<a
+					  href="#"
+					  onClick={ e => {
+						  onAccordionClick( itemId )
+					  } }
+					>
+						<span className="ww-question-header-text">
+							{isAnswered ? 'Answered' : 'Unanswered'}
+						</span>
 
-				<div className="ww-question-content" style={styles.wwQuestionContent}>
-					{content}
+						<span className="ww-question-header-toggle-label">
+							{isCollapsed ? 'Expand' : ''}
+						</span>
 
-					<ResponseList responseIds={responseIdMap[itemId]} responses={responses} isMyQuestion={isMyQuestion} />
+						{isCollapsed ? '\u25c1' : '\u25bd'}
+					</a>
+
 				</div>
 
-				<a
-					href="#"
-					data-item-id={itemId}
-					onClick={ e => { onAccordionClick( e.target.dataset.itemId ) } }
+				<ScoreDialogContainer itemId={itemId} />
+
+				<div
+				  className="ww-question-content"
+				  style={styles.wwQuestionContent}
 				>
-					{isCollapsed ? 'Expand' : 'Collapse'}
-				</a>
+					{content}
+
+					<ResponseList
+					  responseIds={responseIdMap[itemId]}
+					  responses={responses}
+					  isMyQuestion={isMyQuestion}
+					/>
+				</div>
+
 			</li>
 		);
+	}
+
+	/**
+	 * Get a class name for the <li> element.
+	 */
+	getClassName( isCollapsed, isMyQuestion, isAnswered ) {
+		let classes = []
+
+		if ( isCollapsed ) {
+			classes.push( 'question-closed' )
+		} else {
+			classes.push( 'question-open' )
+		}
+
+		if ( isMyQuestion ) {
+			classes.push( 'my-question' )
+		}
+
+		if ( isAnswered ) {
+			classes.push( 'question-answered' )
+		} else {
+			classes.push( 'question-unanswered' )
+		}
+
+		return classes.join( ' ' )
 	}
 }

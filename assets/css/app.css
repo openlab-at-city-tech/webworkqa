@@ -1,3 +1,39 @@
+.ww-question-header {
+	padding: 3px 8px;
+}
+
+.ww-question-header {
+	text-align: right;
+}
+
+.question-open .ww-question-header {
+	color: #fff;
+}
+
+.question-open .ww-question-header a {
+	color: #fff;
+	text-decoration: none;
+	box-shadow: none;
+}
+
+.question-open.question-unanswered .ww-question-header {
+	background: #f00;
+}
+
+.question-open.question-answered .ww-question-header {
+	background: green;
+}
+
+.question-closed .ww-question-header-toggle-label,
+.question-open .ww-question-header-text {
+	padding-right: 8px;
+}
+
+.question-closed .ww-question-header-text {
+	display: none;
+}
+
 .question-closed .ww-response-list {
 	display: none;
 }
+

@@ -3,9 +3,10 @@ import Question from '../components/Question'
 import { toggleAccordion } from '../actions'
 
 const mapStateToProps = (state) => {
-	const { collapsed, responseIdMap, responses } = state
+	const { answered, collapsed, responseIdMap, responses } = state
 
 	return {
+		answered,
 		collapsed,
 		responseIdMap,
 		responses

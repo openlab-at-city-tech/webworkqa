@@ -24,6 +24,9 @@ var QuestionList = React.createClass({
 		return (
 			<div className="ww-question-list">
 				<h3>Questions / Responses</h3>
+				<p className="ww-question-gloss">
+					NOTE: values may be different than those presented in your problem.
+				</p>
 				<ul style={styles.ul}>
 					{rows}
 				</ul>

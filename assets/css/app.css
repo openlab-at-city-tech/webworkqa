@@ -6,6 +6,10 @@
 	position: relative;
 }
 
+.ww-question-gloss {
+	font-style: italic;
+}
+
 .ww-question-header {
 	padding: 3px 8px;
 	text-align: right;

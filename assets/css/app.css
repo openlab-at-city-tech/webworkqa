@@ -61,6 +61,13 @@
 	margin-left: 20px;
 }
 
+.ww-answered {
+	position: absolute;
+	bottom: 3px;
+	left: 120px;
+	font-style: italic;
+}
+
 .ww-score {
 	position: absolute;
 	bottom: 3px;

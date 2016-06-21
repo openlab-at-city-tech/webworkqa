@@ -7,6 +7,7 @@ class WeBWorK_UnitTestCase extends WP_UnitTestCase {
 		if ( ! $factory ) {
 			$factory = new WP_UnitTest_Factory();
 			$factory->vote = new WeBWorK_Tests_Factory_For_Vote();
+			$factory->response = new WeBWorK_Tests_Factory_For_Response();
 		}
 
 		return $factory;

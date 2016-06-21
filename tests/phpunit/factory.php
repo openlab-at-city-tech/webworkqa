@@ -27,3 +27,35 @@ class WeBWorK_Tests_Factory_For_Vote extends WP_UnitTest_Factory_For_Thing {
 		return new WP_User( $user_id );
 	}
 }
+
+class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
+	public function create_object( $args ) {
+		$post_id = parent::create_object( $args );
+
+		if ( ! $post_id || is_wp_error( $post_id ) ) {
+			return $post_id;
+		}
+
+		$response = new \WeBWorK\Server\Response( $post_id );
+		$clean_response = clone $response;
+
+		$is_answer = isset( $args['is_answer'] ) ? (bool) $args['is_answer'] : false;
+		$response->set_is_answer( $is_answer );
+
+		$question_id = isset( $args['question_id'] ) ? (int) $args['question_id'] : false;
+		if ( $question_id ) {
+			$response->set_question_id( $question_id );
+		}
+
+		if ( $clean_response != $response ) {
+			$response->save();
+		}
+
+		return $post_id;
+	}
+
+	public function get_object_by_id( $post_id ) {
+		$response = new \WeBWorK\Server\Response( $post_id );
+		return $response;
+	}
+}

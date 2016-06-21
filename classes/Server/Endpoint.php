@@ -107,14 +107,27 @@ class Endpoint extends \WP_Rest_Controller {
 			$votes[ $vote->get_item_id() ] = $value;
 		}
 
-		$response_id_map = array();
-		$responses = array();
-
 		$response_query = new Response\Query( array(
 			'question_id__in' => $questions_by_id,
 		) );
+		$_responses = $response_query->get();
+
+		$responses = array();
+		foreach ( $_responses as $response ) {
+			$response_id = $response->get_id();
+			$responses[ $response_id ] = array(
+				'content' => $response->get_content(),
+			);
+		}
+
+		$response_id_map = array();
+		foreach ( $_responses as $response ) {
+			$r_question_id = $response->get_question_id();
+			$response_id_map[ $r_question_id ][] = $response->get_id();
+		}
 
 		$data = array(
+			'answered' => $answered,
 			'problem' => $problem,
 			'questions' => $questions,
 			'questionsById' => $questions_by_id,

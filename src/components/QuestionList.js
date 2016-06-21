@@ -23,7 +23,7 @@ var QuestionList = React.createClass({
 		});
 		return (
 			<div className="ww-question-list">
-				<h3>Question</h3>
+				<h3>Questions / Responses</h3>
 				<ul style={styles.ul}>
 					{rows}
 				</ul>

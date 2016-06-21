@@ -27,7 +27,6 @@ var ResponseList = React.createClass({
 
 		return (
 			<div className="ww-response-list">
-				<h3>Responses</h3>
 				<ul style={styles.ul}>
 					{rows}
 				</ul>

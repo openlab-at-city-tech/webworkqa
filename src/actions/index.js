@@ -208,6 +208,8 @@ function doFetchProblem( problemId ) {
 				} )
 
 				scoredItemIds.forEach( ( itemId ) => {
+					score = 0
+					vote = 0
 					if ( scores.hasOwnProperty( itemId ) ) {
 						score = scores[ itemId ]
 					}

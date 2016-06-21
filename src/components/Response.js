@@ -6,7 +6,7 @@ import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
 var Response = React.createClass({
 	render: function() {
 		const { isMyQuestion, response, responseId } = this.props
-		const { content } = response
+		const { content, authorAvatar, authorName } = response
 
 		var styles = {
 			li: {
@@ -19,15 +19,24 @@ var Response = React.createClass({
 		};
 		return (
 			<li style={styles.li}>
-				<div className="ww-response-content" style={styles.wwResponseContent}>
-					{content}
+				<div className="ww-response">
+					<div className="ww-author-avatar">
+						<img src={authorAvatar} />
+						<div className="ww-author-name">
+							{authorName}
+						</div>
+					</div>
+
+					<div className="ww-response-content" style={styles.wwResponseContent}>
+						{content}
+					</div>
+
+					<If condition={isMyQuestion}>
+						<Then><AnsweredDialogContainer responseId={responseId} /></Then>
+					</If>
+
+					<ScoreDialogContainer itemId={responseId} />
 				</div>
-
-				<If condition={isMyQuestion}>
-					<Then><AnsweredDialogContainer responseId={responseId} /></Then>
-				</If>
-
-				<ScoreDialogContainer itemId={responseId} />
 			</li>
 		);
 	}

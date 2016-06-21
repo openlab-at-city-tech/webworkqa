@@ -70,6 +70,17 @@ class Response {
 		return $this->is_answer;
 	}
 
+	public function get_author_avatar() {
+		return get_avatar_url( $this->get_author_id(), array(
+			'size' => 60,
+		) );
+	}
+
+	public function get_author_name() {
+		$userdata = get_userdata( $this->get_author_id() );
+		return $userdata->display_name;
+	}
+
 	public function save() {
 		$args = array(
 			'post_type' => 'webwork_response',

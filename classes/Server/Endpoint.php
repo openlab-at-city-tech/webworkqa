@@ -124,6 +124,8 @@ class Endpoint extends \WP_Rest_Controller {
 			$response_id = $response->get_id();
 			$responses[ $response_id ] = array(
 				'content' => $response->get_content(),
+				'authorAvatar' => $response->get_author_avatar(),
+				'authorName' => $response->get_author_name(),
 			);
 
 			if ( $response->get_is_answer() ) {

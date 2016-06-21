@@ -38,7 +38,11 @@
 	display: none;
 }
 
-.question-closed .ww-response-list {
+.ww-question > h3 {
+	margin: 8px;
+}
+
+.question-closed .hide-when-closed {
 	display: none;
 }
 

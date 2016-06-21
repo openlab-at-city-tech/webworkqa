@@ -57,15 +57,14 @@ export default class Question extends Component {
 
 					</div>
 
-					<div className="ww-author-avatar">
+					<h3>{authorName}</h3>
+
+					<div className="ww-author-avatar hide-when-closed">
 						<img src={authorAvatar} />
-						<div className="ww-author-name">
-							{authorName}
-						</div>
 					</div>
 
 					<div
-					  className="ww-question-content"
+					  className="ww-question-content hide-when-closed"
 					  style={styles.wwQuestionContent}
 					>
 						{content}

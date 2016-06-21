@@ -42,7 +42,8 @@
 	display: none;
 }
 
-.ww-question > h3 {
+.ww-question > h3,
+.ww-response > h3 {
 	margin: 8px;
 }
 

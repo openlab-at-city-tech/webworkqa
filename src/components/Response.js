@@ -20,11 +20,9 @@ var Response = React.createClass({
 		return (
 			<li style={styles.li}>
 				<div className="ww-response">
+					<h3>{authorName}</h3>
 					<div className="ww-author-avatar">
 						<img src={authorAvatar} />
-						<div className="ww-author-name">
-							{authorName}
-						</div>
 					</div>
 
 					<div className="ww-response-content" style={styles.wwResponseContent}>

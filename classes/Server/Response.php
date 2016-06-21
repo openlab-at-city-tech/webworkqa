@@ -7,7 +7,6 @@ namespace WeBWorK\Server;
  */
 class Response {
 	protected $id;
-	protected $post;
 
 	protected $question_id;
 	protected $is_answer;
@@ -130,16 +129,14 @@ class Response {
 			return;
 		}
 
-		$this->post = $post;
-
 		// WP post properties.
-		$this->set_author_id( $this->post->post_author );
-		$this->set_content( $this->post->post_content );
+		$this->set_author_id( $post->post_author );
+		$this->set_content( $post->post_content );
 
-		$question_id = get_post_meta( $this->post->ID, 'webwork_question_id', true );
+		$question_id = get_post_meta( $post->ID, 'webwork_question_id', true );
 		$this->set_question_id( $question_id );
 
-		$question_answer = get_post_meta( $this->post->ID, 'webwork_question_answer', true );
+		$question_answer = get_post_meta( $post->ID, 'webwork_question_answer', true );
 		$this->set_is_answer( $question_answer );
 	}
 }

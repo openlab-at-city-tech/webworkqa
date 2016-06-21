@@ -41,6 +41,7 @@ export default class Question extends Component {
 						<a
 						  href="#"
 						  onClick={ e => {
+							  e.preventDefault()
 							  onAccordionClick( itemId )
 						  } }
 						>

@@ -5,7 +5,7 @@ import ResponseList from './ResponseList';
 export default class Question extends Component {
 	render() {
 		const { answered, collapsed, onAccordionClick, itemId, question, responseIdMap, responses } = this.props
-		const { title, content } = question
+		const { title, content, authorAvatar, authorName } = question
 
 		const isCollapsed = collapsed.hasOwnProperty( itemId );
 		const isMyQuestion = question.isMyQuestion > 0;
@@ -54,6 +54,13 @@ export default class Question extends Component {
 						{isCollapsed ? '\u25c1' : '\u25bd'}
 					</a>
 
+				</div>
+
+				<div className="ww-author-avatar">
+					<img src={authorAvatar} />
+					<div className="ww-author-name">
+						{authorName}
+					</div>
 				</div>
 
 				<ScoreDialogContainer itemId={itemId} />

@@ -1,8 +1,9 @@
-.ww-question-header {
-	padding: 3px 8px;
+.ww-question-list > ul > li {
+	border: 1px dashed #ccc;
 }
 
 .ww-question-header {
+	padding: 3px 8px;
 	text-align: right;
 }
 
@@ -37,3 +38,8 @@
 	display: none;
 }
 
+.ww-author-avatar {
+	width: 120px;
+	text-align: center;
+	padding: 8px;
+}

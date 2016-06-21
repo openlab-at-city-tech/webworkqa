@@ -63,10 +63,15 @@ class Endpoint extends \WP_Rest_Controller {
 		$scores = array();
 		$counter = 0;
 		foreach ( $_questions as $question ) {
+			$author = get_userdata( $question->post_author );
 			$questions[ $question->ID ] = array(
 				'title' => $question->post_title,
 				'content' => $question->post_content,
 				'isMyQuestion' => is_user_logged_in() && $question->post_author == get_current_user_id(),
+				'authorAvatar' => get_avatar_url( $question->post_author, array(
+					'size' => 80,
+				) ),
+				'authorName' => $author->display_name,
 			);
 
 			// todo

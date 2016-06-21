@@ -66,6 +66,7 @@ class Endpoint extends \WP_Rest_Controller {
 			$questions[ $question->ID ] = array(
 				'title' => $question->post_title,
 				'content' => $question->post_content,
+				'isMyQuestion' => is_user_logged_in() && $question->post_author == get_current_user_id(),
 			);
 
 			// todo
@@ -113,11 +114,16 @@ class Endpoint extends \WP_Rest_Controller {
 		$_responses = $response_query->get();
 
 		$responses = array();
+		$answered = array();
 		foreach ( $_responses as $response ) {
 			$response_id = $response->get_id();
 			$responses[ $response_id ] = array(
 				'content' => $response->get_content(),
 			);
+
+			if ( $response->get_is_answer() ) {
+				$answered[ $response_id ] = 1;
+			}
 		}
 
 		$response_id_map = array();

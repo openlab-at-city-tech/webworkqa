@@ -53,6 +53,38 @@ export const receiveResponseIdMap = (responseIdMap) => {
 	}
 }
 
+function sendResponseAnswered( responseId, isAnswered ) {
+	return ( dispatch ) => {
+		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/responses/${responseId}`, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': window.WWData.rest_api_nonce
+			},
+			body: JSON.stringify({
+				is_answer: isAnswered
+			})
+		} )
+			.then( response => response.json() )
+			.then( json => {
+				console.log( json )
+			} );
+
+	}
+}
+
+export const SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED'
+export const setResponseAnswered = ( responseId, isAnswered ) => {
+	return {
+		type: SET_RESPONSE_ANSWERED,
+		payload: {
+			responseId,
+			isAnswered
+		}
+	}
+}
+
 function sendVote(itemId, voteType) {
 	return ( dispatch ) => {
 		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/votes/', {
@@ -69,7 +101,7 @@ function sendVote(itemId, voteType) {
 		} )
 			.then( response => response.json() )
 			.then( json => {
-				console.log( json )
+			//	console.log( json )
 			} );
 
 	}
@@ -136,6 +168,13 @@ export function clickVote( itemId, voteType ) {
 	}
 }
 
+export function clickAnswered( responseId, isAnswered ) {
+	return ( dispatch ) => {
+		dispatch( sendResponseAnswered( responseId, isAnswered ) )
+		dispatch( setResponseAnswered( responseId, isAnswered ) )
+	}
+}
+
 function doFetchProblem( problemId ) {
 	return dispatch => {
 		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`,
@@ -148,7 +187,7 @@ function doFetchProblem( problemId ) {
 		} )
 			.then( response => response.json() )
 			.then( json => {
-				const { problem, questions, questionsById, responseIdMap, responses, scores, votes } = json
+				const { answered, problem, questions, questionsById, responseIdMap, responses, scores, votes } = json
 				let score = 0;
 				let vote = 0;
 
@@ -162,7 +201,6 @@ function doFetchProblem( problemId ) {
 
 				// Assemble a flat list of all scored items.
 				let scoredItemIds = questionsById
-				console.log(questionsById)
 				questionsById.forEach( ( questionId ) => {
 					if ( responseIdMap.hasOwnProperty( questionId ) ) {
 						scoredItemIds = scoredItemIds.concat( responseIdMap[ questionId ] )
@@ -180,6 +218,17 @@ function doFetchProblem( problemId ) {
 					}
 					dispatch( setVote( itemId, vote ) )
 				} );
+
+				// Dispatch "answered" status for responses.
+				questionsById.forEach( ( questionId ) => {
+					if ( responseIdMap.hasOwnProperty( questionId ) ) {
+						responseIdMap[ questionId ].forEach( ( responseId ) => {
+							if ( answered.hasOwnProperty( responseId ) ) {
+								dispatch( setResponseAnswered( responseId, true ) )
+							}
+						} );
+					}
+				} )
 			} )
 	}
 

@@ -1,9 +1,11 @@
 import React from 'react';
-import ScoreDialogContainer from '../containers/ScoreDialogContainer';
+import { If, Then } from 'react-if'
+import ScoreDialogContainer from '../containers/ScoreDialogContainer'
+import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
 
 var Response = React.createClass({
 	render: function() {
-		const { response, responseId } = this.props
+		const { isMyQuestion, response, responseId } = this.props
 		const { content } = response
 
 		var styles = {
@@ -17,10 +19,15 @@ var Response = React.createClass({
 		};
 		return (
 			<li style={styles.li}>
-				<ScoreDialogContainer itemId={responseId} />
 				<div className="ww-response-content" style={styles.wwResponseContent}>
 					{content}
 				</div>
+
+				<If condition={isMyQuestion}>
+					<Then><AnsweredDialogContainer responseId={responseId} /></Then>
+				</If>
+
+				<ScoreDialogContainer itemId={responseId} />
 			</li>
 		);
 	}

@@ -3,7 +3,7 @@ import Response from './Response.js';
 
 var ResponseList = React.createClass({
 	render: function() {
-		const { responseIds, responses } = this.props
+		const { isMyQuestion, responseIds, responses } = this.props
 
 		var styles = {
 			ul: {
@@ -16,7 +16,12 @@ var ResponseList = React.createClass({
 		this.props.responseIds.forEach( function(responseId) {
 			response = responses.hasOwnProperty( responseId ) ? responses[ responseId ] : false;
 			if ( response ) {
-				rows.push( <Response key={responseId} responseId={responseId} response={response} /> );
+				rows.push( <Response
+						key={responseId}
+						isMyQuestion={isMyQuestion}
+						responseId={responseId}
+						response={response}
+						/> );
 			}
 		});
 

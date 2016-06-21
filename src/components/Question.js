@@ -9,6 +9,8 @@ export default class Question extends Component {
 
 		const isCollapsed = collapsed.hasOwnProperty( itemId );
 
+		const isMyQuestion = question.isMyQuestion > 0;
+
 		var styles = {
 			li: {
 				overflow: 'hidden',
@@ -26,7 +28,7 @@ export default class Question extends Component {
 				<div className="ww-question-content" style={styles.wwQuestionContent}>
 					{content}
 
-					<ResponseList responseIds={responseIdMap[itemId]} responses={responses} />
+					<ResponseList responseIds={responseIdMap[itemId]} responses={responses} isMyQuestion={isMyQuestion} />
 				</div>
 
 				<a

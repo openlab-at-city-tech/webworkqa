@@ -58,61 +58,6 @@ class Endpoint extends \WP_Rest_Controller {
 		);
 	}
 
-	public function get_items( $request ) {
-		return array();
-		$params = $request->get_params();
-
-		$problem_id = $params['id'];
-
-		$post = get_post( $problem_id );
-		$problem = array(
-			'title' => $post->post_title,
-			'content' => $post->post_content,
-			'ID' => $post->ID,
-		);
-
-		$_questions = get_posts( array(
-			'post_type' => 'webwork_question',
-			'meta_query' => array(
-				array(
-					'key' => 'webwork_problem_id',
-					'value' => $problem_id,
-				),
-			),
-		) );
-
-		$questions = array();
-		$votes = array();
-		$scores = array();
-		$counter = 0;
-		foreach ( $_questions as $question ) {
-			$questions[ $question->ID ] = array(
-				'title' => $question->post_title,
-				'content' => $question->post_content,
-			);
-
-			// todo
-			$counter++;
-			$vote = $counter % 2 ? 'up' : 'down';
-			$votes[ $question->ID ] = $vote;
-
-			$scores[ $question->ID ] = rand( 0, 10 );
-		}
-
-		$questions_by_id = array_keys( $questions );
-
-		$data = array(
-			'problem' => $problem,
-			'questions' => $questions,
-			'questionsById' => $questions_by_id,
-			'scores' => $scores,
-			'votes' => $votes,
-		);
-
-		return $data;
-
-	}
-
 	public function get_items_permissions_check( $request ) {
 		return true;
 	}

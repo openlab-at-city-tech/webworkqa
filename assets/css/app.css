@@ -1,5 +1,6 @@
-.ww-question-list > ul > li {
+.ww-question {
 	border: 1px dashed #ccc;
+	overflow: hidden;
 }
 
 .ww-question-header {
@@ -42,4 +43,9 @@
 	width: 120px;
 	text-align: center;
 	padding: 8px;
+	float: left;
+}
+
+.ww-question-content {
+	padding-left: 120px;
 }

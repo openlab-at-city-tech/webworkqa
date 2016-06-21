@@ -36,47 +36,49 @@ export default class Question extends Component {
 			  style={styles.li}
 			  className={this.getClassName( isCollapsed, isMyQuestion, isAnswered )}
 			>
-				<div className="ww-question-header">
-					<a
-					  href="#"
-					  onClick={ e => {
-						  onAccordionClick( itemId )
-					  } }
-					>
-						<span className="ww-question-header-text">
-							{isAnswered ? 'Answered' : 'Unanswered'}
-						</span>
+				<div className="ww-question">
+					<div className="ww-question-header">
+						<a
+						  href="#"
+						  onClick={ e => {
+							  onAccordionClick( itemId )
+						  } }
+						>
+							<span className="ww-question-header-text">
+								{isAnswered ? 'Answered' : 'Unanswered'}
+							</span>
 
-						<span className="ww-question-header-toggle-label">
-							{isCollapsed ? 'Expand' : ''}
-						</span>
+							<span className="ww-question-header-toggle-label">
+								{isCollapsed ? 'Expand' : ''}
+							</span>
 
-						{isCollapsed ? '\u25c1' : '\u25bd'}
-					</a>
+							{isCollapsed ? '\u25c1' : '\u25bd'}
+						</a>
 
-				</div>
-
-				<div className="ww-author-avatar">
-					<img src={authorAvatar} />
-					<div className="ww-author-name">
-						{authorName}
 					</div>
+
+					<div className="ww-author-avatar">
+						<img src={authorAvatar} />
+						<div className="ww-author-name">
+							{authorName}
+						</div>
+					</div>
+
+					<div
+					  className="ww-question-content"
+					  style={styles.wwQuestionContent}
+					>
+						{content}
+					</div>
+
+					<ScoreDialogContainer itemId={itemId} />
 				</div>
 
-				<ScoreDialogContainer itemId={itemId} />
-
-				<div
-				  className="ww-question-content"
-				  style={styles.wwQuestionContent}
-				>
-					{content}
-
-					<ResponseList
-					  responseIds={responseIdMap[itemId]}
-					  responses={responses}
-					  isMyQuestion={isMyQuestion}
-					/>
-				</div>
+				<ResponseList
+				  responseIds={responseIdMap[itemId]}
+				  responses={responses}
+				  isMyQuestion={isMyQuestion}
+				/>
 
 			</li>
 		);

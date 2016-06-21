@@ -71,7 +71,9 @@ class Response {
 	}
 
 	public function save() {
-		$args = array();
+		$args = array(
+			'post_type' => 'webwork_response',
+		);
 
 		if ( $this->exists() ) {
 			$args['ID'] = $this->get_id();

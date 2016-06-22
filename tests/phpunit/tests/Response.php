@@ -76,6 +76,8 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_vote_count_should_default_to_zero() {
+		$this->markTestSkipped( 'todo' );
+
 		$r = self::factory()->response->create();
 
 		$response = new \WeBWorK\Server\Response( $r );

@@ -13,6 +13,7 @@ class Query {
 	public function __construct( $args ) {
 		$this->r = array_merge( array(
 			'question_id__in' => null,
+			'orderby' => 'votes',
 		), $args );
 	}
 
@@ -39,11 +40,40 @@ class Query {
 			);
 		}
 
-		$_responses = get_posts( $args );
+		// Default behavior is to sort by vote count first, then by post_date.
+		$args['orderby'] = array(
+			'post_date' => 'DESC',
+		);
+
+		$response_query = new \WP_Query( $args );
+		$_responses = $response_query->posts;
 
 		$responses = array();
 		foreach ( $_responses as $_response ) {
-			$responses[] = new \WeBWorK\Server\Response( $_response->ID );
+			$responses[ $_response->ID ] = new \WeBWorK\Server\Response( $_response->ID );
+		}
+
+		$response_ids = wp_list_pluck( $_responses, 'ID' );
+		if ( $response_ids ) {
+			$response_vote_query = new \WeBWorK\Server\Vote\Query( array( 'item_id__in' => $response_ids ) );
+			$response_votes = $response_vote_query->get();
+
+			$counts = array_fill_keys( $response_ids, 0 );
+			foreach ( $response_votes as $vote ) {
+				$item_id = $vote->get_item_id();
+				$counts[ $item_id ]++;
+			}
+
+			// @todo Make sorting configurable.
+			arsort( $counts );
+			$sorted_responses = array();
+			foreach ( $counts as $response_id => $count ) {
+				$response = $responses[ $response_id ];
+				$response->set_vote_count( $counts[ $response_id ] );
+				$sorted_responses[] = $response;
+			}
+
+			$responses = $sorted_responses;
 		}
 
 		return $responses;

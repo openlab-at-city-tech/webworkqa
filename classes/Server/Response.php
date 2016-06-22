@@ -14,7 +14,7 @@ class Response {
 	protected $author_id;
 	protected $content;
 
-	protected $vote_count;
+	protected $vote_count = null;
 
 	public function __construct( $id = null ) {
 		if ( $id ) {
@@ -90,21 +90,11 @@ class Response {
 	/**
 	 * Get vote count.
 	 *
-	 * Not always needed, so we lazy-load it.
+	 * @todo Lazy-load when null.
 	 *
 	 * @return int
 	 */
 	public function get_vote_count() {
-		if ( null === $this->vote_count ) {
-			$vote_count = get_post_meta( $this->get_id(), 'webwork_vote_count', true );
-			if ( ! $vote_count || ! is_numeric( $vote_count ) ) {
-				$vote_count = 0;
-			} else {
-				$vote_count = intval( $vote_count );
-			}
-			$this->set_vote_count( $vote_count );
-		}
-
 		return $this->vote_count;
 	}
 

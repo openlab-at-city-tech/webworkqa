@@ -51,4 +51,34 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 
 		$this->assertEqualSets( array( $r1, $r3 ), $ids );
 	}
+
+	public function test_results_should_be_ordered_by_vote_count() {
+		$r1 = self::factory()->response->create( array(
+			'question_id' => 3,
+		) );
+
+		$r2 = self::factory()->response->create( array(
+			'question_id' => 3,
+		) );
+
+		$r3 = self::factory()->response->create( array(
+			'question_id' => 3,
+		) );
+
+		self::factory()->vote->create_many( 2, array( 'item_id' => $r1 ) );
+		self::factory()->vote->create_many( 1, array( 'item_id' => $r2 ) );
+		self::factory()->vote->create_many( 3, array( 'item_id' => $r3 ) );
+
+		$q = new \WeBWorK\Server\Response\Query( array(
+			'question_id' => 3,
+		) );
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertSame( array( $r3, $r1, $r2 ), $ids );
+	}
 }

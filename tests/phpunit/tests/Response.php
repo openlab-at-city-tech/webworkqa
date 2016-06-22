@@ -74,4 +74,12 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 		$response_2 = new \WeBWorK\Server\Vote( $r );
 		$this->assertFalse( $response_2->exists() );
 	}
+
+	public function test_vote_count_should_default_to_zero() {
+		$r = self::factory()->response->create();
+
+		$response = new \WeBWorK\Server\Response( $r );
+
+		$this->assertSame( 0, $response->get_vote_count() );
+	}
 }

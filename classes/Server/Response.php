@@ -14,6 +14,8 @@ class Response {
 	protected $author_id;
 	protected $content;
 
+	protected $vote_count;
+
 	public function __construct( $id = null ) {
 		if ( $id ) {
 			$this->set_id( $id );
@@ -50,6 +52,10 @@ class Response {
 		$this->is_answer = (bool) $is_answer;
 	}
 
+	public function set_vote_count( $vote_count ) {
+		$this->vote_count = (int) $vote_count;
+	}
+
 	public function get_id() {
 		return $this->id;
 	}
@@ -79,6 +85,27 @@ class Response {
 	public function get_author_name() {
 		$userdata = get_userdata( $this->get_author_id() );
 		return $userdata->display_name;
+	}
+
+	/**
+	 * Get vote count.
+	 *
+	 * Not always needed, so we lazy-load it.
+	 *
+	 * @return int
+	 */
+	public function get_vote_count() {
+		if ( null === $this->vote_count ) {
+			$vote_count = get_post_meta( $this->get_id(), 'webwork_vote_count', true );
+			if ( ! $vote_count || ! is_numeric( $vote_count ) ) {
+				$vote_count = 0;
+			} else {
+				$vote_count = intval( $vote_count );
+			}
+			$this->set_vote_count( $vote_count );
+		}
+
+		return $this->vote_count;
 	}
 
 	public function save() {

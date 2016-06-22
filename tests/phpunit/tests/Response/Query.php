@@ -81,4 +81,48 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 
 		$this->assertSame( array( $r3, $r1, $r2 ), $ids );
 	}
+
+	/**
+	 * @group bbg
+	 */
+	public function test_results_should_be_ordered_by_post_date_when_vote_counts_are_the_same() {
+		$now = time();
+
+		$r1 = self::factory()->response->create( array(
+			'question_id' => 3,
+			'post_date' => date( 'Y-m-d H:i:s', $now - 50 ),
+		) );
+
+		$r2 = self::factory()->response->create( array(
+			'question_id' => 3,
+			'post_date' => date( 'Y-m-d H:i:s', $now - 40 ),
+		) );
+
+		$r3 = self::factory()->response->create( array(
+			'question_id' => 3,
+			'post_date' => date( 'Y-m-d H:i:s', $now - 60 ),
+		) );
+
+		$r4 = self::factory()->response->create( array(
+			'question_id' => 3,
+			'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
+		) );
+
+		self::factory()->vote->create_many( 1, array( 'item_id' => $r1 ) );
+		self::factory()->vote->create_many( 2, array( 'item_id' => $r2 ) );
+		self::factory()->vote->create_many( 1, array( 'item_id' => $r3 ) );
+		self::factory()->vote->create_many( 1, array( 'item_id' => $r4 ) );
+
+		$q = new \WeBWorK\Server\Response\Query( array(
+			'question_id' => 3,
+		) );
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertSame( array( $r2, $r4, $r1, $r3 ), $ids );
+	}
 }

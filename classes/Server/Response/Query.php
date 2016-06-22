@@ -30,6 +30,8 @@ class Query {
 			'update_post_term_cache' => false,
 			'meta_query' => array(),
 			'posts_per_page' => -1,
+			'orderby' => 'post_date',
+			'order' => 'DESC',
 		);
 
 		if ( $this->r['question_id__in'] ) {
@@ -39,11 +41,6 @@ class Query {
 				'compare' => 'IN',
 			);
 		}
-
-		// Default behavior is to sort by vote count first, then by post_date.
-		$args['orderby'] = array(
-			'post_date' => 'DESC',
-		);
 
 		$response_query = new \WP_Query( $args );
 		$_responses = $response_query->posts;
@@ -65,12 +62,19 @@ class Query {
 			}
 
 			// @todo Make sorting configurable.
+			// Sort is: vote first, then post date.
 			arsort( $counts );
-			$sorted_responses = array();
+			$responses_by_count = array_fill_keys( $counts, array() );
 			foreach ( $counts as $response_id => $count ) {
 				$response = $responses[ $response_id ];
 				$response->set_vote_count( $counts[ $response_id ] );
-				$sorted_responses[] = $response;
+				$responses_by_count[ $count ][] = $response;
+			}
+
+			// @todo there must be a faster way
+			$sorted_responses = array();
+			foreach ( $responses_by_count as $count => $count_responses ) {
+				$sorted_responses = array_merge( $sorted_responses, $count_responses );
 			}
 
 			$responses = $sorted_responses;

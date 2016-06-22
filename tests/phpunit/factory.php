@@ -47,6 +47,10 @@ class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
 			$response->set_question_id( $question_id );
 		}
 
+		if ( isset( $args['post_date'] ) ) {
+			$response->set_post_date( $args['post_date'] );
+		}
+
 		if ( $clean_response != $response ) {
 			$response->save();
 		}

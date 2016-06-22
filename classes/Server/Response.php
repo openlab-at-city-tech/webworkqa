@@ -13,6 +13,7 @@ class Response {
 
 	protected $author_id;
 	protected $content;
+	protected $post_date;
 
 	protected $vote_count = null;
 
@@ -42,6 +43,11 @@ class Response {
 		$this->content = $content;
 	}
 
+	public function set_post_date( $date ) {
+		// @todo validate? I think there's a WP ticket about it.
+		$this->post_date = $date;
+	}
+
 	public function set_question_id( $question_id ) {
 		if ( $question_id ) {
 			$this->question_id = (int) $question_id;
@@ -66,6 +72,10 @@ class Response {
 
 	public function get_content() {
 		return $this->content;
+	}
+
+	public function get_post_date() {
+		return $this->post_date;
 	}
 
 	public function get_question_id() {
@@ -110,6 +120,11 @@ class Response {
 
 		$args['post_content'] = $this->get_content();
 		$args['post_author'] = $this->get_author_id();
+
+		if ( null !== $this->get_post_date() ) {
+			// todo gmt
+			$args['post_date'] = $this->get_post_date();
+		}
 
 		if ( $this->exists() ) {
 			$saved = wp_update_post( $args );
@@ -163,6 +178,7 @@ class Response {
 		// WP post properties.
 		$this->set_author_id( $post->post_author );
 		$this->set_content( $post->post_content );
+		$this->set_post_date( $post->post_date );
 
 		$question_id = get_post_meta( $post->ID, 'webwork_question_id', true );
 		$this->set_question_id( $question_id );

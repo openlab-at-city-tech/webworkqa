@@ -84,4 +84,21 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 
 		$this->assertSame( 0, $response->get_vote_count() );
 	}
+
+	/**
+	 * @group bbg
+	 */
+	public function test_set_post_date() {
+		$r = self::factory()->response->create();
+
+		$response = new \WeBWorK\Server\Response( $r );
+
+		$new_date = '2015-05-05 05:05:05';
+		$response->set_post_date( $new_date );
+
+		$this->assertTrue( $response->save() );
+
+		$response2 = new \WeBWorK\Server\Response( $r );
+		$this->assertSame( $new_date, $response2->get_post_date() );
+	}
 }

@@ -9,7 +9,8 @@ const mapStateToProps = (state) => {
 		answered,
 		collapsed,
 		responseIdMap,
-		responses
+		responses,
+		userCanPostResponse: window.WWData.user_can_post_response > 0
 	}
 }
 

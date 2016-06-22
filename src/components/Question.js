@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
+import { If, Then } from 'react-if'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer';
 import ResponseList from './ResponseList';
+import ResponseFormContainer from '../containers/ResponseFormContainer';
 
 export default class Question extends Component {
 	render() {
-		const { answered, collapsed, onAccordionClick, itemId, question, responseIdMap, responses } = this.props
+		const { answered, collapsed, onAccordionClick, itemId, question, responseIdMap, responses, userCanPostResponse } = this.props
 		const { title, content, authorAvatar, authorName } = question
 
 		const isCollapsed = collapsed.hasOwnProperty( itemId );
 		const isMyQuestion = question.isMyQuestion > 0;
 
 		// Get isAnswered dynamically from the 'answered' state.
+		// Move this to mapStateToProps using ownProps
 		let isAnswered = false
 		if ( responseIdMap.hasOwnProperty( itemId ) ) {
 			for ( var i = 0; i <= responseIdMap[ itemId ].length; i++ ) {
@@ -20,6 +23,8 @@ export default class Question extends Component {
 				}
 			}
 		}
+		console.log(responseIdMap)
+		console.log(itemId)
 
 		var styles = {
 			li: {
@@ -75,11 +80,17 @@ export default class Question extends Component {
 				</div>
 
 				<ResponseList
+				  isMyQuestion={isMyQuestion}
+				  questionId={itemId}
 				  responseIds={responseIdMap[itemId]}
 				  responses={responses}
-				  isMyQuestion={isMyQuestion}
 				/>
 
+				<If condition={userCanPostResponse}>
+					<Then>
+						<ResponseFormContainer questionId={itemId} />
+					</Then>
+				</If>
 			</li>
 		);
 	}

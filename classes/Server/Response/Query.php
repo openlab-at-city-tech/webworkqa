@@ -28,6 +28,7 @@ class Query {
 			'post_type' => 'webwork_response',
 			'update_post_term_cache' => false,
 			'meta_query' => array(),
+			'posts_per_page' => -1,
 		);
 
 		if ( $this->r['question_id__in'] ) {

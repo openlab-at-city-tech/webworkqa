@@ -4,8 +4,12 @@ import {
 	RECEIVE_QUESTIONS,
 	RECEIVE_QUESTIONS_BY_ID,
 	RECEIVE_RESPONSE_ID_MAP,
+	RECEIVE_RESPONSE_ID_FOR_MAP,
 	SET_RESPONSE_ANSWERED,
+	SET_RESPONSE_PENDING,
+	RECEIVE_RESPONSE,
 	RECEIVE_RESPONSES,
+	CHANGE_RESPONSE_TEXT,
 	SET_VOTE, TOGGLE_VOTE,
 	SET_SCORE, INCR_SCORE,
 	TOGGLE_ACCORDION
@@ -95,8 +99,42 @@ function questionsById( state = [], action ) {
 	}
 }
 
+function responseFormData( state = {}, action ) {
+	switch ( action.type ) {
+		case CHANGE_RESPONSE_TEXT :
+			const { questionId, value } = action.payload
+
+			return Object.assign( {}, state, {
+				[questionId]: value
+			} )
+
+		default :
+			return state
+	}
+}
+
+function responseFormPending( state = {}, action ) {
+	switch ( action.type ) {
+		case SET_RESPONSE_PENDING :
+			const { questionId, isPending } = action.payload
+
+			return Object.assign( {}, state, {
+				[questionId]: isPending
+			} )
+
+		default :
+			return state
+	}
+}
+
 function responseIdMap( state = {}, action ) {
 	switch ( action.type ) {
+		case RECEIVE_RESPONSE_ID_FOR_MAP :
+			const { questionId, responseId } = action.payload
+			let newState = Object.assign( {}, state )
+			newState[questionId].push(responseId)
+			return newState
+
 		case RECEIVE_RESPONSE_ID_MAP :
 			return action.payload
 
@@ -107,6 +145,11 @@ function responseIdMap( state = {}, action ) {
 
 function responses( state = {}, action ) {
 	switch ( action.type ) {
+		case RECEIVE_RESPONSE :
+			return Object.assign( {}, state, {
+				[action.payload.responseId]: action.payload
+			} )
+
 		case RECEIVE_RESPONSES :
 			return action.payload
 
@@ -181,6 +224,8 @@ const rootReducer = combineReducers({
   problem,
   questions,
   questionsById,
+  responseFormData,
+  responseFormPending,
   responseIdMap,
   responses,
   scores,

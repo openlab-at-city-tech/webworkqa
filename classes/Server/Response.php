@@ -84,6 +84,7 @@ class Response {
 	public function save() {
 		$args = array(
 			'post_type' => 'webwork_response',
+			'post_status' => 'publish',
 		);
 
 		if ( $this->exists() ) {

@@ -37,6 +37,14 @@ export const receiveQuestionsById = (questionsById) => {
 	}
 }
 
+export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE'
+export const receiveResponse = (response) => {
+	return {
+		type: RECEIVE_RESPONSE,
+		payload: response
+	}
+}
+
 export const RECEIVE_RESPONSES = 'RECEIVE_RESPONSES'
 export const receiveResponses = (responses) => {
 	return {
@@ -50,6 +58,17 @@ export const receiveResponseIdMap = (responseIdMap) => {
 	return {
 		type: RECEIVE_RESPONSE_ID_MAP,
 		payload: responseIdMap
+	}
+}
+
+export const RECEIVE_RESPONSE_ID_FOR_MAP = 'RECEIVE_RESPONSE_ID_FOR_MAP'
+export const receiveResponseIdForMap = (responseId, questionId) => {
+	return {
+		type: RECEIVE_RESPONSE_ID_FOR_MAP,
+		payload: {
+			responseId,
+			questionId
+		}
 	}
 }
 
@@ -82,6 +101,55 @@ export const setResponseAnswered = ( responseId, isAnswered ) => {
 			responseId,
 			isAnswered
 		}
+	}
+}
+
+export const CHANGE_RESPONSE_TEXT = 'CHANGE_RESPONSE_TEXT'
+export const changeResponseText = ( questionId, value ) => {
+	return {
+		type: CHANGE_RESPONSE_TEXT,
+		payload: {
+			questionId,
+			value
+		}
+	}
+}
+
+export const SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING'
+export const setResponsePending = ( questionId, isPending ) => {
+	return {
+		type: SET_RESPONSE_PENDING,
+		payload: {
+			questionId,
+			isPending
+		}
+	}
+}
+
+export function sendResponse( questionId, value ) {
+	return ( dispatch ) => {
+		// @todo - Should probably use WP's JS.
+		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/responses/', {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': window.WWData.rest_api_nonce
+			},
+			body: JSON.stringify({
+				question_id: questionId,
+				value: value
+			})
+		} )
+		.then( response => response.json() )
+		.then( json => {
+			dispatch( receiveResponse( json ) )
+			dispatch( receiveResponseIdForMap( json.responseId, questionId ) )
+			dispatch( setResponsePending( questionId, false ) )
+			dispatch( changeResponseText( questionId, '' ) )
+			// todo - handle errors
+
+		} )
 	}
 }
 
@@ -198,6 +266,11 @@ function doFetchProblem( problemId ) {
 				dispatch( receiveResponses( responses ) )
 				dispatch( receiveQuestions( questions ) )
 				dispatch( receiveQuestionsById( questionsById ) )
+
+				// Set "pending" status for response forms.
+				questionsById.forEach( ( questionId ) => {
+					dispatch( setResponsePending( questionId, false ) )
+				} )
 
 				// Assemble a flat list of all scored items.
 				let scoredItemIds = questionsById

@@ -53,46 +53,36 @@ class Endpoint extends \WP_Rest_Controller {
 
 	public function create_item( $request ) {
 		$params = $request->get_params();
-		_b( $params );
-		die();
 
-		$item_id   = $params['item_id'];
-		$raw_value = $params['value'];
+		$question_id = $params['question_id'];
+		$value = $params['value'];
 
-		$value = null;
-		if ( 'up' === $raw_value ) {
-			$value = 1;
-		} elseif ( 'down' === $raw_value ) {
-			$value = -1;
-		}
+		$response = new \WeBWorK\Server\Response();
 
-		$vote = new \WeBWorK\Server\Vote( get_current_user_id(), $item_id );
+		$response->set_author_id( get_current_user_id() );
+		$response->set_content( $value );
+		$response->set_question_id( $question_id );
 
-		// Don't allow duplicate votes.
-		// This is not really RESTful. On a successful lookup, perform an update.
-		$retval = false;
-		if ( $vote->exists() && $value === $vote->get_value() ) {
-			// do something
-		} elseif ( $value ) {
-			$vote->set_value( $value );
-			$retval = $vote->save();
-		} elseif ( $vote->exists() ) {
-			$retval = $vote->delete();
-		}
+		if ( $response->save() ) {
+			$retval = array(
+				'responseId' => $response->get_id(),
+				'content' => $response->get_content(),
+				'authorAvatar' => $response->get_author_avatar(),
+				'authorName' => $response->get_author_name(),
+			);
 
-		$response = rest_ensure_response( $retval );
-
-		if ( $retval ) {
-			$response->set_status( 201 );
+			$r = rest_ensure_response( $retval );
+			$r->set_status( 201 );
 		} else {
-			// We return 200 anyway. Not sure how to give good error feedback here.
-			$response->set_status( 200 );
+			$r = rest_ensure_response( false );
+			$r->set_status( 500 );
 		}
 
-		return $response;
+		return $r;
 	}
 
 	public function create_item_permissions_check( $request ) {
+		// @todo make this better
 		return is_user_logged_in();
 	}
 

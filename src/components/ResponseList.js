@@ -1,5 +1,6 @@
-import React from 'react';
-import Response from './Response.js';
+import React from 'react'
+import { If, Then } from 'react-if'
+import Response from './Response.js'
 
 var ResponseList = React.createClass({
 	render: function() {

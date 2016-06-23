@@ -73,7 +73,7 @@ export default class Question extends Component {
 
 					<h3>{authorName}</h3>
 
-					<If condition={userCanPostResponse}>
+					<If condition={userCanPostResponse && ! isCollapsed}>
 						<Then>
 							<a
 							  href="#"

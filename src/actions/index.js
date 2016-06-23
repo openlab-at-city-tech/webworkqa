@@ -37,6 +37,54 @@ export const receiveQuestionsById = (questionsById) => {
 	}
 }
 
+export const CHANGE_QUESTION_TEXT = 'CHANGE_QUESTION_TEXT'
+export const changeQuestionText = ( fieldName, value ) => {
+	return {
+		type: CHANGE_QUESTION_TEXT,
+		payload: {
+			fieldName,
+			value
+		}
+	}
+}
+
+export const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING'
+export const setQuestionPending = ( value ) => {
+	return {
+		type: SET_QUESTION_PENDING,
+		payload: {
+			value
+		}
+	}
+}
+
+export function sendQuestion( problemId, content, tried ) {
+	return
+	return ( dispatch ) => {
+		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/questions/', {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': window.WWData.rest_api_nonce
+			},
+			body: JSON.stringify({
+				question_id: questionId,
+				value: value
+			})
+		} )
+		.then( response => response.json() )
+		.then( json => {
+			dispatch( receiveResponse( json ) )
+			dispatch( receiveResponseIdForMap( json.responseId, questionId ) )
+			dispatch( setResponsePending( questionId, false ) )
+			dispatch( changeResponseText( questionId, '' ) )
+			// todo - handle errors
+
+		} )
+	}
+}
+
 export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE'
 export const receiveResponse = (response) => {
 	return {

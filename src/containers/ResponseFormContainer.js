@@ -25,10 +25,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			e.preventDefault()
 			dispatch( setResponsePending( ownProps.questionId, true ) )
 			dispatch( sendResponse( ownProps.questionId, responseText ) )
-			// Next:
-			// - Dispatch async event
-			// - During success callback, dispatch new response being created, and dispatch setResponsePending( false )
-//			dispatch( clickVote( itemId, voteType ) )
 		}
 	}
 }

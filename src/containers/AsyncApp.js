@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchProblem } from '../actions'
 import ProblemSummary from '../components/ProblemSummary'
-import AskQuestion from '../components/AskQuestion'
+import QuestionFormContainer from '../containers/QuestionFormContainer'
 import QuestionList from '../components/QuestionList'
 
 class AsyncApp extends Component {
@@ -22,12 +22,12 @@ class AsyncApp extends Component {
 				<h2>{problem.title}</h2>
 				<ProblemSummary content={problem.content} />
 
-				<AskQuestion problem_id={problem.ID} />
+				<QuestionFormContainer problemId={problem.ID} />
 				<QuestionList
-					problem_id={problem.ID}
-					questions={questions}
-					questionsById={questionsById}
-					/>
+				  problem_id={problem.ID}
+				  questions={questions}
+				  questionsById={questionsById}
+				/>
 			</div>
 		);
 	}

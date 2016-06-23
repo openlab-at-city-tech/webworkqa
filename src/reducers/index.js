@@ -3,6 +3,8 @@ import {
 	REQUEST_PROBLEM, RECEIVE_PROBLEM,
 	RECEIVE_QUESTIONS,
 	RECEIVE_QUESTIONS_BY_ID,
+	CHANGE_QUESTION_TEXT,
+	SET_QUESTION_PENDING,
 	RECEIVE_RESPONSE_ID_MAP,
 	RECEIVE_RESPONSE_ID_FOR_MAP,
 	SET_RESPONSE_ANSWERED,
@@ -93,6 +95,29 @@ function questionsById( state = [], action ) {
 	switch ( action.type ) {
 		case RECEIVE_QUESTIONS_BY_ID :
 			return action.payload
+
+		default :
+			return state
+	}
+}
+
+function questionFormData( state = {
+	isPending: false,
+	content: '',
+	tried: ''
+}, action ) {
+	switch ( action.type ) {
+		case CHANGE_QUESTION_TEXT :
+			const { fieldName, value } = action.payload
+
+			return Object.assign( {}, state, {
+				[fieldName]: value
+			} )
+
+		case SET_QUESTION_PENDING :
+			return Object.assign( {}, state, {
+				isPending: value
+			} )
 
 		default :
 			return state
@@ -224,6 +249,7 @@ const rootReducer = combineReducers({
   problem,
   questions,
   questionsById,
+  questionFormData,
   responseFormData,
   responseFormPending,
   responseIdMap,

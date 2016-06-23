@@ -23,8 +23,6 @@ export default class Question extends Component {
 				}
 			}
 		}
-		console.log(responseIdMap)
-		console.log(itemId)
 
 		var styles = {
 			li: {

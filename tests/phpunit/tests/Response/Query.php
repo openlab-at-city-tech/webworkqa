@@ -82,9 +82,6 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 		$this->assertSame( array( $r3, $r1, $r2 ), $ids );
 	}
 
-	/**
-	 * @group bbg
-	 */
 	public function test_results_should_be_ordered_by_post_date_when_vote_counts_are_the_same() {
 		$now = time();
 

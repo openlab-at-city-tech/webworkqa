@@ -9,30 +9,17 @@ import ResponseFormContainer from '../containers/ResponseFormContainer';
 export default class Question extends Component {
 	render() {
 		const {
-			answered, collapsed, itemId, question, responseIdMap, responses,
+			isAnswered, isCollapsed, itemId, question, responseIds, responses,
 			onAccordionClick,
 			userCanPostResponse
 		} = this.props
 
 		const { title, content, authorAvatar, authorName } = question
 
-		const isCollapsed = collapsed.hasOwnProperty( itemId );
 		const isMyQuestion = question.isMyQuestion > 0;
 
 		const responseScrollElementName = 'response-form-' + itemId
 		var Element = Scroll.Element
-
-		// Get isAnswered dynamically from the 'answered' state.
-		// Move this to mapStateToProps using ownProps
-		let isAnswered = false
-		if ( responseIdMap.hasOwnProperty( itemId ) ) {
-			for ( var i = 0; i <= responseIdMap[ itemId ].length; i++ ) {
-				if ( answered.hasOwnProperty( responseIdMap[ itemId ][ i ] ) ) {
-					isAnswered = true
-					break
-				}
-			}
-		}
 
 		var styles = {
 			li: {
@@ -104,7 +91,7 @@ export default class Question extends Component {
 				<ResponseList
 				  isMyQuestion={isMyQuestion}
 				  questionId={itemId}
-				  responseIds={responseIdMap[itemId]}
+				  responseIds={responseIds}
 				  responses={responses}
 				/>
 

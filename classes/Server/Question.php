@@ -16,6 +16,7 @@ class Question implements Util\SaveableAsWPPost {
 
 	protected $author_id;
 	protected $content;
+	protected $tried;
 	protected $post_date;
 
 	protected $vote_count = null;
@@ -49,6 +50,10 @@ class Question implements Util\SaveableAsWPPost {
 		$this->content = $content;
 	}
 
+	public function set_tried( $tried ) {
+		$this->tried = $tried;
+	}
+
 	public function set_post_date( $date ) {
 		$this->post_date = $date;
 	}
@@ -73,6 +78,10 @@ class Question implements Util\SaveableAsWPPost {
 
 	public function get_content() {
 		return $this->content;
+	}
+
+	public function get_tried() {
+		return $this->tried;
 	}
 
 	public function get_post_date() {
@@ -109,6 +118,7 @@ class Question implements Util\SaveableAsWPPost {
 			$this->set_id( $saved );
 
 			update_post_meta( $this->get_id(), 'webwork_problem_id', $this->get_problem_id() );
+			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
 
 			$this->populate();
 		}
@@ -124,6 +134,9 @@ class Question implements Util\SaveableAsWPPost {
 		if ( $this->p->populate() ) {
 			$problem_id = get_post_meta( $this->get_id(), 'webwork_problem_id', true );
 			$this->set_problem_id( $problem_id );
+
+			$tried = get_post_meta( $this->get_id(), 'webwork_tried', true );
+			$this->set_tried( $tried );
 		}
 	}
 }

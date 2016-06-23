@@ -80,6 +80,9 @@ class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
 			$question->set_problem_id( $problem_id );
 		}
 
+		$tried = isset( $args['tried'] ) ? $args['tried'] : '';
+		$question->set_tried( $tried );
+
 		if ( isset( $args['post_date'] ) ) {
 			$question->set_post_date( $args['post_date'] );
 		}

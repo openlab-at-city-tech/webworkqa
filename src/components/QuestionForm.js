@@ -7,10 +7,15 @@ var QuestionForm = React.createClass({
 			onTextareaChange, onQuestionFormSubmit,
 		} = this.props
 
+		let formClassName = 'question-form'
+		if ( isPending ) {
+			formClassName += ' form-pending'
+		}
+
 		return (
 			<div className="ww-ask-question-form">
 				<form
-				  className="question-form"
+				  className={formClassName}
 				  onSubmit={ e => {
 					  onQuestionFormSubmit( e, content, tried )
 				  } }
@@ -28,6 +33,7 @@ var QuestionForm = React.createClass({
 					  id="ww-question-content"
 					  name="ww-question-content"
 					  value={content}
+					  disabled={isPending}
 					  onChange={ e => {
 						onTextareaChange( 'content', e.target.value )
 					  } }
@@ -38,11 +44,16 @@ var QuestionForm = React.createClass({
 					  id="ww-question-tried"
 					  name="ww-question-tried"
 					  value={tried}
+					  disabled={isPending}
 					  onChange={ e => {
 						onTextareaChange( 'tried', e.target.value )
 					  } }
 					/>
-					<input type="submit" value="Submit!" />
+					<input
+					  disabled={isPending}
+					  type="submit"
+					  value={isPending ? 'Submitting...' : 'Submit!'}
+					/>
 				</form>
 			</div>
 		);

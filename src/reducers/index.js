@@ -116,7 +116,7 @@ function questionFormData( state = {
 
 		case SET_QUESTION_PENDING :
 			return Object.assign( {}, state, {
-				isPending: value
+				isPending: action.payload.isPending
 			} )
 
 		default :

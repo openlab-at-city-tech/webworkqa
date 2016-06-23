@@ -49,11 +49,11 @@ export const changeQuestionText = ( fieldName, value ) => {
 }
 
 export const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING'
-export const setQuestionPending = ( value ) => {
+export const setQuestionPending = ( isPending ) => {
 	return {
 		type: SET_QUESTION_PENDING,
 		payload: {
-			value
+			isPending
 		}
 	}
 }

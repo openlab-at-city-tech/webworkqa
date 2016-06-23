@@ -63,3 +63,36 @@ class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
 		return $response;
 	}
 }
+
+class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
+	public function create_object( $args ) {
+		$post_id = parent::create_object( $args );
+
+		if ( ! $post_id || is_wp_error( $post_id ) ) {
+			return $post_id;
+		}
+
+		$question = new \WeBWorK\Server\Question( $post_id );
+		$clean_question = clone $question;
+
+		$problem_id = isset( $args['problem_id'] ) ? (int) $args['problem_id'] : false;
+		if ( $problem_id ) {
+			$question->set_problem_id( $problem_id );
+		}
+
+		if ( isset( $args['post_date'] ) ) {
+			$question->set_post_date( $args['post_date'] );
+		}
+
+		if ( $clean_question != $question ) {
+			$question->save();
+		}
+
+		return $post_id;
+	}
+
+	public function get_object_by_id( $post_id ) {
+		$response = new \WeBWorK\Server\Question( $post_id );
+		return $response;
+	}
+}

@@ -6,7 +6,7 @@ const ResponseForm = React.createClass( {
 		const textareaName = 'response-text-' + questionId
 		const submitName = 'response-submit-' + questionId
 
-		let formClassName = 'response-form'
+		let formClassName = 'response-form hide-when-closed'
 		if ( isPending ) {
 			formClassName += ' form-pending'
 		}

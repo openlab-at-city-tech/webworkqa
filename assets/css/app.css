@@ -42,6 +42,12 @@
 	display: none;
 }
 
+.respond-link {
+	position: absolute;
+	top: 35px;
+	right: 8px;
+}
+
 .ww-question > h3,
 .ww-response > h3 {
 	margin: 8px;

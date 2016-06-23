@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import { If, Then } from 'react-if'
+import Scroll from 'react-scroll'
+
 import ScoreDialogContainer from '../containers/ScoreDialogContainer';
 import ResponseList from './ResponseList';
 import ResponseFormContainer from '../containers/ResponseFormContainer';
 
 export default class Question extends Component {
 	render() {
-		const { answered, collapsed, onAccordionClick, itemId, question, responseIdMap, responses, userCanPostResponse } = this.props
+		const {
+			answered, collapsed, itemId, question, responseIdMap, responses,
+			onAccordionClick,
+			userCanPostResponse
+		} = this.props
+
 		const { title, content, authorAvatar, authorName } = question
 
 		const isCollapsed = collapsed.hasOwnProperty( itemId );
 		const isMyQuestion = question.isMyQuestion > 0;
+
+		const responseScrollElementName = 'response-form-' + itemId
+		var Element = Scroll.Element
 
 		// Get isAnswered dynamically from the 'answered' state.
 		// Move this to mapStateToProps using ownProps
@@ -63,6 +73,20 @@ export default class Question extends Component {
 
 					<h3>{authorName}</h3>
 
+					<If condition={userCanPostResponse}>
+						<Then>
+							<a
+							  href="#"
+							  className="respond-link"
+							  onClick={ e => {
+								  this.onGoToResponseFormClick( itemId )
+							  } }
+							>
+								Respond
+							</a>
+						</Then>
+					</If>
+
 					<div className="ww-author-avatar hide-when-closed">
 						<img src={authorAvatar} />
 					</div>
@@ -86,7 +110,11 @@ export default class Question extends Component {
 
 				<If condition={userCanPostResponse}>
 					<Then>
-						<ResponseFormContainer questionId={itemId} />
+						<Element name={responseScrollElementName}>
+							<ResponseFormContainer
+							  questionId={itemId}
+							/>
+						</Element>
 					</Then>
 				</If>
 			</li>
@@ -116,5 +144,20 @@ export default class Question extends Component {
 		}
 
 		return classes.join( ' ' )
+	}
+
+	/**
+	 * Scrolling callback for clicking the "Respond" link.
+	 *
+	 * Not currently aware of state, but maybe it should be - ie to expand the Response form
+	 * or flash the form after scroll. At that point, callback should be moved to the
+	 * container with associated action/reducer.
+	 */
+	onGoToResponseFormClick( itemId ) {
+		Scroll.scroller.scrollTo( 'response-form-' + itemId, {
+			duration: 1000,
+			offset: -80, // for toolbar
+			smooth: true
+		} )
 	}
 }

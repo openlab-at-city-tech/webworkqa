@@ -1,17 +1,15 @@
 import { combineReducers } from 'redux'
 import {
 	REQUEST_PROBLEM, RECEIVE_PROBLEM,
-	RECEIVE_QUESTIONS,
-	RECEIVE_QUESTIONS_BY_ID,
-	CHANGE_QUESTION_TEXT,
-	SET_QUESTION_PENDING,
-	RECEIVE_RESPONSE_ID_MAP,
-	RECEIVE_RESPONSE_ID_FOR_MAP,
-	SET_RESPONSE_ANSWERED,
-	SET_RESPONSE_PENDING,
-	RECEIVE_RESPONSE,
-	RECEIVE_RESPONSES,
-	CHANGE_RESPONSE_TEXT,
+
+	RECEIVE_QUESTION, RECEIVE_QUESTIONS,
+	RECEIVE_QUESTIONS_BY_ID, RECEIVE_QUESTION_BY_ID,
+	CHANGE_QUESTION_TEXT, SET_QUESTION_PENDING,
+
+	RECEIVE_RESPONSE, RECEIVE_RESPONSES,
+	RECEIVE_RESPONSE_ID_MAP, RECEIVE_RESPONSE_ID_FOR_MAP,
+	SET_RESPONSE_ANSWERED, SET_RESPONSE_PENDING, CHANGE_RESPONSE_TEXT,
+
 	SET_VOTE, TOGGLE_VOTE,
 	SET_SCORE, INCR_SCORE,
 	TOGGLE_ACCORDION
@@ -70,8 +68,9 @@ function problem( state = {
 			} );
 
 		case RECEIVE_PROBLEM :
-			const { title, content } = action.payload
+			const { title, content, ID } = action.payload
 			return Object.assign( {}, state, {
+				ID,
 				title,
 				content
 			} );
@@ -83,6 +82,11 @@ function problem( state = {
 
 function questions( state = {}, action ) {
 	switch ( action.type ) {
+		case RECEIVE_QUESTION :
+			return Object.assign( {}, state, {
+				[action.payload.questionId]: action.payload
+			} )
+
 		case RECEIVE_QUESTIONS :
 			return action.payload
 
@@ -93,6 +97,11 @@ function questions( state = {}, action ) {
 
 function questionsById( state = [], action ) {
 	switch ( action.type ) {
+		case RECEIVE_QUESTION_BY_ID :
+			let newState = state
+			newState.push( action.payload.questionId )
+			return newState
+
 		case RECEIVE_QUESTIONS_BY_ID :
 			return action.payload
 

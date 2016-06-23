@@ -21,11 +21,27 @@ export const receiveProblem = (problemId, problem) => {
 	}
 }
 
+export const RECEIVE_QUESTION = 'RECEIVE_QUESTION'
+export const receiveQuestion = (question) => {
+	return {
+		type: RECEIVE_QUESTION,
+		payload: question
+	}
+}
+
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const receiveQuestions = (questions) => {
 	return {
 		type: RECEIVE_QUESTIONS,
 		payload: questions
+	}
+}
+
+export const RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID'
+export const receiveQuestionById = (questionById) => {
+	return {
+		type: RECEIVE_QUESTION_BY_ID,
+		payload: questionById
 	}
 }
 
@@ -59,7 +75,6 @@ export const setQuestionPending = ( isPending ) => {
 }
 
 export function sendQuestion( problemId, content, tried ) {
-	return
 	return ( dispatch ) => {
 		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/questions/', {
 			method: 'POST',
@@ -69,16 +84,17 @@ export function sendQuestion( problemId, content, tried ) {
 				'X-WP-Nonce': window.WWData.rest_api_nonce
 			},
 			body: JSON.stringify({
-				question_id: questionId,
-				value: value
+				problem_id: problemId,
+				content,
+				tried
 			})
 		} )
 		.then( response => response.json() )
 		.then( json => {
-			dispatch( receiveResponse( json ) )
-			dispatch( receiveResponseIdForMap( json.responseId, questionId ) )
-			dispatch( setResponsePending( questionId, false ) )
-			dispatch( changeResponseText( questionId, '' ) )
+			dispatch( setQuestionPending( false ) )
+			dispatch( receiveQuestion( json ) )
+			dispatch( receiveQuestionById( json.questionId ) )
+			//dispatch( changeResponseText( questionId, '' ) )
 			// todo - handle errors
 
 		} )
@@ -291,7 +307,7 @@ export function clickAnswered( responseId, isAnswered ) {
 	}
 }
 
-function doFetchProblem( problemId ) {
+export function fetchProblem( problemId ) {
 	return dispatch => {
 		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`,
 		{
@@ -355,11 +371,4 @@ function doFetchProblem( problemId ) {
 			} )
 	}
 
-}
-
-export function fetchProblem( problemId ) {
-	return dispatch => {
-		requestProblem( problemId );
-		return dispatch( doFetchProblem( problemId ) )
-	}
 }

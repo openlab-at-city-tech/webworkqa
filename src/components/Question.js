@@ -7,6 +7,19 @@ import ResponseList from './ResponseList';
 import ResponseFormContainer from '../containers/ResponseFormContainer';
 
 export default class Question extends Component {
+	componentDidMount() {
+		const { itemId, initialLoadComplete } = this.props
+
+		if ( initialLoadComplete ) {
+			const responseScrollElementName = 'response-form-' + itemId
+			Scroll.scroller.scrollTo( responseScrollElementName, {
+				duration: 1000,
+				offset: -80, // for toolbar
+				smooth: true
+			} )
+		}
+	}
+
 	render() {
 		const {
 			isAnswered, isCollapsed, itemId, question, responseIds, responses,

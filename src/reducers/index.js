@@ -12,6 +12,7 @@ import {
 
 	SET_VOTE, TOGGLE_VOTE,
 	SET_SCORE, INCR_SCORE,
+	SET_INITIAL_LOAD_COMPLETE,
 	TOGGLE_ACCORDION
 } from '../actions'
 
@@ -50,6 +51,16 @@ function collapsed( state = {}, action ) {
 					[itemId]: '1'
 				} )
 			}
+		default :
+			return state
+	}
+}
+
+function initialLoadComplete( state = false, action ) {
+	switch ( action.type ) {
+		case SET_INITIAL_LOAD_COMPLETE :
+			return action.payload
+
 		default :
 			return state
 	}
@@ -252,6 +263,7 @@ function votes( state = {}, action ) {
 const rootReducer = combineReducers({
   answered,
   collapsed,
+  initialLoadComplete,
   problem,
   questions,
   questionsById,

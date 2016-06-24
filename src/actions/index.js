@@ -96,9 +96,7 @@ export function sendQuestion( problemId, content, tried ) {
 			dispatch( setQuestionPending( false ) )
 			dispatch( receiveQuestionById( json.questionId ) )
 			dispatch( receiveQuestion( json ) )
-			//dispatch( changeResponseText( questionId, '' ) )
 			// todo - handle errors
-
 		} )
 	}
 }
@@ -295,6 +293,15 @@ export const toggleAccordion = ( itemId ) => {
 	}
 }
 
+export const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE'
+export const setInitialLoadComplete = ( isInitialLoadComplete ) => {
+	return {
+		type: SET_INITIAL_LOAD_COMPLETE,
+		payload: isInitialLoadComplete
+	}
+}
+
+
 export function clickVote( itemId, voteType ) {
 	return ( dispatch ) => {
 		dispatch( sendVote( itemId, voteType ) )
@@ -369,6 +376,8 @@ export function fetchProblem( problemId ) {
 						} );
 					}
 				} )
+
+				dispatch( setInitialLoadComplete( true ) )
 			} )
 	}
 

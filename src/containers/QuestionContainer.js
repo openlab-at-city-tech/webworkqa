@@ -3,7 +3,7 @@ import Question from '../components/Question'
 import { toggleAccordion } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
-	const { answered, collapsed, responseIdMap, responses } = state
+	const { answered, collapsed, initialLoadComplete, responseIdMap, responses } = state
 	const { itemId } = ownProps
 
 	const isCollapsed = collapsed.hasOwnProperty( itemId )
@@ -21,6 +21,7 @@ const mapStateToProps = (state, ownProps) => {
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
 
 	return {
+		initialLoadComplete,
 		isAnswered,
 		isCollapsed,
 		responseIds,

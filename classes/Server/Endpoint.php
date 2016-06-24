@@ -57,6 +57,7 @@ class Endpoint extends \WP_Rest_Controller {
 					'value' => $problem_id,
 				),
 			),
+			'posts_per_page' => -1,
 		) );
 
 		$questions = array();

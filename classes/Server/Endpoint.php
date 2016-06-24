@@ -49,35 +49,10 @@ class Endpoint extends \WP_Rest_Controller {
 			'ID' => $post->ID,
 		);
 
-		$_questions = get_posts( array(
-			'post_type' => 'webwork_question',
-			'meta_query' => array(
-				array(
-					'key' => 'webwork_problem_id',
-					'value' => $problem_id,
-				),
-			),
-			'posts_per_page' => -1,
+		$question_query = new Question\Query( array(
+			'problem_id' => $problem_id,
 		) );
-
-		$questions = array();
-		$scores = array();
-		$counter = 0;
-		foreach ( $_questions as $question ) {
-			$author = get_userdata( $question->post_author );
-			$questions[ $question->ID ] = array(
-				'title' => $question->post_title,
-				'content' => $question->post_content,
-				'isMyQuestion' => is_user_logged_in() && $question->post_author == get_current_user_id(),
-				'authorAvatar' => get_avatar_url( $question->post_author, array(
-					'size' => 80,
-				) ),
-				'authorName' => $author->display_name,
-			);
-
-			// todo
-			$counter++;
-		}
+		$questions = $question_query->get_for_endpoint();
 
 		$questions_by_id = array_keys( $questions );
 

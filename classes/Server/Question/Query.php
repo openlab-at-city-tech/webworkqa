@@ -57,4 +57,24 @@ class Query {
 
 		return $questions;
 	}
+
+	public function get_for_endpoint() {
+		$questions = $this->get();
+
+		$formatted = array();
+		foreach ( $questions as $q ) {
+			$question_id = $q->get_id();
+			$formatted[ $question_id ] = array(
+				'questionId' => $question_id,
+				'content' => $q->get_content(),
+				'tried' => $q->get_tried(),
+				'problemId' => $q->get_problem_id(),
+				'isMyQuestion' => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
+				'authorAvatar' => $q->get_author_avatar(),
+				'authorName' => $q->get_author_name(),
+			);
+		}
+
+		return $formatted;
+	}
 }

@@ -368,17 +368,6 @@ export function fetchProblem( problemId ) {
 					dispatch( setVote( itemId, vote ) )
 				} );
 
-				// Dispatch "answered" status for responses.
-				questionsById.forEach( ( questionId ) => {
-					if ( responseIdMap.hasOwnProperty( questionId ) ) {
-						responseIdMap[ questionId ].forEach( ( responseId ) => {
-							if ( answered.hasOwnProperty( responseId ) ) {
-								dispatch( setResponseAnswered( responseId, true ) )
-							}
-						} );
-					}
-				} )
-
 				dispatch( setInitialLoadComplete( true ) )
 			} )
 	}

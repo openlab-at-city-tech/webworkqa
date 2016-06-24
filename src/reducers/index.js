@@ -16,28 +16,6 @@ import {
 	TOGGLE_ACCORDION
 } from '../actions'
 
-function answered( state = {}, action ) {
-	switch ( action.type ) {
-		case SET_RESPONSE_ANSWERED :
-			const { responseId, isAnswered } = action.payload
-
-			if ( ! isAnswered && state.hasOwnProperty( responseId ) ) {
-				let newState = Object.assign( {}, state )
-				delete newState[ responseId ]
-				return newState
-			} else if ( isAnswered ) {
-				return Object.assign( {}, state, {
-					[responseId ]: '1'
-				} )
-			} else {
-				return state
-			}
-			break
-		default :
-			return state
-	}
-}
-
 function collapsed( state = {}, action ) {
 	switch ( action.type ) {
 		case TOGGLE_ACCORDION :
@@ -195,6 +173,13 @@ function responses( state = {}, action ) {
 		case RECEIVE_RESPONSES :
 			return action.payload
 
+		case SET_RESPONSE_ANSWERED :
+			const { responseId, isAnswered } = action.payload
+			let response = state[responseId]
+			response.isAnswer = isAnswered
+			return Object.assign( {}, state, {
+				[responseId]: response
+			} )
 		default :
 			return state
 	}
@@ -261,7 +246,6 @@ function votes( state = {}, action ) {
 }
 
 const rootReducer = combineReducers({
-  answered,
   collapsed,
   initialLoadComplete,
   problem,

@@ -2,10 +2,13 @@ import { connect } from 'react-redux'
 import AnsweredDialog from '../components/AnsweredDialog'
 import { clickAnswered } from '../actions'
 
-const mapStateToProps = (state) => {
-	const { answered } = state
+const mapStateToProps = (state, ownProps) => {
+	const { responses } = state
+	const { responseId } = ownProps
+
+	const isAnswered = responseId ? responses[ownProps.responseId].isAnswer : false
 	return {
-		answered
+		isAnswered
 	}
 }
 

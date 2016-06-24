@@ -100,14 +100,7 @@ class Endpoint extends \WP_Rest_Controller {
 			$response_id_map[ $r_question_id ][] = $response['responseId'];
 		}
 
-		// @todo maybe move this to a property of responses.
-		$answered = array();
-		foreach ( $responses as $response ) {
-			$answered[ $response['responseId'] ] = 1;
-		}
-
 		$data = array(
-			'answered' => $answered,
 			'problem' => $problem,
 			'questions' => $questions,
 			'questionsById' => $questions_by_id,

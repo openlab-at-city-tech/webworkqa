@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class AnsweredDialog extends React.Component {
 	render() {
-		const { responseId, onAnsweredClick, answered } = this.props
+		const { responseId, onAnsweredClick, isAnswered } = this.props
 
 		var styles = {
 			wwScore: {
@@ -37,8 +37,6 @@ export default class AnsweredDialog extends React.Component {
 				textAlign: 'center'
 			}
 		}
-
-		const isAnswered = answered.hasOwnProperty( responseId );
 
 		return (
 			<div className="ww-answered">

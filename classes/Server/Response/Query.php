@@ -15,6 +15,8 @@ class Query {
 			'question_id__in' => null,
 			'orderby' => 'votes',
 		), $args );
+
+		$this->sorter = new \WeBWorK\Server\Util\QuerySorter();
 	}
 
 	/**
@@ -50,35 +52,7 @@ class Query {
 			$responses[ $_response->ID ] = new \WeBWorK\Server\Response( $_response->ID );
 		}
 
-		$response_ids = wp_list_pluck( $_responses, 'ID' );
-		if ( $response_ids ) {
-			$response_vote_query = new \WeBWorK\Server\Vote\Query( array( 'item_id__in' => $response_ids ) );
-			$response_votes = $response_vote_query->get();
-
-			$counts = array_fill_keys( $response_ids, 0 );
-			foreach ( $response_votes as $vote ) {
-				$item_id = $vote->get_item_id();
-				$counts[ $item_id ]++;
-			}
-
-			// @todo Make sorting configurable.
-			// Sort is: vote first, then post date.
-			arsort( $counts );
-			$responses_by_count = array_fill_keys( $counts, array() );
-			foreach ( $counts as $response_id => $count ) {
-				$response = $responses[ $response_id ];
-				$response->set_vote_count( $counts[ $response_id ] );
-				$responses_by_count[ $count ][] = $response;
-			}
-
-			// @todo there must be a faster way
-			$sorted_responses = array();
-			foreach ( $responses_by_count as $count => $count_responses ) {
-				$sorted_responses = array_merge( $sorted_responses, $count_responses );
-			}
-
-			$responses = $sorted_responses;
-		}
+		$responses = $this->sorter->sort_by_votes( $responses );
 
 		return $responses;
 	}

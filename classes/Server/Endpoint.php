@@ -117,28 +117,18 @@ class Endpoint extends \WP_Rest_Controller {
 		$response_query = new Response\Query( array(
 			'question_id__in' => $questions_by_id,
 		) );
-		$_responses = $response_query->get();
-
-		$responses = array();
-		$answered = array();
-		foreach ( $_responses as $response ) {
-			$response_id = $response->get_id();
-			$responses[ $response_id ] = array(
-				'responseId' => $response_id,
-				'content' => $response->get_content(),
-				'authorAvatar' => $response->get_author_avatar(),
-				'authorName' => $response->get_author_name(),
-			);
-
-			if ( $response->get_is_answer() ) {
-				$answered[ $response_id ] = 1;
-			}
-		}
+		$responses = $response_query->get_for_endpoint();
 
 		$response_id_map = array();
-		foreach ( $_responses as $response ) {
-			$r_question_id = $response->get_question_id();
-			$response_id_map[ $r_question_id ][] = $response->get_id();
+		foreach ( $responses as $response ) {
+			$r_question_id = $response['questionId'];
+			$response_id_map[ $r_question_id ][] = $response['responseId'];
+		}
+
+		// @todo maybe move this to a property of responses.
+		$answered = array();
+		foreach ( $responses as $response ) {
+			$answered[ $response['responseId'] ] = 1;
 		}
 
 		$data = array(

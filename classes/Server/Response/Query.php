@@ -56,4 +56,23 @@ class Query {
 
 		return $responses;
 	}
+
+	public function get_for_endpoint() {
+		$responses = $this->get();
+
+		$formatted = array();
+		foreach ( $responses as $r ) {
+			$response_id = $r->get_id();
+			$formatted[ $response_id ] = array(
+				'responseId' => $response_id,
+				'content' => $r->get_content(),
+				'questionId' => $r->get_question_id(),
+				'authorAvatar' => $r->get_author_avatar(),
+				'authorName' => $r->get_author_name(),
+				'isAnswer' => $r->get_is_answer(),
+			);
+		}
+
+		return $formatted;
+	}
 }

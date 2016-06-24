@@ -38,10 +38,12 @@ export const receiveQuestions = (questions) => {
 }
 
 export const RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID'
-export const receiveQuestionById = (questionById) => {
+export const receiveQuestionById = (questionId) => {
 	return {
 		type: RECEIVE_QUESTION_BY_ID,
-		payload: questionById
+		payload: {
+			questionId
+		}
 	}
 }
 
@@ -92,8 +94,8 @@ export function sendQuestion( problemId, content, tried ) {
 		.then( response => response.json() )
 		.then( json => {
 			dispatch( setQuestionPending( false ) )
-			dispatch( receiveQuestion( json ) )
 			dispatch( receiveQuestionById( json.questionId ) )
+			dispatch( receiveQuestion( json ) )
 			//dispatch( changeResponseText( questionId, '' ) )
 			// todo - handle errors
 
@@ -325,16 +327,15 @@ export function fetchProblem( problemId ) {
 
 				dispatch( receiveProblem( problemId, problem ) )
 
-				// must dispatch first so that questions can render properly
+				// Set "pending" status for response forms.
+				questionsById.forEach( ( questionId ) => {
+					dispatch( receiveQuestionById( questionId ) )
+					dispatch( setResponsePending( questionId, false ) )
+				} )
+
 				dispatch( receiveResponseIdMap( responseIdMap ) )
 				dispatch( receiveResponses( responses ) )
 				dispatch( receiveQuestions( questions ) )
-				dispatch( receiveQuestionsById( questionsById ) )
-
-				// Set "pending" status for response forms.
-				questionsById.forEach( ( questionId ) => {
-					dispatch( setResponsePending( questionId, false ) )
-				} )
 
 				// Assemble a flat list of all scored items.
 				let scoredItemIds = questionsById

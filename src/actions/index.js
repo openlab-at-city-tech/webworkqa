@@ -96,6 +96,8 @@ export function sendQuestion( problemId, content, tried ) {
 			dispatch( setQuestionPending( false ) )
 			dispatch( receiveQuestionById( json.questionId ) )
 			dispatch( receiveQuestion( json ) )
+			dispatch( changeQuestionText( 'content', '' ) )
+			dispatch( changeQuestionText( 'tried', '' ) )
 			// todo - handle errors
 		} )
 	}

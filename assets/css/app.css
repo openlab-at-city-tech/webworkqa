@@ -26,6 +26,10 @@
 	border-right: none;
 }
 
+.ww-problem-summary {
+	margin-bottom: 60px;
+}
+
 .question-form textarea {
 	margin-bottom: 20px;
 }

@@ -29,7 +29,6 @@ export default class ProblemStats extends Component {
 		}
 
 		const unansweredCount = questionsById.length - answeredCount
-		console.log( 'just did math' )
 
 		return (
 			<div className="problem-stats">

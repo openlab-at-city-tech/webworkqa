@@ -151,9 +151,14 @@ function responseIdMap( state = {}, action ) {
 	switch ( action.type ) {
 		case RECEIVE_RESPONSE_ID_FOR_MAP :
 			const { questionId, responseId } = action.payload
-			let newState = Object.assign( {}, state )
-			newState[questionId].push(responseId)
-			return newState
+
+			// Clone the original array to avoid reference problems.
+			let questionResponseIds = state[questionId].slice(0)
+			questionResponseIds.push( responseId )
+
+			return Object.assign( {}, state, {
+				[questionId]: questionResponseIds	
+			} )
 
 		case RECEIVE_RESPONSE_ID_MAP :
 			return action.payload

@@ -34,16 +34,8 @@ export default class Question extends Component {
 		const responseScrollElementName = 'response-form-' + itemId
 		var Element = Scroll.Element
 
-		var styles = {
-			li: {
-				overflow: 'hidden',
-				marginBottom: '15px'
-			}
-		};
-
 		return (
 			<li
-			  style={styles.li}
 			  className={this.getClassName( isCollapsed, isMyQuestion, isAnswered )}
 			>
 				<div className="ww-question">

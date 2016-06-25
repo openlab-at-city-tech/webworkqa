@@ -35,7 +35,7 @@ class Query {
 			'meta_query' => array(),
 			'posts_per_page' => -1,
 			'orderby' => 'post_date',
-			'order' => 'DESC',
+			'order' => 'ASC',
 		);
 
 		if ( $this->r['problem_id'] ) {

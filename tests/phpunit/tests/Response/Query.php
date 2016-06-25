@@ -120,6 +120,6 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 			$ids[] = $f->get_id();
 		}
 
-		$this->assertSame( array( $r2, $r4, $r1, $r3 ), $ids );
+		$this->assertSame( array( $r2, $r3, $r1, $r4 ), $ids );
 	}
 }

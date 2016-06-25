@@ -116,6 +116,6 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 			$ids[] = $f->get_id();
 		}
 
-		$this->assertSame( array( $q2, $q4, $q1, $q3 ), $ids );
+		$this->assertSame( array( $q2, $q3, $q1, $q4 ), $ids );
 	}
 }

@@ -26,11 +26,11 @@
 }
 
 .question-open.question-unanswered .ww-question-header {
-	background: #f00;
+	background: #ea9998;
 }
 
 .question-open.question-answered .ww-question-header {
-	background: green;
+	background: #b6d7a8;
 }
 
 .question-closed .ww-question-header-toggle-label,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { If, Then } from 'react-if'
+import { If, Then, Else } from 'react-if'
 import Scroll from 'react-scroll'
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer';
@@ -71,8 +71,6 @@ export default class Question extends Component {
 
 					</div>
 
-					<h3>{authorName}</h3>
-
 					<If condition={userCanPostResponse && ! isCollapsed}>
 						<Then>
 							<a
@@ -91,14 +89,25 @@ export default class Question extends Component {
 						<img src={authorAvatar} />
 					</div>
 
-					<div
-					  className="ww-question-content hide-when-closed"
-					  style={styles.wwQuestionContent}
-					>
-						{content}
-					</div>
+					<If condition={isCollapsed}>
+						<Then>
+							<div className="ww-author-name">{authorName}</div>
+						</Then>
+						<Else>
+							<div>
+								<div
+								  className="ww-question-content hide-when-closed"
+								  style={styles.wwQuestionContent}
+								>
+									<div className="ww-author-name">{authorName}</div>
+									{content}
 
-					<ScoreDialogContainer itemId={itemId} />
+								</div>
+
+								<ScoreDialogContainer itemId={itemId} />
+							</div>
+						</Else>
+					</If>
 				</div>
 
 				<div className={isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open'}>

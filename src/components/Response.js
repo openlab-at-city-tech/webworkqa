@@ -20,12 +20,12 @@ var Response = React.createClass({
 		return (
 			<li style={styles.li}>
 				<div className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
-					<h3>{authorName}</h3>
 					<div className="ww-author-avatar">
 						<img src={authorAvatar} />
 					</div>
 
 					<div className="ww-response-content" style={styles.wwResponseContent}>
+						<div className="ww-author-name">{authorName}</div>
 						{content}
 					</div>
 

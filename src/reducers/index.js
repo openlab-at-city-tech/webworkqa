@@ -8,10 +8,11 @@ import {
 
 	RECEIVE_RESPONSE, RECEIVE_RESPONSES,
 	RECEIVE_RESPONSE_ID_MAP, RECEIVE_RESPONSE_ID_FOR_MAP,
-	SET_RESPONSE_ANSWERED, SET_RESPONSE_PENDING, CHANGE_RESPONSE_TEXT,
+	SET_RESPONSE_ANSWERED, SET_RESPONSE_PENDING, SET_RESPONSES_PENDING_BULK,
+	CHANGE_RESPONSE_TEXT,
 
-	SET_VOTE, TOGGLE_VOTE,
-	SET_SCORE, INCR_SCORE,
+	SET_VOTE, SET_VOTES_BULK, TOGGLE_VOTE,
+	SET_SCORE, SET_SCORES_BULK, INCR_SCORE,
 	SET_INITIAL_LOAD_COMPLETE,
 	TOGGLE_ACCORDION
 } from '../actions'
@@ -142,6 +143,9 @@ function responseFormPending( state = {}, action ) {
 				[questionId]: isPending
 			} )
 
+		case SET_RESPONSES_PENDING_BULK :
+			return action.payload
+
 		default :
 			return state
 	}
@@ -157,7 +161,7 @@ function responseIdMap( state = {}, action ) {
 			questionResponseIds.push( responseId )
 
 			return Object.assign( {}, state, {
-				[questionId]: questionResponseIds	
+				[questionId]: questionResponseIds
 			} )
 
 		case RECEIVE_RESPONSE_ID_MAP :
@@ -208,6 +212,9 @@ function scores( state = {}, action ) {
 				[itemId]: action.payload.score
 			} )
 
+		case SET_SCORES_BULK :
+			return action.payload
+
 		default :
 			return state
 	}
@@ -225,6 +232,9 @@ function votes( state = {}, action ) {
 			return Object.assign( {}, state, {
 				[itemId]: voteType
 			} )
+
+		case SET_VOTES_BULK :
+			return action.payload
 
 		case TOGGLE_VOTE :
 			itemId = action.payload.itemId

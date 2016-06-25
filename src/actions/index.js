@@ -192,6 +192,14 @@ export const setResponsePending = ( questionId, isPending ) => {
 	}
 }
 
+export const SET_RESPONSES_PENDING_BULK = 'SET_RESPONSES_PENDING_BULK'
+export const setResponsesPendingBulk = ( pending ) => {
+	return {
+		type: SET_RESPONSES_PENDING_BULK,
+		payload: pending
+	}
+}
+
 export function sendResponse( questionId, value ) {
 	return ( dispatch ) => {
 		// @todo - Should probably use WP's JS.
@@ -252,6 +260,14 @@ export const setVote = (itemId, voteType) => {
 	}
 }
 
+export const SET_VOTES_BULK = 'SET_VOTES_BULK'
+export const setVotesBulk = (votes) => {
+	return {
+		type: SET_VOTES_BULK,
+		payload: votes
+	}
+}
+
 export const TOGGLE_VOTE = 'TOGGLE_VOTE'
 export const toggleVote = (itemId, voteType) => {
 	return {
@@ -282,6 +298,14 @@ export const setScore = (itemId, score) => {
 			itemId,
 			score
 		}
+	}
+}
+
+export const SET_SCORES_BULK = 'SET_SCORES_BULK'
+export const setScoresBulk = (scores) => {
+	return {
+		type: SET_SCORES_BULK,
+		payload: scores
 	}
 }
 
@@ -339,36 +363,21 @@ export function fetchProblem( problemId ) {
 				dispatch( receiveQuestions( questions ) )
 
 				// Set "pending" status for response forms.
+				let pending = {}
+				questionsById.forEach( questionId => {
+					pending[questionId] = false
+				} )
+				dispatch( setResponsesPendingBulk( pending ) )
+
 				questionsById.forEach( ( questionId ) => {
 					dispatch( receiveQuestionById( questionId ) )
-					dispatch( setResponsePending( questionId, false ) )
 				} )
 
 				dispatch( receiveResponseIdMap( responseIdMap ) )
 				dispatch( receiveResponses( responses ) )
 
-				// Assemble a flat list of all scored items.
-				let scoredItemIds = questionsById
-				questionsById.forEach( ( questionId ) => {
-					if ( responseIdMap.hasOwnProperty( questionId ) ) {
-						scoredItemIds = scoredItemIds.concat( responseIdMap[ questionId ] )
-					}
-				} )
-
-				// todo This should probably be done in a single action.
-				scoredItemIds.forEach( ( itemId ) => {
-					score = 0
-					vote = 0
-					if ( scores.hasOwnProperty( itemId ) ) {
-						score = scores[ itemId ]
-					}
-					dispatch( setScore( itemId, score ) )
-
-					if ( votes.hasOwnProperty( itemId ) ) {
-						vote = votes[ itemId ]
-					}
-					dispatch( setVote( itemId, vote ) )
-				} );
+				dispatch( setScoresBulk( scores ) )
+				dispatch( setVotesBulk( votes ) )
 
 				dispatch( setInitialLoadComplete( true ) )
 			} )

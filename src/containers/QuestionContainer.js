@@ -3,11 +3,12 @@ import Question from '../components/Question'
 import { toggleAccordion } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
-	const { collapsed, initialLoadComplete, responseIdMap, responses } = state
+	const { collapsed, initialLoadComplete, questions, responseIdMap, responses } = state
 	const { itemId } = ownProps
 
 	const isCollapsed = collapsed.hasOwnProperty( itemId )
 
+	const question = questions[itemId]
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
 
 	let isAnswered = false
@@ -28,6 +29,7 @@ const mapStateToProps = (state, ownProps) => {
 		initialLoadComplete,
 		isAnswered,
 		isCollapsed,
+		question,
 		responseIds,
 		responses,
 		userCanPostResponse: window.WWData.user_can_post_response > 0

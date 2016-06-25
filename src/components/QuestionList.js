@@ -3,7 +3,7 @@ import QuestionContainer from '../containers/QuestionContainer';
 
 var QuestionList = React.createClass({
 	render: function() {
-		const { questions, questionsById } = this.props
+		const { questionsById } = this.props
 
 		var styles = {
 			ul: {
@@ -13,13 +13,10 @@ var QuestionList = React.createClass({
 		var rows = []
 
 		questionsById.forEach(function(questionId) {
-			if ( questions.hasOwnProperty( questionId ) ) {
-				rows.push( <QuestionContainer
-						itemId={questionId}
-						key={questionId}
-						question={questions[questionId]}
-						/> );
-			}
+			rows.push( <QuestionContainer
+					itemId={questionId}
+					key={questionId}
+					/> );
 		});
 		return (
 			<div className="ww-question-list">

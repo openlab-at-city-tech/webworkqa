@@ -92,6 +92,9 @@ function questionsById( state = [], action ) {
 			newState.push( action.payload.questionId )
 			return newState
 
+		case RECEIVE_QUESTIONS_BY_ID :
+			return action.payload
+
 		default :
 			return state
 	}

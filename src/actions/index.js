@@ -369,9 +369,7 @@ export function fetchProblem( problemId ) {
 				} )
 				dispatch( setResponsesPendingBulk( pending ) )
 
-				questionsById.forEach( ( questionId ) => {
-					dispatch( receiveQuestionById( questionId ) )
-				} )
+				dispatch( receiveQuestionsById( questionsById ) )
 
 				dispatch( receiveResponseIdMap( responseIdMap ) )
 				dispatch( receiveResponses( responses ) )

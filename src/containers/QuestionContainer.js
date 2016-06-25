@@ -11,23 +11,8 @@ const mapStateToProps = (state, ownProps) => {
 	const question = questions[itemId]
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
 
-	let isAnswered = false
-	let responseId = 0
-	let response = null
-	if ( responseIds.length ) {
-		for ( var i = 0; i <= responseIds.length; i++ ) {
-			responseId = responseIds[i]
-			response = responses[responseId]
-			if ( response && response.isAnswer ) {
-				isAnswered = true
-				break
-			}
-		}
-	}
-
 	return {
 		initialLoadComplete,
-		isAnswered,
 		isCollapsed,
 		question,
 		responseIds,

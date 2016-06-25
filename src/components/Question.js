@@ -22,7 +22,7 @@ export default class Question extends Component {
 
 	render() {
 		const {
-			isAnswered, isCollapsed, itemId, question, responseIds, responses,
+			isCollapsed, itemId, question, responseIds, responses,
 			onAccordionClick,
 			userCanPostResponse
 		} = this.props
@@ -33,6 +33,20 @@ export default class Question extends Component {
 
 		const responseScrollElementName = 'response-form-' + itemId
 		var Element = Scroll.Element
+
+		let isAnswered = false
+		let responseId = 0
+		let response = null
+		if ( responseIds.length ) {
+			for ( var i = 0; i <= responseIds.length; i++ ) {
+				responseId = responseIds[i]
+				response = responses[responseId]
+				if ( response && response.isAnswer ) {
+					isAnswered = true
+					break
+				}
+			}
+		}
 
 		return (
 			<li

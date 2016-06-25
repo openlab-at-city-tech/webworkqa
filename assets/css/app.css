@@ -1,3 +1,31 @@
+.ww-problem {
+	position: relative;
+}
+
+.problem-stats {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: .8em;
+	border: 1px solid #aaa;
+	padding: 4px 8px;
+}
+
+.problem-stats > div {
+	float: left;
+	padding: 0 6px;
+	border-right: 1px solid #aaa;
+}
+
+.problem-stats > div:first-child {
+	padding-left: none;
+}
+
+.problem-stats > div:last-child {
+	padding-right: none;
+	border-right: none;
+}
+
 .question-form textarea {
 	margin-bottom: 20px;
 }

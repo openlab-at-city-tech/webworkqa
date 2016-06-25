@@ -330,11 +330,13 @@ export function fetchProblem( problemId ) {
 		} )
 			.then( response => response.json() )
 			.then( json => {
-				const { answered, problem, questions, questionsById, responseIdMap, responses, scores, votes } = json
+				const { problem, questions, questionsById, responseIdMap, responses, scores, votes } = json
 				let score = 0;
 				let vote = 0;
 
 				dispatch( receiveProblem( problemId, problem ) )
+
+				dispatch( receiveQuestions( questions ) )
 
 				// Set "pending" status for response forms.
 				questionsById.forEach( ( questionId ) => {
@@ -344,7 +346,6 @@ export function fetchProblem( problemId ) {
 
 				dispatch( receiveResponseIdMap( responseIdMap ) )
 				dispatch( receiveResponses( responses ) )
-				dispatch( receiveQuestions( questions ) )
 
 				// Assemble a flat list of all scored items.
 				let scoredItemIds = questionsById
@@ -354,6 +355,7 @@ export function fetchProblem( problemId ) {
 					}
 				} )
 
+				// todo This should probably be done in a single action.
 				scoredItemIds.forEach( ( itemId ) => {
 					score = 0
 					vote = 0

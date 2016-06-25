@@ -11,7 +11,7 @@ export default class ScoreDialog extends React.Component {
 		const { itemId, onVoteClick, scores, userCanVote, votes } = this.props
 
 		const myVote = votes.hasOwnProperty( itemId ) ? votes[ itemId ] : '';
-		let score = scores.hasOwnProperty( itemId ) ? scores[ itemId ] : '';
+		let score = scores.hasOwnProperty( itemId ) ? scores[ itemId ] : 0;
 
 		switch ( myVote ) {
 			case 'up' :

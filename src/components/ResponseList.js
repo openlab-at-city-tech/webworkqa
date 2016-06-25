@@ -27,7 +27,7 @@ var ResponseList = React.createClass({
 		});
 
 		return (
-			<div className="ww-response-list hide-when-closed">
+			<div className="ww-response-list">
 				<ul style={styles.ul}>
 					{rows}
 				</ul>

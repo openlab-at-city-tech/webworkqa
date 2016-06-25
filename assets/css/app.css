@@ -42,6 +42,17 @@
 	display: none;
 }
 
+.accordion-content {
+	transition: max-height .25s ease;
+	max-height: 10000px;
+	overflow: hidden;
+}
+
+.accordion-content.accordion-closed {
+	max-height: 0;
+	transition: max-height .25s ease;
+}
+
 .respond-link {
 	position: absolute;
 	top: 35px;

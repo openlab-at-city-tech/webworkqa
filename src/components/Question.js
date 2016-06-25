@@ -101,22 +101,24 @@ export default class Question extends Component {
 					<ScoreDialogContainer itemId={itemId} />
 				</div>
 
-				<ResponseList
-				  isMyQuestion={isMyQuestion}
-				  questionId={itemId}
-				  responseIds={responseIds}
-				  responses={responses}
-				/>
+				<div className={isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open'}>
+					<ResponseList
+					  isMyQuestion={isMyQuestion}
+					  questionId={itemId}
+					  responseIds={responseIds}
+					  responses={responses}
+					/>
 
-				<If condition={userCanPostResponse}>
-					<Then>
-						<Element name={responseScrollElementName}>
-							<ResponseFormContainer
-							  questionId={itemId}
-							/>
-						</Element>
-					</Then>
-				</If>
+					<If condition={userCanPostResponse}>
+						<Then>
+							<Element name={responseScrollElementName}>
+								<ResponseFormContainer
+								  questionId={itemId}
+								/>
+							</Element>
+						</Then>
+					</If>
+				</div>
 			</li>
 		);
 	}

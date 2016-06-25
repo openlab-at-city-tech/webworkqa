@@ -1,9 +1,22 @@
+.question-form textarea {
+	margin-bottom: 20px;
+}
+
+.ww-ask-question-form {
+	margin-bottom: 60px;
+}
+
 .ww-question,
 .ww-response {
 	border: 1px dashed #ccc;
 	overflow: hidden;
 	padding-bottom: 20px; /* for vote checkbox */
+	padding: 20px auto;
 	position: relative;
+}
+
+.ww-response {
+	padding-top: 10px;
 }
 
 .ww-question-gloss {
@@ -82,6 +95,9 @@
 .ww-author-name {
 	font-weight: bold;
 	margin-bottom: .5em;
+}
+
+.question-closed .ww-author-name {
 	margin-left: 30px;
 }
 
@@ -89,9 +105,18 @@
 	padding-left: 120px;
 }
 
+.ww-question-content-section {
+  text-indent: 15px;
+	margin-bottom: 1em;
+}
+
 .ww-response,
 .response-form {
 	margin-left: 20px;
+}
+
+.ww-response-list > ul > li {
+	overflow: hidden;
 }
 
 .ww-answered {

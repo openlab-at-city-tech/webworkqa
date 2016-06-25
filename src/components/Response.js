@@ -9,16 +9,12 @@ var Response = React.createClass({
 		const { content, authorAvatar, authorName, isAnswer } = response
 
 		var styles = {
-			li: {
-				overflow: 'hidden',
-				marginBottom: '15px'
-			},
 			wwResponseContent: {
 				paddingLeft: '50px'
 			}
 		};
 		return (
-			<li style={styles.li}>
+			<li>
 				<div className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
 					<div className="ww-author-avatar">
 						<img src={authorAvatar} />

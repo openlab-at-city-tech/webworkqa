@@ -27,7 +27,7 @@ export default class Question extends Component {
 			userCanPostResponse
 		} = this.props
 
-		const { title, content, authorAvatar, authorName } = question
+		const { tried, content, authorAvatar, authorName } = question
 
 		const isMyQuestion = question.isMyQuestion > 0;
 
@@ -38,9 +38,6 @@ export default class Question extends Component {
 			li: {
 				overflow: 'hidden',
 				marginBottom: '15px'
-			},
-			wwQuestionContent: {
-				paddingLeft: '50px'
 			}
 		};
 
@@ -89,20 +86,19 @@ export default class Question extends Component {
 						<img src={authorAvatar} />
 					</div>
 
+
 					<If condition={isCollapsed}>
 						<Then>
 							<div className="ww-author-name">{authorName}</div>
 						</Then>
 						<Else>
-							<div>
-								<div
-								  className="ww-question-content hide-when-closed"
-								  style={styles.wwQuestionContent}
-								>
-									<div className="ww-author-name">{authorName}</div>
-									{content}
+							<div className="ww-question-content">
+								<div className="ww-author-name">{authorName}</div>
+								<em>My question:</em>
+								<div className="ww-question-content-section">{content}</div>
 
-								</div>
+								<em>What I've tried:</em>
+								<div className="ww-question-content-section">{tried}</div>
 
 								<ScoreDialogContainer itemId={itemId} />
 							</div>

@@ -102,3 +102,37 @@ class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
 		return $response;
 	}
 }
+
+class WeBWorK_Tests_Factory_For_Problem extends WP_UnitTest_Factory_For_Post {
+	public function create_object( $args ) {
+		$post_id = parent::create_object( $args );
+
+		if ( ! $post_id || is_wp_error( $post_id ) ) {
+			return $post_id;
+		}
+
+		$problem = new \WeBWorK\Server\Problem( $post_id );
+		$clean_problem = clone $problem;
+
+		$content = isset( $args['content'] ) ? $args['content'] : '';
+		$problem->set_content( $content );
+
+		$remote_problem_url = isset( $args['remote_url'] ) ? $args['remote_url'] : '';
+		$problem->set_remote_url( $remote_problem_url );
+
+		if ( isset( $args['post_date'] ) ) {
+			$problem->set_post_date( $args['post_date'] );
+		}
+
+		if ( $clean_problem != $problem ) {
+			$problem->save();
+		}
+
+		return $post_id;
+	}
+
+	public function get_object_by_id( $post_id ) {
+		$problem = new \WeBWorK\Server\Problem( $post_id );
+		return $problem;
+	}
+}

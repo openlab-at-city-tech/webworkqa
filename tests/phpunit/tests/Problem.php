@@ -5,7 +5,6 @@
  */
 class WeBWork_Tests_Problem extends WeBWorK_UnitTestCase {
 	public function test_successful_save_for_existing_item() {
-		return;
 		$p = self::factory()->problem->create( array(
 			'content' => 'bar',
 			'remote_url' => 'http://example.com/my-webwork-problem',

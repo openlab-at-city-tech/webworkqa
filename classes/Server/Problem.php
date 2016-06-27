@@ -8,8 +8,6 @@ namespace WeBWorK\Server;
 class Problem implements Util\SaveableAsWPPost {
 	protected $p;
 
-	protected $post_type;
-
 	protected $id = 0;
 
 	protected $problem_id;

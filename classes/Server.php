@@ -26,6 +26,8 @@ class Server {
 
 		$responses_endpoint = new Server\Response\Endpoint();
 		add_action( 'rest_api_init', array( $responses_endpoint, 'register_routes' ) );
+
+		add_action( 'template_redirect', array( $this, 'catch_post' ) );
 	}
 
 	private function check_table() {
@@ -42,5 +44,39 @@ class Server {
 
 			dbDelta( array( $schema ) );
 		}
+	}
+
+	/**
+	 * @todo This will only work for individual problems. Will need to differentiate for other uses.
+	 */
+	public function catch_post() {
+		// @todo
+		if ( ! is_page( 'webwork' ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST ) ) {
+			return;
+		}
+
+		// @todo Check permissions against target site - maybe share logic with endpoints.
+		if ( ! is_user_logged_in() ) {
+			return;
+		}
+
+		$pg_object = wp_unslash( $_POST['pg_object'] );
+
+		$problem = new Server\Problem();
+
+		// @todo test data is already decoded, but it won't be in the production app.
+		$problem->set_content( $pg_object );
+		$problem->set_author_id( get_current_user_id() );
+
+		// @todo I think this has to be fetched from referer URL.
+		$problem->set_remote_url( 'http://example.com/test-url' );
+
+		$problem->save();
+
+		print_r( $problem ); die();
 	}
 }

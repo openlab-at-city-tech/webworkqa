@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ProblemListItemContainer from '../containers/ProblemListItemContainer.js'
 
 export default class ProblemList extends Component {
-	componentDidMount() {
-		const { onComponentDidMount } = this.props
-		onComponentDidMount()
+	componentWillMount() {
+		const { onComponentWillMount } = this.props
+		onComponentWillMount()
 	}
 
 	render() {

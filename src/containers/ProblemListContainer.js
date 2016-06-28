@@ -13,7 +13,7 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		// @todo Pagination?
-		onComponentDidMount: function() {
+		onComponentWillMount: function() {
 			dispatch( fetchProblems() )
 		}
 	}

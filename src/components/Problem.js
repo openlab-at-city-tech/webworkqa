@@ -5,10 +5,10 @@ import QuestionFormContainer from '../containers/QuestionFormContainer'
 import QuestionList from '../components/QuestionList'
 
 export default class Problem extends Component {
-	componentDidMount() {
-		const { onComponentDidMount } = this.props
+	componentWillMount() {
+		const { onComponentWillMount } = this.props
 		const { problemId } = this.props.routeParams
-		onComponentDidMount( problemId )
+		onComponentWillMount( problemId )
 	}
 
 	render() {

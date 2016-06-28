@@ -44,7 +44,7 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch ) => {
 	return {
-		onComponentDidMount: function( problemId ) {
+		onComponentWillMount: function( problemId ) {
 			dispatch( fetchProblem( problemId ) )
 		}
 	}

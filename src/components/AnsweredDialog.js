@@ -44,7 +44,7 @@ export default class AnsweredDialog extends React.Component {
 					<input
 						type="checkbox"
 						checked={isAnswered}
-						onClick={ e => {
+						onChange={ e => {
 							onAnsweredClick( responseId, ! isAnswered )
 						} }
 						value="1"

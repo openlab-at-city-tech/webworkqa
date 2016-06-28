@@ -15,7 +15,7 @@ export default class ProblemStats extends Component {
 
 		let answered = {}
 		for ( var responseId in responses ) {
-			if ( responses.hasOwnProperty( responseId ) ) {
+			if ( responses.hasOwnProperty( responseId ) && responses[responseId].isAnswer ) {
 				// Will be overwritten for other responses to same question
 				answered[ responses[responseId].questionId ] = responseId
 			}

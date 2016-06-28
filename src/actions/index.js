@@ -388,7 +388,12 @@ export function clickAnswered( responseId, isAnswered ) {
 export function fetchProblem( problemId ) {
 	return dispatch => {
 
+		// Reset a bunch of stuff.
+		// Could work around this with a better-structured state (store all data per-problem)
 		dispatch( setInitialLoadComplete( false ) )
+		dispatch( receiveProblem( 0, { ID: 0, title: '', content: '' } ) )
+		dispatch( receiveQuestionsById( [] ) )
+		dispatch( receiveResponseIdMap( {} ) )
 
 		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`,
 		{

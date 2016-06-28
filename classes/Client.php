@@ -35,6 +35,15 @@ class Client {
 			) );
 
 			wp_enqueue_style( 'webwork-app', plugins_url() . '/webwork/assets/css/app.css' );
+
+			wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . '/assets/js/webwork-mathjax-loader.js' );
+
+			$webwork_mathjax_loader_strings = array(
+				'mathjax_src' => esc_url( 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' ),
+			);
+			wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );
+
+			wp_enqueue_script( 'webwork-mathjax-loader' );
 		}
 
 		return $content;

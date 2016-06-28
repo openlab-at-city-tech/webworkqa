@@ -7,11 +7,12 @@ const mapStateToProps = ( state, ownProps ) => {
 
 	const problem = problems[ problemId ]
 
-	const { content, excerpt } = problem
+	const { content, excerpt, maths } = problem
 
 	return {
 		content,
 		excerpt,
+		maths,
 		problemId
 	}
 }

@@ -3,11 +3,13 @@ import { Link } from 'react-router'
 
 export default class ProblemListItem extends Component {
 	render() {
-		const { problemId } = this.props
+		const { problemId, excerpt } = this.props
 		return (
-			<li>
-				<Link to={`/wpmaster/foo1/webwork/problems/${problemId}`}>Here is a problem link</Link>
-			</li>
+			<Link to={`/wpmaster/foo1/webwork/problems/${problemId}`}>
+				<li className="problem-list-item">
+					{excerpt}
+				</li>
+			</Link>
 		)
 	}
 }

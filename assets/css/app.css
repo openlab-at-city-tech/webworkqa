@@ -1,3 +1,5 @@
+/** General ******************************************************************/
+
 .ww-app {
 	position: relative;
 }
@@ -27,6 +29,25 @@
 .app-loading .ww-app-content {
 	opacity: .15 !important;
 }
+
+/** Index *********************************************************************/
+
+.problem-list {
+	list-style-type: none;
+}
+
+.problem-list > a:hover > li {
+	background: #ccc;
+}
+
+.problem-list-item {
+	margin: 16px 0;
+	border: 1px dashed #ccc;
+	padding: 16px;
+}
+
+
+/** Problem *******************************************************************/
 
 .ww-problem {
 	position: relative;

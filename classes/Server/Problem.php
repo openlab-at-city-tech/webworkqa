@@ -66,6 +66,14 @@ class Problem implements Util\SaveableAsWPPost {
 		return $this->content;
 	}
 
+	public function get_excerpt() {
+		$content = $this->get_content();
+
+		$content = strip_tags( $content );
+
+		return wp_trim_words( $content, 55, '...' );
+	}
+
 	public function get_post_date() {
 		return $this->post_date;
 	}

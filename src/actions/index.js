@@ -387,6 +387,9 @@ export function clickAnswered( responseId, isAnswered ) {
 
 export function fetchProblem( problemId ) {
 	return dispatch => {
+
+		dispatch( setInitialLoadComplete( false ) )
+
 		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`,
 		{
 			credentials: 'same-origin',

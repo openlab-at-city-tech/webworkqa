@@ -14,9 +14,12 @@ export default class Problem extends Component {
 	render() {
 		const { problem, questionsById } = this.props
 
+		// Maintain minimum height.
+		const title = problem.title.length ? problem.title : '\u0020'
+
 		return (
 			<div className="ww-problem">
-				<h2>{problem.title}</h2>
+				<h2>{title}</h2>
 				<ProblemStatsContainer />
 				<ProblemSummary content={problem.content} />
 

@@ -32,6 +32,10 @@
 	position: relative;
 }
 
+.ww-problem > h2 {
+	min-height: 1em;
+}
+
 .problem-stats {
 	position: absolute;
 	top: 0;

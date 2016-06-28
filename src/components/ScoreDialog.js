@@ -30,7 +30,7 @@ export default class ScoreDialog extends React.Component {
 				  checked={myVote == 'up'}
 				  disabled={! userCanVote}
 				  value={itemId}
-				  onClick={ e => {
+				  onChange={ e => {
 					onVoteClick( e.target.value, ( myVote === 'up' ) ? '' : 'up' )
 				  } }
 				/>

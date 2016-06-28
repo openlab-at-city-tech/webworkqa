@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Problem from '../components/Problem'
-import { fetchProblem } from '../actions'
+import { fetchProblem, setAppIsLoading } from '../actions'
 
 const mapStateToProps = ( state ) => {
 	const { problem, questions, questionsById, responseIdMap, responses } = state
@@ -45,6 +45,7 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		onComponentWillMount: function( problemId ) {
+			dispatch( setAppIsLoading( true ) )
 			dispatch( fetchProblem( problemId ) )
 		}
 	}

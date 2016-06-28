@@ -1,3 +1,33 @@
+.ww-app {
+	position: relative;
+}
+
+.app-loading-throbber {
+	display: none;
+}
+
+.app-loading .app-loading-throbber {
+	display: block;
+	width: 200px;
+	height: 75px;
+	font-weight: bold;
+	font-size: 150%;
+	background-color: #ccc;
+	padding-top: 20px;
+	text-align: center;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top: 50px;
+	opacity: 50%;
+}
+
+.app-loading .ww-app-content {
+	opacity: .15 !important;
+}
+
 .ww-problem {
 	position: relative;
 }

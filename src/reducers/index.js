@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
 import {
+	SET_APP_IS_LOADING,
+
 	REQUEST_PROBLEM, RECEIVE_PROBLEM,
 	REQUEST_PROBLEMS, RECEIVE_PROBLEMS, RECEIVE_PROBLEM_IDS,
 
@@ -17,6 +19,17 @@ import {
 	SET_INITIAL_LOAD_COMPLETE,
 	TOGGLE_ACCORDION
 } from '../actions'
+
+function appIsLoading( state = false, action ) {
+	switch ( action.type ) {
+		case SET_APP_IS_LOADING :
+			const { appIsLoading } = action.payload
+			return appIsLoading
+
+		default:
+			return state
+	}
+}
 
 function collapsed( state = {}, action ) {
 	switch ( action.type ) {
@@ -285,6 +298,7 @@ function votes( state = {}, action ) {
 }
 
 const rootReducer = combineReducers({
+  appIsLoading,
   collapsed,
   initialLoadComplete,
   problem,

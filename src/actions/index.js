@@ -1,5 +1,15 @@
 import fetch from 'isomorphic-fetch'
 
+export const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING'
+export const setAppIsLoading = (appIsLoading) => {
+	return {
+		type: SET_APP_IS_LOADING,
+		payload: {
+			appIsLoading
+		}
+	}
+}
+
 export const REQUEST_PROBLEM = 'REQUEST_PROBLEM';
 export const requestProblem = (problemId) => {
 	return {
@@ -429,6 +439,7 @@ export function fetchProblem( problemId ) {
 				dispatch( setVotesBulk( votes ) )
 
 				dispatch( setInitialLoadComplete( true ) )
+				dispatch( setAppIsLoading( false ) )
 			} )
 	}
 

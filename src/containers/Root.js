@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { browserHistory, Router, Route, IndexRoute } from 'react-router'
 import configureStore from '../configureStore'
-import MainLayout from '../components/MainLayout'
+import MainLayoutContainer from './MainLayoutContainer'
 import ProblemListContainer from './ProblemListContainer'
 import ProblemContainer from './ProblemContainer'
 
@@ -15,7 +15,7 @@ export default class Root extends Component {
 		return (
 			<Provider store={store}>
 				<Router history={browserHistory}>
-					<Route path="wpmaster/foo1/webwork/" component={MainLayout}>
+					<Route path="wpmaster/foo1/webwork/" component={MainLayoutContainer}>
 						<IndexRoute component={ProblemListContainer} />
 						<Route path="problems/:problemId" component={ProblemContainer} />
 					</Route>

@@ -15,17 +15,17 @@ class Server {
 		// temp
 		$this->check_table();
 
-		$this->endpoint = new Server\Endpoint();
-		add_action( 'rest_api_init', array( $this->endpoint, 'register_routes' ) );
-
-		$votes_endpoint = new Server\Vote\Endpoint();
-		add_action( 'rest_api_init', array( $votes_endpoint, 'register_routes' ) );
+		$problems_endpoint = new Server\Problem\Endpoint();
+		add_action( 'rest_api_init', array( $problems_endpoint, 'register_routes' ) );
 
 		$questions_endpoint = new Server\Question\Endpoint();
 		add_action( 'rest_api_init', array( $questions_endpoint, 'register_routes' ) );
 
 		$responses_endpoint = new Server\Response\Endpoint();
 		add_action( 'rest_api_init', array( $responses_endpoint, 'register_routes' ) );
+
+		$votes_endpoint = new Server\Vote\Endpoint();
+		add_action( 'rest_api_init', array( $votes_endpoint, 'register_routes' ) );
 
 		add_action( 'template_redirect', array( $this, 'catch_post' ) );
 	}

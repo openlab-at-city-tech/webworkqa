@@ -46,7 +46,12 @@ class Query {
 		if ( null !== $this->r['item_id'] ) {
 			$where[] = $wpdb->prepare( "item_id = %d", $this->r['item_id'] );
 		} elseif ( is_array( $this->r['item_id__in'] ) ) {
-			$item_id__in = implode( ',', array_map( 'intval', $this->r['item_id__in'] ) );
+			if ( empty( $this->r['item_id__in'] ) ) {
+				$item_id__in = 0;
+			} else {
+				$item_id__in = implode( ',', array_map( 'intval', $this->r['item_id__in'] ) );
+			}
+
 			$where[] = "item_id IN ($item_id__in)";
 		}
 

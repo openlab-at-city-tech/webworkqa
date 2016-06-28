@@ -12,9 +12,8 @@ class Query {
 
 	protected $sorter;
 
-	public function __construct( $args ) {
-		$this->r = array_merge( array(
-		), $args );
+	public function __construct( $args = array() ) {
+		$this->r = array_merge( array(), $args );
 	}
 
 	/**

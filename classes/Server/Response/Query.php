@@ -36,10 +36,17 @@ class Query {
 			'order' => 'ASC',
 		);
 
-		if ( $this->r['question_id__in'] ) {
+
+		if ( null !== $this->r['question_id__in'] ) {
+			if ( array() === $this->r['question_id__in'] ) {
+				$question_id__in = array( 0 );
+			} else {
+				$question_id__in = array_map( 'intval', $this->r['question_id__in'] );
+			}
+
 			$args['meta_query']['question_id__in'] = array(
 				'key' => 'webwork_question_id',
-				'value' => array_map( 'intval', $this->r['question_id__in'] ),
+				'value' => $question_id__in,
 				'compare' => 'IN',
 			);
 		}

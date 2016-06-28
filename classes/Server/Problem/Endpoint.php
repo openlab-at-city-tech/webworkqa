@@ -3,7 +3,7 @@
 namespace WeBWorK\Server\Problem;
 
 /**
- * Question API endpoint.
+ * Problem API endpoint.
  */
 class Endpoint extends \WP_Rest_Controller {
 	/**
@@ -63,6 +63,19 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$questions_by_id = array_keys( $questions );
 
+		$response_query = new \WeBWork\Server\Response\Query( array(
+			'question_id__in' => $questions_by_id,
+		) );
+		$responses = $response_query->get_for_endpoint();
+
+		$response_id_map = array();
+		$response_ids = $questions_by_id;
+		foreach ( $responses as $response ) {
+			$r_question_id = $response['questionId'];
+			$response_id_map[ $r_question_id ][] = $response['responseId'];
+			$response_ids[] = $response['responseId'];
+		}
+
 		// todo find a better way to do this
 		$scores = array();
 		foreach ( $questions_by_id as $qid ) {
@@ -82,6 +95,7 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$vote_query = new \WeBWork\Server\Vote\Query( array(
 			'user_id' => get_current_user_id(),
+			'item_id__in' => array_merge( $questions_by_id, $response_ids ),
 		) );
 		$vote_data = $vote_query->get();
 
@@ -94,17 +108,6 @@ class Endpoint extends \WP_Rest_Controller {
 			}
 
 			$votes[ $vote->get_item_id() ] = $value;
-		}
-
-		$response_query = new \WeBWork\Server\Response\Query( array(
-			'question_id__in' => $questions_by_id,
-		) );
-		$responses = $response_query->get_for_endpoint();
-
-		$response_id_map = array();
-		foreach ( $responses as $response ) {
-			$r_question_id = $response['questionId'];
-			$response_id_map[ $r_question_id ][] = $response['responseId'];
 		}
 
 		$data = array(

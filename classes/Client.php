@@ -16,7 +16,13 @@ class Client {
 	}
 
 	public function filter_the_content( $content ) {
-		$ww_problem = get_query_var( 'ww_problem' );
+		$ww_problem = false;
+		if ( is_page( 'webwork' ) ) {
+			$ww_problem = true;
+		} else {
+			$ww_problem = get_query_var( 'ww_problem' );
+		}
+
 		if ( $ww_problem ) {
 			$content = '<div id="webwork-app"></div>';
 			wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js' );

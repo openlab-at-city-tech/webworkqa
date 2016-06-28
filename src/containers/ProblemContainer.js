@@ -50,9 +50,9 @@ const mapDispatchToProps = ( dispatch ) => {
 	}
 }
 
-const AsyncApp = connect(
+const ProblemContainer = connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Problem)
 
-export default AsyncApp
+export default ProblemContainer

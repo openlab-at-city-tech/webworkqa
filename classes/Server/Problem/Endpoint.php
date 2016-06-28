@@ -125,7 +125,12 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$problems = $q->get_for_endpoint();
 
-		$response = rest_ensure_response( $problems );
+		$retval = array(
+			'problemIds' => array_keys( $problems ),
+			'problems' => $problems,
+		);
+
+		$response = rest_ensure_response( $retval );
 
 		return $response;
 	}

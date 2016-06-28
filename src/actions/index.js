@@ -21,6 +21,49 @@ export const receiveProblem = (problemId, problem) => {
 	}
 }
 
+export const REQUEST_PROBLEMS = 'REQUEST_PROBLEMS';
+export const requestProblems = (problems) => {
+	return {
+		type: REQUEST_PROBLEMS,
+		payload: problems
+	}
+}
+
+export const RECEIVE_PROBLEMS = 'RECEIVE_PROBLEMS'
+export const receiveProblems = (problems) => {
+	return {
+		type: RECEIVE_PROBLEMS,
+		payload: problems
+	}
+}
+
+export function fetchProblems() {
+	return dispatch => {
+		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/`,
+		{
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': window.WWData.rest_api_nonce
+			},
+		} )
+			.then( response => response.json() )
+			.then( json => {
+				dispatch( receiveProblems( json.problems ) )
+				dispatch( receiveProblemIds( json.problemIds ) )
+			} )
+	}
+
+}
+
+export const RECEIVE_PROBLEM_IDS = 'RECEIVE_PROBLEM_IDS';
+export const receiveProblemIds = (problemIds) => {
+	return {
+		type: RECEIVE_PROBLEM_IDS,
+		payload: problemIds
+	}
+}
+
 export const RECEIVE_QUESTION = 'RECEIVE_QUESTION'
 export const receiveQuestion = (question) => {
 	return {

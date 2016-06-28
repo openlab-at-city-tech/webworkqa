@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import {
 	REQUEST_PROBLEM, RECEIVE_PROBLEM,
+	REQUEST_PROBLEMS, RECEIVE_PROBLEMS, RECEIVE_PROBLEM_IDS,
 
 	RECEIVE_QUESTION, RECEIVE_QUESTIONS,
 	RECEIVE_QUESTIONS_BY_ID, RECEIVE_QUESTION_BY_ID,
@@ -64,6 +65,26 @@ function problem( state = {
 				title,
 				content
 			} );
+
+		default :
+			return state
+	}
+}
+
+function problems( state = {}, action ) {
+	switch ( action.type ) {
+		case RECEIVE_PROBLEMS :
+			return action.payload
+
+		default :
+			return state
+	}
+}
+
+function problemIds( state = [], action ) {
+	switch ( action.type ) {
+		case RECEIVE_PROBLEM_IDS :
+			return action.payload
 
 		default :
 			return state
@@ -267,6 +288,8 @@ const rootReducer = combineReducers({
   collapsed,
   initialLoadComplete,
   problem,
+  problemIds,
+  problems,
   questions,
   questionsById,
   questionFormData,

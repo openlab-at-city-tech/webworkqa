@@ -6,7 +6,8 @@ import QuestionList from '../components/QuestionList'
 
 export default class Problem extends Component {
 	componentDidMount() {
-		const { onComponentDidMount, problemId } = this.props
+		const { onComponentDidMount } = this.props
+		const { problemId } = this.props.routeParams
 		onComponentDidMount( problemId )
 	}
 

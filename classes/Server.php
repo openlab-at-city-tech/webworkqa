@@ -66,16 +66,35 @@ class Server {
 			return;
 		}
 
-		// Do not unslash. wp_insert_post() expocts slashed. A nightmare.
-		$pf = new Server\Util\ProblemFormatter();
+		// @todo This should come from referer.
+		$source_parts = $this->sanitize_class_url( $_SERVER['HTTP_REFERER'] );
+		$source = $source_parts['base'];
 
 		$problem = new Server\Problem();
 
 		// @todo test data is already decoded, but it won't be in the production app.
-		//$problem->set_content( $pg_object['text'] );
+		// Do not unslash. wp_insert_post() expocts slashed. A nightmare.
 		$problem->set_content( $_POST['pg_object'] );
-
 		$problem_library_id = $problem->get_library_id();
+
+		// Route to existing problem, if it exists.
+		$pq = new Server\Problem\Query( array(
+			'library_id' => $problem_library_id,
+		) );
+		$matches = $pq->get();
+
+		if ( $matches ) {
+			$existing_problem_id = reset( array_keys( $matches ) );
+
+			// Get Client base URL from $source (the blog URL)
+			$client_id = $this->get_client_from_course_url( $source );
+
+			$client_base = get_blog_option( $client_id, 'home' );
+			$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $existing_problem_id;
+
+			wp_safe_redirect( $client_url );
+			die();
+		}
 
 		$problem->set_author_id( get_current_user_id() );
 
@@ -85,5 +104,63 @@ class Server {
 		$problem->save();
 
 		print_r( $problem ); die();
+	}
+
+	/**
+	 * Sanitize a remote class URL.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $raw_url Raw URL from the HTTP_REFERER header.
+	 * @return array URL parts.
+	 */
+	protected function sanitize_class_url( $raw_url ) {
+		$parts = parse_url( $raw_url );
+
+		// Raw URL may contain a set and problem subpath.
+		$subpath = '';
+		foreach ( array( 'set', 'problem' ) as $key ) {
+			if ( ! empty( $_POST[ $key ] ) ) {
+				$subpath .= trailingslashit( $_POST[ $key ] );
+			}
+		}
+
+//		$this->remote_referer_url = $parts['scheme'] . '://' . $parts['host'] . $parts['path'];
+
+		if ( $subpath && $subpath === substr( $parts['path'], -strlen( $subpath ) ) ) {
+			$base = substr( $parts['path'], 0, -strlen( $subpath ) );
+		} else {
+			$base = $parts['path'];
+		}
+
+		$base = trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $base );
+
+		$retval = array(
+			'base' => $base,
+			'effectiveUser' => '',
+			'user' => '',
+			'key' => '',
+		);
+
+		if ( ! empty( $parts['query'] ) ) {
+			parse_str( $parts['query'], $query );
+			foreach ( (array) $query as $k => $v ) {
+				$retval[ $k ] = $v;
+			}
+		}
+
+		return $retval;
+	}
+
+	protected function get_client_from_course_url( $course_url ) {
+		// @todo We need a better way to do this.
+		$clients = get_option( 'webwork_clients', array() );
+
+		$client = 0;
+		if ( isset( $clients[ $course_url ] ) ) {
+			$client = $clients[ $course_url ];
+		}
+
+		return (int) $client;
 	}
 }

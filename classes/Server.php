@@ -84,26 +84,25 @@ class Server {
 		$matches = $pq->get();
 
 		if ( $matches ) {
-			$existing_problem_id = reset( array_keys( $matches ) );
+			$problem_id = reset( array_keys( $matches ) );
+		} else {
+			$problem->set_author_id( get_current_user_id() );
 
-			// Get Client base URL from $source (the blog URL)
-			$client_id = $this->get_client_from_course_url( $source );
+			// @todo I think this has to be fetched from referer URL.
+			$problem->set_remote_url( 'http://example.com/test-url' );
 
-			$client_base = get_blog_option( $client_id, 'home' );
-			$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $existing_problem_id;
+			$problem->save();
 
-			wp_safe_redirect( $client_url );
-			die();
+			$problem_id = $problem->get_id();
 		}
 
-		$problem->set_author_id( get_current_user_id() );
+		// Get Client base URL from $source (the blog URL)
+		$client_id = $this->get_client_from_course_url( $source );
 
-		// @todo I think this has to be fetched from referer URL.
-		$problem->set_remote_url( 'http://example.com/test-url' );
-
-		$problem->save();
-
-		print_r( $problem ); die();
+		$client_base = get_blog_option( $client_id, 'home' );
+		$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $existing_problem_id;
+		wp_safe_redirect( $client_url );
+		die();
 	}
 
 	/**

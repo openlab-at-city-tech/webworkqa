@@ -66,12 +66,14 @@ class Server {
 			return;
 		}
 
-		$pg_object = wp_unslash( $_POST['pg_object'] );
+		// Do not unslash. wp_insert_post() expocts slashed. A nightmare.
+		$pf = new Server\Util\ProblemFormatter();
 
 		$problem = new Server\Problem();
 
 		// @todo test data is already decoded, but it won't be in the production app.
-		$problem->set_content( $pg_object );
+		//$problem->set_content( $pg_object['text'] );
+		$problem->set_content( $_POST['pg_object'] );
 
 		$problem_library_id = $problem->get_library_id();
 

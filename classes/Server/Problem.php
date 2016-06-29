@@ -20,6 +20,8 @@ class Problem implements Util\SaveableAsWPPost {
 
 	protected $library_id;
 
+	protected $maths = array();
+
 	public function __construct( $id = null ) {
 		$this->p = new Util\WPPost( $this );
 		$this->p->set_post_type( 'webwork_problem' );

@@ -30,36 +30,13 @@ class ProblemFormatter {
 	}
 
 	public function generate_placeholders( $text ) {
-		$retval = array(
-			'text' => '',
-			'maths' => array(),
-			'inputs' => array(),
-		);
-
 		$clean_text = $text;
 
-		$regex = '|<script type="math/tex[^>]+>(.*?)</script>|';
-		if ( preg_match_all( $regex, $text, $matches ) ) {
-			$matches_wrapped   = $matches[0];
-			$matches_unwrapped = $matches[1];
+		$retval = $this->generate_placeholders_for_maths( $text );
+		$clean_text = $retval['text'];
 
-			foreach ( $matches_wrapped as $key => $mw ) {
-				$clean_text = str_replace( $mw, '{{{math_' . $key . '}}}', $clean_text );
-			}
-
-			foreach ( $matches_wrapped as $key => $mw ) {
-				if ( false !== strpos( $mw, 'mode=display' ) ) {
-					$display = 'block';
-				} else {
-					$display = 'inline';
-				}
-
-				$retval['maths'][ $key ] = array(
-					'math' => $matches_unwrapped[ $key ],
-					'display' => $display,
-				);
-			}
-		}
+		// @todo move to another method
+		$retval['inputs'] = array();
 
 		$regex = '|<input[^>]+>|';
 		if ( preg_match_all( $regex, $text, $matches ) ) {
@@ -89,6 +66,47 @@ class ProblemFormatter {
 				);
 
 				$clean_text = str_replace( $mi, '{{{input_' . $key . '}}}', $clean_text );
+			}
+		}
+
+		$retval['text'] = $clean_text;
+
+		return $retval;
+	}
+
+	public function generate_placeholders_for_maths( $text ) {
+		$retval = array(
+			'text' => '',
+			'maths' => array(),
+		);
+
+		$clean_text = $text;
+
+		// $text may be slashed. Ugh.
+		$clean_text = str_replace( '\"', '"', $clean_text );
+
+		$regex = '|<script type="math/tex[^>]+>(.*?)</script>|';
+
+		if ( preg_match_all( $regex, $clean_text, $matches ) ) {
+			$matches_wrapped   = $matches[0];
+			$matches_unwrapped = $matches[1];
+
+			foreach ( $matches_wrapped as $key => $mw ) {
+				$clean_text = str_replace( $mw, '{{{math_' . $key . '}}}', $clean_text );
+			}
+
+			foreach ( $matches_wrapped as $key => $mw ) {
+				if ( false !== strpos( $mw, 'mode=display' ) ) {
+					$display = 'block';
+				} else {
+					$display = 'inline';
+				}
+
+				$retval['maths'][ $key ] = array(
+					// May be slashed.
+					'math' => str_replace( '\\\\', '\\', $matches_unwrapped[ $key ] ),
+					'display' => $display,
+				);
 			}
 		}
 

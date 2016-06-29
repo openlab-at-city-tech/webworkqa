@@ -3,8 +3,15 @@ import FormattedProblem from './FormattedProblem'
 
 var ProblemSummary = React.createClass({
 	render: function() {
-		const { problemId } = this.props
-		const { content, excerpt, inputs, maths } = this.props.problem
+		const { problemId, problem } = this.props
+
+		if ( ! problem ) {
+			return (
+				<div className="ww-problem-summary"></div>
+			)
+		}
+
+		const { content, excerpt, inputs, maths } = problem
 
 		return (
 			<div className="ww-problem-summary">

@@ -7,6 +7,10 @@ export default class FormattedProblem extends Component {
 	render() {
 		const { problemId, content, excerpt, inputs, maths } = this.props
 
+		if ( ! content ) {
+			return ( <span></span> )
+		}
+
 		const parts = content.split( /(\{\{\{[a-z]+_[0-9]?\}\}\})/g)
 		let children = []
 		var num, theMath, theInput

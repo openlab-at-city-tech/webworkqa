@@ -401,7 +401,7 @@ export function fetchProblem( problemId ) {
 		// Reset a bunch of stuff.
 		// Could work around this with a better-structured state (store all data per-problem)
 		dispatch( setInitialLoadComplete( false ) )
-		dispatch( receiveProblem( 0, { ID: 0, title: '', content: '' } ) )
+		dispatch( receiveProblems( {} ) )
 		dispatch( receiveQuestionsById( [] ) )
 		dispatch( receiveResponseIdMap( {} ) )
 
@@ -415,11 +415,11 @@ export function fetchProblem( problemId ) {
 		} )
 			.then( response => response.json() )
 			.then( json => {
-				const { problem, questions, questionsById, responseIdMap, responses, scores, votes } = json
+				const { problems, questions, questionsById, responseIdMap, responses, scores, votes } = json
 				let score = 0;
 				let vote = 0;
 
-				dispatch( receiveProblem( problemId, problem ) )
+				dispatch( receiveProblems( problems ) )
 
 				dispatch( receiveQuestions( questions ) )
 

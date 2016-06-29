@@ -12,12 +12,14 @@ export default class Problem extends Component {
 	}
 
 	render() {
-		const { problem, questionsById } = this.props
+		const { problems, questionsById } = this.props
+		const { problemId } = this.props.routeParams
 
-		const problemId = problem.ID
+		const problem = problems[problemId]
 
 		// Maintain minimum height.
-		const title = problem.title.length ? problem.title : '\u0020'
+//		const title = problem.title.length ? problem.title : '\u0020'
+		const title = ''
 
 		return (
 			<div className="ww-problem">
@@ -25,7 +27,7 @@ export default class Problem extends Component {
 				<ProblemStatsContainer />
 				<ProblemSummary problemId={problemId} problem={problem} />
 
-				<QuestionFormContainer problemId={problem.ID} />
+				<QuestionFormContainer problemId={problemId} />
 				<QuestionList questionsById={questionsById} />
 			</div>
 		);

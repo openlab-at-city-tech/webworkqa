@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import Problem from '../components/Problem'
 import { fetchProblem, setAppIsLoading } from '../actions'
 
-const mapStateToProps = ( state ) => {
-	const { problem, questions, questionsById, responseIdMap, responses } = state
+const mapStateToProps = ( state, ownProps ) => {
+	const { problems, questions, questionsById, responseIdMap, responses } = state
 
 	// @todo - All of this should be moved out so it doesn't run on every state update
 	const questionCount = questionsById.length
@@ -33,7 +33,7 @@ const mapStateToProps = ( state ) => {
 	const unansweredCount = questionsById.length - answeredCount
 
 	return {
-		problem,
+		problems,
 		questionCount,
 		questions,
 		questionsById,

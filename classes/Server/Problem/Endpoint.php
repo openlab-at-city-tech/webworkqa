@@ -48,13 +48,12 @@ class Endpoint extends \WP_Rest_Controller {
 		$params = $request->get_params();
 
 		$problem_id = $params['id'];
+		$problem_query = new Query( array(
+			'problem_id__in' => array( $problem_id ),
+		) );
 
-		$post = get_post( $problem_id );
-		$problem = array(
-			'title' => $post->post_title,
-			'content' => $post->post_content,
-			'ID' => $post->ID,
-		);
+		$problems = $problem_query->get_for_endpoint();
+		$problem = reset( $problems );
 
 		$question_query = new \WeBWork\Server\Question\Query( array(
 			'problem_id' => $problem_id,
@@ -111,7 +110,7 @@ class Endpoint extends \WP_Rest_Controller {
 		}
 
 		$data = array(
-			'problem' => $problem,
+			'problems' => array( $problem_id => $problem ),
 			'questions' => $questions,
 			'questionsById' => $questions_by_id,
 			'responseIdMap' => $response_id_map,

@@ -4,7 +4,13 @@ import FormattedProblem from './FormattedProblem'
 
 export default class ProblemListItem extends Component {
 	render() {
-		const { problemId, content, excerpt, inputs, maths } = this.props
+		const { problem } = this.props
+
+		if ( ! problem ) {
+			return ( <span></span> )
+		}
+
+		const { problemId, content, excerpt, inputs, maths } = problem
 
 		return (
 			<Link to={`/wpmaster/foo1/webwork/problems/${problemId}`}>

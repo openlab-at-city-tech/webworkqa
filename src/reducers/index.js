@@ -59,31 +59,6 @@ function initialLoadComplete( state = false, action ) {
 	}
 }
 
-function problem( state = {
-	ID: '',
-	title: '',
-	content: '',
-}, action ) {
-	switch ( action.type ) {
-		case REQUEST_PROBLEM :
-			return Object.assign( {}, state, {
-				isFetching: true,
-				didInvalidate: false
-			} );
-
-		case RECEIVE_PROBLEM :
-			const { title, content, ID } = action.payload
-			return Object.assign( {}, state, {
-				ID,
-				title,
-				content
-			} );
-
-		default :
-			return state
-	}
-}
-
 function problems( state = {}, action ) {
 	switch ( action.type ) {
 		case RECEIVE_PROBLEMS :
@@ -193,9 +168,14 @@ function responseIdMap( state = {}, action ) {
 		case RECEIVE_RESPONSE_ID_FOR_MAP :
 			const { questionId, responseId } = action.payload
 
-			// Clone the original array to avoid reference problems.
-			let questionResponseIds = state[questionId].slice(0)
-			questionResponseIds.push( responseId )
+			let questionResponseIds = []
+			if ( state.hasOwnProperty( questionId ) ) {
+				// Clone the original array to avoid reference problems.
+				questionResponseIds = state[questionId].slice(0)
+				questionResponseIds.push( responseId )
+			} else {
+				questionResponseIds.push( responseId )
+			}
 
 			return Object.assign( {}, state, {
 				[questionId]: questionResponseIds
@@ -301,7 +281,6 @@ const rootReducer = combineReducers({
   appIsLoading,
   collapsed,
   initialLoadComplete,
-  problem,
   problemIds,
   problems,
   questions,

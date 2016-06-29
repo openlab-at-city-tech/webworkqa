@@ -7,7 +7,7 @@ export default class ProblemListItem extends Component {
 	render() {
 		const { problemId, content, excerpt, inputs, maths } = this.props
 
-		const parts = content.split( /(\{\{\{math_[0-9]?\}\}\})/g)
+		const parts = content.split( /(\{\{\{[a-z]+_[0-9]?\}\}\})/g)
 		let children = []
 		var num, theMath, theInput
 		for ( var i = 0; i < parts.length; i++ ) {

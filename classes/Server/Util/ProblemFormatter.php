@@ -17,7 +17,9 @@ class ProblemFormatter {
 		// @todo Does this happen in all questions?
 		$parsed['text'] = preg_replace( '/^<[pP][ >][^>]*>\([0-9]+ points?\)/', '', $parsed['text'] );
 
+		// Tag cleanup.
 		$parsed['text'] = preg_replace( '|<br/?>|i', "\r\r", $parsed['text'] );
+		$parsed['text'] = preg_replace( '|</?[pbi]>|i', '', $parsed['text'] );
 
 		return $parsed;
 	}

@@ -13,7 +13,9 @@ class Query {
 	protected $sorter;
 
 	public function __construct( $args = array() ) {
-		$this->r = array_merge( array(), $args );
+		$this->r = array_merge( array(
+			'problem_id__in' => null,
+		), $args );
 	}
 
 	/**
@@ -32,6 +34,16 @@ class Query {
 			'orderby' => 'post_date',
 			'order' => 'DESC',
 		);
+
+		if ( is_array( $this->r['problem_id__in'] ) ) {
+			if ( empty( $this->r['problem_id__in'] ) ) {
+				$problem_id__in = array( 0 );
+			} else {
+				$problem_id__in = array_map( 'intval', $this->r['problem_id__in'] );
+			}
+
+			$args['post__in'] = $problem_id__in;
+		}
 
 		$problem_query = new \WP_Query( $args );
 		$_problems = $problem_query->posts;

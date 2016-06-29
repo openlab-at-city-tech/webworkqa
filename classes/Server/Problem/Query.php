@@ -15,6 +15,7 @@ class Query {
 	public function __construct( $args = array() ) {
 		$this->r = array_merge( array(
 			'problem_id__in' => null,
+			'library_id' => null,
 		), $args );
 	}
 
@@ -43,6 +44,13 @@ class Query {
 			}
 
 			$args['post__in'] = $problem_id__in;
+		}
+
+		if ( null !== $this->r['library_id'] ) {
+			$args['meta_query'][] = array(
+				'key' => 'webwork_library_id',
+				'value' => $this->r['library_id'],
+			);
 		}
 
 		$problem_query = new \WP_Query( $args );

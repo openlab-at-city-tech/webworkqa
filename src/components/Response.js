@@ -6,7 +6,7 @@ import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
 var Response = React.createClass({
 	render: function() {
 		const { isMyQuestion, response, responseId } = this.props
-		const { content, authorAvatar, authorName, isAnswer } = response
+		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response
 
 		var styles = {
 			wwResponseContent: {
@@ -16,6 +16,8 @@ var Response = React.createClass({
 		return (
 			<li>
 				<div className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
+					<div className="response-user-type">{authorUserType}</div>
+
 					<div className="ww-author-avatar">
 						<img src={authorAvatar} />
 					</div>

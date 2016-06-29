@@ -98,6 +98,10 @@ class Response implements Util\SaveableAsWPPost {
 		return $this->p->get_author_name();
 	}
 
+	public function get_author_type_label() {
+		return apply_filters( 'webwork_author_type_label', '', $this->get_author_id() );
+	}
+
 	/**
 	 * Get vote count.
 	 *

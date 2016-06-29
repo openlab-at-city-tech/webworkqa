@@ -146,6 +146,7 @@ class Loader {
 	protected function includes() {
 		include WEBWORK_PLUGIN_DIR . '/includes/functions.php';
 		include WEBWORK_PLUGIN_DIR . '/includes/template.php';
+		include WEBWORK_PLUGIN_DIR . '/includes/openlab.php';
 	}
 
 	/**

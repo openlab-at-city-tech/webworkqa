@@ -76,6 +76,7 @@ class Query {
 				'questionId' => $r->get_question_id(),
 				'authorAvatar' => $r->get_author_avatar(),
 				'authorName' => $r->get_author_name(),
+				'authorUserType' => $r->get_author_type_label(),
 				'isAnswer' => $r->get_is_answer(),
 			);
 		}

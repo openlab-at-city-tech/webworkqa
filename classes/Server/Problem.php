@@ -21,7 +21,7 @@ class Problem implements Util\SaveableAsWPPost {
 		$this->p = new Util\WPPost( $this );
 		$this->p->set_post_type( 'webwork_problem' );
 
-		$this->latex = new Util\LaTeX();
+		$this->pf = new Util\ProblemFormatter();
 
 		if ( $id ) {
 			$this->set_id( $id );
@@ -65,14 +65,19 @@ class Problem implements Util\SaveableAsWPPost {
 	}
 
 	public function get_content() {
-		$parsed = $this->latex->clean( $this->content );
+		$parsed = $this->pf->clean( $this->content );
 		$this->content_with_placeholders = $parsed['text'];
 		$this->maths = $parsed['maths'];
+		$this->inputs = $parsed['inputs'];
 		return $this->content_with_placeholders;
 	}
 
 	public function get_maths() {
 		return $this->maths;
+	}
+
+	public function get_inputs() {
+		return $this->inputs;
 	}
 
 	public function get_excerpt() {

@@ -1,5 +1,7 @@
 window.MathJax = {
-	MathMenu: { showContext: true }
+	MathMenu: {
+		showContext: true
+	}
 }
 
 var script = document.createElement( 'script' );

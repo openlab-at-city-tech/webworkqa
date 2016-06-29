@@ -53,6 +53,7 @@ class Query {
 			$formatted[ $problem_id ] = array(
 				'problemId' => $problem_id,
 				'content' => $p->get_content(),
+				'inputs' => $p->get_inputs(),
 				'maths' => $p->get_maths(),
 				'excerpt' => $p->get_excerpt(),
 				'remoteUrl' => $p->get_remote_url(),

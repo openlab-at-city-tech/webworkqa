@@ -39,7 +39,7 @@ class Client {
 			wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . '/assets/js/webwork-mathjax-loader.js' );
 
 			$webwork_mathjax_loader_strings = array(
-				'mathjax_src' => esc_url( 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' ),
+				'mathjax_src' => esc_url( 'https://cdn.mathjax.org/mathjax/latest/unpacked/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' ),
 			);
 			wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );
 

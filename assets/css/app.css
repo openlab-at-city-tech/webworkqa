@@ -46,6 +46,10 @@
 	padding: 16px;
 }
 
+.problem-list-item input {
+	width: auto;
+}
+
 
 /** Problem *******************************************************************/
 

@@ -144,6 +144,10 @@ class Problem implements Util\SaveableAsWPPost {
 	}
 
 	public function save() {
+		// Don't allow Library ID to be saved with post content. This is a hack.
+		$regex = '|Library[^<]+\.pg|';
+		$this->raw_content = preg_replace( $regex, '', $this->raw_content );
+
 		$saved = $this->p->save();
 
 		if ( $saved ) {

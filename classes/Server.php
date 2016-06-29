@@ -72,6 +72,9 @@ class Server {
 
 		// @todo test data is already decoded, but it won't be in the production app.
 		$problem->set_content( $pg_object );
+
+		$problem_library_id = $problem->get_library_id();
+
 		$problem->set_author_id( get_current_user_id() );
 
 		// @todo I think this has to be fetched from referer URL.

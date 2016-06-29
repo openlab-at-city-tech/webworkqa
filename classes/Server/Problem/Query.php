@@ -64,10 +64,10 @@ class Query {
 			$problem_id = $p->get_id();
 			$formatted[ $problem_id ] = array(
 				'problemId' => $problem_id,
-				'content' => $p->get_content(),
+				'content' => $p->get_clean_content(),
 				'inputs' => $p->get_inputs(),
+				'libraryId' => $p->get_library_id(),
 				'maths' => $p->get_maths(),
-				'excerpt' => $p->get_excerpt(),
 				'remoteUrl' => $p->get_remote_url(),
 				'authorAvatar' => $p->get_author_avatar(),
 				'authorName' => $p->get_author_name(),

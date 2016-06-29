@@ -65,7 +65,6 @@ class ProblemFormatter {
 		if ( preg_match_all( $regex, $text, $matches ) ) {
 			$matched_inputs = $matches[0];
 
-			$inputs = array();
 			foreach ( $matched_inputs as $key => $mi ) {
 
 				$type = 'text';

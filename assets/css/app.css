@@ -225,3 +225,8 @@
 .ww-score-value {
 	font-style: italic;
 }
+
+.problem-library-id {
+	margin-top: 1em;
+	font-weight: bold;
+}

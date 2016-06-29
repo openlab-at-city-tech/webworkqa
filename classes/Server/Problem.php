@@ -13,9 +13,12 @@ class Problem implements Util\SaveableAsWPPost {
 	protected $problem_id;
 
 	protected $author_id;
+	protected $raw_content;
 	protected $content;
 	protected $remote_url;
 	protected $post_date;
+
+	protected $library_id;
 
 	public function __construct( $id = null ) {
 		$this->p = new Util\WPPost( $this );
@@ -45,7 +48,9 @@ class Problem implements Util\SaveableAsWPPost {
 	}
 
 	public function set_content( $content ) {
-		$this->content = $content;
+		$this->raw_content = $content;
+
+		$this->set_library_id( null );
 	}
 
 	public function set_remote_url( $remote_url ) {
@@ -56,6 +61,10 @@ class Problem implements Util\SaveableAsWPPost {
 		$this->post_date = $date;
 	}
 
+	public function set_library_id( $library_id ) {
+		$this->library_id = $library_id;
+	}
+
 	public function get_id() {
 		return $this->id;
 	}
@@ -64,12 +73,16 @@ class Problem implements Util\SaveableAsWPPost {
 		return $this->author_id;
 	}
 
-	public function get_content() {
-		$parsed = $this->pf->clean( $this->content );
+	public function get_clean_content() {
+		$parsed = $this->pf->clean( $this->raw_content );
 		$this->content_with_placeholders = $parsed['text'];
 		$this->maths = $parsed['maths'];
 		$this->inputs = $parsed['inputs'];
 		return $this->content_with_placeholders;
+	}
+
+	public function get_content() {
+		return $this->raw_content;
 	}
 
 	public function get_maths() {
@@ -104,6 +117,30 @@ class Problem implements Util\SaveableAsWPPost {
 		return $this->p->get_author_name();
 	}
 
+	/**
+	 * Gets the WeBWorK OPL ID for the problem.
+	 *
+	 * Fetches it out of the content, if not found in meta.
+	 *
+	 * @todo Must be saved in meta, so that we can query by it later.
+	 *
+	 * @return string|bool False on failure, ID on success.
+	 */
+	public function get_library_id() {
+		if ( null === $this->library_id	) {
+			$content = $this->raw_content;
+
+			// @todo Is this reliable?
+			$regex = '|Library[^<]+\.pg|';
+			if ( preg_match( $regex, $content, $matches ) ) {
+				$library_id = $matches[0];
+				$this->set_library_id( $matches[0] );
+			}
+		}
+
+		return $this->library_id;
+	}
+
 	public function save() {
 		$saved = $this->p->save();
 
@@ -111,6 +148,7 @@ class Problem implements Util\SaveableAsWPPost {
 			$this->set_id( $saved );
 
 			update_post_meta( $this->get_id(), 'webwork_remote_problem_url', $this->get_remote_url() );
+			update_post_meta( $this->get_id(), 'webwork_library_id', $this->get_library_id() );
 
 			$this->populate();
 		}
@@ -126,6 +164,9 @@ class Problem implements Util\SaveableAsWPPost {
 		if ( $this->p->populate() ) {
 			$remote_url = get_post_meta( $this->get_id(), 'webwork_remote_problem_url', true );
 			$this->set_remote_url( $remote_url );
+
+			$library_id = get_post_meta( $this->get_id(), 'webwork_library_id', true );
+			$this->set_library_id( $library_id );
 		}
 	}
 }

@@ -14,6 +14,8 @@ export default class Problem extends Component {
 	render() {
 		const { problem, questionsById } = this.props
 
+		const problemId = problem.ID
+
 		// Maintain minimum height.
 		const title = problem.title.length ? problem.title : '\u0020'
 
@@ -21,7 +23,7 @@ export default class Problem extends Component {
 			<div className="ww-problem">
 				<h2>{title}</h2>
 				<ProblemStatsContainer />
-				<ProblemSummary content={problem.content} />
+				<ProblemSummary problemId={problemId} problem={problem} />
 
 				<QuestionFormContainer problemId={problem.ID} />
 				<QuestionList questionsById={questionsById} />

@@ -49,12 +49,14 @@ export const receiveProblems = (problems) => {
 
 export function fetchProblems() {
 	return dispatch => {
-		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/`,
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'problems/'
+		return fetch( endpoint,
 		{
 			credentials: 'same-origin',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-WP-Nonce': window.WWData.rest_api_nonce
+				'X-WP-Nonce': rest_api_nonce
 			},
 		} )
 			.then( response => response.json() )
@@ -131,12 +133,15 @@ export const setQuestionPending = ( isPending ) => {
 
 export function sendQuestion( problemId, content, tried ) {
 	return ( dispatch ) => {
-		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/questions/', {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'questions/'
+
+		return fetch( endpoint, {
 			method: 'POST',
 			credentials: 'same-origin',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-WP-Nonce': window.WWData.rest_api_nonce
+				'X-WP-Nonce': rest_api_nonce
 			},
 			body: JSON.stringify({
 				problem_id: problemId,
@@ -193,12 +198,15 @@ export const receiveResponseIdForMap = (responseId, questionId) => {
 
 function sendResponseAnswered( responseId, isAnswered ) {
 	return ( dispatch ) => {
-		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/responses/${responseId}`, {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'responses/' + responseId
+
+		return fetch( endpoint, {
 			method: 'POST',
 			credentials: 'same-origin',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-WP-Nonce': window.WWData.rest_api_nonce
+				'X-WP-Nonce': rest_api_nonce
 			},
 			body: JSON.stringify({
 				is_answer: isAnswered
@@ -255,13 +263,15 @@ export const setResponsesPendingBulk = ( pending ) => {
 
 export function sendResponse( questionId, value ) {
 	return ( dispatch ) => {
-		// @todo - Should probably use WP's JS.
-		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/responses/', {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'responses/'
+
+		return fetch( endpoint, {
 			method: 'POST',
 			credentials: 'same-origin',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-WP-Nonce': window.WWData.rest_api_nonce
+				'X-WP-Nonce': rest_api_nonce
 			},
 			body: JSON.stringify({
 				question_id: questionId,
@@ -282,12 +292,15 @@ export function sendResponse( questionId, value ) {
 
 function sendVote(itemId, voteType) {
 	return ( dispatch ) => {
-		return fetch( 'http://boone.cool/wpmaster/wp-json/webwork/v1/votes/', {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'votes/'
+
+		return fetch( endpoint, {
 			method: 'POST',
 			credentials: 'same-origin',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-WP-Nonce': window.WWData.rest_api_nonce
+				'X-WP-Nonce': rest_api_nonce
 			},
 			body: JSON.stringify({
 				item_id: itemId,
@@ -405,12 +418,15 @@ export function fetchProblem( problemId ) {
 		dispatch( receiveQuestionsById( [] ) )
 		dispatch( receiveResponseIdMap( {} ) )
 
-		return fetch( `http://boone.cool/wpmaster/wp-json/webwork/v1/problems/${problemId}`,
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'problems/' + problemId
+
+		return fetch( endpoint,
 		{
 			credentials: 'same-origin',
 			headers: {
 				'Content-Type': 'application/json',
-				'X-WP-Nonce': window.WWData.rest_api_nonce
+				'X-WP-Nonce': rest_api_nonce
 			},
 		} )
 			.then( response => response.json() )

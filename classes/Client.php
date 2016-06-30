@@ -30,9 +30,14 @@ class Client {
 			$route_base = get_option( 'home' );
 			$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
 
+			// @todo Centralize this logic.
+			$main_site_url = get_blog_option( 1, 'home' );
+			$rest_api_endpoint = trailingslashit( $main_site_url ) . 'wp-json/webwork/v1/';
+
 			wp_localize_script( 'webwork-app', 'WWData', array(
 				'problem_id' => $ww_problem,
 				'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
+				'rest_api_endpoint' => $rest_api_endpoint,
 				'route_base' => trailingslashit( $route_base ) . 'webwork/',
 				'user_can_ask_question' => is_user_logged_in(), // todo
 				'user_can_post_response' => is_user_logged_in(), // todo

@@ -5,11 +5,15 @@ export default class Input extends Component {
 		const { type, value } = this.props
 
 		return (
-			<input
-			  type={type}
-			  disabled={true}
-			  value={value}
-			/>
+			<span>
+				<input
+				  type={type}
+				  disabled={true}
+				  value={value}
+				  className="ww-disabled-input"
+				/>
+				<br />
+			</span>
 		)
 	}
 }

@@ -86,6 +86,7 @@
 
 .question-form textarea {
 	margin-bottom: 20px;
+	width: 100%;
 }
 
 .ww-ask-question-form {
@@ -97,7 +98,6 @@
 	border: 1px dashed #ccc;
 	overflow: visible;
 	padding-bottom: 20px; /* for vote checkbox */
-	padding: 20px auto;
 	position: relative;
 }
 
@@ -124,6 +124,10 @@
 	margin-left: -40px;
 	margin-top: 20px;
 	float: left;
+}
+
+.ww-response-content {
+	padding-left: 136px;
 }
 
 .ww-question-gloss {
@@ -196,7 +200,7 @@
 	width: 120px;
 	text-align: center;
 	padding: 8px;
-	float: left;
+	position: absolute;
 }
 
 .ww-author-name {
@@ -204,12 +208,18 @@
 	margin-bottom: .5em;
 }
 
+/* Common for Twenty themes */
+.entry-content #webwork-app li {
+	margin-left: 0;
+}
+
 .question-closed .ww-author-name {
 	margin-left: 30px;
 }
 
 .ww-question-content {
-	padding-left: 120px;
+	/* 120px + 8px*2 padding for avatar */
+	padding-left: 136px;
 }
 
 .ww-question-content-section {
@@ -217,19 +227,19 @@
 	margin-bottom: 1em;
 }
 
-.ww-response,
-.response-form {
+.response-form textarea {
+	margin: 1em 0;
+	width: 95%;
+	padding: 10px 2%;
+}
+
+#webwork-app .ww-response-list > ul > li {
+	overflow: hidden;
 	margin-left: 20px;
 }
 
-.ww-response-list > ul > li {
-	overflow: hidden;
-}
-
 .ww-answered {
-	position: absolute;
-	bottom: 3px;
-	left: 120px;
+	margin-top: 1em;
 	font-style: italic;
 }
 
@@ -246,4 +256,9 @@
 .problem-library-id {
 	margin-top: 1em;
 	font-weight: bold;
+}
+
+.ww-disabled-input {
+	width: 50px;
+	margin-bottom: 1em;
 }

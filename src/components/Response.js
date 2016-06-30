@@ -8,11 +8,6 @@ var Response = React.createClass({
 		const { isMyQuestion, response, responseId } = this.props
 		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response
 
-		var styles = {
-			wwResponseContent: {
-				paddingLeft: '50px'
-			}
-		};
 		return (
 			<li>
 				<div className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
@@ -22,14 +17,14 @@ var Response = React.createClass({
 						<img src={authorAvatar} />
 					</div>
 
-					<div className="ww-response-content" style={styles.wwResponseContent}>
+					<div className="ww-response-content">
 						<div className="ww-author-name">{authorName}</div>
 						{content}
-					</div>
 
-					<If condition={isMyQuestion}>
-						<Then><AnsweredDialogContainer responseId={responseId} /></Then>
-					</If>
+						<If condition={isMyQuestion}>
+							<Then><AnsweredDialogContainer responseId={responseId} /></Then>
+						</If>
+						</div>
 
 					<ScoreDialogContainer itemId={responseId} />
 				</div>

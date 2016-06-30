@@ -16,7 +16,7 @@ export default class ProblemListItem extends Component {
 			<Link to={`/wpmaster/foo1/webwork/problems/${problemId}`}>
 				<li className="problem-list-item">
 					<FormattedProblem
-					  problemId={problemId}
+					  itemId={problemId}
 					  content={content}
 					  excerpt={excerpt}
 					  inputs={inputs}

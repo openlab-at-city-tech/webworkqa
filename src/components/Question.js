@@ -28,7 +28,7 @@ export default class Question extends Component {
 			userCanPostResponse
 		} = this.props
 
-		const { tried, content, authorAvatar, authorName, problemText, problemInputs, problemMaths } = question
+		const { tried, content, questionId, authorAvatar, authorName, problemText, problemInputs, problemMaths } = question
 
 		const isMyQuestion = question.isMyQuestion > 0
 		const hasProblemText = problemText && problemText.length > 0
@@ -116,7 +116,7 @@ export default class Question extends Component {
 										<em>My problem:</em>
 										<div className="ww-question-content-section">
 											<FormattedProblem
-											  problemId="0"
+											  itemId={questionId}
 											  content={problemText}
 											  maths={problemMaths}
 											  inputs={problemInputs}

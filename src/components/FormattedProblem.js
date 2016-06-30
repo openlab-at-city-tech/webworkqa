@@ -5,7 +5,7 @@ import Input from './Input'
 
 export default class FormattedProblem extends Component {
 	render() {
-		const { problemId, content, excerpt, inputs, maths } = this.props
+		const { itemId, content, excerpt, inputs, maths } = this.props
 
 		if ( ! content ) {
 			return ( <span></span> )
@@ -27,7 +27,7 @@ export default class FormattedProblem extends Component {
 							children.push( <LaTeX
 									key={i}
 									mathKey={i}
-									problemId={problemId}
+									itemId={itemId}
 									math={theMath.math}
 									display={theMath.display}
 									/> )

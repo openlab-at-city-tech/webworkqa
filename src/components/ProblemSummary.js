@@ -16,7 +16,7 @@ var ProblemSummary = React.createClass({
 		return (
 			<div className="ww-problem-summary">
 				<FormattedProblem
-				  problemId={problemId}
+				  itemId={problemId}
 				  content={content}
 				  inputs={inputs}
 				  maths={maths}

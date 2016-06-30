@@ -36670,11 +36670,16 @@
 	
 	function fetchProblems() {
 		return function (dispatch) {
-			return (0, _isomorphicFetch2['default'])('http://boone.cool/wpmaster/wp-json/webwork/v1/problems/', {
+			var _window$WWData = window.WWData;
+			var rest_api_endpoint = _window$WWData.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'problems/';
+			return (0, _isomorphicFetch2['default'])(endpoint, {
 				credentials: 'same-origin',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-WP-Nonce': window.WWData.rest_api_nonce
+					'X-WP-Nonce': rest_api_nonce
 				}
 			}).then(function (response) {
 				return response.json();
@@ -36765,12 +36770,18 @@
 	
 	function sendQuestion(problemId, content, tried) {
 		return function (dispatch) {
-			return (0, _isomorphicFetch2['default'])('http://boone.cool/wpmaster/wp-json/webwork/v1/questions/', {
+			var _window$WWData2 = window.WWData;
+			var rest_api_endpoint = _window$WWData2.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData2.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'questions/';
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
 				method: 'POST',
 				credentials: 'same-origin',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-WP-Nonce': window.WWData.rest_api_nonce
+					'X-WP-Nonce': rest_api_nonce
 				},
 				body: JSON.stringify({
 					problem_id: problemId,
@@ -36835,12 +36846,18 @@
 	exports.receiveResponseIdForMap = receiveResponseIdForMap;
 	function sendResponseAnswered(responseId, isAnswered) {
 		return function (dispatch) {
-			return (0, _isomorphicFetch2['default'])('http://boone.cool/wpmaster/wp-json/webwork/v1/responses/' + responseId, {
+			var _window$WWData3 = window.WWData;
+			var rest_api_endpoint = _window$WWData3.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData3.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'responses/' + responseId;
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
 				method: 'POST',
 				credentials: 'same-origin',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-WP-Nonce': window.WWData.rest_api_nonce
+					'X-WP-Nonce': rest_api_nonce
 				},
 				body: JSON.stringify({
 					is_answer: isAnswered
@@ -36905,13 +36922,18 @@
 	
 	function sendResponse(questionId, value) {
 		return function (dispatch) {
-			// @todo - Should probably use WP's JS.
-			return (0, _isomorphicFetch2['default'])('http://boone.cool/wpmaster/wp-json/webwork/v1/responses/', {
+			var _window$WWData4 = window.WWData;
+			var rest_api_endpoint = _window$WWData4.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData4.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'responses/';
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
 				method: 'POST',
 				credentials: 'same-origin',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-WP-Nonce': window.WWData.rest_api_nonce
+					'X-WP-Nonce': rest_api_nonce
 				},
 				body: JSON.stringify({
 					question_id: questionId,
@@ -36931,12 +36953,18 @@
 	
 	function sendVote(itemId, voteType) {
 		return function (dispatch) {
-			return (0, _isomorphicFetch2['default'])('http://boone.cool/wpmaster/wp-json/webwork/v1/votes/', {
+			var _window$WWData5 = window.WWData;
+			var rest_api_endpoint = _window$WWData5.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData5.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'votes/';
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
 				method: 'POST',
 				credentials: 'same-origin',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-WP-Nonce': window.WWData.rest_api_nonce
+					'X-WP-Nonce': rest_api_nonce
 				},
 				body: JSON.stringify({
 					item_id: itemId,
@@ -37069,11 +37097,17 @@
 			dispatch(receiveQuestionsById([]));
 			dispatch(receiveResponseIdMap({}));
 	
-			return (0, _isomorphicFetch2['default'])('http://boone.cool/wpmaster/wp-json/webwork/v1/problems/' + problemId, {
+			var _window$WWData6 = window.WWData;
+			var rest_api_endpoint = _window$WWData6.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData6.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'problems/' + problemId;
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
 				credentials: 'same-origin',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-WP-Nonce': window.WWData.rest_api_nonce
+					'X-WP-Nonce': rest_api_nonce
 				}
 			}).then(function (response) {
 				return response.json();

@@ -140,6 +140,7 @@ class Server {
 
 		$client_base = get_blog_option( $client_id, 'home' );
 		$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $problem_id;
+		$client_url = add_query_arg( 'post_data_key', $this->post_data_key, $client_url );
 		wp_safe_redirect( $client_url );
 		die();
 	}

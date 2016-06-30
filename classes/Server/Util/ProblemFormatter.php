@@ -19,8 +19,9 @@ class ProblemFormatter {
 		$parsed['text'] = preg_replace( '/^<[pP][ >][^>]*>\([0-9]+ points?\)/', '', $parsed['text'] );
 
 		// Tag cleanup.
-		$parsed['text'] = preg_replace( '|<br/?>|i', "\r\r", $parsed['text'] );
+		$parsed['text'] = preg_replace( '|<br ?/?>|i', "\r\r", $parsed['text'] );
 		$parsed['text'] = preg_replace( '|</?[pbi]>|i', '', $parsed['text'] );
+		$parsed['text'] = preg_replace( '|</?blockquote>|i', '', $parsed['text'] );
 
 		return $parsed;
 	}

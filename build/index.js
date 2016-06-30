@@ -36768,7 +36768,7 @@
 	
 	exports.setQuestionPending = setQuestionPending;
 	
-	function sendQuestion(problemId, content, tried) {
+	function sendQuestion(problemId, content, tried, problemText) {
 		return function (dispatch) {
 			var _window$WWData2 = window.WWData;
 			var rest_api_endpoint = _window$WWData2.rest_api_endpoint;
@@ -36786,6 +36786,7 @@
 				body: JSON.stringify({
 					problem_id: problemId,
 					content: content,
+					problem_text: problemText,
 					tried: tried
 				})
 			}).then(function (response) {
@@ -38562,9 +38563,12 @@
 		var tried = _state$questionFormData.tried;
 		var isPending = _state$questionFormData.isPending;
 	
+		var problemText = window.WWData.problem_text;
+	
 		return {
 			content: content,
 			isPending: isPending,
+			problemText: problemText,
 			tried: tried
 		};
 	};
@@ -38575,10 +38579,10 @@
 				dispatch((0, _actions.changeQuestionText)(fieldName, value));
 			},
 	
-			onQuestionFormSubmit: function onQuestionFormSubmit(e, content, tried) {
+			onQuestionFormSubmit: function onQuestionFormSubmit(e, content, tried, problemText) {
 				e.preventDefault();
 				dispatch((0, _actions.setQuestionPending)(true));
-				dispatch((0, _actions.sendQuestion)(ownProps.problemId, content, tried));
+				dispatch((0, _actions.sendQuestion)(ownProps.problemId, content, tried, problemText));
 			}
 		};
 	};
@@ -38612,6 +38616,7 @@
 			var content = _props.content;
 			var isPending = _props.isPending;
 			var problemId = _props.problemId;
+			var problemText = _props.problemText;
 			var tried = _props.tried;
 			var onTextareaChange = _props.onTextareaChange;
 			var onQuestionFormSubmit = _props.onQuestionFormSubmit;
@@ -38629,7 +38634,7 @@
 					{
 						className: formClassName,
 						onSubmit: function (e) {
-							onQuestionFormSubmit(e, content, tried);
+							onQuestionFormSubmit(e, content, tried, problemText);
 						}
 					},
 					_react2['default'].createElement(
@@ -38888,8 +38893,10 @@
 				var content = question.content;
 				var authorAvatar = question.authorAvatar;
 				var authorName = question.authorName;
+				var problemText = question.problemText;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
+				var hasProblemText = problemText.length > 0;
 	
 				var responseScrollElementName = 'response-form-' + itemId;
 				var Element = _reactScroll2['default'].Element;
@@ -39007,6 +39014,28 @@
 										'div',
 										{ className: 'ww-question-content-section' },
 										tried
+									),
+									_react2['default'].createElement(
+										_reactIf.If,
+										{ condition: hasProblemText },
+										_react2['default'].createElement(
+											_reactIf.Then,
+											null,
+											_react2['default'].createElement(
+												'span',
+												null,
+												_react2['default'].createElement(
+													'em',
+													null,
+													'My problem:'
+												),
+												_react2['default'].createElement(
+													'div',
+													{ className: 'ww-question-problem-text' },
+													problemText
+												)
+											)
+										)
 									),
 									_react2['default'].createElement(_containersScoreDialogContainer2['default'], { itemId: itemId })
 								)

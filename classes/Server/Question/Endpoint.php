@@ -80,8 +80,8 @@ class Endpoint extends \WP_Rest_Controller {
 				'authorAvatar' => $question->get_author_avatar(),
 				'authorName' => $question->get_author_name(),
 				'problemText' => $question->get_problem_text(),
-				'problemMaths' => $question->get_problem_maths(),
-				'problemInputs' => $question->get_problem_inputs(),
+				'problemMaths' => $question->get_maths(),
+				'problemInputs' => $question->get_inputs(),
 			);
 
 			$r = rest_ensure_response( $retval );

@@ -38116,19 +38116,19 @@
 /* 603 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var _get = __webpack_require__(467)['default'];
+	var _get = __webpack_require__(467)["default"];
 	
-	var _inherits = __webpack_require__(483)['default'];
+	var _inherits = __webpack_require__(483)["default"];
 	
-	var _createClass = __webpack_require__(492)['default'];
+	var _createClass = __webpack_require__(492)["default"];
 	
-	var _classCallCheck = __webpack_require__(495)['default'];
+	var _classCallCheck = __webpack_require__(495)["default"];
 	
-	var _interopRequireDefault = __webpack_require__(1)['default'];
+	var _interopRequireDefault = __webpack_require__(1)["default"];
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	
@@ -38142,29 +38142,35 @@
 		function Input() {
 			_classCallCheck(this, Input);
 	
-			_get(Object.getPrototypeOf(Input.prototype), 'constructor', this).apply(this, arguments);
+			_get(Object.getPrototypeOf(Input.prototype), "constructor", this).apply(this, arguments);
 		}
 	
 		_createClass(Input, [{
-			key: 'render',
+			key: "render",
 			value: function render() {
 				var _props = this.props;
 				var type = _props.type;
 				var value = _props.value;
 	
-				return _react2['default'].createElement('input', {
-					type: type,
-					disabled: true,
-					value: value
-				});
+				return _react2["default"].createElement(
+					"span",
+					null,
+					_react2["default"].createElement("input", {
+						type: type,
+						disabled: true,
+						value: value,
+						className: "ww-disabled-input"
+					}),
+					_react2["default"].createElement("br", null)
+				);
 			}
 		}]);
 	
 		return Input;
 	})(_react.Component);
 	
-	exports['default'] = Input;
-	module.exports = exports['default'];
+	exports["default"] = Input;
+	module.exports = exports["default"];
 
 /***/ },
 /* 604 */
@@ -40179,11 +40185,6 @@
 			var authorUserType = response.authorUserType;
 			var isAnswer = response.isAnswer;
 	
-			var styles = {
-				wwResponseContent: {
-					paddingLeft: '50px'
-				}
-			};
 			return _react2['default'].createElement(
 				'li',
 				null,
@@ -40202,21 +40203,21 @@
 					),
 					_react2['default'].createElement(
 						'div',
-						{ className: 'ww-response-content', style: styles.wwResponseContent },
+						{ className: 'ww-response-content' },
 						_react2['default'].createElement(
 							'div',
 							{ className: 'ww-author-name' },
 							authorName
 						),
-						content
-					),
-					_react2['default'].createElement(
-						_reactIf.If,
-						{ condition: isMyQuestion },
+						content,
 						_react2['default'].createElement(
-							_reactIf.Then,
-							null,
-							_react2['default'].createElement(_containersAnsweredDialogContainer2['default'], { responseId: responseId })
+							_reactIf.If,
+							{ condition: isMyQuestion },
+							_react2['default'].createElement(
+								_reactIf.Then,
+								null,
+								_react2['default'].createElement(_containersAnsweredDialogContainer2['default'], { responseId: responseId })
+							)
 						)
 					),
 					_react2['default'].createElement(_containersScoreDialogContainer2['default'], { itemId: responseId })

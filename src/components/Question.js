@@ -107,19 +107,21 @@ export default class Question extends Component {
 
 								<em>What I've tried:</em>
 								<div className="ww-question-content-section">
-									<FormattedProblem
-									  problemId="0"
-									  content={problemText}
-									  maths={maths}
-									  inputs={inputs}
-									/>
+									{tried}
 								</div>
 
 								<If condition={hasProblemText}>
 									<Then>
 										<span>
 										<em>My problem:</em>
-										<div className="ww-question-problem-text">{problemText}</div>
+										<div className="ww-question-content-section">
+											<FormattedProblem
+											  problemId="0"
+											  content={problemText}
+											  maths={maths}
+											  inputs={inputs}
+											/>
+										</div>
 										</span>
 									</Then>
 								</If>

@@ -38004,7 +38004,7 @@
 	
 								if (inputs && inputs.hasOwnProperty(num)) {
 									theInput = inputs[num];
-									children.push(_react2['default'].createElement(_Input2['default'], { key: i, type: theInput.type, value: theInput.type }));
+									children.push(_react2['default'].createElement(_Input2['default'], { key: i, type: theInput.type, value: theInput.value }));
 								}
 								break;
 						}

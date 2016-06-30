@@ -39,7 +39,7 @@ export default class FormattedProblem extends Component {
 
 						if ( inputs && inputs.hasOwnProperty( num ) ) {
 							theInput = inputs[num]
-							children.push( <Input key={i} type={theInput.type} value={theInput.type} /> )
+							children.push( <Input key={i} type={theInput.type} value={theInput.value} /> )
 						}
 						break
 				}

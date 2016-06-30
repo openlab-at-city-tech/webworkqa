@@ -131,7 +131,7 @@ export const setQuestionPending = ( isPending ) => {
 	}
 }
 
-export function sendQuestion( problemId, content, tried ) {
+export function sendQuestion( problemId, content, tried, problemText ) {
 	return ( dispatch ) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
 		const endpoint = rest_api_endpoint + 'questions/'
@@ -146,6 +146,7 @@ export function sendQuestion( problemId, content, tried ) {
 			body: JSON.stringify({
 				problem_id: problemId,
 				content,
+				problem_text: problemText,
 				tried
 			})
 		} )

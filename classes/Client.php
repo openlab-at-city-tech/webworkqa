@@ -34,8 +34,12 @@ class Client {
 			$main_site_url = get_blog_option( 1, 'home' );
 			$rest_api_endpoint = trailingslashit( $main_site_url ) . 'wp-json/webwork/v1/';
 
+			// @todo Abstract.
+			$ww_problem_text = isset( $_POST['pg_object'] ) ? base64_decode( $_POST['pg_object'] ) : '';
+
 			wp_localize_script( 'webwork-app', 'WWData', array(
 				'problem_id' => $ww_problem,
+				'problem_text' => $ww_problem_text,
 				'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
 				'rest_api_endpoint' => $rest_api_endpoint,
 				'route_base' => trailingslashit( $route_base ) . 'webwork/',

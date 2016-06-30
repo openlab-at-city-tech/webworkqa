@@ -61,6 +61,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$problem_id = $params['problem_id'];
 		$content = $params['content'];
 		$tried = $params['tried'];
+		$problem_text = $params['problem_text'];
 
 		$question = new \WeBWorK\Server\Question();
 
@@ -68,14 +69,17 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_content( $content );
 		$question->set_tried( $tried );
 		$question->set_problem_id( $problem_id );
+		$question->set_problem_text( $problem_text );
 
 		if ( $question->save() ) {
+			// @todo Should use Query::get_for_endpoint() for this.
 			$retval = array(
 				'questionId' => $question->get_id(),
 				'content' => $question->get_content(),
 				'tried' => $question->get_tried(),
 				'authorAvatar' => $question->get_author_avatar(),
 				'authorName' => $question->get_author_name(),
+				'problemText' => $question->get_problem_text(),
 			);
 
 			$r = rest_ensure_response( $retval );

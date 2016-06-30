@@ -62,6 +62,10 @@ class Question implements Util\SaveableAsWPPost {
 		}
 	}
 
+	public function set_problem_text( $problem_text ) {
+		$this->problem_text = $problem_text;
+	}
+
 	public function set_vote_count( $vote_count ) {
 		$this->vote_count = (int) $vote_count;
 	}
@@ -88,6 +92,10 @@ class Question implements Util\SaveableAsWPPost {
 
 	public function get_problem_id() {
 		return $this->problem_id;
+	}
+
+	public function get_problem_text() {
+		return $this->problem_text;
 	}
 
 	public function get_author_avatar() {
@@ -117,6 +125,7 @@ class Question implements Util\SaveableAsWPPost {
 
 			update_post_meta( $this->get_id(), 'webwork_problem_id', $this->get_problem_id() );
 			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
+			update_post_meta( $this->get_id(), 'webwork_problem_text', $this->get_problem_text() );
 
 			$this->populate();
 		}
@@ -135,6 +144,9 @@ class Question implements Util\SaveableAsWPPost {
 
 			$tried = get_post_meta( $this->get_id(), 'webwork_tried', true );
 			$this->set_tried( $tried );
+
+			$problem_text = get_post_meta( $this->get_id(), 'webwork_problem_text', true );
+			$this->set_problem_text( $problem_text );
 		}
 	}
 }

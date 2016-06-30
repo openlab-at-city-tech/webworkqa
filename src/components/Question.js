@@ -27,9 +27,10 @@ export default class Question extends Component {
 			userCanPostResponse
 		} = this.props
 
-		const { tried, content, authorAvatar, authorName } = question
+		const { tried, content, authorAvatar, authorName, problemText } = question
 
-		const isMyQuestion = question.isMyQuestion > 0;
+		const isMyQuestion = question.isMyQuestion > 0
+		const hasProblemText = problemText.length > 0
 
 		const responseScrollElementName = 'response-form-' + itemId
 		var Element = Scroll.Element
@@ -105,6 +106,15 @@ export default class Question extends Component {
 
 								<em>What I've tried:</em>
 								<div className="ww-question-content-section">{tried}</div>
+
+								<If condition={hasProblemText}>
+									<Then>
+										<span>
+										<em>My problem:</em>
+										<div className="ww-question-problem-text">{problemText}</div>
+										</span>
+									</Then>
+								</If>
 
 								<ScoreDialogContainer itemId={itemId} />
 							</div>

@@ -18,6 +18,7 @@ class Problem implements Util\SaveableAsWPPost {
 	protected $remote_url;
 	protected $post_date;
 
+	protected $problem_text;
 	protected $library_id;
 
 	protected $maths = array();
@@ -167,6 +168,7 @@ class Problem implements Util\SaveableAsWPPost {
 	}
 
 	protected function populate() {
+		// @todo Some/all of these should be lazy-loaded.
 		if ( $this->p->populate() ) {
 			$remote_url = get_post_meta( $this->get_id(), 'webwork_remote_problem_url', true );
 			$this->set_remote_url( $remote_url );

@@ -5,9 +5,12 @@ import { changeQuestionText, sendQuestion, setQuestionPending } from '../actions
 const mapStateToProps = (state, ownProps) => {
 	const { content, tried, isPending } = state.questionFormData
 
+	const problemText = window.WWData.problem_text
+
 	return {
 		content,
 		isPending,
+		problemText,
 		tried
 	}
 }
@@ -18,10 +21,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			dispatch( changeQuestionText( fieldName, value ) )
 		},
 
-		onQuestionFormSubmit: ( e, content, tried ) => {
+		onQuestionFormSubmit: ( e, content, tried, problemText ) => {
 			e.preventDefault()
 			dispatch( setQuestionPending( true ) )
-			dispatch( sendQuestion( ownProps.problemId, content, tried ) )
+			dispatch( sendQuestion( ownProps.problemId, content, tried, problemText ) )
 		}
 	}
 }

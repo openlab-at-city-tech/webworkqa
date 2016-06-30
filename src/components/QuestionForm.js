@@ -3,7 +3,7 @@ import React from 'react';
 var QuestionForm = React.createClass({
 	render: function() {
 		const {
-			content, isPending, problemId, tried,
+			content, isPending, problemId, problemText, tried,
 			onTextareaChange, onQuestionFormSubmit,
 		} = this.props
 
@@ -17,7 +17,7 @@ var QuestionForm = React.createClass({
 				<form
 				  className={formClassName}
 				  onSubmit={ e => {
-					  onQuestionFormSubmit( e, content, tried )
+					  onQuestionFormSubmit( e, content, tried, problemText )
 				  } }
 				>
 					<h3>Ask a Question</h3>

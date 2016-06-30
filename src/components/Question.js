@@ -5,6 +5,7 @@ import Scroll from 'react-scroll'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer';
 import ResponseList from './ResponseList';
 import ResponseFormContainer from '../containers/ResponseFormContainer';
+import FormattedProblem from './FormattedProblem'
 
 export default class Question extends Component {
 	componentDidMount() {
@@ -27,7 +28,7 @@ export default class Question extends Component {
 			userCanPostResponse
 		} = this.props
 
-		const { tried, content, authorAvatar, authorName, problemText } = question
+		const { tried, content, authorAvatar, authorName, problemText, inputs, maths } = question
 
 		const isMyQuestion = question.isMyQuestion > 0
 		const hasProblemText = problemText && problemText.length > 0
@@ -105,7 +106,14 @@ export default class Question extends Component {
 								<div className="ww-question-content-section">{content}</div>
 
 								<em>What I've tried:</em>
-								<div className="ww-question-content-section">{tried}</div>
+								<div className="ww-question-content-section">
+									<FormattedProblem
+									  problemId="0"
+									  content={problemText}
+									  maths={maths}
+									  inputs={inputs}
+									/>
+								</div>
 
 								<If condition={hasProblemText}>
 									<Then>

@@ -117,8 +117,6 @@ class ProblemFormatter {
 	}
 
 	public function swap_latex_escape_characters( $text ) {
-		_b( $text );
-
 		$regex = '|(<script type="math/tex[^>]+>)(.*?)(</script>)|';
 		$text = preg_replace_callback( $regex, function( $matches ) {
 			$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[2] );

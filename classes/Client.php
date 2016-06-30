@@ -26,9 +26,14 @@ class Client {
 		if ( $ww_problem ) {
 			$content = '<div id="webwork-app"></div>';
 			wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js' );
+
+			$route_base = get_option( 'home' );
+			$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
+
 			wp_localize_script( 'webwork-app', 'WWData', array(
 				'problem_id' => $ww_problem,
 				'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
+				'route_base' => trailingslashit( $route_base ) . 'webwork/',
 				'user_can_ask_question' => is_user_logged_in(), // todo
 				'user_can_post_response' => is_user_logged_in(), // todo
 				'user_can_vote' => is_user_logged_in(), // todo

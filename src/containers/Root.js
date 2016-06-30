@@ -12,10 +12,12 @@ const foo = true
 
 export default class Root extends Component {
 	render() {
+		const { route_base } = window.WWData
+
 		return (
 			<Provider store={store}>
 				<Router history={browserHistory}>
-					<Route path="wpmaster/foo1/webwork/" component={MainLayoutContainer}>
+					<Route path={route_base} component={MainLayoutContainer}>
 						<IndexRoute component={ProblemListContainer} />
 						<Route path="problems/:problemId" component={ProblemContainer} />
 					</Route>

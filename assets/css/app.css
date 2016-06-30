@@ -32,8 +32,12 @@
 
 /** Index *********************************************************************/
 
-.problem-list {
+#webwork-app .problem-list {
 	list-style-type: none;
+}
+
+.problem-list > a {
+	text-decoration: none;
 }
 
 .problem-list > a:hover > li {

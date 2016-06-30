@@ -65,6 +65,7 @@ class Loader {
 	}
 
 	public function catch_post() {
+                return;
 		if ( ! empty( $_GET['webwork'] ) && '1' == $_GET['webwork'] ) {
 			$router = new Router();
 			$router->go();

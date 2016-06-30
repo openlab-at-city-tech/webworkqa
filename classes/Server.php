@@ -53,8 +53,11 @@ class Server {
 	 */
 	public function catch_post() {
 		// @todo
+                if ( empty( $_GET['webwork'] ) || '1' != $_GET['webwork'] ) {
+                        return;
+                }
 		if ( ! is_page( 'webwork' ) ) {
-			return;
+//			return;
 		}
 
 		if ( ! isset( $_POST ) ) {

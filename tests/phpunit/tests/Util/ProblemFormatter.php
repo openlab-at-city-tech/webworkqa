@@ -90,4 +90,22 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$this->assertSame( $expected, $found );
 	}
+
+	public function test_swap_latex_escape_characters() {
+		$text = '\foo \bar <script type="text/javascript">\foo \bar</script> <script type="math/tex">\foo \bar</script> <script type="math/tex; mode=display">\foo \bar</script>';
+
+		$expected = '\foo \bar <script type="text/javascript">\foo \bar</script> <script type="math/tex">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script> <script type="math/tex; mode=display">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script>';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->swap_latex_escape_characters( $text ) );
+	}
+
+	public function test_replace_latex_escape_characters() {
+		$text = '\foo \bar <script type="text/javascript">\foo \bar</script> <script type="math/tex">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script> <script type="math/tex; mode=display">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script>';
+
+		$expected = '\foo \bar <script type="text/javascript">\foo \bar</script> <script type="math/tex">\foo \bar</script> <script type="math/tex; mode=display">\foo \bar</script>';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->replace_latex_escape_characters( $text ) );
+	}
 }

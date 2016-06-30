@@ -69,15 +69,20 @@ class Server {
 			return;
 		}
 
-		// @todo This should come from referer.
 		$source_parts = $this->sanitize_class_url( $_SERVER['HTTP_REFERER'] );
 		$source = $source_parts['base'];
 
 		$problem = new Server\Problem();
 
-		// @todo test data is already decoded, but it won't be in the production app.
 		// Do not unslash. wp_insert_post() expocts slashed. A nightmare.
-		$problem->set_content( $_POST['pg_object'] );
+		$pg_object = base64_decode( $_POST['pg_object'] );
+
+		// Replace LaTeX backslashes with dummy character, so they aren't stripped.
+		// This will break with literal backslashes?
+		$pf = new Server\Util\ProblemFormatter();
+		$pg_object = $pf->swap_latex_escape_characters( $pg_object );
+
+		$problem->set_content( $pg_object );
 		$problem_library_id = $problem->get_library_id();
 
 		// Route to existing problem, if it exists.

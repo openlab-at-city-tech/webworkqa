@@ -7,7 +7,8 @@ namespace WeBWorK\Server\Util;
  */
 class ProblemFormatter {
 	public function clean( $text ) {
-		$parsed = $this->generate_placeholders( $text );
+		$parsed = $this->replace_latex_escape_characters( $text );
+		$parsed = $this->generate_placeholders( $parsed );
 		$parsed['text'] = $this->remove_script_tags( $parsed['text'] );
 		$parsed['text'] = str_replace( '<span class="MathJax_Preview">[math]</span>', '', $parsed['text'] );
 
@@ -113,5 +114,21 @@ class ProblemFormatter {
 		$retval['text'] = $clean_text;
 
 		return $retval;
+	}
+
+	public function swap_latex_escape_characters( $text ) {
+		_b( $text );
+
+		$regex = '|(<script type="math/tex[^>]+>)(.*?)(</script>)|';
+		$text = preg_replace_callback( $regex, function( $matches ) {
+			$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[2] );
+			return $matches[1] . $tex . $matches[3];
+		}, $text );
+
+		return $text;
+	}
+
+	public function replace_latex_escape_characters( $text ) {
+		return str_replace( '{{{LATEX_ESCAPE_CHARACTER}}}', '\\', $text );
 	}
 }

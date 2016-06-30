@@ -37903,7 +37903,7 @@
 						'li',
 						{ className: 'problem-list-item' },
 						_react2['default'].createElement(_FormattedProblem2['default'], {
-							problemId: problemId,
+							itemId: problemId,
 							content: content,
 							excerpt: excerpt,
 							inputs: inputs,
@@ -37967,7 +37967,7 @@
 			key: 'render',
 			value: function render() {
 				var _props = this.props;
-				var problemId = _props.problemId;
+				var itemId = _props.itemId;
 				var content = _props.content;
 				var excerpt = _props.excerpt;
 				var inputs = _props.inputs;
@@ -37993,7 +37993,7 @@
 									children.push(_react2['default'].createElement(_LaTeX2['default'], {
 										key: i,
 										mathKey: i,
-										problemId: problemId,
+										itemId: itemId,
 										math: theMath.math,
 										display: theMath.display
 									}));
@@ -38070,9 +38070,9 @@
 			value: function componentDidMount() {
 				var _props = this.props;
 				var mathKey = _props.mathKey;
-				var problemId = _props.problemId;
+				var itemId = _props.itemId;
 	
-				var cssId = 'latex-' + problemId + '-' + mathKey;
+				var cssId = 'latex-' + itemId + '-' + mathKey;
 	
 				if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
 					window.MathJax.Hub.Queue(["Update", window.MathJax.Hub, cssId]);
@@ -38088,7 +38088,7 @@
 			value: function render() {
 				var _props2 = this.props;
 				var mathKey = _props2.mathKey;
-				var problemId = _props2.problemId;
+				var itemId = _props2.itemId;
 				var math = _props2.math;
 				var display = _props2.display;
 	
@@ -38097,7 +38097,7 @@
 					type += '; mode=display';
 				}
 	
-				var cssId = 'latex-' + problemId + '-' + mathKey;
+				var cssId = 'latex-' + itemId + '-' + mathKey;
 	
 				return _react2['default'].createElement('script', {
 					type: type,
@@ -38519,7 +38519,7 @@
 				'div',
 				{ className: 'ww-problem-summary' },
 				_react2['default'].createElement(_FormattedProblem2['default'], {
-					problemId: problemId,
+					itemId: problemId,
 					content: content,
 					inputs: inputs,
 					maths: maths
@@ -38895,6 +38895,7 @@
 				var userCanPostResponse = _props2.userCanPostResponse;
 				var tried = question.tried;
 				var content = question.content;
+				var questionId = question.questionId;
 				var authorAvatar = question.authorAvatar;
 				var authorName = question.authorName;
 				var problemText = question.problemText;
@@ -39039,7 +39040,7 @@
 													'div',
 													{ className: 'ww-question-content-section' },
 													_react2['default'].createElement(_FormattedProblem2['default'], {
-														problemId: '0',
+														itemId: questionId,
 														content: problemText,
 														maths: problemMaths,
 														inputs: problemInputs

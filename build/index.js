@@ -38851,6 +38851,10 @@
 	
 	var _containersResponseFormContainer2 = _interopRequireDefault(_containersResponseFormContainer);
 	
+	var _FormattedProblem = __webpack_require__(601);
+	
+	var _FormattedProblem2 = _interopRequireDefault(_FormattedProblem);
+	
 	var Question = (function (_Component) {
 		_inherits(Question, _Component);
 	
@@ -38894,6 +38898,8 @@
 				var authorAvatar = question.authorAvatar;
 				var authorName = question.authorName;
 				var problemText = question.problemText;
+				var inputs = question.inputs;
+				var maths = question.maths;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
 				var hasProblemText = problemText && problemText.length > 0;
@@ -39013,7 +39019,12 @@
 									_react2['default'].createElement(
 										'div',
 										{ className: 'ww-question-content-section' },
-										tried
+										_react2['default'].createElement(_FormattedProblem2['default'], {
+											problemId: '0',
+											content: problemText,
+											maths: maths,
+											inputs: inputs
+										})
 									),
 									_react2['default'].createElement(
 										_reactIf.If,

@@ -38074,7 +38074,7 @@
 	
 				var cssId = 'latex-' + problemId + '-' + mathKey;
 	
-				if (window.hasOwnProperty('MathJax')) {
+				if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
 					window.MathJax.Hub.Queue(["Update", window.MathJax.Hub, cssId]);
 				}
 			}

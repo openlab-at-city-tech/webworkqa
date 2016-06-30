@@ -11,6 +11,7 @@ class Question implements Util\SaveableAsWPPost {
 	protected $id = 0;
 
 	protected $problem_id;
+	protected $tex;
 
 	protected $author_id;
 	protected $content;
@@ -22,6 +23,8 @@ class Question implements Util\SaveableAsWPPost {
 	public function __construct( $id = null ) {
 		$this->p = new Util\WPPost( $this );
 		$this->p->set_post_type( 'webwork_question' );
+
+		$this->tex = new Util\TeXObject();
 
 		if ( $id ) {
 			$this->set_id( $id );
@@ -63,7 +66,7 @@ class Question implements Util\SaveableAsWPPost {
 	}
 
 	public function set_problem_text( $problem_text ) {
-		$this->problem_text = $problem_text;
+		$this->tex->set_raw_text( $problem_text );
 	}
 
 	public function set_vote_count( $vote_count ) {
@@ -95,7 +98,15 @@ class Question implements Util\SaveableAsWPPost {
 	}
 
 	public function get_problem_text() {
-		return $this->problem_text;
+		return $this->tex->get_text_for_endpoint();
+	}
+
+	public function get_maths() {
+		return $this->tex->get_maths_for_endpoint();
+	}
+
+	public function get_inputs() {
+		return $this->tex->get_inputs_for_endpoint();
 	}
 
 	public function get_author_avatar() {
@@ -125,7 +136,7 @@ class Question implements Util\SaveableAsWPPost {
 
 			update_post_meta( $this->get_id(), 'webwork_problem_id', $this->get_problem_id() );
 			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
-			update_post_meta( $this->get_id(), 'webwork_problem_text', $this->get_problem_text() );
+			update_post_meta( $this->get_id(), 'webwork_problem_text', $this->tex->get_text_for_database() );
 
 			$this->populate();
 		}
@@ -146,7 +157,7 @@ class Question implements Util\SaveableAsWPPost {
 			$this->set_tried( $tried );
 
 			$problem_text = get_post_meta( $this->get_id(), 'webwork_problem_text', true );
-			$this->set_problem_text( $problem_text );
+			$this->tex->set_swapped_text( $problem_text );
 		}
 	}
 }

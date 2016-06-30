@@ -38898,8 +38898,8 @@
 				var authorAvatar = question.authorAvatar;
 				var authorName = question.authorName;
 				var problemText = question.problemText;
-				var inputs = question.inputs;
-				var maths = question.maths;
+				var problemInputs = question.problemInputs;
+				var problemMaths = question.problemMaths;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
 				var hasProblemText = problemText && problemText.length > 0;
@@ -39041,8 +39041,8 @@
 													_react2['default'].createElement(_FormattedProblem2['default'], {
 														problemId: '0',
 														content: problemText,
-														maths: maths,
-														inputs: inputs
+														maths: problemMaths,
+														inputs: problemInputs
 													})
 												)
 											)

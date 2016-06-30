@@ -39019,12 +39019,7 @@
 									_react2['default'].createElement(
 										'div',
 										{ className: 'ww-question-content-section' },
-										_react2['default'].createElement(_FormattedProblem2['default'], {
-											problemId: '0',
-											content: problemText,
-											maths: maths,
-											inputs: inputs
-										})
+										tried
 									),
 									_react2['default'].createElement(
 										_reactIf.If,
@@ -39042,8 +39037,13 @@
 												),
 												_react2['default'].createElement(
 													'div',
-													{ className: 'ww-question-problem-text' },
-													problemText
+													{ className: 'ww-question-content-section' },
+													_react2['default'].createElement(_FormattedProblem2['default'], {
+														problemId: '0',
+														content: problemText,
+														maths: maths,
+														inputs: inputs
+													})
 												)
 											)
 										)

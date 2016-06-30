@@ -8004,31 +8004,6 @@
 	// shim for using process in browser
 	
 	var process = module.exports = {};
-	
-	// cached from whatever global is present so that test runners that stub it
-	// don't break things.  But we need to wrap it in a try catch in case it is
-	// wrapped in strict mode code which doesn't define any globals.  It's inside a
-	// function because try/catches deoptimize in certain engines.
-	
-	var cachedSetTimeout;
-	var cachedClearTimeout;
-	
-	(function () {
-	  try {
-	    cachedSetTimeout = setTimeout;
-	  } catch (e) {
-	    cachedSetTimeout = function () {
-	      throw new Error('setTimeout is not defined');
-	    }
-	  }
-	  try {
-	    cachedClearTimeout = clearTimeout;
-	  } catch (e) {
-	    cachedClearTimeout = function () {
-	      throw new Error('clearTimeout is not defined');
-	    }
-	  }
-	} ())
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -8053,7 +8028,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = cachedSetTimeout(cleanUpNextTick);
+	    var timeout = setTimeout(cleanUpNextTick);
 	    draining = true;
 	
 	    var len = queue.length;
@@ -8070,7 +8045,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    cachedClearTimeout(timeout);
+	    clearTimeout(timeout);
 	}
 	
 	process.nextTick = function (fun) {
@@ -8082,7 +8057,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        cachedSetTimeout(drainQueue, 0);
+	        setTimeout(drainQueue, 0);
 	    }
 	};
 	
@@ -28316,6 +28291,8 @@
 		_createClass(Root, [{
 			key: 'render',
 			value: function render() {
+				var route_base = window.WWData.route_base;
+	
 				return _react2['default'].createElement(
 					_reactRedux.Provider,
 					{ store: store },
@@ -28324,7 +28301,7 @@
 						{ history: _reactRouter.browserHistory },
 						_react2['default'].createElement(
 							_reactRouter.Route,
-							{ path: 'wpmaster/foo1/webwork/', component: _MainLayoutContainer2['default'] },
+							{ path: route_base, component: _MainLayoutContainer2['default'] },
 							_react2['default'].createElement(_reactRouter.IndexRoute, { component: _ProblemListContainer2['default'] }),
 							_react2['default'].createElement(_reactRouter.Route, { path: 'problems/:problemId', component: _ProblemContainer2['default'] })
 						)
@@ -30397,19 +30374,11 @@
 	    arity: true
 	};
 	
-	var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
-	
-	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
+	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
 	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
 	        var keys = Object.getOwnPropertyNames(sourceComponent);
-	
-	        /* istanbul ignore else */
-	        if (isGetOwnPropertySymbolsAvailable) {
-	            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
-	        }
-	
-	        for (var i = 0; i < keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
+	        for (var i=0; i<keys.length; ++i) {
+	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
 	                try {
 	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
 	                } catch (error) {
@@ -38825,15 +38794,15 @@
 	
 	var _reactScroll2 = _interopRequireDefault(_reactScroll);
 	
-	var _containersScoreDialogContainer = __webpack_require__(628);
+	var _containersScoreDialogContainer = __webpack_require__(629);
 	
 	var _containersScoreDialogContainer2 = _interopRequireDefault(_containersScoreDialogContainer);
 	
-	var _ResponseList = __webpack_require__(630);
+	var _ResponseList = __webpack_require__(631);
 	
 	var _ResponseList2 = _interopRequireDefault(_ResponseList);
 	
-	var _containersResponseFormContainer = __webpack_require__(634);
+	var _containersResponseFormContainer = __webpack_require__(635);
 	
 	var _containersResponseFormContainer2 = _interopRequireDefault(_containersResponseFormContainer);
 	
@@ -39196,14 +39165,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports.Link = __webpack_require__(616);
-	exports.DirectLink = __webpack_require__(624);
-	exports.Button = __webpack_require__(626);
-	exports.Element = __webpack_require__(627);
+	exports.DirectLink = __webpack_require__(625);
+	exports.Button = __webpack_require__(627);
+	exports.Element = __webpack_require__(628);
 	exports.Helpers = __webpack_require__(617);
-	exports.scroller = __webpack_require__(623);
-	exports.directScroller = __webpack_require__(625);
-	exports.Events = __webpack_require__(621);
-	exports.scrollSpy = __webpack_require__(622);
+	exports.scroller = __webpack_require__(624);
+	exports.directScroller = __webpack_require__(626);
+	exports.Events = __webpack_require__(622);
+	exports.scrollSpy = __webpack_require__(623);
 	exports.animateScroll = __webpack_require__(618);
 
 
@@ -39235,8 +39204,8 @@
 	var ReactDOM = __webpack_require__(336);
 	
 	var animateScroll = __webpack_require__(618);
-	var scrollSpy = __webpack_require__(622);
-	var defaultScroller = __webpack_require__(623);
+	var scrollSpy = __webpack_require__(623);
+	var defaultScroller = __webpack_require__(624);
 	
 	var Helpers = {
 	
@@ -39418,15 +39387,15 @@
 /* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assign = __webpack_require__(302);
+	var assign = __webpack_require__(619);
 	
-	var smooth = __webpack_require__(619);
+	var smooth = __webpack_require__(620);
 	
 	var easing = smooth.defaultEasing;
 	
-	var cancelEvents = __webpack_require__(620);
+	var cancelEvents = __webpack_require__(621);
 	
-	var events = __webpack_require__(621);
+	var events = __webpack_require__(622);
 	
 	/*
 	 * Function helper
@@ -39583,6 +39552,95 @@
 /* 619 */
 /***/ function(module, exports) {
 
+	'use strict';
+	/* eslint-disable no-unused-vars */
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+	
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+	
+		return Object(val);
+	}
+	
+	function shouldUseNative() {
+		try {
+			if (!Object.assign) {
+				return false;
+			}
+	
+			// Detect buggy property enumeration order in older V8 versions.
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+			var test1 = new String('abc');  // eslint-disable-line
+			test1[5] = 'de';
+			if (Object.getOwnPropertyNames(test1)[0] === '5') {
+				return false;
+			}
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test2 = {};
+			for (var i = 0; i < 10; i++) {
+				test2['_' + String.fromCharCode(i)] = i;
+			}
+			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+				return test2[n];
+			});
+			if (order2.join('') !== '0123456789') {
+				return false;
+			}
+	
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test3 = {};
+			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+				test3[letter] = letter;
+			});
+			if (Object.keys(Object.assign({}, test3)).join('') !==
+					'abcdefghijklmnopqrst') {
+				return false;
+			}
+	
+			return true;
+		} catch (e) {
+			// We don't expect any of the above to throw, but better to be safe.
+			return false;
+		}
+	}
+	
+	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+	
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+	
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+	
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+	
+		return to;
+	};
+
+
+/***/ },
+/* 620 */
+/***/ function(module, exports) {
+
 	module.exports = {
 	 /*
 	  * https://github.com/oblador/angular-scroll (duScrollDefaultEasing)
@@ -39598,7 +39656,7 @@
 	}
 
 /***/ },
-/* 620 */
+/* 621 */
 /***/ function(module, exports) {
 
 	var events = ['mousedown', 'mousewheel', 'touchmove', 'keydown']
@@ -39617,7 +39675,7 @@
 
 
 /***/ },
-/* 621 */
+/* 622 */
 /***/ function(module, exports) {
 
 	
@@ -39636,7 +39694,7 @@
 	module.exports = Events;
 
 /***/ },
-/* 622 */
+/* 623 */
 /***/ function(module, exports) {
 
 	var scrollSpy = {
@@ -39688,11 +39746,11 @@
 	module.exports = scrollSpy;
 
 /***/ },
-/* 623 */
+/* 624 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var animateScroll = __webpack_require__(618);
-	var events = __webpack_require__(621);
+	var events = __webpack_require__(622);
 	
 	var __mapped = {};
 	var __activeLink;
@@ -39768,14 +39826,14 @@
 
 
 /***/ },
-/* 624 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var React = __webpack_require__(300);
 	var Helpers = __webpack_require__(617);
-	var directScroller = __webpack_require__(625);
+	var directScroller = __webpack_require__(626);
 	
 	var DirectLink = React.createClass({
 	  render: function () {
@@ -39787,11 +39845,11 @@
 
 
 /***/ },
-/* 625 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Helpers  = __webpack_require__(617);
-	var scroller = __webpack_require__(623);
+	var scroller = __webpack_require__(624);
 	
 	var mappedGet = scroller.get;
 	
@@ -39804,7 +39862,7 @@
 
 
 /***/ },
-/* 626 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39822,7 +39880,7 @@
 
 
 /***/ },
-/* 627 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39839,7 +39897,7 @@
 	module.exports = Helpers.Element(Element);
 
 /***/ },
-/* 628 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39852,7 +39910,7 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsScoreDialog = __webpack_require__(629);
+	var _componentsScoreDialog = __webpack_require__(630);
 	
 	var _componentsScoreDialog2 = _interopRequireDefault(_componentsScoreDialog);
 	
@@ -39883,7 +39941,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 629 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39982,7 +40040,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 630 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39999,7 +40057,7 @@
 	
 	var _reactIf = __webpack_require__(614);
 	
-	var _ResponseJs = __webpack_require__(631);
+	var _ResponseJs = __webpack_require__(632);
 	
 	var _ResponseJs2 = _interopRequireDefault(_ResponseJs);
 	
@@ -40048,7 +40106,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 631 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40065,11 +40123,11 @@
 	
 	var _reactIf = __webpack_require__(614);
 	
-	var _containersScoreDialogContainer = __webpack_require__(628);
+	var _containersScoreDialogContainer = __webpack_require__(629);
 	
 	var _containersScoreDialogContainer2 = _interopRequireDefault(_containersScoreDialogContainer);
 	
-	var _containersAnsweredDialogContainer = __webpack_require__(632);
+	var _containersAnsweredDialogContainer = __webpack_require__(633);
 	
 	var _containersAnsweredDialogContainer2 = _interopRequireDefault(_containersAnsweredDialogContainer);
 	
@@ -40137,7 +40195,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 632 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40150,7 +40208,7 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsAnsweredDialog = __webpack_require__(633);
+	var _componentsAnsweredDialog = __webpack_require__(634);
 	
 	var _componentsAnsweredDialog2 = _interopRequireDefault(_componentsAnsweredDialog);
 	
@@ -40180,7 +40238,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 633 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -40247,7 +40305,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 634 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40260,7 +40318,7 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsResponseForm = __webpack_require__(635);
+	var _componentsResponseForm = __webpack_require__(636);
 	
 	var _componentsResponseForm2 = _interopRequireDefault(_componentsResponseForm);
 	
@@ -40300,7 +40358,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 635 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

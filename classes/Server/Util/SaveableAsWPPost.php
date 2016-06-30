@@ -15,8 +15,8 @@ interface SaveableAsWPPost {
 	public function get_content();
 	public function get_post_date();
 
-	public function set_id( int $id );
-	public function set_author_id( int $id );
+	public function set_id( $id );
+	public function set_author_id( $id );
 	public function set_content( $content );
 	public function set_post_date( $post_date );
 }

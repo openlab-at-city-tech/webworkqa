@@ -41,11 +41,11 @@ class Problem implements Util\SaveableAsWPPost {
 		return $this->id > 0;
 	}
 
-	public function set_id( int $id ) {
+	public function set_id( $id ) {
 		$this->id = $id;
 	}
 
-	public function set_author_id( int $author_id ) {
+	public function set_author_id( $author_id ) {
 		$this->author_id = $author_id;
 	}
 

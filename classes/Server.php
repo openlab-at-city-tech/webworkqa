@@ -103,7 +103,7 @@ class Server {
 		$client_id = $this->get_client_from_course_url( $source );
 
 		$client_base = get_blog_option( $client_id, 'home' );
-		$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $existing_problem_id;
+		$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $problem_id;
 		wp_safe_redirect( $client_url );
 		die();
 	}

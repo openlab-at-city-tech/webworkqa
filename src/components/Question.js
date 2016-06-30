@@ -28,7 +28,7 @@ export default class Question extends Component {
 			userCanPostResponse
 		} = this.props
 
-		const { tried, content, authorAvatar, authorName, problemText, inputs, maths } = question
+		const { tried, content, authorAvatar, authorName, problemText, problemInputs, problemMaths } = question
 
 		const isMyQuestion = question.isMyQuestion > 0
 		const hasProblemText = problemText && problemText.length > 0
@@ -118,8 +118,8 @@ export default class Question extends Component {
 											<FormattedProblem
 											  problemId="0"
 											  content={problemText}
-											  maths={maths}
-											  inputs={inputs}
+											  maths={problemMaths}
+											  inputs={problemInputs}
 											/>
 										</div>
 										</span>

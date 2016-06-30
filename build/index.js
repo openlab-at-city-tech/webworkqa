@@ -38896,7 +38896,7 @@
 				var problemText = question.problemText;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
-				var hasProblemText = problemText.length > 0;
+				var hasProblemText = problemText && problemText.length > 0;
 	
 				var responseScrollElementName = 'response-form-' + itemId;
 				var Element = _reactScroll2['default'].Element;

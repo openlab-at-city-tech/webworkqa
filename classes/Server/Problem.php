@@ -47,7 +47,7 @@ class Problem implements Util\SaveableAsWPPost {
 	}
 
 	public function set_author_id( $author_id ) {
-		$this->author_id = $author_id;
+		$this->author_id = (int) $author_id;
 	}
 
 	public function set_content( $content ) {

@@ -178,4 +178,82 @@ class Problem implements Util\SaveableAsWPPost {
 			$this->set_library_id( $library_id );
 		}
 	}
+
+	public function get_instances() {
+		$q = new ProblemInstance\Query( array(
+			'problem_id' => $this->get_id(),
+		) );
+
+		return $q->get();
+	}
+
+	/**
+	 * Determine whether an instance exists for a given course URL.
+	 *
+	 * @param string $course_url
+	 * @return bool
+	 */
+	public function instance_exists( $course_url ) {
+		$instance = $this->get_instance( $course_url );
+		return ! empty( $instance );
+	}
+
+	/**
+	 * Get the problem instance corresponding to a given course URL.
+	 *
+	 * @param string $course_url
+	 * @return WeBWorK\Server\ProblemInstance|false False if not found.
+	 */
+	public function get_instance( $course_url ) {
+		$id = $this->get_id();
+		if ( ! $id ) {
+			return false;
+		}
+
+		$q = new ProblemInstance\Query( array(
+			'remote_course_url' => $course_url,
+		) );
+
+		$instances = $q->get();
+
+		if ( ! $instances ) {
+			return false;
+		}
+
+		return reset( $instances );
+	}
+
+	/**
+	 * Create an instance corresponding to a given course URL.
+	 *
+	 * @param string $course_url
+	 * @param array $post_data POSTed data from WeBWorK.
+	 * @return bool
+	 */
+	public function create_instance( $course_url, $post_data ) {
+		$id = $this->get_id();
+		if ( ! $id ) {
+			return false;
+		}
+
+		$instance = new ProblemInstance();
+		$instance->set_problem_id( $id );
+		$instance->set_remote_course_url( $course_url );
+
+		if ( isset( $post_data['course_problem_url'] ) ) {
+			$instance->set_remote_problem_url( $post_data['course_problem_url'] );
+		}
+
+		if ( isset( $post_data['set'] ) ) {
+			$instance->set_remote_problem_set( $post_data['set'] );
+		}
+
+		if ( isset( $post_data['problem'] ) ) {
+			$instance->set_remote_problem( $post_data['problem'] );
+		}
+
+		$added = $instance->save();
+
+		return $added;
+	}
 }

@@ -113,4 +113,53 @@ class WeBWork_Tests_Problem extends WeBWorK_UnitTestCase {
 		$p->set_content( 'foo' );
 		$this->assertNull( $p->get_library_id() );
 	}
+
+	public function test_instance_exists_true() {
+		$url = 'http://example.com/my-webwork-course';
+		$p = self::factory()->problem->create( array(
+			'content' => 'bar',
+			'remote_url' => $url,
+		) );
+
+		$problem = new \WeBWorK\Server\Problem( $p );
+		$problem->create_instance( $url, array( 'foo' => 'bar' ) );
+		$this->assertTrue( $problem->instance_exists( $url ) );
+	}
+
+	public function test_instance_exists_false() {
+		$url = 'http://example.com/my-webwork-course';
+		$p = self::factory()->problem->create( array(
+			'content' => 'bar',
+			'remote_url' => $url,
+		) );
+
+		$problem = new \WeBWorK\Server\Problem( $p );
+		$this->assertFalse( $problem->instance_exists( $url ) );
+	}
+
+	public function test_create_instance() {
+		$url = 'http://example.com/my-webwork-course';
+		$p = self::factory()->problem->create( array(
+			'content' => 'bar',
+			'remote_url' => $url,
+		) );
+
+		$problem = new \WeBWorK\Server\Problem( $p );
+
+		$this->assertTrue( $problem->create_instance( $url, array(
+			'course_problem_url' => 'course-problem-url',
+			'problem' => 123,
+			'set' => 456,
+		) ) );
+
+		$instance = $problem->get_instance( $url );
+
+		$this->assertInstanceOf( 'WeBWorK\Server\ProblemInstance', $instance );
+		$this->assertSame( $url, $instance->get_remote_course_url() );
+		$this->assertSame( 'course-problem-url', $instance->get_remote_problem_url() );
+
+		// Need not be integers.
+		$this->assertEquals( 123, $instance->get_remote_problem() );
+		$this->assertEquals( 456, $instance->get_remote_problem_set() );
+	}
 }

@@ -138,6 +138,10 @@ class Server {
 		// Get Client base URL from $source (the blog URL)
 		$client_id = $this->get_client_from_course_url( $source );
 
+		if ( ! $problem->instance_exists( $source ) ) {
+			$problem->create_instance( $source, $this->post_data );
+		}
+
 		$client_base = get_blog_option( $client_id, 'home' );
 		$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $problem_id;
 		$client_url = add_query_arg( 'post_data_key', $this->post_data_key, $client_url );

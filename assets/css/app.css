@@ -32,6 +32,13 @@
 
 /** Index *********************************************************************/
 
+.index-intro,
+.index-list {
+	margin: 16px 0;
+	border: 1px dashed #ccc;
+	padding: 16px;
+}
+
 #webwork-app .problem-list {
 	list-style-type: none;
 }

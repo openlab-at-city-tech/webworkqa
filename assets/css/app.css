@@ -33,10 +33,15 @@
 /** Index *********************************************************************/
 
 .index-intro,
-.index-list {
+.index-list,
+ul.problem-list > a {
 	margin: 16px 0;
 	border: 1px dashed #ccc;
 	padding: 16px;
+}
+
+ul.problem-list > a {
+	display: block;
 }
 
 #webwork-app .problem-list {

@@ -70,16 +70,28 @@ class Query {
 		$formatted = array();
 		foreach ( $problems as $p ) {
 			$problem_id = $p->get_id();
-			$formatted[ $problem_id ] = array(
+			$formatted_problem = array(
 				'problemId' => $problem_id,
 				'content' => $p->get_clean_content(),
 				'inputs' => $p->get_inputs(),
 				'libraryId' => $p->get_library_id(),
 				'maths' => $p->get_maths(),
-				'remoteUrl' => $p->get_remote_url(),
 				'authorAvatar' => $p->get_author_avatar(),
 				'authorName' => $p->get_author_name(),
+				'instances' => array(),
 			);
+
+			$instances = $p->get_instances();
+			foreach ( $instances as $instance ) {
+				$course_url = $instance->get_remote_course_url();
+				$formatted_problem['instances'][ $course_url ] = array(
+					'remoteProblemUrl' => $instance->get_remote_problem_url(),
+					'remoteProblemSet' => $instance->get_remote_problem_set(),
+					'remoteProblem' => $instance->get_remote_problem(),
+				);
+			}
+
+			$formatted[ $problem_id ] = $formatted_problem;
 		}
 
 		return $formatted;

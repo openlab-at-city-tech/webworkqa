@@ -42,9 +42,14 @@ class Client {
 				$ww_problem_text = base64_decode( $post_data['pg_object'] );
 			}
 
+			// @todo This is awful.
+			$clients = get_blog_option( 1, 'webwork_clients' );
+			$remote_course_url = array_search( get_current_blog_id(), $clients );
+
 			wp_localize_script( 'webwork-app', 'WWData', array(
 				'problem_id' => $ww_problem,
 				'problem_text' => $ww_problem_text,
+				'remote_course_url' => $remote_course_url,
 				'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
 				'rest_api_endpoint' => $rest_api_endpoint,
 				'route_base' => trailingslashit( $route_base ) . 'webwork/',

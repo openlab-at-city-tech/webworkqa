@@ -9,7 +9,7 @@ class ProblemInstance implements Util\SaveableAsWPPost {
 	protected $p;
 	protected $id = 0;
 
-	protected $content;
+	protected $content = '';
 	protected $author_id = 0;
 	protected $post_date;
 

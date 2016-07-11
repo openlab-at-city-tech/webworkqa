@@ -37890,9 +37890,11 @@
 					title = 'Problem Set ' + remoteProblemSet + ', Problem ' + remoteProblem;
 				}
 	
+				var routeBase = window.WWData.route_base;
+	
 				return _react2['default'].createElement(
 					_reactRouter.Link,
-					{ to: '/wpmaster/foo1/webwork/problems/' + problemId },
+					{ to: routeBase + 'problems/' + problemId },
 					_react2['default'].createElement(
 						'h3',
 						null,

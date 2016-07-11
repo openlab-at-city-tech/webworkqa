@@ -122,11 +122,12 @@ class Server {
 		$matches = $pq->get();
 
 		if ( $matches ) {
-			$problem_id = reset( array_keys( $matches ) );
+			$match_keys = array_keys( $matches );
+			$problem_id = reset( $match_keys );
 		} else {
 			$problem->set_author_id( get_current_user_id() );
 
-			// @todo I think this has to be fetched from referer URL.
+			// @todo This cannot be set globally. It has to be instance-specific.
 			$problem->set_remote_url( 'http://example.com/test-url' );
 
 			$problem->save();

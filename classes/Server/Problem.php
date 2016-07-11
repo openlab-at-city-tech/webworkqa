@@ -21,7 +21,8 @@ class Problem implements Util\SaveableAsWPPost {
 	protected $problem_text;
 	protected $library_id;
 
-	protected $maths = array();
+	protected $maths  = array();
+	protected $inputs = array();
 
 	public function __construct( $id = null ) {
 		$this->p = new Util\WPPost( $this );

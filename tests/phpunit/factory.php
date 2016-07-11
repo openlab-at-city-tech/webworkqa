@@ -152,6 +152,11 @@ class WeBWorK_Tests_Factory_For_ProblemInstance extends WP_UnitTest_Factory_For_
 		$pi = new \WeBWorK\Server\ProblemInstance( $post_id );
 		$clean_pi = clone $pi;
 
+		$problem_id = isset( $args['problem_id'] ) ? $args['problem_id'] : '';
+		if ( $problem_id ) {
+			$pi->set_problem_id( $problem_id );
+		}
+
 		$remote_course_url = isset( $args['remote_course_url'] ) ? $args['remote_course_url'] : '';
 		$pi->set_remote_course_url( $remote_course_url );
 

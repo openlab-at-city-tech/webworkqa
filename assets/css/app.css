@@ -42,6 +42,8 @@ ul.problem-list > a {
 
 ul.problem-list > a {
 	display: block;
+	text-decoration: none;
+	margin-bottom: 50px;
 }
 
 #webwork-app .problem-list {
@@ -52,7 +54,7 @@ ul.problem-list > a {
 	text-decoration: none;
 }
 
-.problem-list > a:hover > li {
+.problem-list > a:hover {
 	background: #ccc;
 }
 

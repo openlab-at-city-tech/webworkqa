@@ -20,10 +20,10 @@ export default class ProblemListItem extends Component {
 			title = 'Problem Set ' + remoteProblemSet + ', Problem ' + remoteProblem
 		}
 
-
+		const routeBase = window.WWData.route_base
 
 		return (
-			<Link to={`/wpmaster/foo1/webwork/problems/${problemId}`}>
+			<Link to={`${routeBase}problems/${problemId}`}>
 				<h3>{title}</h3>
 				<li className="problem-list-item">
 					<FormattedProblem

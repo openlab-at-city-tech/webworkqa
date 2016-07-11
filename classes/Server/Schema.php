@@ -65,6 +65,23 @@ class Schema {
 			'public' => true, // todo This should be false
 		) );
 
+		register_post_type( 'webwork_probinstance', array(
+			'label' => __( 'WebWorK Problem Instance', 'webwork' ),
+			'labels' => array(
+				'name' => __( 'WeBWorK Problem Instance', 'webwork' ),
+				'singular_name' => __( 'WeBWorK Problem Instance', 'webwork' ),
+				'add_new_item' => __( 'Add New WeBWorK Problem Instance', 'webwork' ),
+				'edit_item' => __( 'Edit WeBWorK Problem Instance', 'webwork' ),
+				'new_item' => __( 'New WeBWorK Problem Instance', 'webwork' ),
+				'view_item' => __( 'View WeBWorK Problem Instance', 'webwork' ),
+				'search_items' => __( 'Search WeBWorK Problem Instances', 'webwork' ),
+				'not_found' => __( 'No WeBWorK Problem Instances found', 'webwork' ),
+				'not_found_in_trash' => __( 'No WeBWorK Problem Instances found in Trash.', 'webwork' ),
+			),
+			'public' => false, // todo This should be false
+			'show_in_rest' => false,
+		) );
+
 		register_post_type( 'webwork_question', array(
 			'label' => __( 'WebWorK Question', 'webwork' ),
 			'labels' => array(

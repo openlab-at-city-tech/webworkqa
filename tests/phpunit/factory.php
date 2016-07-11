@@ -139,3 +139,44 @@ class WeBWorK_Tests_Factory_For_Problem extends WP_UnitTest_Factory_For_Post {
 		return $problem;
 	}
 }
+
+class WeBWorK_Tests_Factory_For_ProblemInstance extends WP_UnitTest_Factory_For_Post {
+	public function create_object( $args ) {
+		$args['post_type'] = 'webwork_probinstance';
+		$post_id = parent::create_object( $args );
+
+		if ( ! $post_id || is_wp_error( $post_id ) ) {
+			return $post_id;
+		}
+
+		$pi = new \WeBWorK\Server\ProblemInstance( $post_id );
+		$clean_pi = clone $pi;
+
+		$remote_course_url = isset( $args['remote_course_url'] ) ? $args['remote_course_url'] : '';
+		$pi->set_remote_course_url( $remote_course_url );
+
+		$remote_problem_url = isset( $args['remote_problem_url'] ) ? $args['remote_problem_url'] : '';
+		$pi->set_remote_problem_url( $remote_problem_url );
+
+		$remote_problem_set = isset( $args['remote_problem_set'] ) ? $args['remote_problem_set'] : '';
+		$pi->set_remote_problem_set( $remote_problem_set );
+
+		$remote_problem = isset( $args['remote_problem'] ) ? $args['remote_problem'] : '';
+		$pi->set_remote_problem( $remote_problem );
+
+		if ( isset( $args['post_date'] ) ) {
+			$pi->set_post_date( $args['post_date'] );
+		}
+
+		if ( $clean_pi != $pi ) {
+			$pi->save();
+		}
+
+		return $post_id;
+	}
+
+	public function get_object_by_id( $post_id ) {
+		$pi = new \WeBWorK\Server\ProblemInstance( $post_id );
+		return $pi;
+	}
+}

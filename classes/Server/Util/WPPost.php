@@ -92,6 +92,7 @@ class WPPost {
 		}
 
 		// WP post properties.
+		$this->c->set_id( $post->ID );
 		$this->c->set_author_id( $post->post_author );
 		$this->c->set_content( $post->post_content );
 		$this->c->set_post_date( $post->post_date );

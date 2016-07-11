@@ -129,11 +129,14 @@ class WeBWork_Tests_Problem extends WeBWorK_UnitTestCase {
 		$url = 'http://example.com/my-webwork-course';
 		$p = self::factory()->problem->create( array(
 			'content' => 'bar',
-			'remote_url' => $url,
+		) );
+
+		$pi = self::factory()->problem_instance->create( array(
+			'remote_course_url' => $url,
+			'problem_id' => $p,
 		) );
 
 		$problem = new \WeBWorK\Server\Problem( $p );
-		$problem->create_instance( $url, array( 'foo' => 'bar' ) );
 		$this->assertTrue( $problem->instance_exists( $url ) );
 	}
 
@@ -141,6 +144,11 @@ class WeBWork_Tests_Problem extends WeBWorK_UnitTestCase {
 		$url = 'http://example.com/my-webwork-course';
 		$p = self::factory()->problem->create( array(
 			'content' => 'bar',
+		) );
+
+		// Create a dummy instance associated with another problem, but same URL.
+		$pi = self::factory()->problem_instance->create( array(
+			'problem_id' => 12345,
 			'remote_url' => $url,
 		) );
 

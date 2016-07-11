@@ -211,6 +211,7 @@ class Problem implements Util\SaveableAsWPPost {
 
 		$q = new ProblemInstance\Query( array(
 			'remote_course_url' => $course_url,
+			'problem_id' => $id,
 		) );
 
 		$instances = $q->get();

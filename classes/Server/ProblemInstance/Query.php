@@ -66,27 +66,4 @@ class Query {
 
 		return $instances;
 	}
-
-	public function get_for_endpoint() {
-		$problems = $this->get();
-
-		$formatted = array();
-		foreach ( $problems as $p ) {
-			$problem_id = $p->get_id();
-			$formatted_problem = array(
-				'problemId' => $problem_id,
-				'content' => $p->get_clean_content(),
-				'inputs' => $p->get_inputs(),
-				'libraryId' => $p->get_library_id(),
-				'maths' => $p->get_maths(),
-				'authorAvatar' => $p->get_author_avatar(),
-				'authorName' => $p->get_author_name(),
-				'instances' => $p->get_instances(),
-			);
-
-			$formatted[ $problem_id ] = $formatted_problem;
-		}
-
-		return $formatted;
-	}
 }

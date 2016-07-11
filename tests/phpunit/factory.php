@@ -107,6 +107,7 @@ class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
 
 class WeBWorK_Tests_Factory_For_Problem extends WP_UnitTest_Factory_For_Post {
 	public function create_object( $args ) {
+		$args['post_type'] = 'webwork_problem';
 		$post_id = parent::create_object( $args );
 
 		if ( ! $post_id || is_wp_error( $post_id ) ) {

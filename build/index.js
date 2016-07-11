@@ -37767,14 +37767,11 @@
 				var problemIds = this.props.problemIds;
 	
 				var listItems = [];
-				var counter = 1;
 				problemIds.forEach(function (problemId) {
 					listItems.push(_react2['default'].createElement(_containersProblemListItemContainerJs2['default'], {
 						problemId: problemId,
-						key: problemId,
-						counter: counter
+						key: problemId
 					}));
-					counter++;
 				});
 	
 				return _react2['default'].createElement(
@@ -37867,9 +37864,7 @@
 		_createClass(ProblemListItem, [{
 			key: 'render',
 			value: function render() {
-				var _props = this.props;
-				var counter = _props.counter;
-				var problem = _props.problem;
+				var problem = this.props.problem;
 	
 				if (!problem) {
 					return _react2['default'].createElement('span', null);
@@ -37880,19 +37875,32 @@
 				var excerpt = problem.excerpt;
 				var inputs = problem.inputs;
 				var maths = problem.maths;
+				var instances = problem.instances;
+	
+				var remoteCourseURL = window.WWData.remote_course_url;
+	
+				var instance = null;
+				var title = '';
+				if (instances.hasOwnProperty(remoteCourseURL)) {
+					var _instances$remoteCourseURL = instances[remoteCourseURL];
+					var remoteProblemURL = _instances$remoteCourseURL.remoteProblemURL;
+					var remoteProblemSet = _instances$remoteCourseURL.remoteProblemSet;
+					var remoteProblem = _instances$remoteCourseURL.remoteProblem;
+	
+					title = 'Problem Set ' + remoteProblemSet + ', Problem ' + remoteProblem;
+				}
 	
 				return _react2['default'].createElement(
 					_reactRouter.Link,
 					{ to: '/wpmaster/foo1/webwork/problems/' + problemId },
 					_react2['default'].createElement(
+						'h3',
+						null,
+						title
+					),
+					_react2['default'].createElement(
 						'li',
 						{ className: 'problem-list-item' },
-						_react2['default'].createElement(
-							'h3',
-							null,
-							'Problem ',
-							counter
-						),
 						_react2['default'].createElement(_FormattedProblem2['default'], {
 							itemId: problemId,
 							content: content,

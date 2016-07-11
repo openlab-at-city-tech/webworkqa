@@ -40,9 +40,7 @@ class Client {
 			if ( ! empty( $_GET['post_data_key'] ) ) {
 				$post_data = get_blog_option( 1, $_GET['post_data_key'] );
 				$ww_problem_text = base64_decode( $post_data['pg_object'] );
-			//	$pf = new Server\Util\ProblemFormatter();
 			}
-			//$ww_problem_text = isset( $_POST['pg_object'] ) ? base64_decode( $_POST['pg_object'] ) : '';
 
 			wp_localize_script( 'webwork-app', 'WWData', array(
 				'problem_id' => $ww_problem,

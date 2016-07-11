@@ -53,7 +53,6 @@ class Server {
 	/**
 	 * @todo This will only work for individual problems. Will need to differentiate for other uses.
 	 * @todo Redirect afterward, break up logic into separate items, etc.
-	 * @todo Forbid multiple problems for a given WW-individuated problem.
 	 */
 	public function catch_post() {
 		// @todo

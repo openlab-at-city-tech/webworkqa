@@ -61,9 +61,6 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$this->assertFalse( $question->delete() );
 	}
 
-	/**
-	 * @group bbg
-	 */
 	public function test_delete_success() {
 		$q = self::factory()->question->create();
 

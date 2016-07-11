@@ -134,8 +134,7 @@ class Problem implements Util\SaveableAsWPPost {
 		if ( null === $this->library_id	) {
 			$content = $this->raw_content;
 
-			// @todo Is this reliable?
-			$regex = '|Library[^<]+\.pg|';
+			$regex = '|[[a-zA-Z0-9\-_/]+\.pg|';
 			if ( preg_match( $regex, $content, $matches ) ) {
 				$library_id = $matches[0];
 				$this->set_library_id( $matches[0] );

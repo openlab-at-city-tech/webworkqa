@@ -101,6 +101,17 @@ class WeBWork_Tests_Problem extends WeBWorK_UnitTestCase {
 		$this->assertSame( $expected, $p->get_library_id() );
 	}
 
+	public function test_get_library_id_when_not_prefixed_with_Library() {
+		$text = '<script type="text/x-mathjax-config">MathJax.Hub.Config({MathMenu: {showContext: true}});</script><script type="text/javascript">if(!window.MathJax)(function () {var script = document.createElement("script");script.type = "text/javascript";script.src  = "/webwork2_files/mathjax/MathJax.js?config=TeX-MML-AM_HTMLorMML-full";document.getElementsByTagName("head")[0].appendChild(script);})();</script> <P style="margin: 0">(1 point) <B>Foo/ma117DB/set1b/srw1_4_41.pg</B><BR>Simplify the expression  <span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">frac{frac{4}{x-1}-frac{1}{x+1}}{frac{x}{x-1}+frac{1}{x+1}}</script>  and give your answer in the form of <span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">frac{f(x)}{g(x)}.</script>  <BR/> Your answer for the function <span class="MathJax_Preview">[math]</span><script type="math/tex">f(x)</script> is : <input type=text class="codeshard" size=20 name="AnSwEr0001" id="AnSwEr0001" aria-label="answer 1 " value=""/> <input type=hidden  name="previous_AnSwEr0001" value=""/>  <BR/> Your answer for the function <span class="MathJax_Preview">[math]</span><script type="math/tex">g(x)</script> is : <input type=text class="codeshard" size=20 name="AnSwEr0002" id="AnSwEr0002" aria-label="answer 2 " value=""/> <input type=hidden  name="previous_AnSwEr0002" value=""/>  <BR/>  <p><b>Note: </b><i>You can earn partial credit on this problem.</i></p>';
+
+		$p = new \WeBWorK\Server\Problem();
+		$p->set_content( $text );
+
+		$expected = 'Foo/ma117DB/set1b/srw1_4_41.pg';
+
+		$this->assertSame( $expected, $p->get_library_id() );
+	}
+
 	public function test_library_id_should_be_reset_when_content_is_changed() {
 		$text = '<script type="text/x-mathjax-config">MathJax.Hub.Config({MathMenu: {showContext: true}});</script><script type="text/javascript">if(!window.MathJax)(function () {var script = document.createElement("script");script.type = "text/javascript";script.src  = "/webwork2_files/mathjax/MathJax.js?config=TeX-MML-AM_HTMLorMML-full";document.getElementsByTagName("head")[0].appendChild(script);})();</script> <P style="margin: 0">(1 point) <B>Library/ma117DB/set1b/srw1_4_41.pg</B><BR>Simplify the expression  <span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">frac{frac{4}{x-1}-frac{1}{x+1}}{frac{x}{x-1}+frac{1}{x+1}}</script>  and give your answer in the form of <span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">frac{f(x)}{g(x)}.</script>  <BR/> Your answer for the function <span class="MathJax_Preview">[math]</span><script type="math/tex">f(x)</script> is : <input type=text class="codeshard" size=20 name="AnSwEr0001" id="AnSwEr0001" aria-label="answer 1 " value=""/> <input type=hidden  name="previous_AnSwEr0001" value=""/>  <BR/> Your answer for the function <span class="MathJax_Preview">[math]</span><script type="math/tex">g(x)</script> is : <input type=text class="codeshard" size=20 name="AnSwEr0002" id="AnSwEr0002" aria-label="answer 2 " value=""/> <input type=hidden  name="previous_AnSwEr0002" value=""/>  <BR/>  <p><b>Note: </b><i>You can earn partial credit on this problem.</i></p>';
 

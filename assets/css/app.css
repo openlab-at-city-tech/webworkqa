@@ -56,12 +56,6 @@ ul.problem-list > a {
 	background: #ccc;
 }
 
-.problem-list-item {
-	margin: 16px 0;
-	border: 1px dashed #ccc;
-	padding: 16px;
-}
-
 /** Problem *******************************************************************/
 
 .ww-problem {

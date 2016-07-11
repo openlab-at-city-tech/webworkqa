@@ -4,7 +4,7 @@ import FormattedProblem from './FormattedProblem'
 
 export default class ProblemListItem extends Component {
 	render() {
-		const { problem } = this.props
+		const { counter, problem } = this.props
 
 		if ( ! problem ) {
 			return ( <span></span> )
@@ -15,6 +15,7 @@ export default class ProblemListItem extends Component {
 		return (
 			<Link to={`/wpmaster/foo1/webwork/problems/${problemId}`}>
 				<li className="problem-list-item">
+					<h3>Problem {counter}</h3>
 					<FormattedProblem
 					  itemId={problemId}
 					  content={content}

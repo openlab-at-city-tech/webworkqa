@@ -11,13 +11,16 @@ export default class ProblemList extends Component {
 		const { problemIds } = this.props
 
 		let listItems = []
+		let counter = 1
 		problemIds.forEach( function( problemId ) {
 			listItems.push(
 			  <ProblemListItemContainer
 			    problemId={problemId}
 			    key={problemId}
+			    counter={counter}
 			  />
 			)
+			counter++
 		} )
 
 		return (

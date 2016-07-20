@@ -26,6 +26,11 @@ function webwork_init() {
 		return;
 	}
 
+	if ( version_compare( $GLOBALS['wp_version'], '4.4', '<' ) ) {
+		add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires WordPress 4.4 to function properly. Please upgrade WordPress or deactivate WeBWorK for WordPress.', 'webwork' ) . "</p></div>';" ) );
+		return;
+	}
+
 	spl_autoload_register( 'webwork_autoload_register' );
 
 	$GLOBALS['webwork'] = \WeBWorK\Loader::init();

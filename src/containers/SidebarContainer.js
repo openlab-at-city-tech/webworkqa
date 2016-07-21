@@ -2,11 +2,11 @@ import { connect } from 'react-redux'
 import Sidebar from '../components/Sidebar'
 
 const mapStateToProps = ( state ) => {
-	                    return {}
+	return {}
 }
 
 const mapDispatchToProps = ( dispatch ) => {
-	                    return {}
+	return {}
 }
 
 const SidebarContainer = connect(

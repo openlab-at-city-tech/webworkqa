@@ -386,6 +386,17 @@ export const toggleAccordion = ( itemId ) => {
 	}
 }
 
+export const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE'
+export const setFilterToggle = ( slug, contrary ) => {
+	return {
+		type: SET_FILTER_TOGGLE,
+		payload: {
+			slug,
+			contrary
+		}
+	}
+}
+
 export const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE'
 export const setInitialLoadComplete = ( isInitialLoadComplete ) => {
 	return {

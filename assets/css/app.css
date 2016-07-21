@@ -288,3 +288,14 @@ ul.problem-list > a {
 	width: 50px;
 	margin-bottom: 1em;
 }
+
+/** Sidebar ******************************************************************/
+
+.ww-question-filters {
+	list-style-type: none;
+	margin: 0;
+}
+
+.toggle-enabled {
+	font-weight: bold;
+}

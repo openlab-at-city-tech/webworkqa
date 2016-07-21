@@ -17,7 +17,9 @@ import {
 	SET_VOTE, SET_VOTES_BULK, TOGGLE_VOTE,
 	SET_SCORE, SET_SCORES_BULK, INCR_SCORE,
 	SET_INITIAL_LOAD_COMPLETE,
-	TOGGLE_ACCORDION
+	TOGGLE_ACCORDION,
+
+	SET_FILTER_TOGGLE
 } from '../actions'
 
 function appIsLoading( state = false, action ) {
@@ -44,6 +46,24 @@ function collapsed( state = {}, action ) {
 					[itemId]: '1'
 				} )
 			}
+		default :
+			return state
+	}
+}
+
+function currentFilters( state = {
+	answeredQuestions: false,
+	unansweredQuestions: false
+}, action ) {
+	switch ( action.type ) {
+		case SET_FILTER_TOGGLE :
+			const { slug, contrary } = action.payload
+
+			return Object.assign( {}, state, {
+				[ slug ]: true,
+				[ contrary ]: false
+			} )
+
 		default :
 			return state
 	}
@@ -280,6 +300,7 @@ function votes( state = {}, action ) {
 const rootReducer = combineReducers({
   appIsLoading,
   collapsed,
+  currentFilters,
   initialLoadComplete,
   problemIds,
   problems,

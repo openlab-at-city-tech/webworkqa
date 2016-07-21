@@ -31,11 +31,6 @@ function webwork_init() {
 		return;
 	}
 
-	if ( ! class_exists( 'WP_REST_Controller' ) ) {
-		add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires the WP-API plugin to function properly. Please install WP-API or deactivate WeBWorK for WordPress.', 'webwork' ) . "</p></div>';" ) );
-		return;
-	}
-
 	spl_autoload_register( 'webwork_autoload_register' );
 
 	$GLOBALS['webwork'] = \WeBWorK\Loader::init();

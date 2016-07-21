@@ -4,6 +4,19 @@
 	position: relative;
 }
 
+.ww-main {
+	float: left;
+	margin-right: -100%;
+	width: 70%;
+}
+
+.ww-sidebar {
+	float: left;
+	margin-left: 75%;
+	padding: 0;
+	width: 25%;
+}
+
 .app-loading-throbber {
 	display: none;
 }
@@ -34,7 +47,8 @@
 
 .index-intro,
 .index-list,
-ul.problem-list > a {
+ul.problem-list > a,
+.ww-sidebar-widget {
 	margin: 16px 0;
 	border: 1px dashed #ccc;
 	padding: 16px;

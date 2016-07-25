@@ -21,13 +21,10 @@ export default class QuestionListItem extends Component {
 		}
 
 		const routeBase = window.WWData.route_base
-
-		/**
-		 * @todo the endpoint should deliver each question's Problem as a part of the payload, so that the problem can be passed to FormattedProblem
-		 */
+		const routePath = '/' + routeBase + 'problems/' + problemId
 
 		return (
-			<Link to={`${routeBase}problems/${problemId}`}>
+			<Link to={routePath}>
 				<h3>{title}</h3>
 				<li className="question-list-item">
 					<FormattedProblem

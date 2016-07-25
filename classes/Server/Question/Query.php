@@ -12,10 +12,11 @@ class Query {
 
 	protected $sorter;
 
-	public function __construct( $args ) {
+	public function __construct( $args = array() ) {
 		$this->r = array_merge( array(
 			'problem_id' => null,
 			'orderby' => 'votes',
+			'order' => 'ASC',
 		), $args );
 
 		$this->sorter = new \WeBWorK\Server\Util\QuerySorter();
@@ -29,14 +30,12 @@ class Query {
 	 * @return array|int
 	 */
 	public function get() {
-		$args = array(
+		$args = array_merge( $this->r, array(
 			'post_type' => 'webwork_question',
 			'update_post_term_cache' => false,
 			'meta_query' => array(),
 			'posts_per_page' => -1,
-			'orderby' => 'post_date',
-			'order' => 'ASC',
-		);
+		) );
 
 		if ( $this->r['problem_id'] ) {
 			$args['meta_query']['problem_id'] = array(
@@ -53,7 +52,9 @@ class Query {
 			$questions[ $_question->ID ] = new \WeBWorK\Server\Question( $_question->ID );
 		}
 
-		$questions = $this->sorter->sort_by_votes( $questions );
+		if ( 'votes' === $this->r['orderby'] ) {
+			$questions = $this->sorter->sort_by_votes( $questions );
+		}
 
 		return $questions;
 	}

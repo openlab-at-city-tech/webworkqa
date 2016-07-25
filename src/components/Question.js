@@ -19,6 +19,20 @@ export default class Question extends Component {
 				smooth: true
 			} )
 		}
+
+		const parts = window.decodeURIComponent( window.location.hash ).split( '/' );
+		if ( parts && parts[1].substr( 0, 9 ) == 'question-' ) {
+			const questionId = parts[1].substr( 9 )
+			if ( questionId == itemId ) {
+				// Delay to allow LaTeX to render
+				setTimeout( function() {
+					Scroll.scroller.scrollTo( parts[1], {
+						duration: 1500,
+						smooth: true
+					} )
+				}, 500 )
+			}
+		}
 	}
 
 	render() {
@@ -50,10 +64,16 @@ export default class Question extends Component {
 			}
 		}
 
+		const anchorName = 'question-' + itemId
+
 		return (
 			<li
 			  className={this.getClassName( isCollapsed, isMyQuestion, isAnswered )}
 			>
+				<Element name={anchorName}>
+					<a name={anchorName}></a>
+				</Element>
+
 				<div className="ww-question">
 					<div className="ww-question-header">
 						<a

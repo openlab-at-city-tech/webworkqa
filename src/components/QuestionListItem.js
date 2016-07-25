@@ -21,7 +21,7 @@ export default class QuestionListItem extends Component {
 		}
 
 		const routeBase = window.WWData.route_base
-		const routePath = '/' + routeBase + 'problems/' + problemId
+		const routePath = '/' + routeBase + 'problems/' + problemId + '/#/question-' + questionId
 
 		return (
 			<Link to={routePath}>

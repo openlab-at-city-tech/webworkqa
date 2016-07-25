@@ -1,5 +1,5 @@
-import React from 'react';
-import QuestionContainer from '../containers/QuestionContainer';
+import React from 'react'
+import QuestionContainer from '../containers/QuestionContainer'
 
 var QuestionList = React.createClass({
 	render: function() {

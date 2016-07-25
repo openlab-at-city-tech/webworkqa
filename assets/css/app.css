@@ -47,28 +47,28 @@
 
 .index-intro,
 .index-list,
-ul.problem-list > a,
+ul.question-list > a,
 .ww-sidebar-widget {
 	margin: 16px 0;
 	border: 1px dashed #ccc;
 	padding: 16px;
 }
 
-ul.problem-list > a {
+ul.question-list > a {
 	display: block;
 	text-decoration: none;
 	margin-bottom: 50px;
 }
 
-#webwork-app .problem-list {
+#webwork-app .question-list {
 	list-style-type: none;
 }
 
-.problem-list > a {
+.question-list > a {
 	text-decoration: none;
 }
 
-.problem-list > a:hover {
+.question-list > a:hover {
 	background: #ccc;
 }
 

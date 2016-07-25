@@ -47,10 +47,13 @@ export const receiveProblems = (problems) => {
 	}
 }
 
-export function fetchProblems() {
+export function fetchQuestionIndexList() {
 	return dispatch => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
-		const endpoint = rest_api_endpoint + 'problems/'
+		let endpoint = rest_api_endpoint + 'questions/'
+
+		endpoint += '?orderby=post_date&order=desc'
+
 		return fetch( endpoint,
 		{
 			credentials: 'same-origin',
@@ -61,18 +64,18 @@ export function fetchProblems() {
 		} )
 			.then( response => response.json() )
 			.then( json => {
-				dispatch( receiveProblems( json.problems ) )
-				dispatch( receiveProblemIds( json.problemIds ) )
+				dispatch( receiveQuestions( json.questions ) )
+				dispatch( receiveQuestionIds( json.questionIds ) )
 			} )
 	}
 
 }
 
-export const RECEIVE_PROBLEM_IDS = 'RECEIVE_PROBLEM_IDS';
-export const receiveProblemIds = (problemIds) => {
+export const RECEIVE_QUESTION_IDS = 'RECEIVE_QUESTION_IDS';
+export const receiveQuestionIds = (questionIds) => {
 	return {
-		type: RECEIVE_PROBLEM_IDS,
-		payload: problemIds
+		type: RECEIVE_QUESTION_IDS,
+		payload: questionIds
 	}
 }
 

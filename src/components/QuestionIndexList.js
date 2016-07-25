@@ -8,20 +8,20 @@ export default class QuestionList extends Component {
 	}
 
 	render() {
-		const { problemIds } = this.props
+		const { questionIds } = this.props
 
 		let listItems = []
-		problemIds.forEach( function( problemId ) {
+		questionIds.forEach( function( questionId ) {
 			listItems.push(
 			  <QuestionListItemContainer
-			    problemId={problemId}
-			    key={problemId}
+			    questionId={questionId}
+			    key={questionId}
 			  />
 			)
 		} )
 
 		return (
-			<ul className="problem-list">
+			<ul className="question-list">
 				{listItems}
 			</ul>
 		)

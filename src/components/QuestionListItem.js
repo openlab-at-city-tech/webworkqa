@@ -4,34 +4,39 @@ import FormattedProblem from './FormattedProblem'
 
 export default class QuestionListItem extends Component {
 	render() {
-		const { problem } = this.props
+		const { question } = this.props
 
-		if ( ! problem ) {
+		if ( ! question ) {
 			return ( <span></span> )
 		}
 
-		const { problemId, content, excerpt, inputs, maths, instances } = problem
+		const { problemId, questionId, problemText, excerpt, problemInputs, problemMaths, instances } = question
 		const remoteCourseURL = window.WWData.remote_course_url
 
 		let instance = null
 		let title = ''
-		if ( instances.hasOwnProperty( remoteCourseURL ) ) {
+		if ( instances && instances.hasOwnProperty( remoteCourseURL ) ) {
 			const { remoteProblemURL, remoteProblemSet, remoteProblem } = instances[ remoteCourseURL ]
 			title = 'Problem Set ' + remoteProblemSet + ', Problem ' + remoteProblem
 		}
 
 		const routeBase = window.WWData.route_base
 
+		/**
+		 * @todo the endpoint should deliver each question's Problem as a part of the payload, so that the problem can be passed to FormattedProblem
+		 */
+
 		return (
 			<Link to={`${routeBase}problems/${problemId}`}>
 				<h3>{title}</h3>
-				<li className="problem-list-item">
+				<li className="question-list-item">
 					<FormattedProblem
-					  itemId={problemId}
-					  content={content}
+					  itemId={questionId}
+					  problemId={problemId}
+					  content={problemText}
 					  excerpt={excerpt}
-					  inputs={inputs}
-					  maths={maths}
+					  inputs={problemInputs}
+					  maths={problemMaths}
 					/>
 				</li>
 			</Link>

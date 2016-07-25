@@ -22,6 +22,12 @@ class Endpoint extends \WP_Rest_Controller {
 				'permission_callback' => array( $this, 'create_item_permissions_check' ),
 				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::CREATABLE ),
 			),
+			array(
+				'methods' => \WP_REST_Server::READABLE,
+				'callback' => array( $this, 'get_items' ),
+				'permission_callback' => array( $this, 'get_items_permissions_check' ),
+				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::READABLE ),
+			),
 		) );
 
 		/*
@@ -120,6 +126,36 @@ class Endpoint extends \WP_Rest_Controller {
 		}
 
 		return $response;
+	}
+
+	public function get_items( $request ) {
+		$params = $request->get_params();
+		$keys = array( 'orderby', 'order' );
+
+		$args = array();
+		foreach ( $keys as $k ) {
+			if ( isset( $params[ $k ] ) ) {
+				$args[ $k ] = $params[ $k ];
+			}
+		}
+
+		$q = new Query( $args );
+
+		$questions = $q->get_for_endpoint();
+
+		$retval = array(
+			'questionIds' => array_keys( $questions ),
+			'questions' => $questions,
+		);
+
+		$response = rest_ensure_response( $retval );
+
+		return $response;
+	}
+
+	// @todo
+	public function get_items_permissions_check( $request ) {
+		return true;
 	}
 
 	// @todo

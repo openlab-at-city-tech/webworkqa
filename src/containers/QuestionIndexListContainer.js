@@ -1,12 +1,10 @@
 import { connect } from 'react-redux'
 import QuestionIndexList from '../components/QuestionIndexList'
-import { fetchProblems } from '../actions'
+import { fetchQuestionIndexList } from '../actions'
 
 const mapStateToProps = ( state ) => {
-	const { problemIds } = state
-
 	return {
-		problemIds
+		questionIds: state.questionsById
 	}
 }
 
@@ -14,7 +12,7 @@ const mapDispatchToProps = ( dispatch ) => {
 	return {
 		// @todo Pagination?
 		onComponentWillMount: function() {
-			dispatch( fetchProblems() )
+			dispatch( fetchQuestionIndexList() )
 		}
 	}
 }

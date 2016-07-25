@@ -2,13 +2,13 @@ import { connect } from 'react-redux'
 import QuestionListItem from '../components/QuestionListItem'
 
 const mapStateToProps = ( state, ownProps ) => {
-	const { problems } = state
-	const { problemId } = ownProps
+	const { questions } = state
+	const { questionId } = ownProps
 
-	const problem = problems[ problemId ]
+	const question = questions[ questionId ]
 
 	return {
-		problem
+		question
 	}
 }
 

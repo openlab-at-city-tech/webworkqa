@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import ProblemListContainer from '../containers/ProblemListContainer'
+import QuestionIndexListContainer from '../containers/QuestionIndexListContainer'
 import SidebarContainer from '../containers/SidebarContainer'
 
-export default class ProblemIndex extends Component {
+export default class QuestionIndex extends Component {
 	render() {
 		return (
 			<div>
@@ -13,8 +13,8 @@ export default class ProblemIndex extends Component {
 					</div>
 
 					<div className="index-list">
-						<h2>Recent Problems on OpenLab WeBWorK</h2>
-						<ProblemListContainer />
+						<h2>Recent Questions on OpenLab WeBWorK</h2>
+						<QuestionIndexListContainer />
 					</div>
 				</div>
 

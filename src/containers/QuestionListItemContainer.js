@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import ProblemListItem from '../components/ProblemListItem'
+import QuestionListItem from '../components/QuestionListItem'
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { problems } = state
@@ -12,8 +12,8 @@ const mapStateToProps = ( state, ownProps ) => {
 	}
 }
 
-const ProblemListItemContainer = connect(
+const QuestionListItemContainer = connect(
 	mapStateToProps
-)(ProblemListItem)
+)(QuestionListItem)
 
-export default ProblemListItemContainer
+export default QuestionListItemContainer

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import ProblemList from '../components/ProblemList'
+import QuestionIndexList from '../components/QuestionIndexList'
 import { fetchProblems } from '../actions'
 
 const mapStateToProps = ( state ) => {
@@ -19,9 +19,9 @@ const mapDispatchToProps = ( dispatch ) => {
 	}
 }
 
-const ProblemListContainer = connect(
+const QuestionListContainer = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ProblemList)
+)(QuestionIndexList)
 
-export default ProblemListContainer
+export default QuestionListContainer

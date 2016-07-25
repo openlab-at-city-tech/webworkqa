@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { browserHistory, Router, Route, IndexRoute } from 'react-router'
 import configureStore from '../configureStore'
-import ProblemIndex from '../components/ProblemIndex'
+import QuestionIndex from '../components/QuestionIndex'
 import MainLayoutContainer from './MainLayoutContainer'
 import ProblemContainer from './ProblemContainer'
 
@@ -18,7 +18,7 @@ export default class Root extends Component {
 			<Provider store={store}>
 				<Router history={browserHistory}>
 					<Route path={route_base} component={MainLayoutContainer}>
-						<IndexRoute component={ProblemIndex} />
+						<IndexRoute component={QuestionIndex} />
 						<Route path="problems/:problemId" component={ProblemContainer} />
 					</Route>
 				</Router>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ProblemListItemContainer from '../containers/ProblemListItemContainer.js'
+import QuestionListItemContainer from '../containers/QuestionListItemContainer.js'
 
-export default class ProblemList extends Component {
+export default class QuestionList extends Component {
 	componentWillMount() {
 		const { onComponentWillMount } = this.props
 		onComponentWillMount()
@@ -13,7 +13,7 @@ export default class ProblemList extends Component {
 		let listItems = []
 		problemIds.forEach( function( problemId ) {
 			listItems.push(
-			  <ProblemListItemContainer
+			  <QuestionListItemContainer
 			    problemId={problemId}
 			    key={problemId}
 			  />

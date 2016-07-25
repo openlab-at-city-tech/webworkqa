@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router'
 import FormattedProblem from './FormattedProblem'
 
-export default class ProblemListItem extends Component {
+export default class QuestionListItem extends Component {
 	render() {
 		const { problem } = this.props
 

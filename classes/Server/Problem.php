@@ -252,6 +252,13 @@ class Problem implements Util\SaveableAsWPPost {
 			$instance->set_remote_problem( $post_data['problem'] );
 		}
 
+		// Course ID is the URL chunk that comes just before the problem/set combo.
+		$course_url = untrailingslashit( $course_url );
+		$start = strrpos( $course_url, '/' );
+		if ( false !== $start ) {
+			$instance->set_course( substr( $course_url, $start + 1 ) );
+		}
+
 		$added = $instance->save();
 
 		return $added;

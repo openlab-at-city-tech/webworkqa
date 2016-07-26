@@ -19,6 +19,8 @@ class ProblemInstance implements Util\SaveableAsWPPost {
 	protected $remote_problem_set;
 	protected $remote_problem;
 
+	protected $course;
+
 	public function __construct( $id = null ) {
 		$this->p = new Util\WPPost( $this );
 		$this->p->set_post_type( 'webwork_probinstance' );
@@ -72,6 +74,10 @@ class ProblemInstance implements Util\SaveableAsWPPost {
 		$this->remote_problem = $problem;
 	}
 
+	public function set_course( $course ) {
+		$this->course = $course;
+	}
+
 	public function get_id() {
 		return $this->id;
 	}
@@ -108,6 +114,10 @@ class ProblemInstance implements Util\SaveableAsWPPost {
 		return $this->problem_id;
 	}
 
+	public function get_course() {
+		return $this->course;
+	}
+
 	public function save() {
 		$this->p->set( 'post_title', 'Problem Instance' );
 
@@ -119,8 +129,10 @@ class ProblemInstance implements Util\SaveableAsWPPost {
 			update_post_meta( $this->get_id(), 'webwork_problem_id', $this->get_problem_id() );
 			update_post_meta( $this->get_id(), 'webwork_problem_instance_remote_course_url', $this->get_remote_course_url() );
 			update_post_meta( $this->get_id(), 'webwork_problem_instance_remote_problem_url', $this->get_remote_problem_url() );
-			update_post_meta( $this->get_id(), 'webwork_problem_instance_remote_problem_set', $this->get_remote_problem_set() );
 			update_post_meta( $this->get_id(), 'webwork_problem_instance_remote_problem', $this->get_remote_problem() );
+
+			wp_set_object_terms( $this->get_id(), array( (string) $this->get_remote_problem_set() ), 'webwork_problem_set' );
+			wp_set_object_terms( $this->get_id(), array( $this->get_course() ), 'webwork_course' );
 
 			$this->populate();
 		}
@@ -144,11 +156,18 @@ class ProblemInstance implements Util\SaveableAsWPPost {
 			$remote_problem_url = get_post_meta( $this->get_id(), 'webwork_problem_instance_remote_problem_url', true );
 			$this->set_remote_problem_url( $remote_problem_url );
 
-			$remote_problem_set = get_post_meta( $this->get_id(), 'webwork_problem_instance_remote_problem_set', true );
-			$this->set_remote_problem_set( $remote_problem_set );
-
 			$remote_problem = get_post_meta( $this->get_id(), 'webwork_problem_instance_remote_problem', true );
 			$this->set_remote_problem( $remote_problem );
+
+			$problem_set_array = wp_get_object_terms( $this->get_id(), 'webwork_problem_set' );
+			if ( $problem_set_array ) {
+				$this->set_remote_problem_set( $problem_set_array[0]->name );
+			}
+
+			$course_array = wp_get_object_terms( $this->get_id(), 'webwork_course' );
+			if ( $course_array ) {
+				$this->set_course( $course_array[0]->name );
+			}
 		}
 	}
 }

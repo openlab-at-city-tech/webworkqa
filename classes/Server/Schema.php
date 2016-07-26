@@ -15,6 +15,7 @@ class Schema {
 	 */
 	public function init() {
 		$this->register_post_types();
+		$this->register_taxonomies();
 	}
 
 	/**
@@ -116,6 +117,24 @@ class Schema {
 			'public' => true, // todo This should be false
 			'show_in_rest' => true,
 			'rest_base' => 'responses',
+		) );
+	}
+
+	/**
+	 * Register taxonomies.
+	 *
+	 * - webwork_problem_set (webwork_probinstance)
+	 * - webwork_course (webwork_probinstance)
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_taxonomies() {
+		register_taxonomy( 'webwork_problem_set', 'webwork_probinstance', array(
+			'public' => false,
+		) );
+
+		register_taxonomy( 'webwork_course', 'webwork_probinstance', array(
+			'public' => false,
 		) );
 	}
 

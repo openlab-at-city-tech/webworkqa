@@ -166,7 +166,7 @@ class WeBWork_Tests_Problem extends WeBWorK_UnitTestCase {
 		$problem = new \WeBWorK\Server\Problem( $p );
 
 		$this->assertTrue( $problem->create_instance( $url, array(
-			'course_problem_url' => 'course-problem-url',
+			'course_problem_url' => 'http://example.com/foo/123/456',
 			'problem' => 123,
 			'set' => 456,
 		) ) );
@@ -175,7 +175,7 @@ class WeBWork_Tests_Problem extends WeBWorK_UnitTestCase {
 
 		$this->assertInstanceOf( 'WeBWorK\Server\ProblemInstance', $instance );
 		$this->assertSame( $url, $instance->get_remote_course_url() );
-		$this->assertSame( 'course-problem-url', $instance->get_remote_problem_url() );
+		$this->assertSame( 'http://example.com/foo/123/456', $instance->get_remote_problem_url() );
 
 		// Need not be integers.
 		$this->assertEquals( 123, $instance->get_remote_problem() );

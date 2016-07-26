@@ -7,7 +7,7 @@ class WeBWork_Tests_ProblemInstance extends WeBWorK_UnitTestCase {
 	public function test_successful_save_for_new_item() {
 		$p = self::factory()->problem->create();
 
-		$course_url = 'foo';
+		$course_url = 'http://example.com/myCourse/foo';
 		$problem_url = 'foo';
 		$problem_set = 'set';
 		$problem = 'pid';
@@ -18,6 +18,7 @@ class WeBWork_Tests_ProblemInstance extends WeBWorK_UnitTestCase {
 		$instance->set_remote_problem_url( $problem_url );
 		$instance->set_remote_problem_set( $problem_set );
 		$instance->set_remote_problem( $problem );
+		$instance->set_course( 'myCourse' );
 
 		$saved = $instance->save();
 
@@ -29,6 +30,7 @@ class WeBWork_Tests_ProblemInstance extends WeBWorK_UnitTestCase {
 		$this->assertSame( $problem_url, $new_instance->get_remote_problem_url() );
 		$this->assertSame( $problem_set, $new_instance->get_remote_problem_set() );
 		$this->assertSame( $problem, $new_instance->get_remote_problem() );
+		$this->assertSame( 'myCourse', $new_instance->get_course() );
 	}
 
 	public function test_successful_save_for_existing_item() {
@@ -46,6 +48,7 @@ class WeBWork_Tests_ProblemInstance extends WeBWorK_UnitTestCase {
 		$instance->set_remote_problem_url( $problem_url );
 		$instance->set_remote_problem_set( $problem_set );
 		$instance->set_remote_problem( $problem );
+		$instance->set_course( 'myCourse' );
 
 		$saved = $instance->save();
 
@@ -57,6 +60,7 @@ class WeBWork_Tests_ProblemInstance extends WeBWorK_UnitTestCase {
 		$this->assertSame( $problem_url, $new_instance->get_remote_problem_url() );
 		$this->assertSame( $problem_set, $new_instance->get_remote_problem_set() );
 		$this->assertSame( $problem, $new_instance->get_remote_problem() );
+		$this->assertSame( 'myCourse', $new_instance->get_course() );
 	}
 
 	public function test_exists_false() {

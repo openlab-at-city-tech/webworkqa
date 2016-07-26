@@ -28261,15 +28261,15 @@
 	
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 	
-	var _componentsProblemIndex = __webpack_require__(595);
+	var _componentsQuestionIndex = __webpack_require__(615);
 	
-	var _componentsProblemIndex2 = _interopRequireDefault(_componentsProblemIndex);
+	var _componentsQuestionIndex2 = _interopRequireDefault(_componentsQuestionIndex);
 	
-	var _MainLayoutContainer = __webpack_require__(603);
+	var _MainLayoutContainer = __webpack_require__(627);
 	
 	var _MainLayoutContainer2 = _interopRequireDefault(_MainLayoutContainer);
 	
-	var _ProblemContainer = __webpack_require__(605);
+	var _ProblemContainer = __webpack_require__(629);
 	
 	var _ProblemContainer2 = _interopRequireDefault(_ProblemContainer);
 	
@@ -28300,7 +28300,7 @@
 						_react2['default'].createElement(
 							_reactRouter.Route,
 							{ path: route_base, component: _MainLayoutContainer2['default'] },
-							_react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsProblemIndex2['default'] }),
+							_react2['default'].createElement(_reactRouter.IndexRoute, { component: _componentsQuestionIndex2['default'] }),
 							_react2['default'].createElement(_reactRouter.Route, { path: 'problems/:problemId', component: _ProblemContainer2['default'] })
 						)
 					)
@@ -36182,23 +36182,81 @@
 
 	'use strict';
 	
-	var _defineProperty = __webpack_require__(586)['default'];
-	
-	var _Object$assign13 = __webpack_require__(587)['default'];
-	
 	Object.defineProperty(exports, '__esModule', {
-		value: true
+	  value: true
 	});
 	
 	var _redux = __webpack_require__(503);
 	
-	var _actions = __webpack_require__(592);
+	var _appIsLoading = __webpack_require__(586);
+	
+	var _collapsed = __webpack_require__(588);
+	
+	var _currentFilters = __webpack_require__(595);
+	
+	var _initialLoadComplete = __webpack_require__(596);
+	
+	var _problems = __webpack_require__(597);
+	
+	var _problemIds = __webpack_require__(605);
+	
+	var _questions = __webpack_require__(606);
+	
+	var _questionsById = __webpack_require__(607);
+	
+	var _questionFormData = __webpack_require__(608);
+	
+	var _responseFormData = __webpack_require__(609);
+	
+	var _responseFormPending = __webpack_require__(610);
+	
+	var _responseIdMap = __webpack_require__(611);
+	
+	var _responses = __webpack_require__(612);
+	
+	var _scores = __webpack_require__(613);
+	
+	var _votes = __webpack_require__(614);
+	
+	var rootReducer = (0, _redux.combineReducers)({
+	  appIsLoading: _appIsLoading.appIsLoading,
+	  collapsed: _collapsed.collapsed,
+	  currentFilters: _currentFilters.currentFilters,
+	  initialLoadComplete: _initialLoadComplete.initialLoadComplete,
+	  problemIds: _problemIds.problemIds,
+	  problems: _problems.problems,
+	  questions: _questions.questions,
+	  questionsById: _questionsById.questionsById,
+	  questionFormData: _questionFormData.questionFormData,
+	  responseFormData: _responseFormData.responseFormData,
+	  responseFormPending: _responseFormPending.responseFormPending,
+	  responseIdMap: _responseIdMap.responseIdMap,
+	  responses: _responses.responses,
+	  scores: _scores.scores,
+	  votes: _votes.votes
+	});
+	
+	exports['default'] = rootReducer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 586 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.appIsLoading = appIsLoading;
+	
+	var _actionsApp = __webpack_require__(587);
 	
 	function appIsLoading(state, action) {
 		if (state === undefined) state = false;
 	
 		switch (action.type) {
-			case _actions.SET_APP_IS_LOADING:
+			case _actionsApp.SET_APP_IS_LOADING:
 				var appIsLoading = action.payload.appIsLoading;
 	
 				return appIsLoading;
@@ -36207,289 +36265,120 @@
 				return state;
 		}
 	}
+
+/***/ },
+/* 587 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.processFilterToggle = processFilterToggle;
+	var SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
+	exports.SET_INITIAL_LOAD_COMPLETE = SET_INITIAL_LOAD_COMPLETE;
+	var setInitialLoadComplete = function setInitialLoadComplete(isInitialLoadComplete) {
+		return {
+			type: SET_INITIAL_LOAD_COMPLETE,
+			payload: isInitialLoadComplete
+		};
+	};
+	
+	exports.setInitialLoadComplete = setInitialLoadComplete;
+	var SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
+	exports.SET_APP_IS_LOADING = SET_APP_IS_LOADING;
+	var setAppIsLoading = function setAppIsLoading(appIsLoading) {
+		return {
+			type: SET_APP_IS_LOADING,
+			payload: {
+				appIsLoading: appIsLoading
+			}
+		};
+	};
+	
+	exports.setAppIsLoading = setAppIsLoading;
+	var TOGGLE_ACCORDION = 'TOGGLE_ACCORDION';
+	exports.TOGGLE_ACCORDION = TOGGLE_ACCORDION;
+	var toggleAccordion = function toggleAccordion(itemId) {
+		return {
+			type: TOGGLE_ACCORDION,
+			payload: {
+				itemId: itemId
+			}
+		};
+	};
+	
+	exports.toggleAccordion = toggleAccordion;
+	
+	function processFilterToggle(slug, contrary) {
+		return function (dispatch, getState) {
+			var _getState = getState();
+	
+			var currentFilters = _getState.currentFilters;
+	
+			if (currentFilters[slug]) {
+				// If already clicked, toggle off.
+				dispatch(setFilterToggle(slug, false));
+			} else {
+				// If not clicked, toggle on, and toggle off contrary.
+				dispatch(setFilterToggle(slug, true));
+				dispatch(setFilterToggle(contrary, false));
+			}
+		};
+	}
+	
+	var SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE';
+	exports.SET_FILTER_TOGGLE = SET_FILTER_TOGGLE;
+	var setFilterToggle = function setFilterToggle(slug, value) {
+		return {
+			type: SET_FILTER_TOGGLE,
+			payload: {
+				slug: slug,
+				value: value
+			}
+		};
+	};
+	exports.setFilterToggle = setFilterToggle;
+
+/***/ },
+/* 588 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.collapsed = collapsed;
+	
+	var _actionsApp = __webpack_require__(587);
 	
 	function collapsed(state, action) {
 		if (state === undefined) state = {};
 	
 		switch (action.type) {
-			case _actions.TOGGLE_ACCORDION:
+			case _actionsApp.TOGGLE_ACCORDION:
 				var itemId = action.payload.itemId;
 	
 				if (state.hasOwnProperty(itemId)) {
-					var newState = _Object$assign13({}, state);
+					var newState = _Object$assign2({}, state);
 					delete newState[itemId];
 					return newState;
 				} else {
-					return _Object$assign13({}, state, _defineProperty({}, itemId, '1'));
+					return _Object$assign2({}, state, _defineProperty({}, itemId, '1'));
 				}
 			default:
 				return state;
 		}
 	}
-	
-	function initialLoadComplete(state, action) {
-		if (state === undefined) state = false;
-	
-		switch (action.type) {
-			case _actions.SET_INITIAL_LOAD_COMPLETE:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function problems(state, action) {
-		if (state === undefined) state = {};
-	
-		switch (action.type) {
-			case _actions.RECEIVE_PROBLEMS:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function problemIds(state, action) {
-		if (state === undefined) state = [];
-	
-		switch (action.type) {
-			case _actions.RECEIVE_PROBLEM_IDS:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function questions(state, action) {
-		if (state === undefined) state = {};
-	
-		switch (action.type) {
-			case _actions.RECEIVE_QUESTION:
-				return _Object$assign13({}, state, _defineProperty({}, action.payload.questionId, action.payload));
-	
-			case _actions.RECEIVE_QUESTIONS:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function questionsById(state, action) {
-		if (state === undefined) state = [];
-	
-		switch (action.type) {
-			case _actions.RECEIVE_QUESTION_BY_ID:
-				var newState = state;
-				newState.push(action.payload.questionId);
-				return newState;
-	
-			case _actions.RECEIVE_QUESTIONS_BY_ID:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function questionFormData(state, action) {
-		if (state === undefined) state = {
-			isPending: false,
-			content: '',
-			tried: ''
-		};
-	
-		switch (action.type) {
-			case _actions.CHANGE_QUESTION_TEXT:
-				var _action$payload = action.payload,
-				    fieldName = _action$payload.fieldName,
-				    value = _action$payload.value;
-	
-				return _Object$assign13({}, state, _defineProperty({}, fieldName, value));
-	
-			case _actions.SET_QUESTION_PENDING:
-				return _Object$assign13({}, state, {
-					isPending: action.payload.isPending
-				});
-	
-			default:
-				return state;
-		}
-	}
-	
-	function responseFormData(state, action) {
-		if (state === undefined) state = {};
-	
-		switch (action.type) {
-			case _actions.CHANGE_RESPONSE_TEXT:
-				var _action$payload2 = action.payload,
-				    questionId = _action$payload2.questionId,
-				    value = _action$payload2.value;
-	
-				return _Object$assign13({}, state, _defineProperty({}, questionId, value));
-	
-			default:
-				return state;
-		}
-	}
-	
-	function responseFormPending(state, action) {
-		if (state === undefined) state = {};
-	
-		switch (action.type) {
-			case _actions.SET_RESPONSE_PENDING:
-				var _action$payload3 = action.payload,
-				    questionId = _action$payload3.questionId,
-				    isPending = _action$payload3.isPending;
-	
-				return _Object$assign13({}, state, _defineProperty({}, questionId, isPending));
-	
-			case _actions.SET_RESPONSES_PENDING_BULK:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function responseIdMap(state, action) {
-		if (state === undefined) state = {};
-	
-		switch (action.type) {
-			case _actions.RECEIVE_RESPONSE_ID_FOR_MAP:
-				var _action$payload4 = action.payload,
-				    questionId = _action$payload4.questionId,
-				    responseId = _action$payload4.responseId;
-	
-				var questionResponseIds = [];
-				if (state.hasOwnProperty(questionId)) {
-					// Clone the original array to avoid reference problems.
-					questionResponseIds = state[questionId].slice(0);
-					questionResponseIds.push(responseId);
-				} else {
-					questionResponseIds.push(responseId);
-				}
-	
-				return _Object$assign13({}, state, _defineProperty({}, questionId, questionResponseIds));
-	
-			case _actions.RECEIVE_RESPONSE_ID_MAP:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function responses(state, action) {
-		if (state === undefined) state = {};
-	
-		switch (action.type) {
-			case _actions.RECEIVE_RESPONSE:
-				return _Object$assign13({}, state, _defineProperty({}, action.payload.responseId, action.payload));
-	
-			case _actions.RECEIVE_RESPONSES:
-				return action.payload;
-	
-			case _actions.SET_RESPONSE_ANSWERED:
-				var _action$payload5 = action.payload,
-				    responseId = _action$payload5.responseId,
-				    isAnswered = _action$payload5.isAnswered;
-	
-				var response = state[responseId];
-				response.isAnswer = isAnswered;
-				return _Object$assign13({}, state, _defineProperty({}, responseId, response));
-			default:
-				return state;
-		}
-	}
-	
-	function scores(state, action) {
-		if (state === undefined) state = {};
-	
-		var itemId = 0;
-	
-		switch (action.type) {
-			case _actions.INCR_SCORE:
-				itemId = action.payload.itemId;
-				var currentScore = state.hasOwnProperty(itemId) ? state[itemId] : 0;
-	
-				return _Object$assign13({}, state, _defineProperty({}, itemId, Number(currentScore) + Number(action.payload.incr)));
-	
-			case _actions.SET_SCORE:
-				itemId = action.payload.itemId;
-				return _Object$assign13({}, state, _defineProperty({}, itemId, action.payload.score));
-	
-			case _actions.SET_SCORES_BULK:
-				return action.payload;
-	
-			default:
-				return state;
-		}
-	}
-	
-	function votes(state, action) {
-		if (state === undefined) state = {};
-	
-		var itemId = 0;
-		var voteType = '';
-	
-		switch (action.type) {
-			case _actions.SET_VOTE:
-				itemId = action.payload.itemId;
-				voteType = action.payload.voteType;
-	
-				return _Object$assign13({}, state, _defineProperty({}, itemId, voteType));
-	
-			case _actions.SET_VOTES_BULK:
-				return action.payload;
-	
-			case _actions.TOGGLE_VOTE:
-				itemId = action.payload.itemId;
-				voteType = action.payload.voteType;
-	
-				var currentVote = state.hasOwnProperty(itemId) ? state[itemId] : '';
-	
-				// Do nothing if current vote is up and you click down, or vice versa.
-				if ('' == currentVote) {
-					return _Object$assign13({}, state, _defineProperty({}, itemId, voteType));
-				} else if (currentVote == voteType) {
-					var newState = _Object$assign13({}, state);
-					delete newState[itemId];
-					return newState;
-				}
-	
-				return state;
-	
-			default:
-				return state;
-		}
-	}
-	
-	var rootReducer = (0, _redux.combineReducers)({
-		appIsLoading: appIsLoading,
-		collapsed: collapsed,
-		initialLoadComplete: initialLoadComplete,
-		problemIds: problemIds,
-		problems: problems,
-		questions: questions,
-		questionsById: questionsById,
-		questionFormData: questionFormData,
-		responseFormData: responseFormData,
-		responseFormPending: responseFormPending,
-		responseIdMap: responseIdMap,
-		responses: responses,
-		scores: scores,
-		votes: votes
-	});
-	
-	exports['default'] = rootReducer;
-	module.exports = exports['default'];
 
 /***/ },
-/* 586 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -36514,34 +36403,34 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 587 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(588), __esModule: true };
+	module.exports = { "default": __webpack_require__(591), __esModule: true };
 
 /***/ },
-/* 588 */
+/* 591 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(589);
+	__webpack_require__(592);
 	module.exports = __webpack_require__(479).Object.assign;
 
 /***/ },
-/* 589 */
+/* 592 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(477);
 	
-	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(590)});
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(593)});
 
 /***/ },
-/* 590 */
+/* 593 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.1 Object.assign(target, source, ...)
 	var $        = __webpack_require__(470)
-	  , toObject = __webpack_require__(591)
+	  , toObject = __webpack_require__(594)
 	  , IObject  = __webpack_require__(473);
 	
 	// should work with symbols and should have deterministic property order (V8 bug)
@@ -36574,7 +36463,7 @@
 	} : Object.assign;
 
 /***/ },
-/* 591 */
+/* 594 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
@@ -36584,7 +36473,96 @@
 	};
 
 /***/ },
-/* 592 */
+/* 595 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.currentFilters = currentFilters;
+	
+	var _actionsApp = __webpack_require__(587);
+	
+	function currentFilters(state, action) {
+		if (state === undefined) state = {
+			answeredQuestions: false,
+			unansweredQuestions: false,
+	
+			orderby: 'post_date',
+			order: 'DESC'
+		};
+	
+		switch (action.type) {
+			case _actionsApp.SET_FILTER_TOGGLE:
+				var _action$payload = action.payload,
+				    slug = _action$payload.slug,
+				    value = _action$payload.value;
+	
+				return _Object$assign2({}, state, _defineProperty({}, slug, value));
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 596 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.initialLoadComplete = initialLoadComplete;
+	
+	var _actionsApp = __webpack_require__(587);
+	
+	function initialLoadComplete(state, action) {
+		if (state === undefined) state = false;
+	
+		switch (action.type) {
+			case _actionsApp.SET_INITIAL_LOAD_COMPLETE:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 597 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.problems = problems;
+	
+	var _actionsProblems = __webpack_require__(598);
+	
+	function problems(state, action) {
+		if (state === undefined) state = {};
+	
+		switch (action.type) {
+			case _actionsProblems.RECEIVE_PROBLEMS:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36594,29 +36572,22 @@
 	Object.defineProperty(exports, '__esModule', {
 		value: true
 	});
-	exports.fetchProblems = fetchProblems;
-	exports.sendQuestion = sendQuestion;
-	exports.sendResponse = sendResponse;
-	exports.clickVote = clickVote;
-	exports.clickAnswered = clickAnswered;
 	exports.fetchProblem = fetchProblem;
 	
-	var _isomorphicFetch = __webpack_require__(593);
+	var _isomorphicFetch = __webpack_require__(599);
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
-	var SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
-	exports.SET_APP_IS_LOADING = SET_APP_IS_LOADING;
-	var setAppIsLoading = function setAppIsLoading(appIsLoading) {
-		return {
-			type: SET_APP_IS_LOADING,
-			payload: {
-				appIsLoading: appIsLoading
-			}
-		};
-	};
+	var _app = __webpack_require__(587);
 	
-	exports.setAppIsLoading = setAppIsLoading;
+	var _questions = __webpack_require__(601);
+	
+	var _responses = __webpack_require__(602);
+	
+	var _scores = __webpack_require__(603);
+	
+	var _votes = __webpack_require__(604);
+	
 	var REQUEST_PROBLEM = 'REQUEST_PROBLEM';
 	exports.REQUEST_PROBLEM = REQUEST_PROBLEM;
 	var requestProblem = function requestProblem(problemId) {
@@ -36626,7 +36597,6 @@
 		};
 	};
 	
-	exports.requestProblem = requestProblem;
 	var RECEIVE_PROBLEM = 'RECEIVE_PROBLEM';
 	exports.RECEIVE_PROBLEM = RECEIVE_PROBLEM;
 	var receiveProblem = function receiveProblem(problemId, problem) {
@@ -36644,7 +36614,6 @@
 		};
 	};
 	
-	exports.receiveProblem = receiveProblem;
 	var REQUEST_PROBLEMS = 'REQUEST_PROBLEMS';
 	exports.REQUEST_PROBLEMS = REQUEST_PROBLEMS;
 	var requestProblems = function requestProblems(problems) {
@@ -36654,7 +36623,6 @@
 		};
 	};
 	
-	exports.requestProblems = requestProblems;
 	var RECEIVE_PROBLEMS = 'RECEIVE_PROBLEMS';
 	exports.RECEIVE_PROBLEMS = RECEIVE_PROBLEMS;
 	var receiveProblems = function receiveProblems(problems) {
@@ -36664,441 +36632,18 @@
 		};
 	};
 	
-	exports.receiveProblems = receiveProblems;
-	
-	function fetchProblems() {
+	function fetchProblem(problemId) {
 		return function (dispatch) {
+			// Reset a bunch of stuff.
+			// Could work around this with a better-structured state (store all data per-problem)
+			dispatch((0, _app.setInitialLoadComplete)(false));
+			dispatch(receiveProblems({}));
+			dispatch((0, _questions.receiveQuestionsById)([]));
+			dispatch((0, _responses.receiveResponseIdMap)({}));
+	
 			var _window$WWData = window.WWData;
 			var rest_api_endpoint = _window$WWData.rest_api_endpoint;
 			var rest_api_nonce = _window$WWData.rest_api_nonce;
-	
-			var endpoint = rest_api_endpoint + 'problems/';
-			return (0, _isomorphicFetch2['default'])(endpoint, {
-				credentials: 'same-origin',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': rest_api_nonce
-				}
-			}).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				dispatch(receiveProblems(json.problems));
-				dispatch(receiveProblemIds(json.problemIds));
-			});
-		};
-	}
-	
-	var RECEIVE_PROBLEM_IDS = 'RECEIVE_PROBLEM_IDS';
-	exports.RECEIVE_PROBLEM_IDS = RECEIVE_PROBLEM_IDS;
-	var receiveProblemIds = function receiveProblemIds(problemIds) {
-		return {
-			type: RECEIVE_PROBLEM_IDS,
-			payload: problemIds
-		};
-	};
-	
-	exports.receiveProblemIds = receiveProblemIds;
-	var RECEIVE_QUESTION = 'RECEIVE_QUESTION';
-	exports.RECEIVE_QUESTION = RECEIVE_QUESTION;
-	var receiveQuestion = function receiveQuestion(question) {
-		return {
-			type: RECEIVE_QUESTION,
-			payload: question
-		};
-	};
-	
-	exports.receiveQuestion = receiveQuestion;
-	var RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-	exports.RECEIVE_QUESTIONS = RECEIVE_QUESTIONS;
-	var receiveQuestions = function receiveQuestions(questions) {
-		return {
-			type: RECEIVE_QUESTIONS,
-			payload: questions
-		};
-	};
-	
-	exports.receiveQuestions = receiveQuestions;
-	var RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID';
-	exports.RECEIVE_QUESTION_BY_ID = RECEIVE_QUESTION_BY_ID;
-	var receiveQuestionById = function receiveQuestionById(questionId) {
-		return {
-			type: RECEIVE_QUESTION_BY_ID,
-			payload: {
-				questionId: questionId
-			}
-		};
-	};
-	
-	exports.receiveQuestionById = receiveQuestionById;
-	var RECEIVE_QUESTIONS_BY_ID = 'RECEIVE_QUESTIONS_BY_ID';
-	exports.RECEIVE_QUESTIONS_BY_ID = RECEIVE_QUESTIONS_BY_ID;
-	var receiveQuestionsById = function receiveQuestionsById(questionsById) {
-		return {
-			type: RECEIVE_QUESTIONS_BY_ID,
-			payload: questionsById
-		};
-	};
-	
-	exports.receiveQuestionsById = receiveQuestionsById;
-	var CHANGE_QUESTION_TEXT = 'CHANGE_QUESTION_TEXT';
-	exports.CHANGE_QUESTION_TEXT = CHANGE_QUESTION_TEXT;
-	var changeQuestionText = function changeQuestionText(fieldName, value) {
-		return {
-			type: CHANGE_QUESTION_TEXT,
-			payload: {
-				fieldName: fieldName,
-				value: value
-			}
-		};
-	};
-	
-	exports.changeQuestionText = changeQuestionText;
-	var SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
-	exports.SET_QUESTION_PENDING = SET_QUESTION_PENDING;
-	var setQuestionPending = function setQuestionPending(isPending) {
-		return {
-			type: SET_QUESTION_PENDING,
-			payload: {
-				isPending: isPending
-			}
-		};
-	};
-	
-	exports.setQuestionPending = setQuestionPending;
-	
-	function sendQuestion(problemId, content, tried, problemText) {
-		return function (dispatch) {
-			var _window$WWData2 = window.WWData;
-			var rest_api_endpoint = _window$WWData2.rest_api_endpoint;
-			var rest_api_nonce = _window$WWData2.rest_api_nonce;
-	
-			var endpoint = rest_api_endpoint + 'questions/';
-	
-			return (0, _isomorphicFetch2['default'])(endpoint, {
-				method: 'POST',
-				credentials: 'same-origin',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': rest_api_nonce
-				},
-				body: JSON.stringify({
-					problem_id: problemId,
-					content: content,
-					problem_text: problemText,
-					tried: tried
-				})
-			}).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				dispatch(setQuestionPending(false));
-				dispatch(receiveQuestionById(json.questionId));
-				dispatch(receiveQuestion(json));
-				dispatch(changeQuestionText('content', ''));
-				dispatch(changeQuestionText('tried', ''));
-				// todo - handle errors
-			});
-		};
-	}
-	
-	var RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
-	exports.RECEIVE_RESPONSE = RECEIVE_RESPONSE;
-	var receiveResponse = function receiveResponse(response) {
-		return {
-			type: RECEIVE_RESPONSE,
-			payload: response
-		};
-	};
-	
-	exports.receiveResponse = receiveResponse;
-	var RECEIVE_RESPONSES = 'RECEIVE_RESPONSES';
-	exports.RECEIVE_RESPONSES = RECEIVE_RESPONSES;
-	var receiveResponses = function receiveResponses(responses) {
-		return {
-			type: RECEIVE_RESPONSES,
-			payload: responses
-		};
-	};
-	
-	exports.receiveResponses = receiveResponses;
-	var RECEIVE_RESPONSE_ID_MAP = 'RECEIVE_RESPONSE_ID_MAP';
-	exports.RECEIVE_RESPONSE_ID_MAP = RECEIVE_RESPONSE_ID_MAP;
-	var receiveResponseIdMap = function receiveResponseIdMap(responseIdMap) {
-		return {
-			type: RECEIVE_RESPONSE_ID_MAP,
-			payload: responseIdMap
-		};
-	};
-	
-	exports.receiveResponseIdMap = receiveResponseIdMap;
-	var RECEIVE_RESPONSE_ID_FOR_MAP = 'RECEIVE_RESPONSE_ID_FOR_MAP';
-	exports.RECEIVE_RESPONSE_ID_FOR_MAP = RECEIVE_RESPONSE_ID_FOR_MAP;
-	var receiveResponseIdForMap = function receiveResponseIdForMap(responseId, questionId) {
-		return {
-			type: RECEIVE_RESPONSE_ID_FOR_MAP,
-			payload: {
-				responseId: responseId,
-				questionId: questionId
-			}
-		};
-	};
-	
-	exports.receiveResponseIdForMap = receiveResponseIdForMap;
-	function sendResponseAnswered(responseId, isAnswered) {
-		return function (dispatch) {
-			var _window$WWData3 = window.WWData;
-			var rest_api_endpoint = _window$WWData3.rest_api_endpoint;
-			var rest_api_nonce = _window$WWData3.rest_api_nonce;
-	
-			var endpoint = rest_api_endpoint + 'responses/' + responseId;
-	
-			return (0, _isomorphicFetch2['default'])(endpoint, {
-				method: 'POST',
-				credentials: 'same-origin',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': rest_api_nonce
-				},
-				body: JSON.stringify({
-					is_answer: isAnswered
-				})
-			}).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				console.log(json);
-			});
-		};
-	}
-	
-	var SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED';
-	exports.SET_RESPONSE_ANSWERED = SET_RESPONSE_ANSWERED;
-	var setResponseAnswered = function setResponseAnswered(responseId, isAnswered) {
-		return {
-			type: SET_RESPONSE_ANSWERED,
-			payload: {
-				responseId: responseId,
-				isAnswered: isAnswered
-			}
-		};
-	};
-	
-	exports.setResponseAnswered = setResponseAnswered;
-	var CHANGE_RESPONSE_TEXT = 'CHANGE_RESPONSE_TEXT';
-	exports.CHANGE_RESPONSE_TEXT = CHANGE_RESPONSE_TEXT;
-	var changeResponseText = function changeResponseText(questionId, value) {
-		return {
-			type: CHANGE_RESPONSE_TEXT,
-			payload: {
-				questionId: questionId,
-				value: value
-			}
-		};
-	};
-	
-	exports.changeResponseText = changeResponseText;
-	var SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING';
-	exports.SET_RESPONSE_PENDING = SET_RESPONSE_PENDING;
-	var setResponsePending = function setResponsePending(questionId, isPending) {
-		return {
-			type: SET_RESPONSE_PENDING,
-			payload: {
-				questionId: questionId,
-				isPending: isPending
-			}
-		};
-	};
-	
-	exports.setResponsePending = setResponsePending;
-	var SET_RESPONSES_PENDING_BULK = 'SET_RESPONSES_PENDING_BULK';
-	exports.SET_RESPONSES_PENDING_BULK = SET_RESPONSES_PENDING_BULK;
-	var setResponsesPendingBulk = function setResponsesPendingBulk(pending) {
-		return {
-			type: SET_RESPONSES_PENDING_BULK,
-			payload: pending
-		};
-	};
-	
-	exports.setResponsesPendingBulk = setResponsesPendingBulk;
-	
-	function sendResponse(questionId, value) {
-		return function (dispatch) {
-			var _window$WWData4 = window.WWData;
-			var rest_api_endpoint = _window$WWData4.rest_api_endpoint;
-			var rest_api_nonce = _window$WWData4.rest_api_nonce;
-	
-			var endpoint = rest_api_endpoint + 'responses/';
-	
-			return (0, _isomorphicFetch2['default'])(endpoint, {
-				method: 'POST',
-				credentials: 'same-origin',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': rest_api_nonce
-				},
-				body: JSON.stringify({
-					question_id: questionId,
-					value: value
-				})
-			}).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				dispatch(receiveResponse(json));
-				dispatch(receiveResponseIdForMap(json.responseId, questionId));
-				dispatch(setResponsePending(questionId, false));
-				dispatch(changeResponseText(questionId, ''));
-				// todo - handle errors
-			});
-		};
-	}
-	
-	function sendVote(itemId, voteType) {
-		return function (dispatch) {
-			var _window$WWData5 = window.WWData;
-			var rest_api_endpoint = _window$WWData5.rest_api_endpoint;
-			var rest_api_nonce = _window$WWData5.rest_api_nonce;
-	
-			var endpoint = rest_api_endpoint + 'votes/';
-	
-			return (0, _isomorphicFetch2['default'])(endpoint, {
-				method: 'POST',
-				credentials: 'same-origin',
-				headers: {
-					'Content-Type': 'application/json',
-					'X-WP-Nonce': rest_api_nonce
-				},
-				body: JSON.stringify({
-					item_id: itemId,
-					value: voteType
-				})
-			}).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				//	console.log( json )
-			});
-		};
-	}
-	
-	var SET_VOTE = 'SET_VOTE';
-	exports.SET_VOTE = SET_VOTE;
-	var setVote = function setVote(itemId, voteType) {
-		return {
-			type: SET_VOTE,
-			payload: {
-				itemId: itemId,
-				voteType: voteType
-			}
-		};
-	};
-	
-	exports.setVote = setVote;
-	var SET_VOTES_BULK = 'SET_VOTES_BULK';
-	exports.SET_VOTES_BULK = SET_VOTES_BULK;
-	var setVotesBulk = function setVotesBulk(votes) {
-		return {
-			type: SET_VOTES_BULK,
-			payload: votes
-		};
-	};
-	
-	exports.setVotesBulk = setVotesBulk;
-	var TOGGLE_VOTE = 'TOGGLE_VOTE';
-	exports.TOGGLE_VOTE = TOGGLE_VOTE;
-	var toggleVote = function toggleVote(itemId, voteType) {
-		return {
-			type: TOGGLE_VOTE,
-			payload: {
-				itemId: itemId,
-				voteType: voteType
-			}
-		};
-	};
-	
-	exports.toggleVote = toggleVote;
-	var INCR_SCORE = 'INCR_SCORE';
-	exports.INCR_SCORE = INCR_SCORE;
-	var incrScore = function incrScore(itemId, incr) {
-		return {
-			type: INCR_SCORE,
-			payload: {
-				itemId: itemId,
-				incr: incr
-			}
-		};
-	};
-	
-	exports.incrScore = incrScore;
-	var SET_SCORE = 'SET_SCORE';
-	exports.SET_SCORE = SET_SCORE;
-	var setScore = function setScore(itemId, score) {
-		return {
-			type: SET_SCORE,
-			payload: {
-				itemId: itemId,
-				score: score
-			}
-		};
-	};
-	
-	exports.setScore = setScore;
-	var SET_SCORES_BULK = 'SET_SCORES_BULK';
-	exports.SET_SCORES_BULK = SET_SCORES_BULK;
-	var setScoresBulk = function setScoresBulk(scores) {
-		return {
-			type: SET_SCORES_BULK,
-			payload: scores
-		};
-	};
-	
-	exports.setScoresBulk = setScoresBulk;
-	var TOGGLE_ACCORDION = 'TOGGLE_ACCORDION';
-	exports.TOGGLE_ACCORDION = TOGGLE_ACCORDION;
-	var toggleAccordion = function toggleAccordion(itemId) {
-		return {
-			type: TOGGLE_ACCORDION,
-			payload: {
-				itemId: itemId
-			}
-		};
-	};
-	
-	exports.toggleAccordion = toggleAccordion;
-	var SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
-	exports.SET_INITIAL_LOAD_COMPLETE = SET_INITIAL_LOAD_COMPLETE;
-	var setInitialLoadComplete = function setInitialLoadComplete(isInitialLoadComplete) {
-		return {
-			type: SET_INITIAL_LOAD_COMPLETE,
-			payload: isInitialLoadComplete
-		};
-	};
-	
-	exports.setInitialLoadComplete = setInitialLoadComplete;
-	
-	function clickVote(itemId, voteType) {
-		return function (dispatch) {
-			dispatch(sendVote(itemId, voteType));
-			dispatch(setVote(itemId, voteType));
-		};
-	}
-	
-	function clickAnswered(responseId, isAnswered) {
-		return function (dispatch) {
-			dispatch(sendResponseAnswered(responseId, isAnswered));
-			dispatch(setResponseAnswered(responseId, isAnswered));
-		};
-	}
-	
-	function fetchProblem(problemId) {
-		return function (dispatch) {
-	
-			// Reset a bunch of stuff.
-			// Could work around this with a better-structured state (store all data per-problem)
-			dispatch(setInitialLoadComplete(false));
-			dispatch(receiveProblems({}));
-			dispatch(receiveQuestionsById([]));
-			dispatch(receiveResponseIdMap({}));
-	
-			var _window$WWData6 = window.WWData;
-			var rest_api_endpoint = _window$WWData6.rest_api_endpoint;
-			var rest_api_nonce = _window$WWData6.rest_api_nonce;
 	
 			var endpoint = rest_api_endpoint + 'problems/' + problemId;
 	
@@ -37124,43 +36669,43 @@
 	
 				dispatch(receiveProblems(problems));
 	
-				dispatch(receiveQuestions(questions));
+				dispatch((0, _questions.receiveQuestions)(questions));
 	
 				// Set "pending" status for response forms.
 				var pending = {};
 				questionsById.forEach(function (questionId) {
 					pending[questionId] = false;
 				});
-				dispatch(setResponsesPendingBulk(pending));
+				dispatch((0, _responses.setResponsesPendingBulk)(pending));
 	
-				dispatch(receiveQuestionsById(questionsById));
+				dispatch((0, _questions.receiveQuestionsById)(questionsById));
 	
-				dispatch(receiveResponseIdMap(responseIdMap));
-				dispatch(receiveResponses(responses));
+				dispatch((0, _responses.receiveResponseIdMap)(responseIdMap));
+				dispatch((0, _responses.receiveResponses)(responses));
 	
-				dispatch(setScoresBulk(scores));
-				dispatch(setVotesBulk(votes));
+				dispatch((0, _scores.setScoresBulk)(scores));
+				dispatch((0, _votes.setVotesBulk)(votes));
 	
-				dispatch(setInitialLoadComplete(true));
-				dispatch(setAppIsLoading(false));
+				dispatch((0, _app.setInitialLoadComplete)(true));
+				dispatch((0, _app.setAppIsLoading)(false));
 			});
 		};
 	}
 
 /***/ },
-/* 593 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// the whatwg-fetch polyfill installs the fetch() function
 	// on the global object (window or self)
 	//
 	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(594);
+	__webpack_require__(600);
 	module.exports = self.fetch.bind(self);
 
 
 /***/ },
-/* 594 */
+/* 600 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -37599,7 +37144,847 @@
 
 
 /***/ },
-/* 595 */
+/* 601 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.fetchQuestionIndexList = fetchQuestionIndexList;
+	exports.sendQuestion = sendQuestion;
+	
+	var _isomorphicFetch = __webpack_require__(599);
+	
+	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+	
+	function fetchQuestionIndexList() {
+		return function (dispatch, getState) {
+			var _window$WWData = window.WWData;
+			var rest_api_endpoint = _window$WWData.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'questions/';
+	
+			var _getState = getState();
+	
+			var currentFilters = _getState.currentFilters;
+	
+			var filters = standardizeFiltersForEndpoint(currentFilters);
+	
+			var qs = '';
+			for (var filterName in filters) {
+				if (!filters.hasOwnProperty(filterName)) {
+					continue;
+				}
+	
+				if ('' != qs) {
+					qs += '&';
+				}
+	
+				qs += filterName + '=' + filters[filterName];
+			}
+	
+			if ('' != qs) {
+				endpoint += '?' + qs;
+			}
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': rest_api_nonce
+				}
+			}).then(function (response) {
+				return response.json();
+			}).then(function (json) {
+				dispatch(receiveQuestions(json.questions));
+				dispatch(receiveQuestionIds(json.questionIds));
+			});
+		};
+	}
+	
+	function standardizeFiltersForEndpoint(filters) {
+		var s = {};
+	
+		for (var filterName in filters) {
+			if (!filters.hasOwnProperty(filterName)) {
+				continue;
+			}
+	
+			switch (filterName) {
+				// Can't both be true at once, so don't worry about reconciling.
+				case 'answeredQuestions':
+					if (filters.answeredQuestions) {
+						s.answered = '1';
+					}
+					break;
+	
+				case 'unansweredQuestions':
+					if (filters.unansweredQuestions) {
+						s.answered = '0';
+					}
+					break;
+	
+				default:
+					s[filterName] = filters[filterName];
+					break;
+			}
+		}
+	
+		return s;
+	}
+	
+	var RECEIVE_QUESTION_IDS = 'RECEIVE_QUESTION_IDS';
+	exports.RECEIVE_QUESTION_IDS = RECEIVE_QUESTION_IDS;
+	var receiveQuestionIds = function receiveQuestionIds(questionIds) {
+		return {
+			type: RECEIVE_QUESTION_IDS,
+			payload: questionIds
+		};
+	};
+	
+	var RECEIVE_QUESTION = 'RECEIVE_QUESTION';
+	exports.RECEIVE_QUESTION = RECEIVE_QUESTION;
+	var receiveQuestion = function receiveQuestion(question) {
+		return {
+			type: RECEIVE_QUESTION,
+			payload: question
+		};
+	};
+	
+	var RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
+	exports.RECEIVE_QUESTIONS = RECEIVE_QUESTIONS;
+	var receiveQuestions = function receiveQuestions(questions) {
+		return {
+			type: RECEIVE_QUESTIONS,
+			payload: questions
+		};
+	};
+	
+	exports.receiveQuestions = receiveQuestions;
+	var RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID';
+	exports.RECEIVE_QUESTION_BY_ID = RECEIVE_QUESTION_BY_ID;
+	var receiveQuestionById = function receiveQuestionById(questionId) {
+		return {
+			type: RECEIVE_QUESTION_BY_ID,
+			payload: {
+				questionId: questionId
+			}
+		};
+	};
+	
+	var RECEIVE_QUESTIONS_BY_ID = 'RECEIVE_QUESTIONS_BY_ID';
+	exports.RECEIVE_QUESTIONS_BY_ID = RECEIVE_QUESTIONS_BY_ID;
+	var receiveQuestionsById = function receiveQuestionsById(questionsById) {
+		return {
+			type: RECEIVE_QUESTIONS_BY_ID,
+			payload: questionsById
+		};
+	};
+	
+	exports.receiveQuestionsById = receiveQuestionsById;
+	var CHANGE_QUESTION_TEXT = 'CHANGE_QUESTION_TEXT';
+	exports.CHANGE_QUESTION_TEXT = CHANGE_QUESTION_TEXT;
+	var changeQuestionText = function changeQuestionText(fieldName, value) {
+		return {
+			type: CHANGE_QUESTION_TEXT,
+			payload: {
+				fieldName: fieldName,
+				value: value
+			}
+		};
+	};
+	
+	exports.changeQuestionText = changeQuestionText;
+	var SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
+	exports.SET_QUESTION_PENDING = SET_QUESTION_PENDING;
+	var setQuestionPending = function setQuestionPending(isPending) {
+		return {
+			type: SET_QUESTION_PENDING,
+			payload: {
+				isPending: isPending
+			}
+		};
+	};
+	
+	exports.setQuestionPending = setQuestionPending;
+	
+	function sendQuestion(problemId, content, tried, problemText) {
+		return function (dispatch) {
+			var _window$WWData2 = window.WWData;
+			var rest_api_endpoint = _window$WWData2.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData2.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'questions/';
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': rest_api_nonce
+				},
+				body: JSON.stringify({
+					problem_id: problemId,
+					content: content,
+					problem_text: problemText,
+					tried: tried
+				})
+			}).then(function (response) {
+				return response.json();
+			}).then(function (json) {
+				dispatch(setQuestionPending(false));
+				dispatch(receiveQuestionById(json.questionId));
+				dispatch(receiveQuestion(json));
+				dispatch(changeQuestionText('content', ''));
+				dispatch(changeQuestionText('tried', ''));
+				// todo - handle errors
+			});
+		};
+	}
+
+/***/ },
+/* 602 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.sendResponse = sendResponse;
+	exports.clickAnswered = clickAnswered;
+	
+	var _isomorphicFetch = __webpack_require__(599);
+	
+	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+	
+	var RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
+	exports.RECEIVE_RESPONSE = RECEIVE_RESPONSE;
+	var receiveResponse = function receiveResponse(response) {
+		return {
+			type: RECEIVE_RESPONSE,
+			payload: response
+		};
+	};
+	
+	var RECEIVE_RESPONSES = 'RECEIVE_RESPONSES';
+	exports.RECEIVE_RESPONSES = RECEIVE_RESPONSES;
+	var receiveResponses = function receiveResponses(responses) {
+		return {
+			type: RECEIVE_RESPONSES,
+			payload: responses
+		};
+	};
+	
+	exports.receiveResponses = receiveResponses;
+	var RECEIVE_RESPONSE_ID_MAP = 'RECEIVE_RESPONSE_ID_MAP';
+	exports.RECEIVE_RESPONSE_ID_MAP = RECEIVE_RESPONSE_ID_MAP;
+	var receiveResponseIdMap = function receiveResponseIdMap(responseIdMap) {
+		return {
+			type: RECEIVE_RESPONSE_ID_MAP,
+			payload: responseIdMap
+		};
+	};
+	
+	exports.receiveResponseIdMap = receiveResponseIdMap;
+	var RECEIVE_RESPONSE_ID_FOR_MAP = 'RECEIVE_RESPONSE_ID_FOR_MAP';
+	exports.RECEIVE_RESPONSE_ID_FOR_MAP = RECEIVE_RESPONSE_ID_FOR_MAP;
+	var receiveResponseIdForMap = function receiveResponseIdForMap(responseId, questionId) {
+		return {
+			type: RECEIVE_RESPONSE_ID_FOR_MAP,
+			payload: {
+				responseId: responseId,
+				questionId: questionId
+			}
+		};
+	};
+	
+	exports.receiveResponseIdForMap = receiveResponseIdForMap;
+	function sendResponseAnswered(responseId, isAnswered) {
+		return function (dispatch) {
+			var _window$WWData = window.WWData;
+			var rest_api_endpoint = _window$WWData.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'responses/' + responseId;
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': rest_api_nonce
+				},
+				body: JSON.stringify({
+					is_answer: isAnswered
+				})
+			}).then(function (response) {
+				return response.json();
+			}).then(function (json) {
+				console.log(json);
+			});
+		};
+	}
+	
+	var SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED';
+	exports.SET_RESPONSE_ANSWERED = SET_RESPONSE_ANSWERED;
+	var setResponseAnswered = function setResponseAnswered(responseId, isAnswered) {
+		return {
+			type: SET_RESPONSE_ANSWERED,
+			payload: {
+				responseId: responseId,
+				isAnswered: isAnswered
+			}
+		};
+	};
+	
+	var CHANGE_RESPONSE_TEXT = 'CHANGE_RESPONSE_TEXT';
+	exports.CHANGE_RESPONSE_TEXT = CHANGE_RESPONSE_TEXT;
+	var changeResponseText = function changeResponseText(questionId, value) {
+		return {
+			type: CHANGE_RESPONSE_TEXT,
+			payload: {
+				questionId: questionId,
+				value: value
+			}
+		};
+	};
+	
+	exports.changeResponseText = changeResponseText;
+	var SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING';
+	exports.SET_RESPONSE_PENDING = SET_RESPONSE_PENDING;
+	var setResponsePending = function setResponsePending(questionId, isPending) {
+		return {
+			type: SET_RESPONSE_PENDING,
+			payload: {
+				questionId: questionId,
+				isPending: isPending
+			}
+		};
+	};
+	
+	exports.setResponsePending = setResponsePending;
+	var SET_RESPONSES_PENDING_BULK = 'SET_RESPONSES_PENDING_BULK';
+	exports.SET_RESPONSES_PENDING_BULK = SET_RESPONSES_PENDING_BULK;
+	var setResponsesPendingBulk = function setResponsesPendingBulk(pending) {
+		return {
+			type: SET_RESPONSES_PENDING_BULK,
+			payload: pending
+		};
+	};
+	
+	exports.setResponsesPendingBulk = setResponsesPendingBulk;
+	
+	function sendResponse(questionId, value) {
+		return function (dispatch) {
+			var _window$WWData2 = window.WWData;
+			var rest_api_endpoint = _window$WWData2.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData2.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'responses/';
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': rest_api_nonce
+				},
+				body: JSON.stringify({
+					question_id: questionId,
+					value: value
+				})
+			}).then(function (response) {
+				return response.json();
+			}).then(function (json) {
+				dispatch(receiveResponse(json));
+				dispatch(receiveResponseIdForMap(json.responseId, questionId));
+				dispatch(setResponsePending(questionId, false));
+				dispatch(changeResponseText(questionId, ''));
+				// todo - handle errors
+			});
+		};
+	}
+	
+	function clickAnswered(responseId, isAnswered) {
+		return function (dispatch) {
+			dispatch(sendResponseAnswered(responseId, isAnswered));
+			dispatch(setResponseAnswered(responseId, isAnswered));
+		};
+	}
+
+/***/ },
+/* 603 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	var SET_SCORE = 'SET_SCORE';
+	exports.SET_SCORE = SET_SCORE;
+	var setScore = function setScore(itemId, score) {
+		return {
+			type: SET_SCORE,
+			payload: {
+				itemId: itemId,
+				score: score
+			}
+		};
+	};
+	
+	exports.setScore = setScore;
+	var SET_SCORES_BULK = 'SET_SCORES_BULK';
+	exports.SET_SCORES_BULK = SET_SCORES_BULK;
+	var setScoresBulk = function setScoresBulk(scores) {
+		return {
+			type: SET_SCORES_BULK,
+			payload: scores
+		};
+	};
+	exports.setScoresBulk = setScoresBulk;
+
+/***/ },
+/* 604 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.clickVote = clickVote;
+	
+	var _isomorphicFetch = __webpack_require__(599);
+	
+	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+	
+	function clickVote(itemId, voteType) {
+		return function (dispatch) {
+			dispatch(sendVote(itemId, voteType));
+			dispatch(setVote(itemId, voteType));
+		};
+	}
+	
+	function sendVote(itemId, voteType) {
+		return function (dispatch) {
+			var _window$WWData = window.WWData;
+			var rest_api_endpoint = _window$WWData.rest_api_endpoint;
+			var rest_api_nonce = _window$WWData.rest_api_nonce;
+	
+			var endpoint = rest_api_endpoint + 'votes/';
+	
+			return (0, _isomorphicFetch2['default'])(endpoint, {
+				method: 'POST',
+				credentials: 'same-origin',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': rest_api_nonce
+				},
+				body: JSON.stringify({
+					item_id: itemId,
+					value: voteType
+				})
+			}).then(function (response) {
+				return response.json();
+			}).then(function (json) {
+				//	console.log( json )
+			});
+		};
+	}
+	
+	var SET_VOTE = 'SET_VOTE';
+	exports.SET_VOTE = SET_VOTE;
+	var setVote = function setVote(itemId, voteType) {
+		return {
+			type: SET_VOTE,
+			payload: {
+				itemId: itemId,
+				voteType: voteType
+			}
+		};
+	};
+	
+	exports.setVote = setVote;
+	var SET_VOTES_BULK = 'SET_VOTES_BULK';
+	exports.SET_VOTES_BULK = SET_VOTES_BULK;
+	var setVotesBulk = function setVotesBulk(votes) {
+		return {
+			type: SET_VOTES_BULK,
+			payload: votes
+		};
+	};
+	exports.setVotesBulk = setVotesBulk;
+
+/***/ },
+/* 605 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.problemIds = problemIds;
+	
+	var _actionsProblems = __webpack_require__(598);
+	
+	function problemIds(state, action) {
+		if (state === undefined) state = [];
+	
+		switch (action.type) {
+			case _actionsProblems.RECEIVE_PROBLEM_IDS:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 606 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.questions = questions;
+	
+	var _actionsQuestions = __webpack_require__(601);
+	
+	function questions(state, action) {
+		if (state === undefined) state = {};
+	
+		switch (action.type) {
+			case _actionsQuestions.RECEIVE_QUESTION:
+				return _Object$assign2({}, state, _defineProperty({}, action.payload.questionId, action.payload));
+	
+			case _actionsQuestions.RECEIVE_QUESTIONS:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 607 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.questionsById = questionsById;
+	
+	var _actionsQuestions = __webpack_require__(601);
+	
+	function questionsById(state, action) {
+		if (state === undefined) state = [];
+	
+		switch (action.type) {
+			case _actionsQuestions.RECEIVE_QUESTION_BY_ID:
+				var newState = state;
+				newState.push(action.payload.questionId);
+				return newState;
+	
+			case _actionsQuestions.RECEIVE_QUESTIONS_BY_ID:
+			case _actionsQuestions.RECEIVE_QUESTION_IDS:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 608 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.questionFormData = questionFormData;
+	
+	var _actionsQuestions = __webpack_require__(601);
+	
+	function questionFormData(state, action) {
+		if (state === undefined) state = {
+			isPending: false,
+			content: '',
+			tried: ''
+		};
+	
+		switch (action.type) {
+			case _actionsQuestions.CHANGE_QUESTION_TEXT:
+				var _action$payload = action.payload,
+				    fieldName = _action$payload.fieldName,
+				    value = _action$payload.value;
+	
+				return _Object$assign2({}, state, _defineProperty({}, fieldName, value));
+	
+			case _actionsQuestions.SET_QUESTION_PENDING:
+				return _Object$assign2({}, state, {
+					isPending: action.payload.isPending
+				});
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 609 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.responseFormData = responseFormData;
+	
+	var _actionsResponses = __webpack_require__(602);
+	
+	function responseFormData(state, action) {
+		if (state === undefined) state = {};
+	
+		switch (action.type) {
+			case _actionsResponses.CHANGE_RESPONSE_TEXT:
+				var _action$payload = action.payload,
+				    questionId = _action$payload.questionId,
+				    value = _action$payload.value;
+	
+				return _Object$assign2({}, state, _defineProperty({}, questionId, value));
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 610 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.responseFormPending = responseFormPending;
+	
+	var _actionsResponses = __webpack_require__(602);
+	
+	function responseFormPending(state, action) {
+		if (state === undefined) state = {};
+	
+		switch (action.type) {
+			case _actionsResponses.SET_RESPONSE_PENDING:
+				var _action$payload = action.payload,
+				    questionId = _action$payload.questionId,
+				    isPending = _action$payload.isPending;
+	
+				return _Object$assign2({}, state, _defineProperty({}, questionId, isPending));
+	
+			case _actionsResponses.SET_RESPONSES_PENDING_BULK:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 611 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.responseIdMap = responseIdMap;
+	
+	var _actionsResponses = __webpack_require__(602);
+	
+	function responseIdMap(state, action) {
+		if (state === undefined) state = {};
+	
+		switch (action.type) {
+			case _actionsResponses.RECEIVE_RESPONSE_ID_FOR_MAP:
+				var _action$payload = action.payload,
+				    questionId = _action$payload.questionId,
+				    responseId = _action$payload.responseId;
+	
+				var questionResponseIds = [];
+				if (state.hasOwnProperty(questionId)) {
+					// Clone the original array to avoid reference problems.
+					questionResponseIds = state[questionId].slice(0);
+					questionResponseIds.push(responseId);
+				} else {
+					questionResponseIds.push(responseId);
+				}
+	
+				return _Object$assign2({}, state, _defineProperty({}, questionId, questionResponseIds));
+	
+			case _actionsResponses.RECEIVE_RESPONSE_ID_MAP:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 612 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign3 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.responses = responses;
+	
+	var _actionsResponses = __webpack_require__(602);
+	
+	function responses(state, action) {
+		if (state === undefined) state = {};
+	
+		switch (action.type) {
+			case _actionsResponses.RECEIVE_RESPONSE:
+				return _Object$assign3({}, state, _defineProperty({}, action.payload.responseId, action.payload));
+	
+			case _actionsResponses.RECEIVE_RESPONSES:
+				return action.payload;
+	
+			case _actionsResponses.SET_RESPONSE_ANSWERED:
+				var _action$payload = action.payload,
+				    responseId = _action$payload.responseId,
+				    isAnswered = _action$payload.isAnswered;
+	
+				var response = state[responseId];
+				response.isAnswer = isAnswered;
+				return _Object$assign3({}, state, _defineProperty({}, responseId, response));
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 613 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.scores = scores;
+	
+	var _actionsScores = __webpack_require__(603);
+	
+	function scores(state, action) {
+		if (state === undefined) state = {};
+	
+		var itemId = 0;
+	
+		switch (action.type) {
+			case _actionsScores.SET_SCORE:
+				itemId = action.payload.itemId;
+				return _Object$assign2({}, state, _defineProperty({}, itemId, action.payload.score));
+	
+			case _actionsScores.SET_SCORES_BULK:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 614 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _defineProperty = __webpack_require__(589)['default'];
+	
+	var _Object$assign2 = __webpack_require__(590)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports.votes = votes;
+	
+	var _actionsVotes = __webpack_require__(604);
+	
+	function votes(state, action) {
+		if (state === undefined) state = {};
+	
+		var itemId = 0;
+		var voteType = '';
+	
+		switch (action.type) {
+			case _actionsVotes.SET_VOTE:
+				itemId = action.payload.itemId;
+				voteType = action.payload.voteType;
+	
+				return _Object$assign2({}, state, _defineProperty({}, itemId, voteType));
+	
+			case _actionsVotes.SET_VOTES_BULK:
+				return action.payload;
+	
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 615 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37622,61 +38007,70 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _containersProblemListContainer = __webpack_require__(596);
+	var _containersQuestionIndexListContainer = __webpack_require__(616);
 	
-	var _containersProblemListContainer2 = _interopRequireDefault(_containersProblemListContainer);
+	var _containersQuestionIndexListContainer2 = _interopRequireDefault(_containersQuestionIndexListContainer);
 	
-	var ProblemIndex = (function (_Component) {
-		_inherits(ProblemIndex, _Component);
+	var _containersSidebarContainer = __webpack_require__(623);
 	
-		function ProblemIndex() {
-			_classCallCheck(this, ProblemIndex);
+	var _containersSidebarContainer2 = _interopRequireDefault(_containersSidebarContainer);
 	
-			_get(Object.getPrototypeOf(ProblemIndex.prototype), 'constructor', this).apply(this, arguments);
+	var QuestionIndex = (function (_Component) {
+		_inherits(QuestionIndex, _Component);
+	
+		function QuestionIndex() {
+			_classCallCheck(this, QuestionIndex);
+	
+			_get(Object.getPrototypeOf(QuestionIndex.prototype), 'constructor', this).apply(this, arguments);
 		}
 	
-		_createClass(ProblemIndex, [{
+		_createClass(QuestionIndex, [{
 			key: 'render',
 			value: function render() {
 				return _react2['default'].createElement(
 					'div',
-					{ className: 'problem-index' },
+					null,
 					_react2['default'].createElement(
 						'div',
-						{ className: 'index-intro' },
+						{ className: 'ww-main problem-index' },
 						_react2['default'].createElement(
-							'h2',
-							null,
-							'Introduction'
+							'div',
+							{ className: 'index-intro' },
+							_react2['default'].createElement(
+								'h2',
+								null,
+								'Introduction'
+							),
+							_react2['default'].createElement(
+								'p',
+								null,
+								'Quaerat nemo debitis dolorum ratione est exercitationem aut molestias. Excepturi beatae et autem et quia quo rem. Et provident id ducimus. Quaerat temporibus doloribus rerum eaque et. Odio necessitatibus eos vitae molestiae in. Numquam et et molestias velit mollitia consequatur reiciendis. Iusto quo maxime quibusdam libero. Recusandae porro maiores laudantium mollitia rerum cumque voluptatem delectus. Sit quibusdam sint animi. Nemo qui qui expedita.'
+							)
 						),
 						_react2['default'].createElement(
-							'p',
-							null,
-							'Quaerat nemo debitis dolorum ratione est exercitationem aut molestias. Excepturi beatae et autem et quia quo rem. Et provident id ducimus. Quaerat temporibus doloribus rerum eaque et. Odio necessitatibus eos vitae molestiae in. Numquam et et molestias velit mollitia consequatur reiciendis. Iusto quo maxime quibusdam libero. Recusandae porro maiores laudantium mollitia rerum cumque voluptatem delectus. Sit quibusdam sint animi. Nemo qui qui expedita.'
+							'div',
+							{ className: 'index-list' },
+							_react2['default'].createElement(
+								'h2',
+								null,
+								'Recent Questions on OpenLab WeBWorK'
+							),
+							_react2['default'].createElement(_containersQuestionIndexListContainer2['default'], null)
 						)
 					),
-					_react2['default'].createElement(
-						'div',
-						{ className: 'index-list' },
-						_react2['default'].createElement(
-							'h2',
-							null,
-							'Recent Problems on OpenLab WeBWorK'
-						),
-						_react2['default'].createElement(_containersProblemListContainer2['default'], null)
-					)
+					_react2['default'].createElement(_containersSidebarContainer2['default'], null)
 				);
 			}
 		}]);
 	
-		return ProblemIndex;
+		return QuestionIndex;
 	})(_react.Component);
 	
-	exports['default'] = ProblemIndex;
+	exports['default'] = QuestionIndex;
 	module.exports = exports['default'];
 
 /***/ },
-/* 596 */
+/* 616 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37689,17 +38083,15 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsProblemList = __webpack_require__(597);
+	var _componentsQuestionIndexList = __webpack_require__(617);
 	
-	var _componentsProblemList2 = _interopRequireDefault(_componentsProblemList);
+	var _componentsQuestionIndexList2 = _interopRequireDefault(_componentsQuestionIndexList);
 	
-	var _actions = __webpack_require__(592);
+	var _actionsQuestions = __webpack_require__(601);
 	
 	var mapStateToProps = function mapStateToProps(state) {
-		var problemIds = state.problemIds;
-	
 		return {
-			problemIds: problemIds
+			questionIds: state.questionsById
 		};
 	};
 	
@@ -37707,18 +38099,18 @@
 		return {
 			// @todo Pagination?
 			onComponentWillMount: function onComponentWillMount() {
-				dispatch((0, _actions.fetchProblems)());
+				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
 			}
 		};
 	};
 	
-	var ProblemListContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsProblemList2['default']);
+	var QuestionListContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsQuestionIndexList2['default']);
 	
-	exports['default'] = ProblemListContainer;
+	exports['default'] = QuestionListContainer;
 	module.exports = exports['default'];
 
 /***/ },
-/* 597 */
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37741,20 +38133,20 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _containersProblemListItemContainerJs = __webpack_require__(598);
+	var _containersQuestionListItemContainerJs = __webpack_require__(618);
 	
-	var _containersProblemListItemContainerJs2 = _interopRequireDefault(_containersProblemListItemContainerJs);
+	var _containersQuestionListItemContainerJs2 = _interopRequireDefault(_containersQuestionListItemContainerJs);
 	
-	var ProblemList = (function (_Component) {
-		_inherits(ProblemList, _Component);
+	var QuestionList = (function (_Component) {
+		_inherits(QuestionList, _Component);
 	
-		function ProblemList() {
-			_classCallCheck(this, ProblemList);
+		function QuestionList() {
+			_classCallCheck(this, QuestionList);
 	
-			_get(Object.getPrototypeOf(ProblemList.prototype), 'constructor', this).apply(this, arguments);
+			_get(Object.getPrototypeOf(QuestionList.prototype), 'constructor', this).apply(this, arguments);
 		}
 	
-		_createClass(ProblemList, [{
+		_createClass(QuestionList, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
 				var onComponentWillMount = this.props.onComponentWillMount;
@@ -37764,32 +38156,32 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var problemIds = this.props.problemIds;
+				var questionIds = this.props.questionIds;
 	
 				var listItems = [];
-				problemIds.forEach(function (problemId) {
-					listItems.push(_react2['default'].createElement(_containersProblemListItemContainerJs2['default'], {
-						problemId: problemId,
-						key: problemId
+				questionIds.forEach(function (questionId) {
+					listItems.push(_react2['default'].createElement(_containersQuestionListItemContainerJs2['default'], {
+						questionId: questionId,
+						key: questionId
 					}));
 				});
 	
 				return _react2['default'].createElement(
 					'ul',
-					{ className: 'problem-list' },
+					{ className: 'question-list' },
 					listItems
 				);
 			}
 		}]);
 	
-		return ProblemList;
+		return QuestionList;
 	})(_react.Component);
 	
-	exports['default'] = ProblemList;
+	exports['default'] = QuestionList;
 	module.exports = exports['default'];
 
 /***/ },
-/* 598 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37802,28 +38194,28 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsProblemListItem = __webpack_require__(599);
+	var _componentsQuestionListItem = __webpack_require__(619);
 	
-	var _componentsProblemListItem2 = _interopRequireDefault(_componentsProblemListItem);
+	var _componentsQuestionListItem2 = _interopRequireDefault(_componentsQuestionListItem);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
-		var problems = state.problems;
-		var problemId = ownProps.problemId;
+		var questions = state.questions;
+		var questionId = ownProps.questionId;
 	
-		var problem = problems[problemId];
+		var question = questions[questionId];
 	
 		return {
-			problem: problem
+			question: question
 		};
 	};
 	
-	var ProblemListItemContainer = (0, _reactRedux.connect)(mapStateToProps)(_componentsProblemListItem2['default']);
+	var QuestionListItemContainer = (0, _reactRedux.connect)(mapStateToProps)(_componentsQuestionListItem2['default']);
 	
-	exports['default'] = ProblemListItemContainer;
+	exports['default'] = QuestionListItemContainer;
 	module.exports = exports['default'];
 
 /***/ },
-/* 599 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37848,40 +38240,41 @@
 	
 	var _reactRouter = __webpack_require__(522);
 	
-	var _FormattedProblem = __webpack_require__(600);
+	var _FormattedProblem = __webpack_require__(620);
 	
 	var _FormattedProblem2 = _interopRequireDefault(_FormattedProblem);
 	
-	var ProblemListItem = (function (_Component) {
-		_inherits(ProblemListItem, _Component);
+	var QuestionListItem = (function (_Component) {
+		_inherits(QuestionListItem, _Component);
 	
-		function ProblemListItem() {
-			_classCallCheck(this, ProblemListItem);
+		function QuestionListItem() {
+			_classCallCheck(this, QuestionListItem);
 	
-			_get(Object.getPrototypeOf(ProblemListItem.prototype), 'constructor', this).apply(this, arguments);
+			_get(Object.getPrototypeOf(QuestionListItem.prototype), 'constructor', this).apply(this, arguments);
 		}
 	
-		_createClass(ProblemListItem, [{
+		_createClass(QuestionListItem, [{
 			key: 'render',
 			value: function render() {
-				var problem = this.props.problem;
+				var question = this.props.question;
 	
-				if (!problem) {
+				if (!question) {
 					return _react2['default'].createElement('span', null);
 				}
 	
-				var problemId = problem.problemId;
-				var content = problem.content;
-				var excerpt = problem.excerpt;
-				var inputs = problem.inputs;
-				var maths = problem.maths;
-				var instances = problem.instances;
+				var problemId = question.problemId;
+				var questionId = question.questionId;
+				var problemText = question.problemText;
+				var excerpt = question.excerpt;
+				var problemInputs = question.problemInputs;
+				var problemMaths = question.problemMaths;
+				var instances = question.instances;
 	
 				var remoteCourseURL = window.WWData.remote_course_url;
 	
 				var instance = null;
 				var title = '';
-				if (instances.hasOwnProperty(remoteCourseURL)) {
+				if (instances && instances.hasOwnProperty(remoteCourseURL)) {
 					var _instances$remoteCourseURL = instances[remoteCourseURL];
 					var remoteProblemURL = _instances$remoteCourseURL.remoteProblemURL;
 					var remoteProblemSet = _instances$remoteCourseURL.remoteProblemSet;
@@ -37891,10 +38284,11 @@
 				}
 	
 				var routeBase = window.WWData.route_base;
+				var routePath = '/' + routeBase + 'problems/' + problemId + '/#/question-' + questionId;
 	
 				return _react2['default'].createElement(
 					_reactRouter.Link,
-					{ to: routeBase + 'problems/' + problemId },
+					{ to: routePath },
 					_react2['default'].createElement(
 						'h3',
 						null,
@@ -37902,27 +38296,28 @@
 					),
 					_react2['default'].createElement(
 						'li',
-						{ className: 'problem-list-item' },
+						{ className: 'question-list-item' },
 						_react2['default'].createElement(_FormattedProblem2['default'], {
-							itemId: problemId,
-							content: content,
+							itemId: questionId,
+							problemId: problemId,
+							content: problemText,
 							excerpt: excerpt,
-							inputs: inputs,
-							maths: maths
+							inputs: problemInputs,
+							maths: problemMaths
 						})
 					)
 				);
 			}
 		}]);
 	
-		return ProblemListItem;
+		return QuestionListItem;
 	})(_react.Component);
 	
-	exports['default'] = ProblemListItem;
+	exports['default'] = QuestionListItem;
 	module.exports = exports['default'];
 
 /***/ },
-/* 600 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37947,11 +38342,11 @@
 	
 	var _reactRouter = __webpack_require__(522);
 	
-	var _LaTeX = __webpack_require__(601);
+	var _LaTeX = __webpack_require__(621);
 	
 	var _LaTeX2 = _interopRequireDefault(_LaTeX);
 	
-	var _Input = __webpack_require__(602);
+	var _Input = __webpack_require__(622);
 	
 	var _Input2 = _interopRequireDefault(_Input);
 	
@@ -38034,7 +38429,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 601 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38115,7 +38510,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 602 */
+/* 622 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38175,7 +38570,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 603 */
+/* 623 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38188,7 +38583,275 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsMainLayout = __webpack_require__(604);
+	var _componentsSidebar = __webpack_require__(624);
+	
+	var _componentsSidebar2 = _interopRequireDefault(_componentsSidebar);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+		return {};
+	};
+	
+	var SidebarContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsSidebar2['default']);
+	
+	exports['default'] = SidebarContainer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 624 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _get = __webpack_require__(467)['default'];
+	
+	var _inherits = __webpack_require__(483)['default'];
+	
+	var _createClass = __webpack_require__(492)['default'];
+	
+	var _classCallCheck = __webpack_require__(495)['default'];
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _react = __webpack_require__(300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _SidebarFilter = __webpack_require__(625);
+	
+	var _SidebarFilter2 = _interopRequireDefault(_SidebarFilter);
+	
+	var _containersSidebarFilterContainer = __webpack_require__(626);
+	
+	var _containersSidebarFilterContainer2 = _interopRequireDefault(_containersSidebarFilterContainer);
+	
+	var Sidebar = (function (_Component) {
+		_inherits(Sidebar, _Component);
+	
+		function Sidebar() {
+			_classCallCheck(this, Sidebar);
+	
+			_get(Object.getPrototypeOf(Sidebar.prototype), 'constructor', this).apply(this, arguments);
+		}
+	
+		_createClass(Sidebar, [{
+			key: 'render',
+			value: function render() {
+				return _react2['default'].createElement(
+					'div',
+					{ className: 'ww-sidebar' },
+					_react2['default'].createElement(
+						'h3',
+						null,
+						'Explore'
+					),
+					_react2['default'].createElement(
+						'div',
+						{ className: 'ww-sidebar-widget' },
+						_react2['default'].createElement(
+							'h4',
+							null,
+							'Filter'
+						),
+						_react2['default'].createElement(
+							'ul',
+							{ className: 'ww-question-filters' },
+							_react2['default'].createElement(_containersSidebarFilterContainer2['default'], { name: 'Course' }),
+							_react2['default'].createElement(_containersSidebarFilterContainer2['default'], { name: 'Section/Faculty' }),
+							_react2['default'].createElement(_containersSidebarFilterContainer2['default'], { name: 'Problem Set' }),
+							_react2['default'].createElement(_containersSidebarFilterContainer2['default'], { name: 'Problem' }),
+							_react2['default'].createElement(_containersSidebarFilterContainer2['default'], {
+								name: 'Answered Questions',
+								contrary: 'unansweredQuestions',
+								slug: 'answeredQuestions',
+								type: 'toggle'
+							}),
+							_react2['default'].createElement(_containersSidebarFilterContainer2['default'], {
+								name: 'Unanswered Questions',
+								contrary: 'answeredQuestions',
+								slug: 'unansweredQuestions',
+								type: 'toggle'
+							})
+						)
+					)
+				);
+			}
+		}]);
+	
+		return Sidebar;
+	})(_react.Component);
+	
+	exports['default'] = Sidebar;
+	module.exports = exports['default'];
+
+/***/ },
+/* 625 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _get = __webpack_require__(467)['default'];
+	
+	var _inherits = __webpack_require__(483)['default'];
+	
+	var _createClass = __webpack_require__(492)['default'];
+	
+	var _classCallCheck = __webpack_require__(495)['default'];
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _react = __webpack_require__(300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var SidebarFilter = (function (_Component) {
+		_inherits(SidebarFilter, _Component);
+	
+		function SidebarFilter() {
+			_classCallCheck(this, SidebarFilter);
+	
+			_get(Object.getPrototypeOf(SidebarFilter.prototype), 'constructor', this).apply(this, arguments);
+		}
+	
+		_createClass(SidebarFilter, [{
+			key: 'render',
+			value: function render() {
+				var _props = this.props;
+				var contrary = _props.contrary;
+				var slug = _props.slug;
+				var name = _props.name;
+				var type = _props.type;
+				var value = _props.value;
+				var onFilterHeaderClick = _props.onFilterHeaderClick;
+	
+				var linkClassName = this.getClassName();
+	
+				return _react2['default'].createElement(
+					'li',
+					null,
+					_react2['default'].createElement(
+						'a',
+						{
+							onClick: onFilterHeaderClick,
+							className: linkClassName
+						},
+						name
+					)
+				);
+			}
+		}, {
+			key: 'getClassName',
+			value: function getClassName() {
+				var _props2 = this.props;
+				var type = _props2.type;
+				var value = _props2.value;
+	
+				var classNames = [];
+	
+				switch (type) {
+					case 'toggle':
+						if (value) {
+							classNames.push('toggle-enabled');
+						}
+						break;
+	
+					default:
+						break;
+				}
+	
+				return classNames.join(' ');
+			}
+		}]);
+	
+		return SidebarFilter;
+	})(_react.Component);
+	
+	exports['default'] = SidebarFilter;
+	module.exports = exports['default'];
+
+/***/ },
+/* 626 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _reactRedux = __webpack_require__(496);
+	
+	var _componentsSidebarFilter = __webpack_require__(625);
+	
+	var _componentsSidebarFilter2 = _interopRequireDefault(_componentsSidebarFilter);
+	
+	var _actionsApp = __webpack_require__(587);
+	
+	var _actionsQuestions = __webpack_require__(601);
+	
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+		var currentFilters = state.currentFilters;
+	
+		var value = currentFilters[ownProps.slug];
+	
+		return {
+			value: value
+		};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+		return {
+			onFilterHeaderClick: function onFilterHeaderClick() {
+				var contrary = ownProps.contrary;
+				var slug = ownProps.slug;
+				var type = ownProps.type;
+	
+				switch (type) {
+					case 'toggle':
+						dispatch((0, _actionsApp.processFilterToggle)(slug, contrary));
+						dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
+						break;
+	
+					default:
+						break;
+				}
+			}
+		};
+	};
+	
+	var SidebarFilterContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsSidebarFilter2['default']);
+	
+	exports['default'] = SidebarFilterContainer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 627 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _reactRedux = __webpack_require__(496);
+	
+	var _componentsMainLayout = __webpack_require__(628);
 	
 	var _componentsMainLayout2 = _interopRequireDefault(_componentsMainLayout);
 	
@@ -38206,7 +38869,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 604 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38270,7 +38933,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 605 */
+/* 629 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38283,11 +38946,13 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsProblem = __webpack_require__(606);
+	var _componentsProblem = __webpack_require__(630);
 	
 	var _componentsProblem2 = _interopRequireDefault(_componentsProblem);
 	
-	var _actions = __webpack_require__(592);
+	var _actionsApp = __webpack_require__(587);
+	
+	var _actionsProblems = __webpack_require__(598);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var problems = state.problems;
@@ -38336,8 +39001,8 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		return {
 			onComponentWillMount: function onComponentWillMount(problemId) {
-				dispatch((0, _actions.setAppIsLoading)(true));
-				dispatch((0, _actions.fetchProblem)(problemId));
+				dispatch((0, _actionsApp.setAppIsLoading)(true));
+				dispatch((0, _actionsProblems.fetchProblem)(problemId));
 			}
 		};
 	};
@@ -38348,7 +39013,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 606 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38371,19 +39036,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _containersProblemStatsContainer = __webpack_require__(607);
+	var _containersProblemStatsContainer = __webpack_require__(631);
 	
 	var _containersProblemStatsContainer2 = _interopRequireDefault(_containersProblemStatsContainer);
 	
-	var _componentsProblemSummary = __webpack_require__(609);
+	var _componentsProblemSummary = __webpack_require__(633);
 	
 	var _componentsProblemSummary2 = _interopRequireDefault(_componentsProblemSummary);
 	
-	var _containersQuestionFormContainer = __webpack_require__(610);
+	var _containersQuestionFormContainer = __webpack_require__(634);
 	
 	var _containersQuestionFormContainer2 = _interopRequireDefault(_containersQuestionFormContainer);
 	
-	var _componentsQuestionList = __webpack_require__(612);
+	var _componentsQuestionList = __webpack_require__(636);
 	
 	var _componentsQuestionList2 = _interopRequireDefault(_componentsQuestionList);
 	
@@ -38441,7 +39106,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 607 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38454,7 +39119,7 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsProblemStats = __webpack_require__(608);
+	var _componentsProblemStats = __webpack_require__(632);
 	
 	var _componentsProblemStats2 = _interopRequireDefault(_componentsProblemStats);
 	
@@ -38476,7 +39141,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 608 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -38575,7 +39240,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 609 */
+/* 633 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38590,7 +39255,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _FormattedProblem = __webpack_require__(600);
+	var _FormattedProblem = __webpack_require__(620);
 	
 	var _FormattedProblem2 = _interopRequireDefault(_FormattedProblem);
 	
@@ -38634,7 +39299,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 610 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38647,11 +39312,11 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsQuestionForm = __webpack_require__(611);
+	var _componentsQuestionForm = __webpack_require__(635);
 	
 	var _componentsQuestionForm2 = _interopRequireDefault(_componentsQuestionForm);
 	
-	var _actions = __webpack_require__(592);
+	var _actionsQuestions = __webpack_require__(601);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var _state$questionFormData = state.questionFormData;
@@ -38672,13 +39337,13 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 		return {
 			onTextareaChange: function onTextareaChange(fieldName, value) {
-				dispatch((0, _actions.changeQuestionText)(fieldName, value));
+				dispatch((0, _actionsQuestions.changeQuestionText)(fieldName, value));
 			},
 	
 			onQuestionFormSubmit: function onQuestionFormSubmit(e, content, tried, problemText) {
 				e.preventDefault();
-				dispatch((0, _actions.setQuestionPending)(true));
-				dispatch((0, _actions.sendQuestion)(ownProps.problemId, content, tried, problemText));
+				dispatch((0, _actionsQuestions.setQuestionPending)(true));
+				dispatch((0, _actionsQuestions.sendQuestion)(ownProps.problemId, content, tried, problemText));
 			}
 		};
 	};
@@ -38689,7 +39354,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 611 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38786,7 +39451,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 612 */
+/* 636 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38801,7 +39466,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _containersQuestionContainer = __webpack_require__(613);
+	var _containersQuestionContainer = __webpack_require__(637);
 	
 	var _containersQuestionContainer2 = _interopRequireDefault(_containersQuestionContainer);
 	
@@ -38850,7 +39515,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 613 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38863,11 +39528,11 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsQuestion = __webpack_require__(614);
+	var _componentsQuestion = __webpack_require__(638);
 	
 	var _componentsQuestion2 = _interopRequireDefault(_componentsQuestion);
 	
-	var _actions = __webpack_require__(592);
+	var _actionsApp = __webpack_require__(587);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var collapsed = state.collapsed;
@@ -38895,7 +39560,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		return {
 			onAccordionClick: function onAccordionClick(itemId) {
-				dispatch((0, _actions.toggleAccordion)(itemId));
+				dispatch((0, _actionsApp.toggleAccordion)(itemId));
 			}
 		};
 	};
@@ -38906,7 +39571,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 614 */
+/* 638 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38929,25 +39594,25 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactIf = __webpack_require__(615);
+	var _reactIf = __webpack_require__(639);
 	
-	var _reactScroll = __webpack_require__(616);
+	var _reactScroll = __webpack_require__(640);
 	
 	var _reactScroll2 = _interopRequireDefault(_reactScroll);
 	
-	var _containersScoreDialogContainer = __webpack_require__(630);
+	var _containersScoreDialogContainer = __webpack_require__(654);
 	
 	var _containersScoreDialogContainer2 = _interopRequireDefault(_containersScoreDialogContainer);
 	
-	var _ResponseList = __webpack_require__(632);
+	var _ResponseList = __webpack_require__(656);
 	
 	var _ResponseList2 = _interopRequireDefault(_ResponseList);
 	
-	var _containersResponseFormContainer = __webpack_require__(636);
+	var _containersResponseFormContainer = __webpack_require__(660);
 	
 	var _containersResponseFormContainer2 = _interopRequireDefault(_containersResponseFormContainer);
 	
-	var _FormattedProblem = __webpack_require__(600);
+	var _FormattedProblem = __webpack_require__(620);
 	
 	var _FormattedProblem2 = _interopRequireDefault(_FormattedProblem);
 	
@@ -38975,6 +39640,20 @@
 						smooth: true
 					});
 				}
+	
+				var parts = window.decodeURIComponent(window.location.hash).split('/');
+				if (parts.length > 1 && parts[1].substr(0, 9) == 'question-') {
+					var questionId = parts[1].substr(9);
+					if (questionId == itemId) {
+						// Delay to allow LaTeX to render
+						setTimeout(function () {
+							_reactScroll2['default'].scroller.scrollTo(parts[1], {
+								duration: 1500,
+								smooth: true
+							});
+						}, 500);
+					}
+				}
 			}
 		}, {
 			key: 'render',
@@ -38999,7 +39678,11 @@
 				var problemMaths = question.problemMaths;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
-				var hasProblemText = problemText && problemText.length > 0;
+	
+				var hasProblemText = false;
+				if (problemText && problemText.length > 0) {
+					hasProblemText = true;
+				}
 	
 				var responseScrollElementName = 'response-form-' + itemId;
 				var Element = _reactScroll2['default'].Element;
@@ -39018,11 +39701,18 @@
 					}
 				}
 	
+				var anchorName = 'question-' + itemId;
+	
 				return _react2['default'].createElement(
 					'li',
 					{
 						className: this.getClassName(isCollapsed, isMyQuestion, isAnswered)
 					},
+					_react2['default'].createElement(
+						Element,
+						{ name: anchorName },
+						_react2['default'].createElement('a', { name: anchorName })
+					),
 					_react2['default'].createElement(
 						'div',
 						{ className: 'ww-question' },
@@ -39230,7 +39920,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 615 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
@@ -39338,29 +40028,29 @@
 	});
 
 /***/ },
-/* 616 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.Link = __webpack_require__(617);
-	exports.DirectLink = __webpack_require__(626);
-	exports.Button = __webpack_require__(628);
-	exports.Element = __webpack_require__(629);
-	exports.Helpers = __webpack_require__(618);
-	exports.scroller = __webpack_require__(625);
-	exports.directScroller = __webpack_require__(627);
-	exports.Events = __webpack_require__(623);
-	exports.scrollSpy = __webpack_require__(624);
-	exports.animateScroll = __webpack_require__(619);
+	exports.Link = __webpack_require__(641);
+	exports.DirectLink = __webpack_require__(650);
+	exports.Button = __webpack_require__(652);
+	exports.Element = __webpack_require__(653);
+	exports.Helpers = __webpack_require__(642);
+	exports.scroller = __webpack_require__(649);
+	exports.directScroller = __webpack_require__(651);
+	exports.Events = __webpack_require__(647);
+	exports.scrollSpy = __webpack_require__(648);
+	exports.animateScroll = __webpack_require__(643);
 
 
 /***/ },
-/* 617 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var React = __webpack_require__(300);
-	var Helpers = __webpack_require__(618);
+	var Helpers = __webpack_require__(642);
 	
 	var Link = React.createClass({
 	  render: function () {
@@ -39372,7 +40062,7 @@
 
 
 /***/ },
-/* 618 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -39380,9 +40070,9 @@
 	var React = __webpack_require__(300);
 	var ReactDOM = __webpack_require__(336);
 	
-	var animateScroll = __webpack_require__(619);
-	var scrollSpy = __webpack_require__(624);
-	var defaultScroller = __webpack_require__(625);
+	var animateScroll = __webpack_require__(643);
+	var scrollSpy = __webpack_require__(648);
+	var defaultScroller = __webpack_require__(649);
 	
 	var Helpers = {
 	
@@ -39561,18 +40251,18 @@
 
 
 /***/ },
-/* 619 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assign = __webpack_require__(620);
+	var assign = __webpack_require__(644);
 	
-	var smooth = __webpack_require__(621);
+	var smooth = __webpack_require__(645);
 	
 	var easing = smooth.defaultEasing;
 	
-	var cancelEvents = __webpack_require__(622);
+	var cancelEvents = __webpack_require__(646);
 	
-	var events = __webpack_require__(623);
+	var events = __webpack_require__(647);
 	
 	/*
 	 * Function helper
@@ -39726,7 +40416,7 @@
 
 
 /***/ },
-/* 620 */
+/* 644 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -39815,7 +40505,7 @@
 
 
 /***/ },
-/* 621 */
+/* 645 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -39833,7 +40523,7 @@
 	}
 
 /***/ },
-/* 622 */
+/* 646 */
 /***/ function(module, exports) {
 
 	var events = ['mousedown', 'mousewheel', 'touchmove', 'keydown']
@@ -39852,7 +40542,7 @@
 
 
 /***/ },
-/* 623 */
+/* 647 */
 /***/ function(module, exports) {
 
 	
@@ -39871,7 +40561,7 @@
 	module.exports = Events;
 
 /***/ },
-/* 624 */
+/* 648 */
 /***/ function(module, exports) {
 
 	var scrollSpy = {
@@ -39923,11 +40613,11 @@
 	module.exports = scrollSpy;
 
 /***/ },
-/* 625 */
+/* 649 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var animateScroll = __webpack_require__(619);
-	var events = __webpack_require__(623);
+	var animateScroll = __webpack_require__(643);
+	var events = __webpack_require__(647);
 	
 	var __mapped = {};
 	var __activeLink;
@@ -40003,14 +40693,14 @@
 
 
 /***/ },
-/* 626 */
+/* 650 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var React = __webpack_require__(300);
-	var Helpers = __webpack_require__(618);
-	var directScroller = __webpack_require__(627);
+	var Helpers = __webpack_require__(642);
+	var directScroller = __webpack_require__(651);
 	
 	var DirectLink = React.createClass({
 	  render: function () {
@@ -40022,11 +40712,11 @@
 
 
 /***/ },
-/* 627 */
+/* 651 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Helpers  = __webpack_require__(618);
-	var scroller = __webpack_require__(625);
+	var Helpers  = __webpack_require__(642);
+	var scroller = __webpack_require__(649);
 	
 	var mappedGet = scroller.get;
 	
@@ -40039,13 +40729,13 @@
 
 
 /***/ },
-/* 628 */
+/* 652 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var React = __webpack_require__(300);
-	var Helpers = __webpack_require__(618);
+	var Helpers = __webpack_require__(642);
 	
 	var Button = React.createClass({
 	  render: function () {
@@ -40057,13 +40747,13 @@
 
 
 /***/ },
-/* 629 */
+/* 653 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	var React = __webpack_require__(300);
-	var Helpers = __webpack_require__(618);
+	var Helpers = __webpack_require__(642);
 	
 	var Element = React.createClass({
 	  render: function () {
@@ -40074,7 +40764,7 @@
 	module.exports = Helpers.Element(Element);
 
 /***/ },
-/* 630 */
+/* 654 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40087,11 +40777,11 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsScoreDialog = __webpack_require__(631);
+	var _componentsScoreDialog = __webpack_require__(655);
 	
 	var _componentsScoreDialog2 = _interopRequireDefault(_componentsScoreDialog);
 	
-	var _actions = __webpack_require__(592);
+	var _actionsVotes = __webpack_require__(604);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 		var scores = state.scores;
@@ -40107,7 +40797,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		return {
 			onVoteClick: function onVoteClick(itemId, voteType) {
-				dispatch((0, _actions.clickVote)(itemId, voteType));
+				dispatch((0, _actionsVotes.clickVote)(itemId, voteType));
 			}
 		};
 	};
@@ -40118,7 +40808,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 631 */
+/* 655 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40143,7 +40833,7 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _reactIf = __webpack_require__(615);
+	var _reactIf = __webpack_require__(639);
 	
 	var ScoreDialog = (function (_React$Component) {
 		_inherits(ScoreDialog, _React$Component);
@@ -40217,7 +40907,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 632 */
+/* 656 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40232,9 +40922,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactIf = __webpack_require__(615);
+	var _reactIf = __webpack_require__(639);
 	
-	var _ResponseJs = __webpack_require__(633);
+	var _ResponseJs = __webpack_require__(657);
 	
 	var _ResponseJs2 = _interopRequireDefault(_ResponseJs);
 	
@@ -40283,7 +40973,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 633 */
+/* 657 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40298,13 +40988,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactIf = __webpack_require__(615);
+	var _reactIf = __webpack_require__(639);
 	
-	var _containersScoreDialogContainer = __webpack_require__(630);
+	var _containersScoreDialogContainer = __webpack_require__(654);
 	
 	var _containersScoreDialogContainer2 = _interopRequireDefault(_containersScoreDialogContainer);
 	
-	var _containersAnsweredDialogContainer = __webpack_require__(634);
+	var _containersAnsweredDialogContainer = __webpack_require__(658);
 	
 	var _containersAnsweredDialogContainer2 = _interopRequireDefault(_containersAnsweredDialogContainer);
 	
@@ -40330,13 +41020,13 @@
 					{ className: isAnswer ? 'ww-response is-answer' : 'ww-response' },
 					_react2['default'].createElement(
 						'div',
-						{ className: 'response-user-type' },
-						authorUserType
-					),
-					_react2['default'].createElement(
-						'div',
 						{ className: 'ww-author-avatar' },
-						_react2['default'].createElement('img', { src: authorAvatar })
+						_react2['default'].createElement('img', { src: authorAvatar }),
+						_react2['default'].createElement(
+							'div',
+							{ className: 'response-user-type' },
+							authorUserType
+						)
 					),
 					_react2['default'].createElement(
 						'div',
@@ -40367,7 +41057,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 634 */
+/* 658 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40380,11 +41070,11 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsAnsweredDialog = __webpack_require__(635);
+	var _componentsAnsweredDialog = __webpack_require__(659);
 	
 	var _componentsAnsweredDialog2 = _interopRequireDefault(_componentsAnsweredDialog);
 	
-	var _actions = __webpack_require__(592);
+	var _actionsResponses = __webpack_require__(602);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var responses = state.responses;
@@ -40399,7 +41089,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		return {
 			onAnsweredClick: function onAnsweredClick(responseId, isAnswered) {
-				dispatch((0, _actions.clickAnswered)(responseId, isAnswered));
+				dispatch((0, _actionsResponses.clickAnswered)(responseId, isAnswered));
 			}
 		};
 	};
@@ -40410,7 +41100,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 635 */
+/* 659 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -40477,7 +41167,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 636 */
+/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40490,11 +41180,11 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsResponseForm = __webpack_require__(637);
+	var _componentsResponseForm = __webpack_require__(661);
 	
 	var _componentsResponseForm2 = _interopRequireDefault(_componentsResponseForm);
 	
-	var _actions = __webpack_require__(592);
+	var _actionsResponses = __webpack_require__(602);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var responseFormData = state.responseFormData;
@@ -40513,13 +41203,13 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 		return {
 			onTextareaChange: function onTextareaChange(e) {
-				dispatch((0, _actions.changeResponseText)(ownProps.questionId, e.target.value));
+				dispatch((0, _actionsResponses.changeResponseText)(ownProps.questionId, e.target.value));
 			},
 	
 			onResponseFormSubmit: function onResponseFormSubmit(e, responseText) {
 				e.preventDefault();
-				dispatch((0, _actions.setResponsePending)(ownProps.questionId, true));
-				dispatch((0, _actions.sendResponse)(ownProps.questionId, responseText));
+				dispatch((0, _actionsResponses.setResponsePending)(ownProps.questionId, true));
+				dispatch((0, _actionsResponses.sendResponse)(ownProps.questionId, responseText));
 			}
 		};
 	};
@@ -40530,7 +41220,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 637 */
+/* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

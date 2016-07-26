@@ -17,7 +17,6 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 	return {
 		onFilterHeaderClick: function() {
 			const { contrary, slug, type } = ownProps
-			console.log(ownProps)
 
 			switch ( type ) {
 				case 'toggle' :

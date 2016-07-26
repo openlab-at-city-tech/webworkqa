@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Question from '../components/Question'
-import { toggleAccordion } from '../actions'
+import { toggleAccordion } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
 	const { collapsed, initialLoadComplete, questions, responseIdMap, responses } = state

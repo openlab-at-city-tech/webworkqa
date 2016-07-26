@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import QuestionForm from '../components/QuestionForm'
-import { changeQuestionText, sendQuestion, setQuestionPending } from '../actions'
+import { changeQuestionText, sendQuestion, setQuestionPending } from '../actions/questions'
 
 const mapStateToProps = (state, ownProps) => {
 	const { content, tried, isPending } = state.questionFormData

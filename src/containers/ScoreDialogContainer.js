@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import ScoreDialog from '../components/ScoreDialog'
-import { clickVote } from '../actions'
+import { clickVote } from '../actions/votes'
 
 const mapStateToProps = (state) => {
 	const { scores, votes } = state

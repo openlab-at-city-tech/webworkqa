@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import Problem from '../components/Problem'
-import { fetchProblem, setAppIsLoading } from '../actions'
+import { setAppIsLoading } from '../actions/app'
+import { fetchProblem } from '../actions/problems'
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { problems, questions, questionsById, responseIdMap, responses } = state

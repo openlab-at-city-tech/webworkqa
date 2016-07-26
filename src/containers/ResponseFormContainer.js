@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import ResponseForm from '../components/ResponseForm'
-import { changeResponseText, sendResponse, setResponsePending } from '../actions'
+import { changeResponseText, sendResponse, setResponsePending } from '../actions/responses'
 
 const mapStateToProps = (state, ownProps) => {
 	const { responseFormData, responseFormPending } = state

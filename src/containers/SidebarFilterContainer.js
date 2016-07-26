@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SidebarFilter from '../components/SidebarFilter'
-import { setFilterToggle } from '../actions'
+import { setFilterToggle } from '../actions/app'
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { currentFilters } = state

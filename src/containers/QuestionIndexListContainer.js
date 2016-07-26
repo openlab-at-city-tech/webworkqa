@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import QuestionIndexList from '../components/QuestionIndexList'
-import { fetchQuestionIndexList } from '../actions'
+import { fetchQuestionIndexList } from '../actions/questions'
 
 const mapStateToProps = ( state ) => {
 	return {

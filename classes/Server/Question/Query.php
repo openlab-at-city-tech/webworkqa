@@ -45,7 +45,7 @@ class Query {
 			);
 		}
 
-		if ( is_bool( $this->r['answered'] ) ) {
+		if ( null !== $this->r['answered'] ) {
 			// @todo Make this less awful.
 			$r_query = new \WeBWorK\Server\Response\Query( array(
 				'is_answer' => true,

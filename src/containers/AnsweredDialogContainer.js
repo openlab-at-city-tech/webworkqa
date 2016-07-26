@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import AnsweredDialog from '../components/AnsweredDialog'
-import { clickAnswered } from '../actions/questions'
+import { clickAnswered } from '../actions/responses'
 
 const mapStateToProps = (state, ownProps) => {
 	const { responses } = state

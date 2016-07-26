@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import SidebarFilter from '../components/SidebarFilter'
 import { setFilterToggle } from '../actions/app'
+import { fetchQuestionIndexList } from '../actions/questions'
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { currentFilters } = state
@@ -14,12 +15,13 @@ const mapStateToProps = ( state, ownProps ) => {
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
 	return {
-		onFilterHeaderClick: function() {
+		onFilterHeaderClick: function( filters ) {
 			const { contrary, slug, type } = ownProps
 
 			switch ( type ) {
 				case 'toggle' :
 					dispatch( setFilterToggle( slug, contrary ) )
+					dispatch( fetchQuestionIndexList() )
 				break;
 
 				default :

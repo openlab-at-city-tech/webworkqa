@@ -1,11 +1,30 @@
 import fetch from 'isomorphic-fetch'
 
 export function fetchQuestionIndexList() {
-	return dispatch => {
+	return (dispatch, getState) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
 		let endpoint = rest_api_endpoint + 'questions/'
 
-		endpoint += '?orderby=post_date&order=desc'
+		const { currentFilters } = getState()
+
+		const filters = standardizeFiltersForEndpoint( currentFilters )
+
+		let qs = ''
+		for ( var filterName in filters ) {
+			if ( ! filters.hasOwnProperty( filterName ) ) {
+				continue
+			}
+
+			if ( '' != qs ) {
+				qs += '&'
+			}
+
+			qs += filterName + '=' + filters[ filterName ]
+		}
+
+		if ( '' != qs ) {
+			endpoint += '?' + qs
+		}
 
 		return fetch( endpoint,
 		{
@@ -15,13 +34,44 @@ export function fetchQuestionIndexList() {
 				'X-WP-Nonce': rest_api_nonce
 			},
 		} )
-			.then( response => response.json() )
-			.then( json => {
-				dispatch( receiveQuestions( json.questions ) )
-				dispatch( receiveQuestionIds( json.questionIds ) )
-			} )
+		.then( response => response.json() )
+		.then( json => {
+			dispatch( receiveQuestions( json.questions ) )
+			dispatch( receiveQuestionIds( json.questionIds ) )
+		} )
 	}
+}
 
+function standardizeFiltersForEndpoint( filters ) {
+	let s = {}
+
+	for ( var filterName in filters ) {
+		if ( ! filters.hasOwnProperty( filterName ) ) {
+			continue
+		}
+
+		switch ( filterName ) {
+			// Can't both be true at once, so don't worry about reconciling.
+			case 'answeredQuestions' :
+				if ( filters.answeredQuestions ) {
+					s.answered = '1'
+				}
+			break
+
+			case 'unansweredQuestions' :
+				if ( filters.unansweredQuestions ) {
+					s.answered = '0'
+				}
+			break;
+
+			default :
+				s[ filterName ] = filters[ filterName ]
+			break;
+		}
+	}
+	console.log(s)
+
+	return s
 }
 
 export const RECEIVE_QUESTION_IDS = 'RECEIVE_QUESTION_IDS';

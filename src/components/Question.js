@@ -45,7 +45,11 @@ export default class Question extends Component {
 		const { tried, content, questionId, authorAvatar, authorName, problemText, problemInputs, problemMaths } = question
 
 		const isMyQuestion = question.isMyQuestion > 0
-		const hasProblemText = problemText && problemText.length > 0
+
+		let hasProblemText = false
+		if ( problemText && problemText.length > 0 ) {
+			hasProblemText = true
+		}
 
 		const responseScrollElementName = 'response-form-' + itemId
 		var Element = Scroll.Element

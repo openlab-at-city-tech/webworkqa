@@ -21,7 +21,7 @@ export default class Question extends Component {
 		}
 
 		const parts = window.decodeURIComponent( window.location.hash ).split( '/' );
-		if ( parts && parts[1].substr( 0, 9 ) == 'question-' ) {
+		if ( parts.length > 1 && parts[1].substr( 0, 9 ) == 'question-' ) {
 			const questionId = parts[1].substr( 9 )
 			if ( questionId == itemId ) {
 				// Delay to allow LaTeX to render

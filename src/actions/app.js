@@ -26,13 +26,28 @@ export const toggleAccordion = ( itemId ) => {
 	}
 }
 
+export function processFilterToggle( slug, contrary ) {
+	return ( dispatch, getState ) => {
+		const { currentFilters } = getState()
+
+		if ( currentFilters[ slug ] ) {
+			// If already clicked, toggle off.
+			dispatch( setFilterToggle( slug, false ) )
+		} else {
+			// If not clicked, toggle on, and toggle off contrary.
+			dispatch( setFilterToggle( slug, true ) )
+			dispatch( setFilterToggle( contrary, false ) )
+		}
+	}
+}
+
 export const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE'
-export const setFilterToggle = ( slug, contrary ) => {
+export const setFilterToggle = ( slug, value ) => {
 	return {
 		type: SET_FILTER_TOGGLE,
 		payload: {
 			slug,
-			contrary
+			value
 		}
 	}
 }

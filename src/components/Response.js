@@ -11,10 +11,10 @@ var Response = React.createClass({
 		return (
 			<li>
 				<div className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
-					<div className="response-user-type">{authorUserType}</div>
 
 					<div className="ww-author-avatar">
 						<img src={authorAvatar} />
+						<div className="response-user-type">{authorUserType}</div>
 					</div>
 
 					<div className="ww-response-content">

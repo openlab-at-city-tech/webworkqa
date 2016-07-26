@@ -136,20 +136,10 @@ ul.question-list > a {
 }
 
 .response-user-type {
-	-webkit-transform: rotate(-90deg);
-	-moz-transform: rotate(-90deg);
-	-ms-transform: rotate(-90deg);
-	-o-transform: rotate(-90deg);
-	transform: rotate(-90deg);
-	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-	font-size: .8em;
+	width: 60px;
+	font-size: .7em;
 	background: #ccc;
-	padding: 3px 10px;
-	width: 80px;
-	text-align: center;
-	margin-left: -40px;
-	margin-top: 20px;
-	float: left;
+	margin: 0 auto;
 }
 
 .ww-response-content {

@@ -42,7 +42,7 @@ export default class Question extends Component {
 			userCanPostResponse
 		} = this.props
 
-		const { tried, content, questionId, authorAvatar, authorName, problemText, problemInputs, problemMaths } = question
+		const { tried, content, questionId, authorAvatar, authorName, problemText, problemMaths } = question
 
 		const isMyQuestion = question.isMyQuestion > 0
 
@@ -143,7 +143,6 @@ export default class Question extends Component {
 											  itemId={questionId}
 											  content={problemText}
 											  maths={problemMaths}
-											  inputs={problemInputs}
 											/>
 										</div>
 										</span>

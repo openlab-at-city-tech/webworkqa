@@ -105,10 +105,6 @@ class Question implements Util\SaveableAsWPPost {
 		return $this->tex->get_maths_for_endpoint();
 	}
 
-	public function get_inputs() {
-		return $this->tex->get_inputs_for_endpoint();
-	}
-
 	public function get_author_avatar() {
 		return $this->p->get_author_avatar();
 	}

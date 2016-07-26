@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import LaTeX from './LaTeX'
-import Input from './Input'
 
 export default class FormattedProblem extends Component {
 	render() {
-		const { itemId, content, excerpt, inputs, maths } = this.props
+		const { itemId, content, excerpt, maths } = this.props
 
 		if ( ! content ) {
 			return ( <span></span> )
@@ -13,7 +12,7 @@ export default class FormattedProblem extends Component {
 
 		const parts = content.split( /(\{\{\{[a-z]+_[0-9]?\}\}\})/g)
 		let children = []
-		var num, theMath, theInput
+		var num, theMath
 		for ( var i = 0; i < parts.length; i++ ) {
 			var match = parts[i].match( /\{\{\{([a-z]+)_([0-9]?)\}\}\}/ )
 			if ( match ) {
@@ -31,15 +30,6 @@ export default class FormattedProblem extends Component {
 									math={theMath.math}
 									display={theMath.display}
 									/> )
-						}
-						break
-
-					case 'input' :
-						num = parseInt( match[2] )
-
-						if ( inputs && inputs.hasOwnProperty( num ) ) {
-							theInput = inputs[num]
-							children.push( <Input key={i} type={theInput.type} value={theInput.value} /> )
 						}
 						break
 				}

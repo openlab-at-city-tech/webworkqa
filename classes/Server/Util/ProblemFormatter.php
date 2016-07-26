@@ -7,7 +7,8 @@ namespace WeBWorK\Server\Util;
  */
 class ProblemFormatter {
 	public function clean( $text ) {
-		$parsed = $this->replace_latex_escape_characters( $text );
+		$parsed = $this->strip_inputs( $text );
+		$parsed = $this->replace_latex_escape_characters( $parsed );
 		$parsed = $this->generate_placeholders( $parsed );
 		$parsed['text'] = $this->remove_script_tags( $parsed['text'] );
 		$parsed['text'] = str_replace( '<span class="MathJax_Preview">[math]</span>', '', $parsed['text'] );
@@ -26,6 +27,16 @@ class ProblemFormatter {
 		return $parsed;
 	}
 
+	public function strip_inputs( $text ) {
+		// Remove hidden inputs.
+		$text = preg_replace( '|<input[^>]+type="?hidden"?[^>]*> ?|', '', $text );
+
+		// Replace regular inputs with ___.
+		$text = preg_replace( '|<input[^>]+> ?|', '___', $text );
+
+		return $text;
+	}
+
 	public function remove_script_tags( $text ) {
 		$text = preg_replace( '|<script type="text[^>]+>[^<]+</script>|', '', $text );
 		return $text;
@@ -36,40 +47,6 @@ class ProblemFormatter {
 
 		$retval = $this->generate_placeholders_for_maths( $text );
 		$clean_text = $retval['text'];
-
-		// @todo move to another method
-		$retval['inputs'] = array();
-
-		$regex = '|<input[^>]+>|';
-		if ( preg_match_all( $regex, $text, $matches ) ) {
-			$matched_inputs = $matches[0];
-
-			foreach ( $matched_inputs as $key => $mi ) {
-
-				$type = 'text';
-				$regex = '|type=[\'"]?([^\'" ]+)|';
-				if ( preg_match( $regex, $mi, $match ) ) {
-					$type = $match[1];
-					if ( 'hidden' === $type ) {
-						$clean_text = str_replace( $mi, '', $clean_text );
-						continue;
-					}
-				}
-
-				$value = '';
-				$regex = '|value=[\'"]?([^\'" ]+)|';
-				if ( preg_match( $regex, $mi, $match ) ) {
-					$value = $match[1];
-				}
-
-				$retval['inputs'][ $key ] = array(
-					'type' => $type,
-					'value' => $value,
-				);
-
-				$clean_text = str_replace( $mi, '{{{input_' . $key . '}}}', $clean_text );
-			}
-		}
 
 		$retval['text'] = $clean_text;
 

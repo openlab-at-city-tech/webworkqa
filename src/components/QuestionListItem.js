@@ -10,7 +10,7 @@ export default class QuestionListItem extends Component {
 			return ( <span></span> )
 		}
 
-		const { problemId, questionId, problemText, excerpt, problemInputs, problemMaths, instances } = question
+		const { problemId, questionId, problemText, excerpt, problemMaths, instances } = question
 		const remoteCourseURL = window.WWData.remote_course_url
 
 		let instance = null
@@ -32,7 +32,6 @@ export default class QuestionListItem extends Component {
 					  problemId={problemId}
 					  content={problemText}
 					  excerpt={excerpt}
-					  inputs={problemInputs}
 					  maths={problemMaths}
 					/>
 				</li>

@@ -81,7 +81,6 @@ class Problem implements Util\SaveableAsWPPost {
 		$parsed = $this->pf->clean( $this->raw_content );
 		$this->content_with_placeholders = $parsed['text'];
 		$this->maths = $parsed['maths'];
-		$this->inputs = $parsed['inputs'];
 		return $this->content_with_placeholders;
 	}
 
@@ -91,10 +90,6 @@ class Problem implements Util\SaveableAsWPPost {
 
 	public function get_maths() {
 		return $this->maths;
-	}
-
-	public function get_inputs() {
-		return $this->inputs;
 	}
 
 	public function get_excerpt() {

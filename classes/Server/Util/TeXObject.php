@@ -13,7 +13,6 @@ class TeXObject {
 
 	protected $text_for_endpoint;
 	protected $maths_for_endpoint;
-	protected $inputs_for_endpoint;
 
 	public function __construct() {
 		$this->pf = new ProblemFormatter();
@@ -47,19 +46,10 @@ class TeXObject {
 		return $this->maths_for_endpoint;
 	}
 
-	public function get_inputs_for_endpoint() {
-		if ( null == $this->inputs_for_endpoint ) {
-			$this->parse_for_endpoint( $this->swapped_text );
-		}
-
-		return $this->inputs_for_endpoint;
-	}
-
 	protected function parse_for_endpoint( $swapped_text ) {
 		$clean = $this->pf->clean( $swapped_text );
 
 		$this->text_for_endpoint = $clean['text'];
 		$this->maths_for_endpoint = $clean['maths'];
-		$this->inputs_for_endpoint = $clean['inputs'];
 	}
 }

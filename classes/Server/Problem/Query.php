@@ -73,7 +73,6 @@ class Query {
 			$formatted_problem = array(
 				'problemId' => $problem_id,
 				'content' => $p->get_clean_content(),
-				'inputs' => $p->get_inputs(),
 				'libraryId' => $p->get_library_id(),
 				'maths' => $p->get_maths(),
 				'authorAvatar' => $p->get_author_avatar(),

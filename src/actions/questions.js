@@ -69,7 +69,6 @@ function standardizeFiltersForEndpoint( filters ) {
 			break;
 		}
 	}
-	console.log(s)
 
 	return s
 }

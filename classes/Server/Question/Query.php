@@ -17,6 +17,7 @@ class Query {
 			'problem_id' => null,
 			'orderby' => 'votes',
 			'order' => 'ASC',
+			'answered' => null,
 		), $args );
 
 		$this->sorter = new \WeBWorK\Server\Util\QuerySorter();
@@ -42,6 +43,22 @@ class Query {
 				'key' => 'webwork_problem_id',
 				'value' => intval( $this->r['problem_id'] ),
 			);
+		}
+
+		if ( is_bool( $this->r['answered'] ) ) {
+			// @todo Make this less awful.
+			$r_query = new \WeBWorK\Server\Response\Query( array(
+				'is_answer' => true,
+			) );
+			$is_answer_responses = $r_query->get();
+
+			$has_answer_ids = array( 0 );
+			foreach ( $is_answer_responses as $is_answer_response ) {
+				$has_answer_ids[] = $is_answer_response->get_question_id();
+			}
+
+			$op = $this->r['answered'] ? 'post__in' : 'post__not_in';
+			$args[ $op ] = $has_answer_ids;
 		}
 
 		$question_query = new \WP_Query( $args );

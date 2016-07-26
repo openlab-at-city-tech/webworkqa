@@ -52,6 +52,50 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 		$this->assertEqualSets( array( $r1, $r3 ), $ids );
 	}
 
+	public function test_get_by_is_answer_true() {
+		$r1 = self::factory()->response->create( array(
+			'is_answer' => false,
+		) );
+
+		$r2 = self::factory()->response->create( array(
+			'is_answer' => true,
+		) );
+
+		$q = new \WeBWorK\Server\Response\Query( array(
+			'is_answer' => true,
+		) );
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertEqualSets( array( $r2 ), $ids );
+	}
+
+	public function test_get_by_is_answer_false() {
+		$r1 = self::factory()->response->create( array(
+			'is_answer' => false,
+		) );
+
+		$r2 = self::factory()->response->create( array(
+			'is_answer' => true,
+		) );
+
+		$q = new \WeBWorK\Server\Response\Query( array(
+			'is_answer' => false,
+		) );
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertEqualSets( array( $r1 ), $ids );
+	}
+
 	public function test_results_should_be_ordered_by_vote_count() {
 		$r1 = self::factory()->response->create( array(
 			'question_id' => 3,

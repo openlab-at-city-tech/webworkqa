@@ -14,6 +14,7 @@ class Query {
 		$this->r = array_merge( array(
 			'question_id__in' => null,
 			'orderby' => 'votes',
+			'is_answer' => null,
 		), $args );
 
 		$this->sorter = new \WeBWorK\Server\Util\QuerySorter();
@@ -36,7 +37,6 @@ class Query {
 			'order' => 'ASC',
 		);
 
-
 		if ( null !== $this->r['question_id__in'] ) {
 			if ( array() === $this->r['question_id__in'] ) {
 				$question_id__in = array( 0 );
@@ -51,6 +51,29 @@ class Query {
 			);
 		}
 
+		if ( null !== $this->r['is_answer'] ) {
+			if ( $this->r['is_answer'] ) {
+				$args['meta_query']['is_answer'] = array(
+					'key' => 'webwork_question_answer',
+					'value' => '1',
+				);
+			} else {
+				// SOS
+				$is_answer_args = $this->r;
+				$is_answer_args['is_answer'] = true;
+				$is_answer_args['orderby'] = 'post_date';
+				$is_answer_query = new Query( $is_answer_args );
+				$is_answers = $is_answer_query->get();
+
+				$not_in = array();
+				foreach ( $is_answers as $is_answer ) {
+					$not_in[] = $is_answer->get_id();
+				}
+
+				$args['post__not_in'] = $not_in;
+			}
+		}
+
 		$response_query = new \WP_Query( $args );
 		$_responses = $response_query->posts;
 
@@ -59,7 +82,9 @@ class Query {
 			$responses[ $_response->ID ] = new \WeBWorK\Server\Response( $_response->ID );
 		}
 
-		$responses = $this->sorter->sort_by_votes( $responses );
+		if ( 'votes' === $this->r['orderby'] ) {
+			$responses = $this->sorter->sort_by_votes( $responses );
+		}
 
 		return $responses;
 	}

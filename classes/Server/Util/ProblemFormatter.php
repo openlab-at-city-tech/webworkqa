@@ -96,7 +96,7 @@ class ProblemFormatter {
 	}
 
 	public function swap_latex_escape_characters( $text ) {
-		$regex = '|(<script type="math/tex[^>]+>)(.*?)(</script>)|';
+		$regex = '|(<script type="math/tex[^>]+>)(.*?)(</script>)|s';
 		$text = preg_replace_callback( $regex, function( $matches ) {
 			$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[2] );
 			return $matches[1] . $tex . $matches[3];
@@ -107,5 +107,35 @@ class ProblemFormatter {
 
 	public function replace_latex_escape_characters( $text ) {
 		return str_replace( '{{{LATEX_ESCAPE_CHARACTER}}}', '\\', $text );
+	}
+
+	public function get_library_id_from_text( $text ) {
+		$regex = '|[[a-zA-Z0-9\-_/]+\.pg|';
+		preg_match( $regex, $text, $matches );
+
+		$library_id = false;
+		if ( $matches ) {
+			$library_id = $matches[0];
+		}
+
+		return $library_id;
+	}
+
+	public function strip_library_id_from_text( $text ) {
+		$library_id = $this->get_library_id_from_text( $text );
+
+		if ( $library_id ) {
+			// Any tags that contain nothing but the ID should be stripped too.
+			$regex = '|(<[^>]+>)+' . preg_quote( $library_id ) . '(</[a-zA-Z0-9]+>)+|';
+			$text = preg_replace( $regex, '', $text );
+		}
+
+		return $text;
+	}
+
+	public function strip_p_tags( $text ) {
+		$text = str_replace( array( '<p>', '</p>' ), '', $text );
+		$text = preg_replace( '|<p [^>]+>|', '', $text );
+		return $text;
 	}
 }

@@ -100,6 +100,23 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$this->assertSame( $expected, $pf->swap_latex_escape_characters( $text ) );
 	}
 
+	public function test_swap_latex_escape_characters_should_match_multiline_tex() {
+		$text = '<span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">\begin{array}{l}
+        x^2+y^2 = 11, \\\\
+        x+y = 1. \\\\
+\end{array}</script>
+<BR/>';
+
+		$expected = '<span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">{{{LATEX_ESCAPE_CHARACTER}}}begin{array}{l}
+        x^2+y^2 = 11, {{{LATEX_ESCAPE_CHARACTER}}}{{{LATEX_ESCAPE_CHARACTER}}}
+        x+y = 1. {{{LATEX_ESCAPE_CHARACTER}}}{{{LATEX_ESCAPE_CHARACTER}}}
+{{{LATEX_ESCAPE_CHARACTER}}}end{array}</script>
+<BR/>';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->swap_latex_escape_characters( $text ) );
+	}
+
 	public function test_replace_latex_escape_characters() {
 		$text = '\foo \bar <script type="text/javascript">\foo \bar</script> <script type="math/tex">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script> <script type="math/tex; mode=display">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script>';
 
@@ -124,5 +141,45 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
 		$this->assertSame( $expected, $pf->strip_inputs( $text ) );
+	}
+
+	public function test_get_library_id_from_text() {
+		$text = 'foo bar <b>Test/foo/bar/baz.pg</b> baz';
+		$expected = 'Test/foo/bar/baz.pg';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->get_library_id_from_text( $text ) );
+	}
+
+	public function test_strip_library_id_from_text() {
+		$text = 'foo bar <i><b>Test/foo/bar/baz.pg</b></i> baz';
+		$expected = 'foo bar  baz';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->strip_library_id_from_text( $text ) );
+	}
+
+	public function test_strip_p_tags_should_remove_simple_opening_tags() {
+		$text = 'foo <p> bar';
+		$expected = 'foo  bar';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->strip_p_tags( $text ) );
+	}
+
+	public function test_strip_p_tags_should_remove_complex_opening_tags() {
+		$text = 'foo <p attr="value"> bar';
+		$expected = 'foo  bar';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->strip_p_tags( $text ) );
+	}
+
+	public function test_strip_p_tags_should_remove_closing_tags() {
+		$text = 'foo </p> bar';
+		$expected = 'foo  bar';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->strip_p_tags( $text ) );
 	}
 }

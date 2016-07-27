@@ -23,25 +23,6 @@ class Endpoint extends \WP_Rest_Controller {
 				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::READABLE ),
 			),
 		) );
-
-		register_rest_route( $namespace, '/' . $base, array(
-			// @todo This is done by POST in PHP.
-			/*
-			array(
-				'methods'         => \WP_REST_Server::CREATABLE,
-				'callback'        => array( $this, 'create_item' ),
-				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::CREATABLE ),
-			),
-			*/
-
-			array(
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::READABLE ),
-			),
-		) );
 	}
 
 	public function get_item( $request ) {
@@ -120,21 +101,6 @@ class Endpoint extends \WP_Rest_Controller {
 		);
 
 		return $data;
-	}
-
-	public function get_items( $request ) {
-		$q = new Query();
-
-		$problems = $q->get_for_endpoint();
-
-		$retval = array(
-			'problemIds' => array_keys( $problems ),
-			'problems' => $problems,
-		);
-
-		$response = rest_ensure_response( $retval );
-
-		return $response;
 	}
 
 	/**

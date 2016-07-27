@@ -134,8 +134,8 @@ class ProblemFormatter {
 	}
 
 	public function strip_p_tags( $text ) {
-		$text = str_replace( array( '<p>', '</p>' ), '', $text );
-		$text = preg_replace( '|<p [^>]+>|', '', $text );
+		$text = str_replace( array( '<p>', '</p>', '<P>', '</P>' ), '', $text );
+		$text = preg_replace( '|<p [^>]+>|i', '', $text );
 		return $text;
 	}
 }

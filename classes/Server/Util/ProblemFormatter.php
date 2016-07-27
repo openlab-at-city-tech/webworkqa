@@ -65,7 +65,7 @@ class ProblemFormatter {
 		// $text may be slashed. Ugh.
 		$clean_text = str_replace( '\"', '"', $clean_text );
 
-		$regex = '|<script type="math/tex[^>]+>(.*?)</script>|';
+		$regex = '|<script type="math/tex[^>]+>(.*?)</script>|s';
 
 		if ( preg_match_all( $regex, $clean_text, $matches ) ) {
 			$matches_wrapped   = $matches[0];

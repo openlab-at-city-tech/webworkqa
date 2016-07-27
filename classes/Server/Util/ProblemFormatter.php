@@ -32,7 +32,8 @@ class ProblemFormatter {
 		$text = preg_replace( '|<input[^>]+type="?hidden"?[^>]*> ?|', '', $text );
 
 		// Replace regular inputs with ___.
-		$text = preg_replace( '|<input[^>]+> ?|', '___', $text );
+		$text = preg_replace( '|\n+<input|', ' <input', $text );
+		$text = preg_replace( '|<input[^>]+> *|', '___ ', $text );
 
 		return $text;
 	}

@@ -115,4 +115,14 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
 		$this->assertSame( $expected, $pf->strip_inputs( $this->text ) );
 	}
+
+	public function test_strip_inputs_should_remove_line_break_before_visible_input() {
+		$text = 'foo
+<input type="text" />  bar';
+
+		$expected = 'foo ___ bar';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->strip_inputs( $text ) );
+	}
 }

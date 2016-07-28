@@ -78,16 +78,14 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_problem_text( $problem_text );
 
 		if ( $question->save() ) {
-			// @todo Should use Query::get_for_endpoint() for this.
-			$retval = array(
-				'questionId' => $question->get_id(),
-				'content' => $question->get_content(),
-				'tried' => $question->get_tried(),
-				'authorAvatar' => $question->get_author_avatar(),
-				'authorName' => $question->get_author_name(),
-				'problemText' => $question->get_problem_text(),
-				'problemMaths' => $question->get_maths(),
-			);
+			$query = new Query( array(
+				'question_id' => $question->get_id(),
+			) );
+
+			$results = $query->get_for_endpoint();
+
+			// @todo not found?
+			$retval = reset( $results );
 
 			$r = rest_ensure_response( $retval );
 			$r->set_status( 201 );

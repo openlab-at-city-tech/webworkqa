@@ -15,6 +15,7 @@ class Query {
 	public function __construct( $args = array() ) {
 		$this->r = array_merge( array(
 			'problem_id' => null,
+			'question_id' => null,
 			'orderby' => 'votes',
 			'order' => 'ASC',
 			'answered' => null,
@@ -43,6 +44,17 @@ class Query {
 				'key' => 'webwork_problem_id',
 				'value' => intval( $this->r['problem_id'] ),
 			);
+		}
+
+		if ( null !== $this->r['question_id'] ) {
+			// Supports arrays.
+			if ( ! is_array( $this->r['question_id'] ) ) {
+				$q_ids = array( $this->r['question_id'] );
+			}
+
+			$q_ids = array_map( 'intval', $q_ids );
+
+			$args['post__in'] = $q_ids;
 		}
 
 		if ( null !== $this->r['answered'] ) {

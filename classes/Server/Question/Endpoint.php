@@ -68,16 +68,40 @@ class Endpoint extends \WP_Rest_Controller {
 		$content = $params['content'];
 		$tried = $params['tried'];
 
-		$post_data_key = $params['post_data_key'];
-		$post_data = get_option( $post_data_key );
+		$problem_data = null;
+		if ( isset( $params['post_data_key'] ) ) {
+			$post_data_key = $params['post_data_key'];
+			$problem_data = get_option( $post_data_key );
+		}
+
+		// Try fetching another question from the same problem.
+		if ( ! $problem_data ) {
+			$query = new Query( array(
+				'problem_id' => $problem_id
+			) );
+
+			$questions = $query->get();
+
+			foreach ( $questions as $q ) {
+				if ( $q->get_problem_text() ) {
+					$problem_data = array(
+						'problem_id' => $q->get_problem_id(),
+
+
+						// @todo This is not getting a raw enough copy of the text.
+						'problem_text' => $q->get_problem_text(),
+					);
+				}
+			}
+		}
 
 		$question = new \WeBWorK\Server\Question();
 
 		$question->set_author_id( get_current_user_id() );
 		$question->set_content( $content );
 		$question->set_tried( $tried );
-		$question->set_problem_id( $post_data['problem_id'] );
-		$question->set_problem_text( $post_data['problem_text'] );
+		$question->set_problem_id( $problem_data['problem_id'] );
+		$question->set_problem_text( $problem_data['problem_text'] );
 
 		if ( $question->save() ) {
 			$query = new Query( array(

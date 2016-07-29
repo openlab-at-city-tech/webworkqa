@@ -63,12 +63,21 @@ class Endpoint extends \WP_Rest_Controller {
 				}
 			}
 
-			if ( $my_question ) {
+			if ( $my_question && ! empty( $my_question['problemText'] ) ) {
 				$problem = array(
 					'problemId' => $problem_id,
-					'libraryId' => $problem_id_formatted,
+					'libraryId' => $problem_id,
 					'content' => $my_question['problemText'],
 					'maths' => $my_question['problemMaths'],
+				);
+			} else {
+				// Just use the first one you find.
+				$the_question = reset( $questions );
+				$problem = array(
+					'problemId' => $problem_id,
+					'libraryId' => $problem_id,
+					'content' => $the_question['problemText'],
+					'maths' => $the_question['problemMaths'],
 				);
 			}
 		}

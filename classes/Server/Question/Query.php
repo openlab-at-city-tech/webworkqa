@@ -94,6 +94,7 @@ class Query {
 		$formatted = array();
 		foreach ( $questions as $q ) {
 			$question_id = $q->get_id();
+
 			$formatted[ $question_id ] = array(
 				'questionId' => $question_id,
 				'content' => $q->get_content(),

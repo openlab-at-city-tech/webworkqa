@@ -42,7 +42,7 @@ class Query {
 		if ( $this->r['problem_id'] ) {
 			$args['meta_query']['problem_id'] = array(
 				'key' => 'webwork_problem_id',
-				'value' => intval( $this->r['problem_id'] ),
+				'value' => $this->r['problem_id'],
 			);
 		}
 

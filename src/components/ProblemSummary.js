@@ -11,14 +11,13 @@ var ProblemSummary = React.createClass({
 			)
 		}
 
-		const { content, inputs, libraryId, maths } = problem
+		const { content, libraryId, maths } = problem
 
 		return (
 			<div className="ww-problem-summary">
 				<FormattedProblem
 				  itemId={problemId}
 				  content={content}
-				  inputs={inputs}
 				  maths={maths}
 				/>
 

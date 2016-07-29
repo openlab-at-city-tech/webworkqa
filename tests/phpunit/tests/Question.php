@@ -22,7 +22,7 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 
 		$new_question = new \WeBWorK\Server\Question( $q );
 		$this->assertSame( 'foo', $new_question->get_content() );
-		$this->assertSame( 20, $new_question->get_problem_id() );
+		$this->assertSame( '20', $new_question->get_problem_id() );
 		$this->assertSame( 'bar tried', $new_question->get_tried() );
 	}
 
@@ -38,7 +38,7 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 
 		$new_question = new \WeBWorK\Server\Question( $question->get_id() );
 		$this->assertSame( 'foo', $new_question->get_content() );
-		$this->assertSame( 20, $new_question->get_problem_id() );
+		$this->assertSame( '20', $new_question->get_problem_id() );
 	}
 
 	public function test_exists_false() {

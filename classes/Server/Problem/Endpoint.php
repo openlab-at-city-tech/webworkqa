@@ -15,7 +15,7 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$base = 'problems';
 
-		register_rest_route( $namespace, '/' . $base . '/(?P<id>\d+)', array(
+		register_rest_route( $namespace, '/' . $base . '/?', array(
 			array(
 				'methods' => \WP_REST_Server::READABLE,
 				'callback' => array( $this, 'get_item' ),
@@ -28,18 +28,50 @@ class Endpoint extends \WP_Rest_Controller {
 	public function get_item( $request ) {
 		$params = $request->get_params();
 
-		$problem_id = $params['id'];
-		$problem_query = new Query( array(
-			'problem_id__in' => array( $problem_id ),
-		) );
+		$problem_id = $params['problem_id'];
 
-		$problems = $problem_query->get_for_endpoint();
-		$problem = reset( $problems );
+		$post_data = array();
+		if ( isset( $params['post_data_key'] ) ) {
+			$post_data = get_option( $params['post_data_key'] );
+		}
 
 		$question_query = new \WeBWork\Server\Question\Query( array(
 			'problem_id' => $problem_id,
 		) );
 		$questions = $question_query->get_for_endpoint();
+
+		if ( ! $questions && $post_data ) {
+			// Fake a problem from post data.
+			$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+
+			$text = $post_data['problem_text'];
+			$parsed = $pf->clean( $text );
+
+			$problem = array(
+				'problemId' => $problem_id,
+				'libraryId' => $problem_id,
+				'content' => $parsed['text'],
+				'maths' => $parsed['maths'],
+			);
+		} else {
+			// If the current user has posted a question, use its data for problem.
+			$my_question = null;
+			foreach ( $questions as $question ) {
+				if ( $question['isMyQuestion'] ) {
+					$my_question = $question;
+					break;
+				}
+			}
+
+			if ( $my_question ) {
+				$problem = array(
+					'problemId' => $problem_id,
+					'libraryId' => $problem_id_formatted,
+					'content' => $my_question['problemText'],
+					'maths' => $my_question['problemMaths'],
+				);
+			}
+		}
 
 		$questions_by_id = array_keys( $questions );
 

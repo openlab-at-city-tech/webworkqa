@@ -60,9 +60,7 @@ class Question implements Util\SaveableAsWPPost {
 	}
 
 	public function set_problem_id( $problem_id ) {
-		if ( $problem_id ) {
-			$this->problem_id = (int) $problem_id;
-		}
+		$this->problem_id = $problem_id;
 	}
 
 	public function set_problem_text( $problem_text ) {

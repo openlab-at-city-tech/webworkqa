@@ -43,7 +43,7 @@ const receiveProblems = (problems) => {
 }
 
 export function fetchProblem( problemId ) {
-	return dispatch => {
+	return (dispatch, getState) => {
 		// Reset a bunch of stuff.
 		// Could work around this with a better-structured state (store all data per-problem)
 		dispatch( setInitialLoadComplete( false ) )
@@ -52,7 +52,14 @@ export function fetchProblem( problemId ) {
 		dispatch( receiveResponseIdMap( {} ) )
 
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
-		const endpoint = rest_api_endpoint + 'problems/' + problemId
+
+		let endpoint = rest_api_endpoint + 'problems/?problem_id=' + problemId
+		const { queryString } = getState()
+		const { post_data_key } = queryString
+
+		if ( post_data_key ) {
+			endpoint += '&post_data_key=' + post_data_key
+		}
 
 		return fetch( endpoint,
 		{

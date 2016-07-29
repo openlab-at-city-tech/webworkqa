@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
 import FormattedProblem from './FormattedProblem'
 
 export default class QuestionListItem extends Component {
@@ -21,10 +20,10 @@ export default class QuestionListItem extends Component {
 		}
 
 		const routeBase = window.WWData.route_base
-		const routePath = '/' + routeBase + 'problems/' + problemId + '/#/question-' + questionId
+		const questionLink = '/' + routeBase + '#/problem/' + problemId + '/question-' + questionId
 
 		return (
-			<Link to={routePath}>
+			<a href={questionLink}>
 				<h3>{title}</h3>
 				<li className="question-list-item">
 					<FormattedProblem
@@ -35,7 +34,7 @@ export default class QuestionListItem extends Component {
 					  maths={problemMaths}
 					/>
 				</li>
-			</Link>
+			</a>
 		)
 	}
 }

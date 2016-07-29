@@ -67,15 +67,17 @@ class Endpoint extends \WP_Rest_Controller {
 		$problem_id = $params['problem_id'];
 		$content = $params['content'];
 		$tried = $params['tried'];
-		$problem_text = $params['problem_text'];
+
+		$post_data_key = $params['post_data_key'];
+		$post_data = get_option( $post_data_key );
 
 		$question = new \WeBWorK\Server\Question();
 
 		$question->set_author_id( get_current_user_id() );
 		$question->set_content( $content );
 		$question->set_tried( $tried );
-		$question->set_problem_id( $problem_id );
-		$question->set_problem_text( $problem_text );
+		$question->set_problem_id( $post_data['problem_id'] );
+		$question->set_problem_text( $post_data['problem_text'] );
 
 		if ( $question->save() ) {
 			$query = new Query( array(

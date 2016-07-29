@@ -37,7 +37,7 @@ class Client {
 		$ww_problem_text = '';
 		if ( ! empty( $_GET['post_data_key'] ) ) {
 			$post_data = get_blog_option( 1, $_GET['post_data_key'] );
-			$ww_problem_text = base64_decode( $post_data['pg_object'] );
+			//$ww_problem_text = base64_decode( $post_data['pg_object'] );
 		}
 
 		// @todo This is awful.
@@ -46,7 +46,7 @@ class Client {
 
 		wp_localize_script( 'webwork-app', 'WWData', array(
 			'problem_id' => $ww_problem,
-			'problem_text' => $ww_problem_text,
+//			'problem_text' => $ww_problem_text,
 			'remote_course_url' => $remote_course_url,
 			'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
 			'rest_api_endpoint' => $rest_api_endpoint,

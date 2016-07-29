@@ -5,9 +5,9 @@ export function fetchQuestionIndexList() {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
 		let endpoint = rest_api_endpoint + 'questions/'
 
-		const { currentFilters } = getState()
+		const { currentFilters, queryString } = getState()
 
-		const filters = standardizeFiltersForEndpoint( currentFilters )
+		let filters = standardizeFiltersForEndpoint( currentFilters )
 
 		let qs = ''
 		for ( var filterName in filters ) {
@@ -137,9 +137,15 @@ export const setQuestionPending = ( isPending ) => {
 }
 
 export function sendQuestion( problemId, content, tried, problemText ) {
-	return ( dispatch ) => {
+	return ( dispatch, getState ) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
-		const endpoint = rest_api_endpoint + 'questions/'
+		let endpoint = rest_api_endpoint + 'questions/'
+
+		const { queryString } = getState()
+		const { post_data_key } = queryString
+		if ( post_data_key ) {
+			endpoint += '?post_data_key=' + post_data_key
+		}
 
 		return fetch( endpoint, {
 			method: 'POST',
@@ -158,8 +164,8 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 		.then( response => response.json() )
 		.then( json => {
 			dispatch( setQuestionPending( false ) )
-			dispatch( receiveQuestionById( json.questionId ) )
 			dispatch( receiveQuestion( json ) )
+			dispatch( receiveQuestionById( json.questionId ) )
 			dispatch( changeQuestionText( 'content', '' ) )
 			dispatch( changeQuestionText( 'tried', '' ) )
 			// todo - handle errors

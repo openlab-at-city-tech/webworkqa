@@ -7,18 +7,14 @@ import QuestionList from '../components/QuestionList'
 export default class Problem extends Component {
 	componentWillMount() {
 		const { onComponentWillMount } = this.props
-		const { problemId } = this.props.routeParams
+		const { problemId } = this.props
 		onComponentWillMount( problemId )
 	}
 
 	render() {
-		const { problems, questionsById } = this.props
-		const { problemId } = this.props.routeParams
+		const { problems, problemId, questionsById } = this.props
 
 		const problem = problems[problemId]
-
-		// Maintain minimum height.
-//		const title = problem.title.length ? problem.title : '\u0020'
 		const title = ''
 
 		return (

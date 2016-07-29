@@ -52,3 +52,13 @@ export const setFilterToggle = ( slug, value ) => {
 	}
 }
 
+export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION'
+export const setCurrentQuestion = ( questionId ) => {
+	return {
+		type: SET_CURRENT_QUESTION,
+		payload: {
+			questionId
+		}
+	}
+}
+

@@ -4,7 +4,7 @@ import LaTeX from './LaTeX'
 
 export default class FormattedProblem extends Component {
 	render() {
-		const { itemId, content, excerpt, maths } = this.props
+		const { itemId, content, maths } = this.props
 
 		if ( ! content ) {
 			return ( <span></span> )

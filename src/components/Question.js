@@ -9,7 +9,7 @@ import FormattedProblem from './FormattedProblem'
 
 export default class Question extends Component {
 	componentDidMount() {
-		const { itemId, initialLoadComplete } = this.props
+		const { isCurrentQuestion, itemId, initialLoadComplete } = this.props
 
 		if ( initialLoadComplete ) {
 			const responseScrollElementName = 'response-form-' + itemId
@@ -20,18 +20,14 @@ export default class Question extends Component {
 			} )
 		}
 
-		const parts = window.decodeURIComponent( window.location.hash ).split( '/' );
-		if ( parts.length > 1 && parts[1].substr( 0, 9 ) == 'question-' ) {
-			const questionId = parts[1].substr( 9 )
-			if ( questionId == itemId ) {
-				// Delay to allow LaTeX to render
-				setTimeout( function() {
-					Scroll.scroller.scrollTo( parts[1], {
-						duration: 1500,
-						smooth: true
-					} )
-				}, 500 )
-			}
+		if ( isCurrentQuestion ) {
+			// Delay to allow LaTeX to render
+			setTimeout( function() {
+				Scroll.scroller.scrollTo( 'question-' + itemId, {
+					duration: 1500,
+					smooth: true
+				} )
+			}, 500 )
 		}
 	}
 

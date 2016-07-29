@@ -65,9 +65,22 @@ class Server {
                         return;
                 }
 
+		/**
+		 * Logic:
+		 *
+		 * 1. Store post data
+		 * 2. If user is not logged in, redirect to login with post_data query arg.
+		 * 3. If (or once) user is logged in, parse Library ID (problemId) from pg_object.
+		 *    a. If question exists with that problemId, redirect to problem view
+		 *    b. If question doesn't exist with that problemId, redirect to dummy view
+		 *    In either case, keep the post_data query arg.
+		 * 4. Be sure to store post_data key when processing question, because that metadata must be saved with the question item.
+		 */
+
 		if ( ! empty( $_POST ) ) {
-			$this->set_post_data( $_POST );
-			$this->set_remote_class_url( wp_unslash( $_SERVER['HTTP_REFERER'] ) );
+			$post_data = $this->sanitize_post_data();
+			$this->set_remote_class_url( $post_data['remote_problem_url'] );
+			$this->set_post_data( $post_data );
 		} else {
 			if ( isset( $_GET['remote_class_url'] ) ) {
 				$this->set_remote_class_url( wp_unslash( $_GET['remote_class_url'] ) );
@@ -105,53 +118,51 @@ class Server {
 			die();
 		}
 
-		$source = $this->remote_class_url;
+		$ww_client_site_base = $this->get_client_site_base();
 
-		$problem = new Server\Problem();
+		$problem_slug = $post_data['problem_id'];
+		$redirect_to = $ww_client_site_base . '#/problem/' . $problem_slug;
+		$redirect_to = add_query_arg( 'post_data_key', $this->post_data_key, $redirect_to );
+		wp_safe_redirect( $redirect_to );
+	}
+
+	public function sanitize_post_data() {
+		$data = array(
+			'webwork_user'   => wp_unslash( $_POST['user'] ),
+			'problem_set'    => wp_unslash( $_POST['set'] ),
+			'problem_number' => wp_unslash( $_POST['problem'] ),
+			'problem_id' => '',
+			'problem_text' => '',
+		);
+
+		$remote_problem_url = wp_unslash( $_SERVER['HTTP_REFERER'] );
+
+		$url_parts = $this->sanitize_class_url( $remote_problem_url );
+
+		$data['remote_course_url'] = $url_parts['base'];
+		$data['remote_problem_url'] = remove_query_arg( array( 'user', 'effectiveUser', 'key' ), $remote_problem_url );
+
+		$data['webwork_user'] = $_POST['user'];
+
+		// Split pg_object into discreet problem data.
+		$raw_text = $_POST['pg_object'];
 
 		// Do not unslash. wp_insert_post() expocts slashed. A nightmare.
-		$pg_object = base64_decode( $this->post_data['pg_object'] );
+		$text = base64_decode( $raw_text );
 
-		// Replace LaTeX backslashes with dummy character, so they aren't stripped.
-		// This will break with literal backslashes?
 		$pf = new Server\Util\ProblemFormatter();
-		$pg_object = $pf->swap_latex_escape_characters( $pg_object );
+		$text = $pf->remove_script_tags( $text );
+		$text = $pf->strip_inputs( $text );
+		$text = $pf->swap_latex_escape_characters( $text );
 
-		$problem->set_content( $pg_object );
-		$problem_library_id = $problem->get_library_id();
+		$data['problem_id'] = $pf->get_library_id_from_text( $text );
 
-		// Route to existing problem, if it exists.
-		$pq = new Server\Problem\Query( array(
-			'library_id' => $problem_library_id,
-		) );
-		$matches = $pq->get();
+		$text = $pf->strip_library_id_from_text( $text );
+		$text = $pf->strip_p_tags( $text );
 
-		if ( $matches ) {
-			$match_keys = array_keys( $matches );
-			$problem_id = reset( $match_keys );
-		} else {
-			$problem->set_author_id( get_current_user_id() );
+		$data['problem_text'] = $text;
 
-			// @todo This cannot be set globally. It has to be instance-specific.
-			$problem->set_remote_url( 'http://example.com/test-url' );
-
-			$problem->save();
-
-			$problem_id = $problem->get_id();
-		}
-
-		// Get Client base URL from $source (the blog URL)
-		$client_id = $this->get_client_from_course_url( $source );
-
-		if ( ! $problem->instance_exists( $source ) ) {
-			$problem->create_instance( $source, $this->post_data );
-		}
-
-		$client_base = get_blog_option( $client_id, 'home' );
-		$client_url = trailingslashit( $client_base ) . 'webwork/problems/' . $problem_id;
-		$client_url = add_query_arg( 'post_data_key', $this->post_data_key, $client_url );
-		wp_safe_redirect( $client_url );
-		die();
+		return $data;
 	}
 
 	public function set_post_data( $data ) {
@@ -278,5 +289,13 @@ class Server {
 		$this->post_data['remote_referer_url'] = $this->remote_referer_url;
 
 		update_option( $this->post_data_key, $this->post_data );
+	}
+
+	public function get_server_site_base() {
+		return apply_filters( 'webwork_server_site_base', get_option( 'home' ) );
+	}
+
+	public function get_client_site_base() {
+		return apply_filters( 'webwork_client_site_base', get_option( 'home' ) );
 	}
 }

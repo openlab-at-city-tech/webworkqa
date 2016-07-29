@@ -23,7 +23,7 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 		$this->assertSame( 'foo', $question->get_content() );
 		$this->assertSame( 'bar', $question->get_tried() );
 		$this->assertSame( 123, $question->get_author_id() );
-		$this->assertSame( 456, $question->get_problem_id() );
+		$this->assertSame( '456', $question->get_problem_id() );
 	}
 
 	public function test_get_by_problem_id() {

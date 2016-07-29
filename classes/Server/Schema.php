@@ -33,56 +33,6 @@ class Schema {
 	 * @since 1.0.0
 	 */
 	protected function register_post_types() {
-		register_post_type( 'webwork_class', array(
-			'label' => __( 'WebWorK Classes', 'webwork' ),
-			'labels' => array(
-				'name' => __( 'WeBWorK Classes', 'webwork' ),
-				'singular_name' => __( 'WeBWorK Class', 'webwork' ),
-				'add_new_item' => __( 'Add New WeBWorK Class', 'webwork' ),
-				'edit_item' => __( 'Edit WeBWorK Class', 'webwork' ),
-				'new_item' => __( 'New WeBWorK Class', 'webwork' ),
-				'view_item' => __( 'View WeBWorK Class', 'webwork' ),
-				'search_items' => __( 'Search WeBWorK Classes', 'webwork' ),
-				'not_found' => __( 'No WeBWorK Classes found', 'webwork' ),
-				'not_found_in_trash' => __( 'No WeBWorK Classes found in Trash.', 'webwork' ),
-			),
-			'public' => true, // todo This should be false
-		) );
-
-		// Caps should map to a custom function, which will determine whether it's an API request, and if so, will do an appropriate client check (current_user_can_for_blog(), maybe), and otherwise will fall through to default. I guess?
-		register_post_type( 'webwork_problem', array(
-			'label' => __( 'WebWorK Problems', 'webwork' ),
-			'labels' => array(
-				'name' => __( 'WeBWorK Problems', 'webwork' ),
-				'singular_name' => __( 'WeBWorK Problem', 'webwork' ),
-				'add_new_item' => __( 'Add New WeBWorK Problem', 'webwork' ),
-				'edit_item' => __( 'Edit WeBWorK Problem', 'webwork' ),
-				'new_item' => __( 'New WeBWorK Problem', 'webwork' ),
-				'view_item' => __( 'View WeBWorK Problem', 'webwork' ),
-				'search_items' => __( 'Search WeBWorK Problems', 'webwork' ),
-				'not_found' => __( 'No WeBWorK Problems found', 'webwork' ),
-				'not_found_in_trash' => __( 'No WeBWorK Problems found in Trash.', 'webwork' ),
-			),
-			'public' => true, // todo This should be false
-		) );
-
-		register_post_type( 'webwork_probinstance', array(
-			'label' => __( 'WebWorK Problem Instance', 'webwork' ),
-			'labels' => array(
-				'name' => __( 'WeBWorK Problem Instance', 'webwork' ),
-				'singular_name' => __( 'WeBWorK Problem Instance', 'webwork' ),
-				'add_new_item' => __( 'Add New WeBWorK Problem Instance', 'webwork' ),
-				'edit_item' => __( 'Edit WeBWorK Problem Instance', 'webwork' ),
-				'new_item' => __( 'New WeBWorK Problem Instance', 'webwork' ),
-				'view_item' => __( 'View WeBWorK Problem Instance', 'webwork' ),
-				'search_items' => __( 'Search WeBWorK Problem Instances', 'webwork' ),
-				'not_found' => __( 'No WeBWorK Problem Instances found', 'webwork' ),
-				'not_found_in_trash' => __( 'No WeBWorK Problem Instances found in Trash.', 'webwork' ),
-			),
-			'public' => false, // todo This should be false
-			'show_in_rest' => false,
-		) );
-
 		register_post_type( 'webwork_question', array(
 			'label' => __( 'WebWorK Question', 'webwork' ),
 			'labels' => array(
@@ -123,17 +73,22 @@ class Schema {
 	/**
 	 * Register taxonomies.
 	 *
-	 * - webwork_problem_set (webwork_probinstance)
-	 * - webwork_course (webwork_probinstance)
+	 * - webwork_problem_id (webwork_question)
+	 * - webwork_problem_set (webwork_question)
+	 * - webwork_course (webwork_question)
 	 *
 	 * @since 1.0.0
 	 */
 	public function register_taxonomies() {
-		register_taxonomy( 'webwork_problem_set', 'webwork_probinstance', array(
+		register_taxonomy( 'webwork_problem_id', 'webwork_question', array(
 			'public' => false,
 		) );
 
-		register_taxonomy( 'webwork_course', 'webwork_probinstance', array(
+		register_taxonomy( 'webwork_problem_set', 'webwork_question', array(
+			'public' => false,
+		) );
+
+		register_taxonomy( 'webwork_course', 'webwork_question', array(
 			'public' => false,
 		) );
 	}

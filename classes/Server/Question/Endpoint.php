@@ -157,7 +157,7 @@ class Endpoint extends \WP_Rest_Controller {
 
 	public function get_items( $request ) {
 		$params = $request->get_params();
-		$keys = array( 'orderby', 'order', 'answered' );
+		$keys = array( 'orderby', 'order', 'answered', 'problem_set' );
 
 		$args = array();
 		foreach ( $keys as $k ) {

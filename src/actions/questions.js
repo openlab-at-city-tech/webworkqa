@@ -53,6 +53,12 @@ function standardizeFiltersForEndpoint( filters ) {
 		}
 
 		switch ( filterName ) {
+			case 'problemSet' :
+				if ( filters.problemSet ) {
+					s.problem_set = filters.problemSet
+				}
+			break
+
 			// Can't both be true at once, so don't worry about reconciling.
 			case 'answeredQuestions' :
 				if ( filters.answeredQuestions ) {

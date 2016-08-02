@@ -197,4 +197,38 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 
 		$this->assertSame( array( $q2, $q3, $q1, $q4 ), $ids );
 	}
+
+	public function test_get_filter_options_for_problem_set() {
+		$q = new \WeBWorK\Server\Question\Query();
+
+		$q1 = self::factory()->question->create_and_get();
+		$q1->set_problem_set( 'foo' );
+		$q1->save();
+
+		$q2 = self::factory()->question->create_and_get();
+		$q2->set_problem_set( 'bar' );
+		$q2->save();
+
+		// 'baz' will be empty.
+		$q2 = self::factory()->question->create_and_get();
+		$q2->set_problem_set( 'baz' );
+		$q2->save();
+		$q2->set_problem_set( 'bar' );
+		$q2->save();
+
+		$found = $q->get_filter_options( 'problem_set' );
+
+		$expected = array(
+			array(
+				'name' => 'bar',
+				'value' => 'bar',
+			),
+			array(
+				'name' => 'foo',
+				'value' => 'foo',
+			),
+		);
+
+		$this->assertSame( $expected, $found );
+	}
 }

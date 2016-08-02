@@ -111,7 +111,7 @@ class Query {
 		return $formatted;
 	}
 
-	public function get_filter_options() {
+	public function get_all_filter_options() {
 		$problemSet = array(
 			array(
 				'value' => 'foo',
@@ -122,9 +122,35 @@ class Query {
 		return array(
 			'course' => $problemSet,
 			'section' => $problemSet,
-			'problemSet' => $problemSet,
+			'problemSet' => $this->get_filter_options( 'problem_set' ),
 			'answeredQuestions' => $problemSet,
 			'unansweredQuestions' => $problemSet,
 		);
+	}
+
+	public function get_filter_options( $filter ) {
+		$options = array();
+
+		switch ( $filter ) {
+			// can repurpose for other taxonomies - concatenate tax name
+			case 'problem_set' :
+				$terms = get_terms( array(
+					'taxonomy' => 'webwork_problem_set',
+					'hide_empty' => true,
+					'orderby' => 'name',
+					'order' => 'ASC',
+				) );
+
+				foreach ( $terms as $term ) {
+					$options[] = array(
+						'name' => $term->name,
+						'value' => $term->name,
+					);
+				}
+			break;
+
+		}
+
+		return $options;
 	}
 }

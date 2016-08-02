@@ -86,11 +86,14 @@ class Endpoint extends \WP_Rest_Controller {
 				if ( $q->get_problem_text() ) {
 					$problem_data = array(
 						'problem_id' => $q->get_problem_id(),
+						'problem_set' => $q->get_problem_set(),
 
 
 						// @todo This is not getting a raw enough copy of the text.
 						'problem_text' => $q->get_problem_text(),
 					);
+
+					break;
 				}
 			}
 		}
@@ -101,6 +104,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_content( $content );
 		$question->set_tried( $tried );
 		$question->set_problem_id( $problem_data['problem_id'] );
+		$question->set_problem_set( $problem_data['problem_set'] );
 		$question->set_problem_text( $problem_data['problem_text'] );
 
 		if ( $question->save() ) {
@@ -167,7 +171,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$questions = $q->get_for_endpoint();
 
 		$retval = array(
-			'filterOptions' => $q->get_filter_options(),
+			'filterOptions' => $q->get_all_filter_options(),
 			'questionIds' => array_keys( $questions ),
 			'questions' => $questions,
 		);

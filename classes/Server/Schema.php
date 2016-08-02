@@ -91,6 +91,10 @@ class Schema {
 		register_taxonomy( 'webwork_course', 'webwork_question', array(
 			'public' => false,
 		) );
+
+		register_taxonomy( 'webwork_section', 'webwork_question', array(
+			'public' => false,
+		) );
 	}
 
 	public function get_votes_schema() {

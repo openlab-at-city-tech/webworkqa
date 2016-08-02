@@ -138,4 +138,18 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$question2 = new \WeBWorK\Server\Question( $q );
 		$this->assertSame( $course, $question2->get_course() );
 	}
+
+	public function test_set_section() {
+		$q = self::factory()->question->create();
+
+		$question = new \WeBWorK\Server\Question( $q );
+
+		$section = 'foo';
+		$question->set_section( $section );
+
+		$this->assertTrue( $question->save() );
+
+		$question2 = new \WeBWorK\Server\Question( $q );
+		$this->assertSame( $section, $question2->get_section() );
+	}
 }

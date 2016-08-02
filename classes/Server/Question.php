@@ -13,6 +13,8 @@ class Question implements Util\SaveableAsWPPost {
 	protected $problem_id;
 	protected $problem_set;
 	protected $course;
+	protected $section;
+
 	protected $tex;
 
 	protected $author_id;
@@ -73,6 +75,10 @@ class Question implements Util\SaveableAsWPPost {
 		$this->course = $course;
 	}
 
+	public function set_section( $section ) {
+		$this->section = $section;
+	}
+
 	public function set_problem_text( $problem_text ) {
 		$this->tex->set_raw_text( $problem_text );
 	}
@@ -113,6 +119,10 @@ class Question implements Util\SaveableAsWPPost {
 		return (string) $this->course;
 	}
 
+	public function get_section() {
+		return (string) $this->section;
+	}
+
 	public function get_problem_text() {
 		return $this->tex->get_text_for_endpoint();
 	}
@@ -151,6 +161,7 @@ class Question implements Util\SaveableAsWPPost {
 			wp_set_object_terms( $post_id, array( $this->get_problem_id() ), 'webwork_problem_id' );
 			wp_set_object_terms( $post_id, array( $this->get_problem_set() ), 'webwork_problem_set' );
 			wp_set_object_terms( $post_id, array( $this->get_course() ), 'webwork_course' );
+			wp_set_object_terms( $post_id, array( $this->get_section() ), 'webwork_section' );
 
 
 			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
@@ -193,6 +204,14 @@ class Question implements Util\SaveableAsWPPost {
 				$course = '';
 			}
 			$this->set_course( $course );
+
+			$sections = get_the_terms( $post_id, 'webwork_section' );
+			if ( $sections ) {
+				$section = reset( $sections )->name;
+			} else {
+				$section = '';
+			}
+			$this->set_section( $section );
 
 			$tried = get_post_meta( $this->get_id(), 'webwork_tried', true );
 			$this->set_tried( $tried );

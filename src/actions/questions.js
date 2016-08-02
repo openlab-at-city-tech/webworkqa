@@ -54,8 +54,10 @@ function standardizeFiltersForEndpoint( filters ) {
 
 		switch ( filterName ) {
 			case 'problemSet' :
-				if ( filters.problemSet ) {
-					s.problem_set = filters.problemSet
+			case 'course' :
+			case 'section' :
+				if ( filters[ filterName ] ) {
+					s[ filterName ] = filters[ filterName ]
 				}
 			break
 

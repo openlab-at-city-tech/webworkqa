@@ -71,6 +71,52 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 		$this->assertEqualSets( array( $q2->get_id() ), $ids );
 	}
 
+	public function test_get_by_course() {
+		$q1 = self::factory()->question->create_and_get();
+		$q1->set_course( 'foo' );
+		$q1->save();
+
+		$q2 = self::factory()->question->create_and_get();
+		$q2->set_course( 'bar' );
+		$q2->save();
+
+		$q = new \WeBWorK\Server\Question\Query( array(
+			'course' => 'bar',
+		) );
+
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertEqualSets( array( $q2->get_id() ), $ids );
+	}
+
+	public function test_get_by_section() {
+		$q1 = self::factory()->question->create_and_get();
+		$q1->set_section( 'foo' );
+		$q1->save();
+
+		$q2 = self::factory()->question->create_and_get();
+		$q2->set_section( 'bar' );
+		$q2->save();
+
+		$q = new \WeBWorK\Server\Question\Query( array(
+			'section' => 'bar',
+		) );
+
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertEqualSets( array( $q2->get_id() ), $ids );
+	}
+
 	public function test_get_by_question_id() {
 		$q1 = self::factory()->question->create();
 		$q2 = self::factory()->question->create();

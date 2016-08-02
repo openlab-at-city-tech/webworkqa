@@ -16,6 +16,8 @@ class Query {
 		$this->r = array_merge( array(
 			'problem_id' => null,
 			'problem_set' => null,
+			'course' => null,
+			'section' => null,
 			'question_id' => null,
 			'orderby' => 'votes',
 			'order' => 'ASC',
@@ -49,12 +51,15 @@ class Query {
 			);
 		}
 
-		if ( null !== $this->r['problem_set'] ) {
-			$args['tax_query']['problem_set'] = array(
-				'taxonomy' => 'webwork_problem_set',
-				'terms' => (array) $this->r['problem_set'],
-				'field' => 'name',
-			);
+		$filter_taxonomies = array( 'problem_set', 'course', 'section' );
+		foreach ( $filter_taxonomies as $filter_taxonomy ) {
+			if ( null !== $this->r[ $filter_taxonomy ] ) {
+				$args['tax_query'][ $filter_taxonomy ] = array(
+					'taxonomy' => 'webwork_' . $filter_taxonomy,
+					'terms' => (array) $this->r[ $filter_taxonomy ],
+					'field' => 'name',
+				);
+			}
 		}
 
 		if ( null !== $this->r['question_id'] ) {
@@ -123,19 +128,12 @@ class Query {
 	}
 
 	public function get_all_filter_options() {
-		$problemSet = array(
-			array(
-				'value' => 'foo',
-				'name' => 'Foo',
-			),
-		);
-
 		return array(
-			'course' => $problemSet,
-			'section' => $problemSet,
-			'problemSet' => $this->get_filter_options( 'problem_set' ),
-			'answeredQuestions' => $problemSet,
-			'unansweredQuestions' => $problemSet,
+			'course'              => $this->get_filter_options( 'course' ),
+			'section'             => $this->get_filter_options( 'section' ),
+			'problemSet'          => $this->get_filter_options( 'problem_set' ),
+			'answeredQuestions'   => array(),
+			'unansweredQuestions' => array(),
 		);
 	}
 
@@ -144,9 +142,11 @@ class Query {
 
 		switch ( $filter ) {
 			// can repurpose for other taxonomies - concatenate tax name
+			case 'course' :
+			case 'section' :
 			case 'problem_set' :
 				$terms = get_terms( array(
-					'taxonomy' => 'webwork_problem_set',
+					'taxonomy' => 'webwork_' . $filter,
 					'hide_empty' => true,
 					'orderby' => 'name',
 					'order' => 'ASC',

@@ -11,8 +11,16 @@ export default class Sidebar extends Component {
 				<div className="ww-sidebar-widget">
 					<ul className="ww-question-filters">
 						<div className="ww-filter-section">
-							<SidebarFilterContainer name="Course" />
-							<SidebarFilterContainer name="Section/Faculty" />
+							<SidebarFilterContainer
+							  name="Course"
+							  type="dropdown"
+							  slug="course"
+							/>
+							<SidebarFilterContainer
+							  name="Section/Faculty"
+							  type="dropdown"
+							  slug="section"
+							/>
 						</div>
 
 						<div className="ww-filter-section">

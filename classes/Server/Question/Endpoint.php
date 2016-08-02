@@ -67,8 +67,6 @@ class Endpoint extends \WP_Rest_Controller {
 		$problem_id = $params['problem_id'];
 		$content = $params['content'];
 		$tried = $params['tried'];
-		$course = $params['course'];
-		$section = $params['section'];
 
 		$problem_data = null;
 		if ( isset( $params['post_data_key'] ) ) {
@@ -163,7 +161,14 @@ class Endpoint extends \WP_Rest_Controller {
 
 	public function get_items( $request ) {
 		$params = $request->get_params();
-		$keys = array( 'orderby', 'order', 'answered', 'problem_set' );
+		$keys = array(
+			'orderby',
+			'order',
+			'answered',
+			'problem_set',
+			'course',
+			'section',
+		);
 
 		$args = array();
 		foreach ( $keys as $k ) {

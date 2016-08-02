@@ -177,7 +177,7 @@ class Server {
 	 * @param string $raw_url Raw URL from the HTTP_REFERER header.
 	 * @return array URL parts.
 	 */
-	protected function sanitize_class_url( $raw_url ) {
+	public function sanitize_class_url( $raw_url ) {
 		$parts = parse_url( $raw_url );
 
 		// Raw URL may contain a set and problem subpath.
@@ -196,6 +196,16 @@ class Server {
 			$base = $parts['path'];
 		}
 
+		$course = $section = '';
+		$base_parts = explode( '/', trim( $base ) );
+		$base_parts = array_filter( $base_parts );
+		if ( $base_parts ) {
+			$section = end( $base_parts );
+
+			$section_parts = explode( '-', $section );
+			$course = reset( $section_parts );
+		}
+
 		$base = trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $base );
 
 		$retval = array(
@@ -203,6 +213,8 @@ class Server {
 			'effectiveUser' => '',
 			'user' => '',
 			'key' => '',
+			'course' => $course,
+			'section' => $section,
 		);
 
 		if ( ! empty( $parts['query'] ) ) {

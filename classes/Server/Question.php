@@ -12,6 +12,7 @@ class Question implements Util\SaveableAsWPPost {
 
 	protected $problem_id;
 	protected $problem_set;
+	protected $course;
 	protected $tex;
 
 	protected $author_id;
@@ -68,6 +69,10 @@ class Question implements Util\SaveableAsWPPost {
 		$this->problem_set = $problem_set;
 	}
 
+	public function set_course( $course ) {
+		$this->course = $course;
+	}
+
 	public function set_problem_text( $problem_text ) {
 		$this->tex->set_raw_text( $problem_text );
 	}
@@ -102,6 +107,10 @@ class Question implements Util\SaveableAsWPPost {
 
 	public function get_problem_set() {
 		return (string) $this->problem_set;
+	}
+
+	public function get_course() {
+		return (string) $this->course;
 	}
 
 	public function get_problem_text() {
@@ -141,6 +150,7 @@ class Question implements Util\SaveableAsWPPost {
 
 			wp_set_object_terms( $post_id, array( $this->get_problem_id() ), 'webwork_problem_id' );
 			wp_set_object_terms( $post_id, array( $this->get_problem_set() ), 'webwork_problem_set' );
+			wp_set_object_terms( $post_id, array( $this->get_course() ), 'webwork_course' );
 
 
 			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
@@ -175,6 +185,14 @@ class Question implements Util\SaveableAsWPPost {
 				$problem_id = '';
 			}
 			$this->set_problem_id( $problem_id );
+
+			$courses = get_the_terms( $post_id, 'webwork_course' );
+			if ( $courses ) {
+				$course = reset( $courses )->name;
+			} else {
+				$course = '';
+			}
+			$this->set_course( $course );
 
 			$tried = get_post_meta( $this->get_id(), 'webwork_tried', true );
 			$this->set_tried( $tried );

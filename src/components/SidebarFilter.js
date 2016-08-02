@@ -14,7 +14,10 @@ export default class SidebarFilter extends Component {
 		return (
 			<li>
 				<a
-				  onClick={onFilterHeaderClick}
+				  onClick={ (e) => {
+					  e.preventDefault()
+					  onFilterHeaderClick()
+				  } }
 				  className={headerClassName}
 				  href="#"
 				>

@@ -15,6 +15,7 @@ class Query {
 	public function __construct( $args = array() ) {
 		$this->r = array_merge( array(
 			'problem_id' => null,
+			'problem_set' => null,
 			'question_id' => null,
 			'orderby' => 'votes',
 			'order' => 'ASC',
@@ -37,12 +38,21 @@ class Query {
 			'update_post_term_cache' => false,
 			'meta_query' => array(),
 			'posts_per_page' => -1,
+			'tax_query' => array(),
 		) );
 
 		if ( $this->r['problem_id'] ) {
 			$args['meta_query']['problem_id'] = array(
 				'key' => 'webwork_problem_id',
 				'value' => $this->r['problem_id'],
+			);
+		}
+
+		if ( null !== $this->r['problem_set'] ) {
+			$args['tax_query']['problem_set'] = array(
+				'taxonomy' => 'webwork_problem_set',
+				'terms' => (array) $this->r['problem_set'],
+				'field' => 'name',
 			);
 		}
 

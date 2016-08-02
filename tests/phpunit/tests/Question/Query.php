@@ -48,6 +48,29 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 		$this->assertEqualSets( array( $q2 ), $ids );
 	}
 
+	public function test_get_by_problem_set() {
+		$q1 = self::factory()->question->create_and_get();
+		$q1->set_problem_set( 'foo' );
+		$q1->save();
+
+		$q2 = self::factory()->question->create_and_get();
+		$q2->set_problem_set( 'bar' );
+		$q2->save();
+
+		$q = new \WeBWorK\Server\Question\Query( array(
+			'problem_set' => 'bar',
+		) );
+
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertEqualSets( array( $q2->get_id() ), $ids );
+	}
+
 	public function test_get_by_question_id() {
 		$q1 = self::factory()->question->create();
 		$q2 = self::factory()->question->create();

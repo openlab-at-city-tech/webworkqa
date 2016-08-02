@@ -47,8 +47,7 @@
 
 .index-intro,
 .index-list,
-ul.question-list > a,
-.ww-sidebar-widget {
+ul.question-list > a {
 	margin: 16px 0;
 	border: 1px dashed #ccc;
 	padding: 16px;
@@ -284,6 +283,12 @@ ul.question-list > a {
 .ww-question-filters {
 	list-style-type: none;
 	margin: 0;
+}
+
+.ww-filter-section {
+	margin: 0;
+	border: 1px dashed #ccc;
+	padding: 16px;
 }
 
 .toggle-enabled {

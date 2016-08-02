@@ -6,28 +6,33 @@ export default class Sidebar extends Component {
 	render() {
 		return (
 			<div className="ww-sidebar">
-				<h3>Explore</h3>
+				<h3>Explore Questions</h3>
 
 				<div className="ww-sidebar-widget">
-					<h4>Filter</h4>
-
 					<ul className="ww-question-filters">
-						<SidebarFilterContainer name="Course" />
-						<SidebarFilterContainer name="Section/Faculty" />
-						<SidebarFilterContainer name="Problem Set" />
-						<SidebarFilterContainer name="Problem" />
-						<SidebarFilterContainer 
-						  name="Answered Questions" 
-						  contrary="unansweredQuestions"
-						  slug="answeredQuestions"
-						  type="toggle"
-						/>
-						<SidebarFilterContainer 
-						  name="Unanswered Questions" 
-						  contrary="answeredQuestions"
-						  slug="unansweredQuestions"
-						  type="toggle"
-						/>
+						<div className="ww-filter-section">
+							<SidebarFilterContainer name="Course" />
+							<SidebarFilterContainer name="Section/Faculty" />
+						</div>
+
+						<div className="ww-filter-section">
+							<SidebarFilterContainer name="Problem Set" />
+						</div>
+
+						<div className="ww-filter-section">
+							<SidebarFilterContainer
+							  name="Answered Questions"
+							  contrary="unansweredQuestions"
+							  slug="answeredQuestions"
+							  type="toggle"
+							/>
+							<SidebarFilterContainer
+							  name="Unanswered Questions"
+							  contrary="answeredQuestions"
+							  slug="unansweredQuestions"
+							  type="toggle"
+							/>
+						</div>
 					</ul>
 				</div>
 			</div>

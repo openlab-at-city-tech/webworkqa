@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 export default class SidebarFilter extends Component {
 	render() {
-		const { 
+		const {
 			contrary, slug, name, type, value,
-			onFilterHeaderClick 
+			onFilterHeaderClick
 		} = this.props
 
 		const linkClassName = this.getClassName()
@@ -14,6 +14,7 @@ export default class SidebarFilter extends Component {
 				<a
 				  onClick={onFilterHeaderClick}
 				  className={linkClassName}
+				  href="#"
 				>
 				  {name}
 				</a>

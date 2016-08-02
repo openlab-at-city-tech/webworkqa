@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { If, Then, Else } from 'react-if'
 import configureStore from '../configureStore'
 import QuestionIndex from '../components/QuestionIndex'
 import MainLayoutContainer from './MainLayoutContainer'
@@ -39,16 +38,16 @@ export default class Root extends Component {
 			problemId = locationArray.join( '/' )
 		}
 
+		let rootElement = null
+		if ( isSingleProblem ) {
+			rootElement = <ProblemContainer problemId={problemId} />
+		} else {
+			rootElement = <QuestionIndex />
+		}
+
 		return (
 			<Provider store={store}>
-				<If condition={isSingleProblem}>
-					<Then>
-						<ProblemContainer problemId={problemId} />
-					</Then>
-					<Else>
-						<QuestionIndex />
-					</Else>
-				</If>
+				{rootElement}
 			</Provider>
 		)
 	}

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import configureStore from '../configureStore'
-import QuestionIndex from '../components/QuestionIndex'
 import MainLayoutContainer from './MainLayoutContainer'
 import ProblemContainer from './ProblemContainer'
-import { setCurrentQuestion } from '../actions/app'
+import QuestionIndexContainer from './QuestionIndexContainer'
+import { setViewType } from '../actions/app'
 
 const store = configureStore()
 
@@ -15,8 +15,16 @@ export default class Root extends Component {
 		if ( 'problem' == locationArray[0] ) {
 			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
 			if ( questionIdMatches ) {
-				store.dispatch( setCurrentQuestion( questionIdMatches[1] ) )
+				store.dispatch( setViewType( 'problem', questionIdMatches[1] ) )
 			}
+		}
+	}
+
+	componentWillReceiveProps() {
+		const { locationArray } = this.props
+
+		if ( 'results' == locationArray[0] ) {
+			store.dispatch( setViewType( 'results' ) )
 		}
 	}
 
@@ -42,7 +50,7 @@ export default class Root extends Component {
 		if ( isSingleProblem ) {
 			rootElement = <ProblemContainer problemId={problemId} />
 		} else {
-			rootElement = <QuestionIndex />
+			rootElement = <QuestionIndexContainer />
 		}
 
 		return (

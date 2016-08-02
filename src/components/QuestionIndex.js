@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
 import QuestionIndexListContainer from '../containers/QuestionIndexListContainer'
+import ResultsHeaderContainer from '../containers/ResultsHeaderContainer'
 import SidebarContainer from '../containers/SidebarContainer'
 
 export default class QuestionIndex extends Component {
 	render() {
+		// All the juggling here is because the Results page looks a bit different.
+		const { isResultsPage } = this.props
+
+		const headerElement = isResultsPage ? <ResultsHeaderContainer /> : ''
+
 		return (
 			<div>
+				{headerElement}
+
 				<div className="ww-main problem-index">
 					<div className="index-intro">
 						<h2>Introduction</h2>

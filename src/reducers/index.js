@@ -3,7 +3,6 @@ import { combineReducers } from 'redux'
 import { appIsLoading } from './appIsLoading'
 import { collapsed } from './collapsed'
 import { currentFilters } from './currentFilters'
-import { currentQuestion } from './currentQuestion'
 import { filterOptions } from './filterOptions'
 import { initialLoadComplete } from './initialLoadComplete'
 import { problems } from './problems'
@@ -16,6 +15,7 @@ import { responseFormPending } from './responseFormPending'
 import { responseIdMap } from './responseIdMap'
 import { responses } from './responses'
 import { scores } from './scores'
+import { viewType } from './viewType'
 import { votes } from './votes'
 
 const queryString = function () {
@@ -45,7 +45,6 @@ const rootReducer = combineReducers({
   appIsLoading,
   collapsed,
   currentFilters,
-  currentQuestion,
   filterOptions,
   initialLoadComplete,
   problemIds,
@@ -59,6 +58,7 @@ const rootReducer = combineReducers({
   responseIdMap,
   responses,
   scores,
+  viewType,
   votes
 })
 

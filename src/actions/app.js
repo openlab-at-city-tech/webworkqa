@@ -38,17 +38,23 @@ export function processFilterToggle( slug, contrary ) {
 			dispatch( setFilterToggle( slug, true ) )
 			dispatch( setFilterToggle( contrary, false ) )
 		}
+
+		dispatch( setViewType( 'results' ) )
 	}
 }
 
 export function processFilterChange( slug, value ) {
 	return ( dispatch ) => {
 		dispatch( setFilterToggle( slug, value ) )
+		dispatch( setViewType( 'results' ) )
 	}
 }
 
 export const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE'
 export const setFilterToggle = ( slug, value ) => {
+	// Don't tell the Redux gods about this.
+	window.location.hash = 'results'
+
 	return {
 		type: SET_FILTER_TOGGLE,
 		payload: {
@@ -66,12 +72,13 @@ export const receiveFilterOptions = ( filterOptions ) => {
 	}
 }
 
-export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION'
-export const setCurrentQuestion = ( questionId ) => {
+export const SET_VIEW_TYPE = 'SET_VIEW_TYPE'
+export const setViewType = ( viewType, objectId = null ) => {
 	return {
-		type: SET_CURRENT_QUESTION,
+		type: SET_VIEW_TYPE,
 		payload: {
-			questionId
+			viewType,
+			objectId
 		}
 	}
 }

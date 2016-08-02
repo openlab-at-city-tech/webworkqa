@@ -4,8 +4,8 @@ import { toggleAccordion } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, currentQuestion, initialLoadComplete,
-		questions, responseIdMap, responses
+		collapsed, initialLoadComplete,
+		questions, responseIdMap, responses, viewType
 	} = state
 
 	const { itemId } = ownProps
@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 	const question = questions[itemId]
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
 
-	const isCurrentQuestion = itemId == currentQuestion
+	const isCurrentQuestion = ( viewType.viewType == 'problem' && viewType.objectId == itemId )
 
 	return {
 		initialLoadComplete,

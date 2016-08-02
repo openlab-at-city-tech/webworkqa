@@ -67,6 +67,8 @@ class Endpoint extends \WP_Rest_Controller {
 		$problem_id = $params['problem_id'];
 		$content = $params['content'];
 		$tried = $params['tried'];
+		$course = $params['course'];
+		$section = $params['section'];
 
 		$problem_data = null;
 		if ( isset( $params['post_data_key'] ) ) {
@@ -87,6 +89,8 @@ class Endpoint extends \WP_Rest_Controller {
 					$problem_data = array(
 						'problem_id' => $q->get_problem_id(),
 						'problem_set' => $q->get_problem_set(),
+						'course' => $q->get_course(),
+						'section' => $q->get_section(),
 
 
 						// @todo This is not getting a raw enough copy of the text.
@@ -105,6 +109,8 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_tried( $tried );
 		$question->set_problem_id( $problem_data['problem_id'] );
 		$question->set_problem_set( $problem_data['problem_set'] );
+		$question->set_course( $problem_data['course'] );
+		$question->set_section( $problem_data['section'] );
 		$question->set_problem_text( $problem_data['problem_text'] );
 
 		if ( $question->save() ) {

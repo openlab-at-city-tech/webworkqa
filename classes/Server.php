@@ -133,6 +133,8 @@ class Server {
 			'problem_number' => wp_unslash( $_POST['problem'] ),
 			'problem_id' => '',
 			'problem_text' => '',
+			'course' => '',
+			'section' => '',
 		);
 
 		$remote_problem_url = wp_unslash( $_SERVER['HTTP_REFERER'] );
@@ -141,6 +143,8 @@ class Server {
 
 		$data['remote_course_url'] = $url_parts['base'];
 		$data['remote_problem_url'] = remove_query_arg( array( 'user', 'effectiveUser', 'key' ), $remote_problem_url );
+		$data['course'] = $url_parts['course'];
+		$data['section'] = $url_parts['section'];
 
 		$data['webwork_user'] = $_POST['user'];
 

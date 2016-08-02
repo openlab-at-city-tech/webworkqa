@@ -97,6 +97,20 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$this->assertSame( $new_date, $question2->get_post_date() );
 	}
 
+	public function test_set_problem_id() {
+		$q = self::factory()->question->create();
+
+		$question = new \WeBWorK\Server\Question( $q );
+
+		$problem_id = 'foo';
+		$question->set_problem_id( $problem_id );
+
+		$this->assertTrue( $question->save() );
+
+		$question2 = new \WeBWorK\Server\Question( $q );
+		$this->assertSame( $problem_id, $question2->get_problem_id() );
+	}
+
 	public function test_set_problem_set() {
 		$q = self::factory()->question->create();
 

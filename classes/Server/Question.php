@@ -97,7 +97,7 @@ class Question implements Util\SaveableAsWPPost {
 	}
 
 	public function get_problem_id() {
-		return $this->problem_id;
+		return (string) $this->problem_id;
 	}
 
 	public function get_problem_set() {
@@ -139,9 +139,10 @@ class Question implements Util\SaveableAsWPPost {
 
 			$post_id = $this->get_id();
 
+			wp_set_object_terms( $post_id, array( $this->get_problem_id() ), 'webwork_problem_id' );
 			wp_set_object_terms( $post_id, array( $this->get_problem_set() ), 'webwork_problem_set' );
 
-			update_post_meta( $this->get_id(), 'webwork_problem_id', $this->get_problem_id() );
+
 			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
 			update_post_meta( $this->get_id(), 'webwork_problem_text', $this->tex->get_text_for_database() );
 
@@ -167,7 +168,12 @@ class Question implements Util\SaveableAsWPPost {
 			}
 			$this->set_problem_set( $problem_set );
 
-			$problem_id = get_post_meta( $this->get_id(), 'webwork_problem_id', true );
+			$problem_ids = get_the_terms( $post_id, 'webwork_problem_id' );
+			if ( $problem_ids ) {
+				$problem_id = reset( $problem_ids )->name;
+			} else {
+				$problem_id = '';
+			}
 			$this->set_problem_id( $problem_id );
 
 			$tried = get_post_meta( $this->get_id(), 'webwork_tried', true );

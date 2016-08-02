@@ -42,9 +42,10 @@ class Query {
 		) );
 
 		if ( $this->r['problem_id'] ) {
-			$args['meta_query']['problem_id'] = array(
-				'key' => 'webwork_problem_id',
-				'value' => $this->r['problem_id'],
+			$args['tax_query']['problem_id'] = array(
+				'taxonomy' => 'webwork_problem_id',
+				'terms' => (array) $this->r['problem_id'],
+				'field' => 'name',
 			);
 		}
 

@@ -1,6 +1,9 @@
 import { SET_FILTER_TOGGLE } from '../actions/app'
 
 export function currentFilters( state = {
+	course: false,
+	section: false,
+	problemSet: false,
 	answeredQuestions: false,
 	unansweredQuestions: false,
 

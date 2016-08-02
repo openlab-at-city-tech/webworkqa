@@ -110,4 +110,21 @@ class Query {
 
 		return $formatted;
 	}
+
+	public function get_filter_options() {
+		$problemSet = array(
+			array(
+				'value' => 'foo',
+				'name' => 'Foo',
+			),
+		);
+
+		return array(
+			'course' => $problemSet,
+			'section' => $problemSet,
+			'problemSet' => $problemSet,
+			'answeredQuestions' => $problemSet,
+			'unansweredQuestions' => $problemSet,
+		);
+	}
 }

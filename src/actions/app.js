@@ -41,6 +41,12 @@ export function processFilterToggle( slug, contrary ) {
 	}
 }
 
+export function processFilterChange( slug, value ) {
+	return ( dispatch ) => {
+		dispatch( setFilterToggle( slug, value ) )
+	}
+}
+
 export const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE'
 export const setFilterToggle = ( slug, value ) => {
 	return {
@@ -49,6 +55,14 @@ export const setFilterToggle = ( slug, value ) => {
 			slug,
 			value
 		}
+	}
+}
+
+export const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS'
+export const receiveFilterOptions = ( filterOptions ) => {
+	return {
+		type: RECEIVE_FILTER_OPTIONS,
+		payload: filterOptions
 	}
 }
 

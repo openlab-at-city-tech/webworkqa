@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { receiveFilterOptions } from './app'
 
 export function fetchQuestionIndexList() {
 	return (dispatch, getState) => {
@@ -36,6 +37,7 @@ export function fetchQuestionIndexList() {
 		} )
 		.then( response => response.json() )
 		.then( json => {
+			dispatch( receiveFilterOptions( json.filterOptions ) )
 			dispatch( receiveQuestions( json.questions ) )
 			dispatch( receiveQuestionIds( json.questionIds ) )
 		} )

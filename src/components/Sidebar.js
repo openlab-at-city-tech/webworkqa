@@ -16,7 +16,11 @@ export default class Sidebar extends Component {
 						</div>
 
 						<div className="ww-filter-section">
-							<SidebarFilterContainer name="Problem Set" />
+							<SidebarFilterContainer
+							  name="Problem Set"
+							  type="dropdown"
+							  slug="problemSet"
+							/>
 						</div>
 
 						<div className="ww-filter-section">

@@ -4,6 +4,7 @@ import { appIsLoading } from './appIsLoading'
 import { collapsed } from './collapsed'
 import { currentFilters } from './currentFilters'
 import { currentQuestion } from './currentQuestion'
+import { filterOptions } from './filterOptions'
 import { initialLoadComplete } from './initialLoadComplete'
 import { problems } from './problems'
 import { problemIds } from './problemIds'
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
   collapsed,
   currentFilters,
   currentQuestion,
+  filterOptions,
   initialLoadComplete,
   problemIds,
   problems,

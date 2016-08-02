@@ -20,6 +20,10 @@ export default class QuestionList extends Component {
 			)
 		} )
 
+		if ( ! listItems.length ) {
+			listItems.push( <p className="no-results">No results found.</p> )
+		}
+
 		return (
 			<ul className="question-list">
 				{listItems}

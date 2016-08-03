@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import QuestionListItemContainer from '../containers/QuestionListItemContainer.js'
+import QuestionContainer from '../containers/QuestionContainer.js'
 
 export default class QuestionList extends Component {
 	componentWillMount() {
@@ -13,8 +13,8 @@ export default class QuestionList extends Component {
 		let listItems = []
 		questionIds.forEach( function( questionId ) {
 			listItems.push(
-			  <QuestionListItemContainer
-			    questionId={questionId}
+			  <QuestionContainer
+			    itemId={questionId}
 			    key={questionId}
 			  />
 			)

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { If, Then, Else } from 'react-if'
 import Scroll from 'react-scroll'
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer';
@@ -33,12 +32,15 @@ export default class Question extends Component {
 
 	render() {
 		const {
-			isCollapsed, itemId, question, responseIds, responses,
-			onAccordionClick,
-			userCanPostResponse
+			isCollapsed, isSingleProblem, itemId, question, 
+			questionLink, responseIds, responses,
+			onAccordionClick, userCanPostResponse
 		} = this.props
 
-		const { tried, content, questionId, authorAvatar, authorName, problemText, problemMaths } = question
+		const { 
+			tried, content, questionId, authorAvatar, authorName, 
+			problemText, problemMaths 
+		} = question
 
 		const isMyQuestion = question.isMyQuestion > 0
 
@@ -50,6 +52,7 @@ export default class Question extends Component {
 		const responseScrollElementName = 'response-form-' + itemId
 		var Element = Scroll.Element
 
+		// todo move this to the server and cache as meta
 		let isAnswered = false
 		let responseId = 0
 		let response = null
@@ -65,6 +68,90 @@ export default class Question extends Component {
 		}
 
 		const anchorName = 'question-' + itemId
+
+		const questionTitleElement = (
+			<a href={questionLink}>
+				<div className="ww-author-name">A Question from {authorName}</div>
+			</a>
+		)
+
+		let respondLinkElement
+		if ( isSingleProblem && userCanPostResponse && ! isCollapsed ) {
+			respondLinkElement = (
+				<a
+				  href="#"
+				  className="respond-link"
+				  onClick={ e => {
+					  this.onGoToResponseFormClick( itemId )
+				  } }
+				>
+					Respond
+				</a>
+			)
+		}
+
+		let scoreMetadataElement
+		if ( isSingleProblem ) {
+			scoreMetadataElement = <ScoreDialogContainer itemId={itemId} />
+		} else {
+			// todo	
+		}
+
+		let questionSummaryElement
+		if ( isCollapsed ) {
+			questionSummaryElement = questionTitleElement
+		} else {
+			questionSummaryElement = (
+				<div className="ww-question-content">
+					{questionTitleElement}
+					<em>My question:</em>
+					<div className="ww-question-content-section">{content}</div>
+
+					<em>What I've tried:</em>
+					<div className="ww-question-content-section">
+						{tried}
+					</div>
+
+					<em>My problem:</em>
+					<div className="ww-question-content-section">
+						<FormattedProblem
+						  itemId={questionId}
+						  content={problemText}
+						  maths={problemMaths}
+						/>
+					</div>
+
+					{scoreMetadataElement}
+				</div>
+			)
+		}
+
+		let responseFormElement
+		if ( userCanPostResponse ) {
+			responseFormElement = (
+				<Element name={responseScrollElementName}>
+					<ResponseFormContainer
+					  questionId={itemId}
+					/>
+				</Element>
+			)
+		}
+
+		let responsesElement
+		if ( isSingleProblem ) {
+			responsesElement = (
+				<div className={isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open'}>
+					<ResponseList
+					  isMyQuestion={isMyQuestion}
+					  questionId={itemId}
+					  responseIds={responseIds}
+					  responses={responses}
+					/>
+
+					{responseFormElement}
+				</div>
+			)
+		}
 
 		return (
 			<li
@@ -96,79 +183,16 @@ export default class Question extends Component {
 
 					</div>
 
-					<If condition={userCanPostResponse && ! isCollapsed}>
-						<Then>
-							<a
-							  href="#"
-							  className="respond-link"
-							  onClick={ e => {
-								  this.onGoToResponseFormClick( itemId )
-							  } }
-							>
-								Respond
-							</a>
-						</Then>
-					</If>
+					{respondLinkElement}
 
 					<div className="ww-author-avatar hide-when-closed">
 						<img src={authorAvatar} />
 					</div>
 
-
-					<If condition={isCollapsed}>
-						<Then>
-							<div className="ww-author-name">{authorName}</div>
-						</Then>
-						<Else>
-							<div className="ww-question-content">
-								<div className="ww-author-name">{authorName}</div>
-								<em>My question:</em>
-								<div className="ww-question-content-section">{content}</div>
-
-								<em>What I've tried:</em>
-								<div className="ww-question-content-section">
-									{tried}
-								</div>
-
-								<If condition={hasProblemText}>
-									<Then>
-										<span>
-										<em>My problem:</em>
-										<div className="ww-question-content-section">
-											<FormattedProblem
-											  itemId={questionId}
-											  content={problemText}
-											  maths={problemMaths}
-											/>
-										</div>
-										</span>
-									</Then>
-								</If>
-
-								<ScoreDialogContainer itemId={itemId} />
-							</div>
-						</Else>
-					</If>
+					{questionSummaryElement}
 				</div>
 
-				<div className={isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open'}>
-					<ResponseList
-					  isMyQuestion={isMyQuestion}
-					  questionId={itemId}
-					  responseIds={responseIds}
-					  responses={responses}
-					/>
-
-					<If condition={userCanPostResponse}>
-						<Then>
-							<Element name={responseScrollElementName}>
-								<ResponseFormContainer
-								  questionId={itemId}
-								/>
-							</Element>
-						</Then>
-					</If>
-				</div>
+				{responsesElement}
 			</li>
 		);
 	}

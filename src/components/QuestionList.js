@@ -13,10 +13,12 @@ var QuestionList = React.createClass({
 		var rows = []
 
 		questionsById.forEach(function(questionId) {
-			rows.push( <QuestionContainer
-					itemId={questionId}
-					key={questionId}
-					/> );
+			rows.push( 
+				<QuestionContainer
+				  itemId={questionId}
+				  key={questionId}
+				/> 
+			);
 		});
 		return (
 			<div className="ww-question-list">

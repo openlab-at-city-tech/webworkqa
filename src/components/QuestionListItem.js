@@ -9,15 +9,10 @@ export default class QuestionListItem extends Component {
 			return ( <span></span> )
 		}
 
-		const { problemId, questionId, problemText, excerpt, problemMaths, instances } = question
+		const { problemId, questionId, problemText, excerpt, problemMaths } = question
 		const remoteCourseURL = window.WWData.remote_course_url
 
-		let instance = null
 		let title = ''
-		if ( instances && instances.hasOwnProperty( remoteCourseURL ) ) {
-			const { remoteProblemURL, remoteProblemSet, remoteProblem } = instances[ remoteCourseURL ]
-			title = 'Problem Set ' + remoteProblemSet + ', Problem ' + remoteProblem
-		}
 
 		const routeBase = window.WWData.route_base
 		const questionLink = '/' + routeBase + '#/problem/' + problemId + '/question-' + questionId

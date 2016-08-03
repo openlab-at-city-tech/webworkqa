@@ -1,9 +1,5 @@
 /** General ******************************************************************/
 
-.ww-app {
-	position: relative;
-}
-
 .ww-main {
 	float: left;
 	margin-right: -100%;
@@ -39,7 +35,7 @@
 	opacity: 50%;
 }
 
-.app-loading .ww-app-content {
+.app-loading .app-content {
 	opacity: .15 !important;
 }
 

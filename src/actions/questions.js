@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { receiveFilterOptions } from './app'
+import { receiveFilterOptions, setAppIsLoading } from './app'
 
 export function fetchQuestionIndexList() {
 	return (dispatch, getState) => {
@@ -27,6 +27,8 @@ export function fetchQuestionIndexList() {
 			endpoint += '?' + qs
 		}
 
+		dispatch( setAppIsLoading( true ) )
+
 		return fetch( endpoint,
 		{
 			credentials: 'same-origin',
@@ -40,6 +42,7 @@ export function fetchQuestionIndexList() {
 			dispatch( receiveFilterOptions( json.filterOptions ) )
 			dispatch( receiveQuestions( json.questions ) )
 			dispatch( receiveQuestionIds( json.questionIds ) )
+			dispatch( setAppIsLoading( false ) )
 		} )
 	}
 }

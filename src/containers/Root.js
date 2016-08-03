@@ -1,12 +1,65 @@
 import React, { Component } from 'react'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import configureStore from '../configureStore'
-import MainLayoutContainer from './MainLayoutContainer'
 import ProblemContainer from './ProblemContainer'
 import QuestionIndexContainer from './QuestionIndexContainer'
 import { setViewType } from '../actions/app'
 
 const store = configureStore()
+
+class RootComponent extends Component {
+	render() {
+		const { route_base } = window.WWData
+		const { appIsLoading, locationArray } = this.props
+
+		let isSingleProblem = false
+		let problemId = null
+
+		// Create a clone to prevent direct modification of props.
+		let _l = locationArray.slice(0)
+		if ( 'problem' == _l[0] ) {
+			isSingleProblem = true
+			_l.splice( 0, 1 )
+
+			const questionIdMatches = _l[ _l.length - 1 ].match( /^question-(\d+)/ )
+			if ( questionIdMatches ) {
+				_l.splice( -1, 1 )
+			}
+
+			problemId = _l.join( '/' )
+		}
+
+		let rootElement = null
+		if ( isSingleProblem ) {
+			rootElement = <ProblemContainer problemId={problemId} />
+		} else {
+			rootElement = <QuestionIndexContainer />
+		}
+
+		const wrapperClassName = appIsLoading ? 'app-loading' : ''
+
+		return (
+			<div className={wrapperClassName}>
+				<div className="app-loading-throbber">
+					Loading...
+				</div>
+
+				<div className="app-content">
+					{rootElement}
+				</div>
+			</div>
+		)
+	}
+}
+
+function mapStateToProps( state, ownProps ) {
+	const { appIsLoading } = state
+	return { appIsLoading }
+}
+
+const InnerRoot = connect(
+	mapStateToProps
+)(RootComponent)
 
 export default class Root extends Component {
 	componentWillMount() {
@@ -29,33 +82,11 @@ export default class Root extends Component {
 	}
 
 	render() {
-		const { route_base } = window.WWData
 		const { locationArray } = this.props
-
-		let isSingleProblem = false
-		let problemId = null
-		if ( 'problem' == locationArray[0] ) {
-			isSingleProblem = true
-			locationArray.splice( 0, 1 )
-
-			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
-			if ( questionIdMatches ) {
-				locationArray.splice( -1, 1 )
-			}
-
-			problemId = locationArray.join( '/' )
-		}
-
-		let rootElement = null
-		if ( isSingleProblem ) {
-			rootElement = <ProblemContainer problemId={problemId} />
-		} else {
-			rootElement = <QuestionIndexContainer />
-		}
 
 		return (
 			<Provider store={store}>
-				{rootElement}
+				<InnerRoot locationArray={locationArray} />
 			</Provider>
 		)
 	}

@@ -65,6 +65,19 @@ export const setFilterToggle = ( slug, value ) => {
 	}
 }
 
+export const SET_SORT_ORDERBY = 'SET_SORT_ORDERBY'
+export const setSortOrderby = ( orderby ) => {
+	const order = 'DESC'
+
+	return {
+		type: SET_SORT_ORDERBY,
+		payload: {
+			orderby,
+			order
+		}
+	}
+}
+
 export const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS'
 export const receiveFilterOptions = ( filterOptions ) => {
 	return {

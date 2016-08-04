@@ -1,4 +1,4 @@
-import { SET_FILTER_TOGGLE } from '../actions/app'
+import { SET_FILTER_TOGGLE, SET_SORT_ORDERBY } from '../actions/app'
 
 export function currentFilters( state = {
 	course: false,
@@ -16,6 +16,14 @@ export function currentFilters( state = {
 
 			return Object.assign( {}, state, {
 				[ slug ]: value,
+			} )
+
+		case SET_SORT_ORDERBY :
+			const { orderby, order } = action.payload
+
+			return Object.assign( {}, state, {
+				orderby,
+				order
 			} )
 
 		default :

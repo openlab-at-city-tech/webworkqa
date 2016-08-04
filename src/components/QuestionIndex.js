@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import QuestionIndexListContainer from '../containers/QuestionIndexListContainer'
+import QuestionSortDropdownContainer from '../containers/QuestionSortDropdownContainer'
 import ResultsHeaderContainer from '../containers/ResultsHeaderContainer'
 import SidebarContainer from '../containers/SidebarContainer'
 
@@ -40,6 +41,8 @@ export default class QuestionIndex extends Component {
 
 					<div className="index-list">
 						{listHeaderElement}
+
+						<QuestionSortDropdownContainer />
 						<QuestionIndexListContainer />
 					</div>
 				</div>

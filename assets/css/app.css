@@ -190,13 +190,17 @@ ul.question-list > a {
 
 .ww-response {
 	padding-top: 10px;
+	position: relative;
 }
 
 .response-user-type {
-	width: 60px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 4px 10px;
 	font-size: .7em;
 	background: #ccc;
-	margin: 0 auto;
+	border: 1px solid #666;
 }
 
 .ww-response-content {

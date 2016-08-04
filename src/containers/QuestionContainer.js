@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { itemId } = ownProps
 
 	const isCollapsed = collapsed.hasOwnProperty( itemId )
+	const isProblemSummaryCollapsed = collapsed.hasOwnProperty( itemId + '-problem' )
 
 	const question = questions[itemId]
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
@@ -27,6 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		initialLoadComplete,
 		isCollapsed,
+		isProblemSummaryCollapsed,
 		isCurrentQuestion,
 		isSingleProblem,
 		question,
@@ -37,10 +39,16 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const { itemId } = ownProps
+
 	return {
-		onAccordionClick: (itemId) => {
+		onAccordionClick: () => {
 			dispatch( toggleAccordion( itemId ) )
+		},
+
+		onProblemSummaryClick: () => {
+			dispatch( toggleAccordion( itemId + '-problem' ) )
 		}
 	}
 }

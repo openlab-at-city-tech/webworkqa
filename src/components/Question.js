@@ -32,14 +32,15 @@ export default class Question extends Component {
 
 	render() {
 		const {
-			isCollapsed, isSingleProblem, itemId, question, 
-			questionLink, responseIds, responses,
-			onAccordionClick, userCanPostResponse
+			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
+			itemId, question, questionLink, responseIds, responses,
+			userCanPostResponse,
+			onAccordionClick, onProblemSummaryClick
 		} = this.props
 
-		const { 
-			tried, content, questionId, authorAvatar, authorName, 
-			problemText, problemMaths 
+		const {
+			tried, content, questionId, authorAvatar, authorName,
+			problemText, problemMaths
 		} = question
 
 		const isMyQuestion = question.isMyQuestion > 0
@@ -94,7 +95,12 @@ export default class Question extends Component {
 		if ( isSingleProblem ) {
 			scoreMetadataElement = <ScoreDialogContainer itemId={itemId} />
 		} else {
-			// todo	
+			// todo
+		}
+
+		let problemSummaryClass = 'ww-question-content-section ww-question-problem-summary'
+		if ( isProblemSummaryCollapsed ) {
+			problemSummaryClass += ' problem-summary-collapsed'
 		}
 
 		let questionSummaryElement
@@ -102,18 +108,24 @@ export default class Question extends Component {
 			questionSummaryElement = questionTitleElement
 		} else {
 			questionSummaryElement = (
-				<div className="ww-question-content">
-					{questionTitleElement}
-					<em>My question:</em>
-					<div className="ww-question-content-section">{content}</div>
+				<div className="ww-question-content-wrapper">
+					<div className="ww-question-content">
+						{questionTitleElement}
+						<em>My question:</em>
+						<div className="ww-question-content-section">{content}</div>
 
-					<em>What I've tried:</em>
-					<div className="ww-question-content-section">
-						{tried}
+						<em>What I've tried:</em>
+						<div className="ww-question-content-section">
+							{tried}
+						</div>
+
 					</div>
 
-					<em>My problem:</em>
-					<div className="ww-question-content-section">
+					<div
+					  className={problemSummaryClass}
+					  onClick={onProblemSummaryClick}
+					>
+						<em>My problem:</em>
 						<FormattedProblem
 						  itemId={questionId}
 						  content={problemText}

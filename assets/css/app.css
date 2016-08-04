@@ -105,6 +105,27 @@ ul.question-list > a {
 	margin-bottom: 60px;
 }
 
+.ww-question-problem-summary {
+	margin: 16px;
+	border: 1px dashed #ccc;
+	padding: 16px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.ww-question-problem-summary:hover {
+	border: 1px solid #333;
+}
+
+.ww-question-problem-summary.problem-summary-collapsed {
+	height: 50px;
+	opacity: .25;
+}
+
+.ww-question-problem-summary.problem-summary-collapsed:hover {
+	opacity: 1;
+}
+
 .question-form textarea {
 	margin-bottom: 20px;
 	width: 100%;

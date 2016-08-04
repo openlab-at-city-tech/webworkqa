@@ -194,4 +194,46 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$question2 = new \WeBWorK\Server\Question( $q );
 		$this->assertSame( $section, $question2->get_section() );
 	}
+
+	public function test_get_response_count() {
+		$q = self::factory()->question->create_and_get();
+
+		$r = new \WeBWorK\Server\Response();
+		$r->set_question_id( $q->get_id() );
+		$r->save();
+
+		$this->assertSame( 1, $q->get_response_count() );
+	}
+
+	public function test_get_response_count_should_return_0_for_no_responses() {
+		$q = self::factory()->question->create_and_get();
+
+		$this->assertSame( 0, $q->get_response_count() );
+	}
+
+	public function test_response_count_cache_should_be_invalidated_on_new_response() {
+		$q = self::factory()->question->create_and_get();
+
+		$this->assertSame( 0, $q->get_response_count() );
+
+		$r = new \WeBWorK\Server\Response();
+		$r->set_question_id( $q->get_id() );
+		$r->save();
+
+		$this->assertSame( 1, $q->get_response_count() );
+	}
+
+	public function test_response_count_cache_should_be_invalidated_on_deleted_response() {
+		$q = self::factory()->question->create_and_get();
+
+		$r = new \WeBWorK\Server\Response();
+		$r->set_question_id( $q->get_id() );
+		$r->save();
+
+		$this->assertSame( 1, $q->get_response_count() );
+
+		$r->delete();
+
+		$this->assertSame( 0, $q->get_response_count() );
+	}
 }

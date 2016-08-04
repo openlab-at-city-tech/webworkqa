@@ -11,6 +11,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $id;
 
 	protected $question_id;
+	protected $question;
 	protected $is_answer;
 
 	protected $author_id;
@@ -55,6 +56,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	public function set_question_id( $question_id ) {
 		if ( $question_id ) {
 			$this->question_id = (int) $question_id;
+			$this->question = new Question( $question_id );
 		}
 	}
 
@@ -121,6 +123,9 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$this->get_vote_count();
 
+			// Bust question response count cache.
+			$this->question->get_response_count( true );
+
 			$this->populate();
 		}
 
@@ -128,7 +133,14 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	}
 
 	public function delete() {
-		return $this->p->delete();
+		$deleted = $this->p->delete();
+
+		if ( $deleted ) {
+			// Bust question response count cache.
+			$this->question->get_response_count( true );
+		}
+
+		return $deleted;
 	}
 
 	protected function populate( $post = null ) {

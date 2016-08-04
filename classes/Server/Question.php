@@ -138,6 +138,30 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	}
 
 	/**
+	 * Get response count.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param $force_query Whether to skip metadata cache. Default false.
+	 * @return int
+	 */
+	public function get_response_count( $force_query = false ) {
+		$question_id = $this->get_id();
+		$count = get_post_meta( $question_id, 'webwork_response_count', true );
+		if ( $force_query || '' === $count ) {
+			$response_query = new Response\Query( array(
+				'question_id' => $question_id,
+			) );
+			$responses = $response_query->get();
+
+			$count = count( $responses );
+			update_post_meta( $question_id, 'webwork_response_count', $count );
+		}
+
+		return intval( $count );
+	}
+
+	/**
 	 * Get vote count.
 	 *
 	 * @param int $force_query Whether to skip the metadata cache.

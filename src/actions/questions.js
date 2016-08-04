@@ -40,6 +40,7 @@ export function fetchQuestionIndexList() {
 		.then( response => response.json() )
 		.then( json => {
 			dispatch( receiveFilterOptions( json.filterOptions ) )
+			dispatch( receiveQuestionIds( [] ) )
 			dispatch( receiveQuestions( json.questions ) )
 			dispatch( receiveQuestionIds( json.questionIds ) )
 

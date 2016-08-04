@@ -128,6 +128,7 @@ class Query {
 				'questionId' => $question_id,
 				'content' => $q->get_content(),
 				'tried' => $q->get_tried(),
+				'postDate' => $q->get_post_date(),
 				'problemId' => $q->get_problem_id(),
 				'problemSet' => $q->get_problem_set(),
 				'course' => $q->get_course(),

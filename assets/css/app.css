@@ -248,6 +248,11 @@ ul.question-list > a {
 	position: absolute;
 }
 
+.time-ago {
+	font-style: italic;
+	font-size: .9em;
+}
+
 .ww-author-name {
 	font-weight: bold;
 	margin-bottom: .5em;

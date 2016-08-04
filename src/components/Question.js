@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Scroll from 'react-scroll'
 
-import ScoreDialogContainer from '../containers/ScoreDialogContainer';
-import ResponseList from './ResponseList';
-import ResponseFormContainer from '../containers/ResponseFormContainer';
+import ScoreDialogContainer from '../containers/ScoreDialogContainer'
+import ResponseList from './ResponseList'
+import ResponseFormContainer from '../containers/ResponseFormContainer'
 import FormattedProblem from './FormattedProblem'
+
+var moment = require( 'moment' )
 
 export default class Question extends Component {
 	componentDidMount() {
@@ -203,6 +205,8 @@ export default class Question extends Component {
 			)
 		}
 
+		const timeAgo = moment( question.postDate).fromNow()
+
 		return (
 			<li
 			  className={this.getClassName( isCollapsed, isMyQuestion, isAnswered )}
@@ -237,6 +241,9 @@ export default class Question extends Component {
 
 					<div className="ww-author-avatar hide-when-closed">
 						<img src={authorAvatar} />
+						<div className="time-ago">
+							{timeAgo}
+						</div>
 					</div>
 
 					{questionSummaryElement}

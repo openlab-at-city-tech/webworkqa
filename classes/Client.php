@@ -54,6 +54,7 @@ class Client {
 			'user_can_ask_question' => is_user_logged_in(), // todo
 			'user_can_post_response' => is_user_logged_in(), // todo
 			'user_can_vote' => is_user_logged_in(), // todo
+			'user_is_admin' => current_user_can( 'edit_others_posts' ), // @todo!!
 		) );
 
 		wp_enqueue_style( 'webwork-app', plugins_url() . '/webwork/assets/css/app.css' );

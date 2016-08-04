@@ -1,5 +1,4 @@
 import React from 'react';
-import { If, Then } from 'react-if'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
 
@@ -7,6 +6,10 @@ var Response = React.createClass({
 	render: function() {
 		const { isMyQuestion, response, responseId } = this.props
 		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response
+
+		const userIsAdmin = window.WWData.user_is_admin
+
+		const answeredElement = ( isMyQuestion || userIsAdmin ) ? <AnsweredDialogContainer responseId={responseId} /> : ''
 
 		return (
 			<li>
@@ -20,11 +23,8 @@ var Response = React.createClass({
 					<div className="ww-response-content">
 						<div className="ww-author-name">{authorName}</div>
 						{content}
-
-						<If condition={isMyQuestion}>
-							<Then><AnsweredDialogContainer responseId={responseId} /></Then>
-						</If>
-						</div>
+						{answeredElement}
+					</div>
 
 					<ScoreDialogContainer
 					  itemId={responseId}

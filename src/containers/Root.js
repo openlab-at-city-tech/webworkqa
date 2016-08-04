@@ -74,10 +74,19 @@ export default class Root extends Component {
 	}
 
 	componentWillReceiveProps() {
-		const { locationArray } = this.props
+		// No clue why locationArray can't be passed via props when navigating between pages.
+		const locationArray = window.location.hash.replace(/^#\/?|\/$/g, '').split('/')
+		console.log( locationArray )
 
 		if ( 'results' == locationArray[0] ) {
 			store.dispatch( setViewType( 'results' ) )
+		}
+
+		if ( 'problem' == locationArray[0] ) {
+			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
+			if ( questionIdMatches ) {
+				store.dispatch( setViewType( 'problem', questionIdMatches[1] ) )
+			}
 		}
 	}
 

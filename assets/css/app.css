@@ -67,6 +67,7 @@ ul.question-list > a {
 
 #webwork-app .question-list {
 	list-style-type: none;
+	margin-top: 40px;
 }
 
 .question-list > a {

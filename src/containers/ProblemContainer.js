@@ -32,6 +32,7 @@ const mapStateToProps = ( state, ownProps ) => {
 	}
 
 	const unansweredCount = questionsById.length - answeredCount
+	const userCanAskQuestion = window.WWData.user_can_ask_question
 
 	return {
 		problems,
@@ -39,7 +40,8 @@ const mapStateToProps = ( state, ownProps ) => {
 		questions,
 		questionsById,
 		responseCount,
-		unansweredCount
+		unansweredCount,
+		userCanAskQuestion
 	}
 }
 

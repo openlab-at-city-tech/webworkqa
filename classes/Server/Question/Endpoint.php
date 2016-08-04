@@ -165,7 +165,6 @@ class Endpoint extends \WP_Rest_Controller {
 			'orderby',
 			'order',
 			'answered',
-			'problem_set',
 			'course',
 			'section',
 		);
@@ -176,6 +175,11 @@ class Endpoint extends \WP_Rest_Controller {
 				$args[ $k ] = $params[ $k ];
 			}
 		}
+
+                // Programming
+                if ( isset( $params['problemSet'] ) ) {
+                        $args['problem_set'] = $params['problemSet'];
+                }
 
 		$q = new Query( $args );
 

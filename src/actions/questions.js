@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { receiveFilterOptions, setAppIsLoading, toggleAccordion } from './app'
+import { receiveFilterOptions, setAppIsLoading, setCollapsed } from './app'
 
 export function fetchQuestionIndexList() {
 	return (dispatch, getState) => {
@@ -45,7 +45,7 @@ export function fetchQuestionIndexList() {
 			dispatch( receiveQuestionIds( json.questionIds ) )
 
 			for ( var i = 0; i < json.questionIds.length; i++ ) {
-				dispatch( toggleAccordion( json.questionIds[ i ] + '-problem' ) )
+				dispatch( setCollapsed( json.questionIds[ i ] + '-problem', true ) )
 			}
 
 			dispatch( setAppIsLoading( false ) )

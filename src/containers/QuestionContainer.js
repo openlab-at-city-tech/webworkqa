@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Question from '../components/Question'
-import { toggleAccordion } from '../actions/app'
+import { setCollapsed } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
@@ -16,13 +16,13 @@ const mapStateToProps = (state, ownProps) => {
 	const question = questions[itemId]
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
 
-	const isSingleProblem = viewType.viewType == 'problem' 
+	const isSingleProblem = viewType.viewType == 'problem'
 	const isCurrentQuestion = ( isSingleProblem && viewType.objectId == itemId )
 
 	const routeBase = window.WWData.route_base
-	const questionLink = '/' 
-		+ routeBase + '#/problem/' 
-		+ question.problemId + '/question-' 
+	const questionLink = '/'
+		+ routeBase + '#/problem/'
+		+ question.problemId + '/question-'
 		+ itemId
 
 	return {
@@ -44,11 +44,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onAccordionClick: () => {
-			dispatch( toggleAccordion( itemId ) )
+			dispatch( setCollapsed( itemId ) )
 		},
 
 		onProblemSummaryClick: () => {
-			dispatch( toggleAccordion( itemId + '-problem' ) )
+			dispatch( setCollapsed( itemId + '-problem' ) )
 		}
 	}
 }

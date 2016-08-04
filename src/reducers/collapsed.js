@@ -1,17 +1,25 @@
-import { TOGGLE_ACCORDION } from '../actions/app'
+import { SET_COLLAPSED } from '../actions/app'
 
 export function collapsed( state = {}, action ) {
 	switch ( action.type ) {
-		case TOGGLE_ACCORDION :
-			const { itemId } = action.payload
-			if ( state.hasOwnProperty( itemId ) ) {
-				let newState = Object.assign( {}, state )
-				delete newState[ itemId ]
-				return newState
+		case SET_COLLAPSED :
+			const { itemId, value } = action.payload
+
+			let doCollapse
+			if ( null === value ) {
+				doCollapse = ! state.hasOwnProperty( itemId )
 			} else {
+				doCollapse = true
+			}
+
+			if ( doCollapse ) {
 				return Object.assign( {}, state, {
 					[itemId]: '1'
 				} )
+			} else {
+				let newState = Object.assign( {}, state )
+				delete newState[ itemId ]
+				return newState
 			}
 		default :
 			return state

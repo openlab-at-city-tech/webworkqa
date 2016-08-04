@@ -16,12 +16,13 @@ export const setAppIsLoading = (appIsLoading) => {
 	}
 }
 
-export const TOGGLE_ACCORDION = 'TOGGLE_ACCORDION'
-export const toggleAccordion = ( itemId ) => {
+export const SET_COLLAPSED = 'SET_COLLAPSED'
+export const setCollapsed = ( itemId, value = null ) => {
 	return {
-		type: TOGGLE_ACCORDION,
+		type: SET_COLLAPSED,
 		payload: {
-			itemId
+			itemId,
+			value
 		}
 	}
 }

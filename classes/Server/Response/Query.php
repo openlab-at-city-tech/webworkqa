@@ -16,8 +16,6 @@ class Query {
 			'orderby' => 'votes',
 			'is_answer' => null,
 		), $args );
-
-		$this->sorter = new \WeBWorK\Server\Util\QuerySorter();
 	}
 
 	/**
@@ -74,16 +72,25 @@ class Query {
 			}
 		}
 
+		if ( 'votes' === $this->r['orderby'] ) {
+			$args['meta_query']['votes_orderby'] = array(
+				'key' => 'webwork_vote_count',
+				'compare' => 'EXISTS',
+				'type' => 'SIGNED',
+			);
+
+			$args['orderby'] = array(
+				'votes_orderby' => 'DESC',
+				'post_date' => 'ASC',
+			);
+		}
+
 		$response_query = new \WP_Query( $args );
 		$_responses = $response_query->posts;
 
 		$responses = array();
 		foreach ( $_responses as $_response ) {
 			$responses[ $_response->ID ] = new \WeBWorK\Server\Response( $_response->ID );
-		}
-
-		if ( 'votes' === $this->r['orderby'] ) {
-			$responses = $this->sorter->sort_by_votes( $responses );
 		}
 
 		return $responses;

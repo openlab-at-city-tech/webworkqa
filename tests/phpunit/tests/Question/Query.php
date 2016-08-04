@@ -197,21 +197,21 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_results_should_be_ordered_by_vote_count() {
-		$q1 = self::factory()->question->create( array(
+		$q1 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
 		) );
 
-		$q2 = self::factory()->question->create( array(
+		$q2 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
 		) );
 
-		$q3 = self::factory()->question->create( array(
+		$q3 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
 		) );
 
-		self::factory()->vote->create_many( 2, array( 'item_id' => $q1 ) );
-		self::factory()->vote->create_many( 1, array( 'item_id' => $q2 ) );
-		self::factory()->vote->create_many( 3, array( 'item_id' => $q3 ) );
+		self::factory()->vote->create_many( 2, array( 'item' => $q1 ) );
+		self::factory()->vote->create_many( 1, array( 'item' => $q2 ) );
+		self::factory()->vote->create_many( 3, array( 'item' => $q3 ) );
 
 		$q = new \WeBWorK\Server\Question\Query( array(
 			'problem_id' => 3,
@@ -223,36 +223,36 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 			$ids[] = $f->get_id();
 		}
 
-		$this->assertSame( array( $q3, $q1, $q2 ), $ids );
+		$this->assertSame( array( $q3->get_id(), $q1->get_id(), $q2->get_id() ), $ids );
 	}
 
 	public function test_results_should_be_ordered_by_post_date_when_vote_counts_are_the_same() {
 		$now = time();
 
-		$q1 = self::factory()->question->create( array(
+		$q1 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
 			'post_date' => date( 'Y-m-d H:i:s', $now - 50 ),
 		) );
 
-		$q2 = self::factory()->question->create( array(
+		$q2 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
 			'post_date' => date( 'Y-m-d H:i:s', $now - 40 ),
 		) );
 
-		$q3 = self::factory()->question->create( array(
+		$q3 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
 			'post_date' => date( 'Y-m-d H:i:s', $now - 60 ),
 		) );
 
-		$q4 = self::factory()->question->create( array(
+		$q4 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
 			'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
 		) );
 
-		self::factory()->vote->create_many( 1, array( 'item_id' => $q1 ) );
-		self::factory()->vote->create_many( 2, array( 'item_id' => $q2 ) );
-		self::factory()->vote->create_many( 1, array( 'item_id' => $q3 ) );
-		self::factory()->vote->create_many( 1, array( 'item_id' => $q4 ) );
+		self::factory()->vote->create_many( 1, array( 'item' => $q1 ) );
+		self::factory()->vote->create_many( 2, array( 'item' => $q2 ) );
+		self::factory()->vote->create_many( 1, array( 'item' => $q3 ) );
+		self::factory()->vote->create_many( 1, array( 'item' => $q4 ) );
 
 		$q = new \WeBWorK\Server\Question\Query( array(
 			'problem_id' => 3,
@@ -264,7 +264,7 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 			$ids[] = $f->get_id();
 		}
 
-		$this->assertSame( array( $q2, $q3, $q1, $q4 ), $ids );
+		$this->assertSame( array( $q2->get_id(), $q3->get_id(), $q1->get_id(), $q4->get_id() ), $ids );
 	}
 
 	public function test_get_filter_options_for_problem_set() {

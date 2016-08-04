@@ -11,10 +11,10 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onVoteClick: ( itemId, voteType ) => {
-			dispatch( clickVote( itemId, voteType ) )
+			dispatch( clickVote( itemId, voteType, ownProps.itemType ) )
 		}
 	}
 }

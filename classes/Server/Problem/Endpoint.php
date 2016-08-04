@@ -122,13 +122,13 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$votes = array();
 		foreach ( $vote_data as $vote ) {
-			if ( 1 === $vote->get_value() ) {
+			if ( 1 == $vote->value ) {
 				$value = 'up';
 			} else {
 				$value = 'down';
 			}
 
-			$votes[ $vote->get_item_id() ] = $value;
+			$votes[ $vote->item_id ] = $value;
 		}
 
 		$data = array(

@@ -5,7 +5,7 @@ namespace WeBWorK\Server;
 /**
  * Question CRUD.
  */
-class Question implements Util\SaveableAsWPPost {
+class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $p;
 
 	protected $id = 0;
@@ -21,8 +21,6 @@ class Question implements Util\SaveableAsWPPost {
 	protected $content;
 	protected $tried;
 	protected $post_date;
-
-	protected $vote_count = null;
 
 	public function __construct( $id = null ) {
 		$this->p = new Util\WPPost( $this );
@@ -142,12 +140,11 @@ class Question implements Util\SaveableAsWPPost {
 	/**
 	 * Get vote count.
 	 *
-	 * @todo Lazy-load when null.
-	 *
+	 * @param int $force_query Whether to skip the metadata cache.
 	 * @return int
 	 */
-	public function get_vote_count() {
-		return $this->vote_count;
+	public function get_vote_count( $force_query = false ) {
+		return $this->p->get_vote_count( $force_query );
 	}
 
 	public function save() {
@@ -166,6 +163,9 @@ class Question implements Util\SaveableAsWPPost {
 
 			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
 			update_post_meta( $this->get_id(), 'webwork_problem_text', $this->tex->get_text_for_database() );
+
+			// Refresh vote count.
+			$this->get_vote_count( true );
 
 			$this->populate();
 		}

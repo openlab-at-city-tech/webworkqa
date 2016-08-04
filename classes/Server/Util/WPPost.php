@@ -110,4 +110,26 @@ class WPPost {
 		$userdata = get_userdata( $this->c->get_author_id() );
 		return $userdata->display_name;
 	}
+
+	/**
+	 * Get vote count.
+	 *
+	 * @param int $force_query Whether to skip the metadata cache.
+	 * @return int
+	 */
+	public function get_vote_count( $force_query = false ) {
+		$item_id = $this->c->get_id();
+
+		$vote_count = get_post_meta( $item_id, 'webwork_vote_count', true );
+		if ( $force_query || '' === $vote_count ) {
+			$vote_query = new \WeBWorK\Server\Vote\Query( array(
+				'item_id' => $item_id,
+			) );
+
+			$vote_count = $vote_query->get( 'count' );
+			update_post_meta( $item_id, 'webwork_vote_count', $vote_count );
+		}
+
+		return intval( $vote_count );
+	}
 }

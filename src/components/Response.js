@@ -26,7 +26,10 @@ var Response = React.createClass({
 						</If>
 						</div>
 
-					<ScoreDialogContainer itemId={responseId} />
+					<ScoreDialogContainer
+					  itemId={responseId}
+					  itemType='response'
+					/>
 				</div>
 			</li>
 		);

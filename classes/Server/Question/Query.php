@@ -10,8 +10,6 @@ namespace WeBWorK\Server\Question;
 class Query {
 	protected $r;
 
-	protected $sorter;
-
 	public function __construct( $args = array() ) {
 		$this->r = array_merge( array(
 			'problem_id' => null,
@@ -23,8 +21,6 @@ class Query {
 			'order' => 'ASC',
 			'answered' => null,
 		), $args );
-
-		$this->sorter = new \WeBWorK\Server\Util\QuerySorter();
 	}
 
 	/**
@@ -89,16 +85,25 @@ class Query {
 			$args[ $op ] = $has_answer_ids;
 		}
 
+		if ( 'votes' === $this->r['orderby'] ) {
+			$args['meta_query']['votes_orderby'] = array(
+				'key' => 'webwork_vote_count',
+				'compare' => 'EXISTS',
+				'type' => 'SIGNED',
+			);
+
+			$args['orderby'] = array(
+				'votes_orderby' => 'DESC',
+				'post_date' => 'ASC',
+			);
+		}
+
 		$question_query = new \WP_Query( $args );
 		$_questions = $question_query->posts;
 
 		$questions = array();
 		foreach ( $_questions as $_question ) {
 			$questions[ $_question->ID ] = new \WeBWorK\Server\Question( $_question->ID );
-		}
-
-		if ( 'votes' === $this->r['orderby'] ) {
-			$questions = $this->sorter->sort_by_votes( $questions );
 		}
 
 		return $questions;

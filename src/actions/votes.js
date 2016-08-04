@@ -1,13 +1,13 @@
 import fetch from 'isomorphic-fetch'
 
-export function clickVote( itemId, voteType ) {
+export function clickVote( itemId, voteType, itemType ) {
 	return ( dispatch ) => {
-		dispatch( sendVote( itemId, voteType ) )
+		dispatch( sendVote( itemId, voteType, itemType ) )
 		dispatch( setVote( itemId, voteType ) )
 	}
 }
 
-function sendVote(itemId, voteType) {
+function sendVote(itemId, voteType, itemType) {
 	return ( dispatch ) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
 		const endpoint = rest_api_endpoint + 'votes/'
@@ -21,13 +21,14 @@ function sendVote(itemId, voteType) {
 			},
 			body: JSON.stringify({
 				item_id: itemId,
+				item_type: itemType,
 				value: voteType
 			})
 		} )
-			.then( response => response.json() )
-			.then( json => {
-			//	console.log( json )
-			} );
+		.then( response => response.json() )
+		.then( json => {
+		//	console.log( json )
+		} );
 
 	}
 }

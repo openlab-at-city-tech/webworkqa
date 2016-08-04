@@ -74,13 +74,55 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_vote_count_should_default_to_zero() {
-		$this->markTestSkipped( 'todo' );
-
 		$q = self::factory()->question->create();
 
 		$question = new \WeBWorK\Server\Question( $q );
 
 		$this->assertSame( 0, $question->get_vote_count() );
+	}
+
+	public function test_vote_count() {
+		$q = self::factory()->question->create_and_get();
+
+		self::factory()->vote->create( array(
+			'user_id' => 5,
+			'item' => $q,
+			'value' => 1,
+		) );
+
+		$this->assertSame( 1, $q->get_vote_count() );
+	}
+
+	public function test_vote_count_should_be_cached_in_meta() {
+		$q = self::factory()->question->create_and_get();
+
+		self::factory()->vote->create( array(
+			'user_id' => 5,
+			'item' => $q,
+			'value' => 1,
+		) );
+
+		// Danger - testing implementation details :-/
+		$this->assertEquals( 1, get_post_meta( $q->get_id(), 'webwork_vote_count', true ) );
+	}
+
+	public function test_deleting_vote_should_invalidate_cache() {
+		$q = self::factory()->question->create_and_get();
+
+		self::factory()->vote->create( array(
+			'user_id' => 5,
+			'item' => $q,
+			'value' => 1,
+		) );
+
+		$v = new \WeBWorK\Server\Vote();
+		$v->set_user_id( 5 );
+		$v->set_item( $q );
+		$v->populate();
+
+		$v->delete();
+
+		$this->assertSame( 0, $q->get_vote_count() );
 	}
 
 	public function test_set_post_date() {

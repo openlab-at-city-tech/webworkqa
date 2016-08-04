@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { If, Then } from 'react-if'
 
 export default class ScoreDialog extends React.Component {
 	constructor(props) {

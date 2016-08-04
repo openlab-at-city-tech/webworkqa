@@ -27,3 +27,4 @@ require $_tests_dir . '/includes/bootstrap.php';
 
 require dirname( __FILE__ ) . '/factory.php';
 require dirname( __FILE__ ) . '/testcase.php';
+require dirname( __FILE__ ) . '/mock-voteable.php';

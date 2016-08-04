@@ -5,13 +5,15 @@ class WeBWorK_Tests_Factory_For_Vote extends WP_UnitTest_Factory_For_Thing {
 		parent::__construct( $factory );
 		$this->default_generation_definitions = array(
 			'user_id' => new WP_UnitTest_Generator_Sequence( '%d' ),
-			'item_id' => new WP_UnitTest_Generator_Sequence( '%d' ),
+			'item' => null,
 			'value' => new WP_UnitTest_Generator_Sequence( '%d' ),
 		);
 	}
 
 	public function create_object( $args ) {
-		$vote = new \WeBWorK\Server\Vote( $args['user_id'], $args['item_id'] );
+		$vote = new \WeBWorK\Server\Vote();
+		$vote->set_item( $args['item'] );
+		$vote->set_user_id( $args['user_id'] );
 		$vote->set_value( $args['value'] );
 		$vote->save();
 
@@ -23,8 +25,8 @@ class WeBWorK_Tests_Factory_For_Vote extends WP_UnitTest_Factory_For_Thing {
 		return wp_update_user( $fields );
 	}
 
-	public function get_object_by_id( $user_id ) {
-		return new WP_User( $user_id );
+	public function get_object_by_id( $vote_id ) {
+		return new \WeBWork\Server\Vote( $vote_id );
 	}
 }
 
@@ -38,7 +40,6 @@ class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
 		}
 
 		$response = new \WeBWorK\Server\Response( $post_id );
-		$clean_response = clone $response;
 
 		$is_answer = isset( $args['is_answer'] ) ? (bool) $args['is_answer'] : false;
 		$response->set_is_answer( $is_answer );
@@ -52,9 +53,7 @@ class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
 			$response->set_post_date( $args['post_date'] );
 		}
 
-		if ( $clean_response != $response ) {
-			$response->save();
-		}
+		$response->save();
 
 		return $post_id;
 	}

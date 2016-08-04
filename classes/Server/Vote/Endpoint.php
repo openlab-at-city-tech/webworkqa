@@ -75,7 +75,21 @@ class Endpoint extends \WP_Rest_Controller {
 			$value = -1;
 		}
 
-		$vote = new \WeBWorK\Server\Vote( get_current_user_id(), $item_id );
+		$item = null;
+		switch ( $params['item_type'] ) {
+			case 'question' :
+				$item = new \WeBWorK\Server\Question( $item_id );
+			break;
+
+			case 'response' :
+				$item = new \WeBWorK\Server\Response( $item_id );
+			break;
+		}
+
+		$vote = new \WeBWorK\Server\Vote();
+		$vote->set_user_id( get_current_user_id() );
+		$vote->set_item( $item );
+		$vote->populate();
 
 		// Don't allow duplicate votes.
 		// This is not really RESTful. On a successful lookup, perform an update.

@@ -68,17 +68,7 @@ class Query {
 			$found = $wpdb->get_var( $sql );
 			return (int) $found;
 		} else {
-			$found = $wpdb->get_results( $sql );
-
-			$votes = array();
-			foreach ( $found as $f ) {
-				$v = new \WeBWorK\Server\Vote( $f->user_id, $f->item_id );
-				$v->set_id( $f->id );
-				$v->set_value( $f->value );
-
-				$votes[] = $v;
-			}
-
+			$votes = $wpdb->get_results( $sql );
 			return $votes;
 		}
 	}

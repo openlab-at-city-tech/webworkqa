@@ -9,16 +9,8 @@ class Vote {
 	protected $id;
 	protected $user_id;
 	protected $item_id;
+	protected $item;
 	protected $value = 0;
-
-	public function __construct( $user_id = null, $item_id = null ) {
-		if ( $user_id && $item_id ) {
-			$this->set_user_id( $user_id );
-			$this->set_item_id( $item_id );
-
-			$this->populate( $user_id, $item_id );
-		}
-	}
 
 	/**
 	 * Whether the vote exists in the database.
@@ -35,8 +27,8 @@ class Vote {
 		$this->user_id = (int) $user_id;
 	}
 
-	public function set_item_id( $item_id ) {
-		$this->item_id = (int) $item_id;
+	public function set_item( Util\Voteable $item ) {
+		$this->item = $item;
 	}
 
 	public function set_value( $value ) {
@@ -52,7 +44,7 @@ class Vote {
 	}
 
 	public function get_item_id() {
-		return $this->item_id;
+		return $this->item->get_id();
 	}
 
 	public function get_value() {
@@ -61,10 +53,17 @@ class Vote {
 
 	public function save() {
 		if ( $this->exists() ) {
-			return $this->update();
+			$saved = $this->update();
 		} else {
-			return $this->insert();
+			$saved = $this->insert();
 		}
+
+		// Cache busting.
+		if ( $saved ) {
+			$this->item->get_vote_count( true );
+		}
+
+		return $saved;
 	}
 
 	public function delete() {
@@ -82,12 +81,15 @@ class Vote {
 
 		if ( $deleted ) {
 			$this->id = null;
+
+			// Cache busting.
+			$this->item->get_vote_count( true );
 		}
 
 		return (bool) $deleted;
 	}
 
-	protected function populate( $user_id, $item_id ) {
+	public function populate() {
 		global $wpdb;
 
 		$table_name = $this->get_table_name();

@@ -93,7 +93,12 @@ export default class Question extends Component {
 
 		let questionMetadataElement
 		if ( isSingleProblem ) {
-			questionMetadataElement = <ScoreDialogContainer itemId={itemId} />
+			questionMetadataElement = (
+				<ScoreDialogContainer
+				  itemId={itemId}
+				  itemType='question'
+				/>
+			)
 		} else {
 			let courseData = []
 			if ( question.problemSet ) {

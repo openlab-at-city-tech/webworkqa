@@ -5,7 +5,7 @@ namespace WeBWorK\Server;
 /**
  * Response CRUD.
  */
-class Response implements Util\SaveableAsWPPost {
+class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $p;
 
 	protected $id;
@@ -105,12 +105,11 @@ class Response implements Util\SaveableAsWPPost {
 	/**
 	 * Get vote count.
 	 *
-	 * @todo Lazy-load when null.
-	 *
+	 * @param $force_query Whether to skip the metadata cache.
 	 * @return int
 	 */
-	public function get_vote_count() {
-		return $this->vote_count;
+	public function get_vote_count( $force_query = false ) {
+		return $this->p->get_vote_count( $force_query );
 	}
 
 	public function save() {
@@ -119,6 +118,9 @@ class Response implements Util\SaveableAsWPPost {
 		if ( $saved ) {
 			update_post_meta( $this->get_id(), 'webwork_question_id', $this->get_question_id() );
 			update_post_meta( $this->get_id(), 'webwork_question_answer', $this->get_is_answer() );
+
+			$this->get_vote_count();
+
 			$this->populate();
 		}
 

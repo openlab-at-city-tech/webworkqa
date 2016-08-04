@@ -3,8 +3,8 @@ import React from 'react';
 var QuestionForm = React.createClass({
 	render: function() {
 		const {
-			content, isPending, problemId, problemText, tried,
-			onTextareaChange, onQuestionFormSubmit,
+			content, isCollapsed, isPending, problemId, problemText, tried,
+			onAccordionClick, onTextareaChange, onQuestionFormSubmit,
 		} = this.props
 
 		let formClassName = 'question-form'
@@ -12,8 +12,13 @@ var QuestionForm = React.createClass({
 			formClassName += ' form-pending'
 		}
 
+		let divClassName = 'ww-ask-question-form'
+		if ( isCollapsed ) {
+			divClassName += ' form-collapsed'
+		}
+
 		return (
-			<div className="ww-ask-question-form">
+			<div className={divClassName}>
 				<form
 				  className={formClassName}
 				  onSubmit={ e => {
@@ -22,38 +27,51 @@ var QuestionForm = React.createClass({
 				>
 					<h3>Ask a Question</h3>
 
-					<p className="ww-question-gloss">
-						Please review the questions below to see if your question has already been answered.
-					</p>
-
-
-					<input type="hidden" name="ww-problem-id" value={problemId} />
-					<label for="ww-question-content">What is your question?</label>
-					<textarea
-					  id="ww-question-content"
-					  name="ww-question-content"
-					  value={content}
-					  disabled={isPending}
-					  onChange={ e => {
-						onTextareaChange( 'content', e.target.value )
+					<a
+					  href="#"
+					  onClick={ e => {
+						  e.preventDefault()
+						  onAccordionClick()
 					  } }
-					/>
+					  className="accordion-toggle"
+					>
+						{isCollapsed ? '\u25c1' : '\u25bd'}
+					</a>
 
-					<label for="ww-question-tried">Describe what you have tried?</label>
-					<textarea
-					  id="ww-question-tried"
-					  name="ww-question-tried"
-					  value={tried}
-					  disabled={isPending}
-					  onChange={ e => {
-						onTextareaChange( 'tried', e.target.value )
-					  } }
-					/>
-					<input
-					  disabled={isPending}
-					  type="submit"
-					  value={isPending ? 'Submitting...' : 'Submit!'}
-					/>
+					<div className='question-block'>
+						<p className="ww-question-gloss">
+							Please review the questions below to see if your question has already been answered.
+						</p>
+
+
+						<input type="hidden" name="ww-problem-id" value={problemId} />
+						<label for="ww-question-content">What is your question?</label>
+						<textarea
+						  id="ww-question-content"
+						  name="ww-question-content"
+						  value={content}
+						  disabled={isPending}
+						  onChange={ e => {
+							onTextareaChange( 'content', e.target.value )
+						  } }
+						/>
+
+						<label for="ww-question-tried">Describe what you have tried?</label>
+						<textarea
+						  id="ww-question-tried"
+						  name="ww-question-tried"
+						  value={tried}
+						  disabled={isPending}
+						  onChange={ e => {
+							onTextareaChange( 'tried', e.target.value )
+						  } }
+						/>
+						<input
+						  disabled={isPending}
+						  type="submit"
+						  value={isPending ? 'Submitting...' : 'Submit!'}
+						/>
+					</div>
 				</form>
 			</div>
 		);

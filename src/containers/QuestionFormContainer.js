@@ -1,14 +1,18 @@
 import { connect } from 'react-redux'
 import QuestionForm from '../components/QuestionForm'
 import { changeQuestionText, sendQuestion, setQuestionPending } from '../actions/questions'
+import { setCollapsed } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
-	const { content, tried, isPending } = state.questionFormData
+	const { collapsed, questionFormData } = state
+	const { content, tried, isPending } = questionFormData
 
 	const problemText = window.WWData.problem_text
+	const isCollapsed = collapsed.hasOwnProperty( 'questionForm' )
 
 	return {
 		content,
+		isCollapsed,
 		isPending,
 		problemText,
 		tried
@@ -17,6 +21,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
+		onAccordionClick: () => {
+			dispatch( setCollapsed( 'questionForm' ) )
+		},
+
 		onTextareaChange: ( fieldName, value ) => {
 			dispatch( changeQuestionText( fieldName, value ) )
 		},

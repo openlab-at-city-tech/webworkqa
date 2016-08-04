@@ -50,7 +50,7 @@ class Client {
 			'remote_course_url' => $remote_course_url,
 			'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
 			'rest_api_endpoint' => $rest_api_endpoint,
-			'route_base' => trailingslashit( $route_base ) . 'webwork/',
+			'route_base' => trailingslashit( $route_base ),
 			'user_can_ask_question' => is_user_logged_in(), // todo
 			'user_can_post_response' => is_user_logged_in(), // todo
 			'user_can_vote' => is_user_logged_in(), // todo

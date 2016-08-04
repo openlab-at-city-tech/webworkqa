@@ -121,9 +121,19 @@ export default class Question extends Component {
 				</div>
 			)
 
-			questionMetadataElement = questionCourseElement
+			const questionStatsElement = (
+				<div className="item-stats question-stats">
+					<div>{question.voteCount} likes</div>
+					<div>{question.responseCount} responses</div>
+				</div>
+			)
 
-			// todo
+			questionMetadataElement = (
+				<div>
+					{questionCourseElement}
+					{questionStatsElement}
+				</div>
+			)
 		}
 
 		let problemSummaryClass = 'ww-question-content-section ww-question-problem-summary'

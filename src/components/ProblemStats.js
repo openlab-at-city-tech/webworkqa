@@ -31,7 +31,7 @@ export default class ProblemStats extends Component {
 		const unansweredCount = questionsById.length - answeredCount
 
 		return (
-			<div className="problem-stats">
+			<div className="item-stats problem-stats">
 				<div>{questionCount} questions</div>
 				<div> {responseCount} responses</div>
 				<div>{unansweredCount} unanswered</div>

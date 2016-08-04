@@ -108,7 +108,7 @@ class Endpoint extends \WP_Rest_Controller {
 			$q_votes = $vq->get();
 			$score = 0;
 			foreach ( $q_votes as $q_vote ) {
-				$score += $q_vote->get_value();
+				$score += $q_vote->value;
 			}
 
 			$scores[ $qid ] = $score;

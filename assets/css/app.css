@@ -88,6 +88,10 @@ ul.question-list > a {
 	position: relative;
 }
 
+.problem-questions {
+	position: relative;
+}
+
 .ww-problem > h2 {
 	min-height: 1em;
 }

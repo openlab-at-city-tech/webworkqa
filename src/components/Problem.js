@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProblemStatsContainer from '../containers/ProblemStatsContainer'
 import ProblemSummary from '../components/ProblemSummary'
 import QuestionFormContainer from '../containers/QuestionFormContainer'
+import QuestionSortDropdownContainer from '../containers/QuestionSortDropdownContainer'
 import QuestionList from '../components/QuestionList'
 
 export default class Problem extends Component {
@@ -27,7 +28,13 @@ export default class Problem extends Component {
 
 				{questionFormElement}
 
-				<QuestionList questionsById={questionsById} />
+				<div className="problem-questions">
+					<QuestionSortDropdownContainer
+					  itemType='problem'
+					  problemId={problemId}
+					/>
+					<QuestionList questionsById={questionsById} />
+				</div>
 			</div>
 		);
 	}

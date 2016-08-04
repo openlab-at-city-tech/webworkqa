@@ -37,6 +37,8 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$question_query = new \WeBWork\Server\Question\Query( array(
 			'problem_id' => $problem_id,
+			'orderby' => $params['orderby'],
+			'order' => 'DESC',
 		) );
 		$questions = $question_query->get_for_endpoint();
 

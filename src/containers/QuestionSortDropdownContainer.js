@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
 import QuestionSortDropdown from '../components/QuestionSortDropdown'
 import { fetchQuestionIndexList } from '../actions/questions'
+import { fetchProblem } from '../actions/problems'
 import { setSortOrderby } from '../actions/app'
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { currentFilters } = state
-	
+
 	let orderby
 	if ( currentFilters ) {
 		orderby = currentFilters.orderby
@@ -19,9 +20,17 @@ const mapStateToProps = ( state, ownProps ) => {
 const mapDispatchToProps = ( dispatch, ownProps ) => {
 	const onSortChange = ( event ) => {
 		const { value } = event.target
+		const { itemType, problemId } = ownProps
 
 		dispatch( setSortOrderby( value ) )
-		dispatch( fetchQuestionIndexList() )
+
+		// This suggests that the handler should belong to the QuestionContainer
+		// and ProblemContainer. Passing this param feels icky.
+		if ( 'problem' == itemType ) {
+			dispatch( fetchProblem( problemId ) )
+		} else {
+			dispatch( fetchQuestionIndexList() )
+		}
 	}
 
 	return {

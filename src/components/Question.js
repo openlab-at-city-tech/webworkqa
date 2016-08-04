@@ -91,10 +91,33 @@ export default class Question extends Component {
 			)
 		}
 
-		let scoreMetadataElement
+		let questionMetadataElement
 		if ( isSingleProblem ) {
-			scoreMetadataElement = <ScoreDialogContainer itemId={itemId} />
+			questionMetadataElement = <ScoreDialogContainer itemId={itemId} />
 		} else {
+			let courseData = []
+			if ( question.problemSet ) {
+				courseData.push( question.problemSet );
+			}
+
+			if ( question.course ) {
+				courseData.push( question.course );
+			}
+
+			if ( question.section ) {
+				courseData.push( question.section );
+			}
+
+			const courseDataString = courseData.join( ' | ' )
+
+			const questionCourseElement = (
+				<div className="question-course-data">
+					{courseDataString}
+				</div>
+			)
+
+			questionMetadataElement = questionCourseElement
+
 			// todo
 		}
 
@@ -133,7 +156,7 @@ export default class Question extends Component {
 						/>
 					</div>
 
-					{scoreMetadataElement}
+					{questionMetadataElement}
 				</div>
 			)
 		}

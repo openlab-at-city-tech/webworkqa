@@ -126,6 +126,13 @@ ul.question-list > a {
 	opacity: 1;
 }
 
+.question-course-data {
+	margin: 5px 20px;
+	text-decoration: underline;
+	font-size: .9em;
+	max-width: 60%;
+}
+
 .question-form textarea {
 	margin-bottom: 20px;
 	width: 100%;

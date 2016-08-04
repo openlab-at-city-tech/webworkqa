@@ -55,6 +55,16 @@ ul.question-list > a {
 	margin-bottom: 50px;
 }
 
+.index-list {
+	position: relative;
+}
+
+.question-sort {
+	position: absolute;
+	right: 10px;
+	top: 15px;
+}
+
 #webwork-app .question-list {
 	list-style-type: none;
 }

@@ -20,7 +20,8 @@ export function fetchQuestionIndexList() {
 				qs += '&'
 			}
 
-			qs += filterName + '=' + filters[ filterName ]
+			qs += encodeURIComponent( filterName ) 
+				+ '=' + encodeURIComponent( filters[ filterName ] )
 		}
 
 		if ( '' != qs ) {

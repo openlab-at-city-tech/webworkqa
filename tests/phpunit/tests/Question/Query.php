@@ -215,6 +215,7 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 
 		$q = new \WeBWorK\Server\Question\Query( array(
 			'problem_id' => 3,
+			'order' => 'DESC',
 		) );
 		$found = $q->get();
 
@@ -246,6 +247,8 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 
 		$q4 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,
+			'orderby' => 'votes',
+			'order' => 'DESC',
 			'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
 		) );
 
@@ -256,6 +259,8 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 
 		$q = new \WeBWorK\Server\Question\Query( array(
 			'problem_id' => 3,
+			'orderby' => 'votes',
+			'order' => 'DESC',
 		) );
 		$found = $q->get();
 
@@ -265,6 +270,95 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 		}
 
 		$this->assertSame( array( $q2->get_id(), $q3->get_id(), $q1->get_id(), $q4->get_id() ), $ids );
+	}
+
+	public function test_orderby_post_date_desc() {
+		$now = time();
+
+		$q1 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 50 ),
+		) );
+
+		$q2 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 40 ),
+		) );
+
+		$q3 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 60 ),
+		) );
+
+		$q4 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
+		) );
+
+		$q = new \WeBWorK\Server\Question\Query( array(
+			'orderby' => 'post_date',
+			'order' => 'DESC',
+		) );
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertSame( array( $q4->get_id(), $q2->get_id(), $q1->get_id(), $q3->get_id() ), $ids );
+	}
+
+	public function test_orderby_post_date_asc() {
+		$now = time();
+
+		$q1 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 50 ),
+		) );
+
+		$q2 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 40 ),
+		) );
+
+		$q3 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 60 ),
+		) );
+
+		$q4 = self::factory()->question->create_and_get( array(
+			'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
+		) );
+
+		$q = new \WeBWorK\Server\Question\Query( array(
+			'orderby' => 'post_date',
+			'order' => 'ASC',
+		) );
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertSame( array( $q3->get_id(), $q1->get_id(), $q2->get_id(), $q4->get_id() ), $ids );
+	}
+
+	public function test_orderby_response_count() {
+		$now = time();
+
+		$questions = self::factory()->question->create_many( 3 );
+
+		self::factory()->response->create_many( 2, array( 'question_id' => $questions[0] ) );
+		self::factory()->response->create_many( 1, array( 'question_id' => $questions[1] ) );
+		self::factory()->response->create_many( 3, array( 'question_id' => $questions[2] ) );
+
+		$q = new \WeBWorK\Server\Question\Query( array(
+			'orderby' => 'response_count',
+			'order' => 'DESC',
+		) );
+		$found = $q->get();
+
+		$ids = array();
+		foreach ( $found as $f ) {
+			$ids[] = $f->get_id();
+		}
+
+		$this->assertSame( array( $questions[2], $questions[0], $questions[1] ), $ids );
 	}
 
 	public function test_get_filter_options_for_problem_set() {

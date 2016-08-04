@@ -150,7 +150,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		$count = get_post_meta( $question_id, 'webwork_response_count', true );
 		if ( $force_query || '' === $count ) {
 			$response_query = new Response\Query( array(
-				'question_id' => $question_id,
+				'question_id__in' => array( $question_id ),
 			) );
 			$responses = $response_query->get();
 

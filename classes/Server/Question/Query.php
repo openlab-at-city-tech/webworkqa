@@ -85,15 +85,23 @@ class Query {
 			$args[ $op ] = $has_answer_ids;
 		}
 
-		if ( 'votes' === $this->r['orderby'] ) {
-			$args['meta_query']['votes_orderby'] = array(
-				'key' => 'webwork_vote_count',
+		if ( 'votes' === $this->r['orderby'] || 'response_count' === $this->r['orderby'] ) {
+			if ( 'votes' === $this->r['orderby'] ) {
+				$key = 'webwork_vote_count';
+			} elseif ( 'response_count' === $this->r['orderby'] ) {
+				$key = 'webwork_response_count';
+			}
+
+			$clause_key = "{$this->r['orderby']}_orderby";
+
+			$args['meta_query'][ $clause_key ] = array(
+				'key' => $key,
 				'compare' => 'EXISTS',
 				'type' => 'SIGNED',
 			);
 
 			$args['orderby'] = array(
-				'votes_orderby' => 'DESC',
+				$clause_key => $this->r['order'],
 				'post_date' => 'ASC',
 			);
 		}

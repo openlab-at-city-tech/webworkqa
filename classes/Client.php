@@ -44,6 +44,9 @@ class Client {
 		$clients = get_blog_option( 1, 'webwork_clients' );
 		$remote_course_url = array_search( get_current_blog_id(), $clients );
 
+		$user_is_admin = current_user_can( 'edit_others_posts' );
+		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+
 		wp_localize_script( 'webwork-app', 'WWData', array(
 			'problem_id' => $ww_problem,
 //			'problem_text' => $ww_problem_text,
@@ -54,7 +57,7 @@ class Client {
 			'user_can_ask_question' => is_user_logged_in(), // todo
 			'user_can_post_response' => is_user_logged_in(), // todo
 			'user_can_vote' => is_user_logged_in(), // todo
-			'user_is_admin' => current_user_can( 'edit_others_posts' ), // @todo!!
+			'user_is_admin' => $user_is_admin,
 		) );
 
 		wp_enqueue_style( 'webwork-app', plugins_url() . '/webwork/assets/css/app.css' );

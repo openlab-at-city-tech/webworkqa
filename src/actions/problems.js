@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { setInitialLoadComplete, setAppIsLoading } from './app'
+import { setInitialLoadComplete, setAppIsLoading, setCollapsed } from './app'
 import { receiveQuestions, receiveQuestionsById } from './questions'
 import { receiveResponseIdMap, setResponsesPendingBulk, receiveResponses } from './responses'
 import { setScoresBulk } from './scores'
@@ -87,6 +87,10 @@ export function fetchProblem( problemId ) {
 			dispatch( setResponsesPendingBulk( pending ) )
 
 			dispatch( receiveQuestionsById( questionsById ) )
+
+			for ( var i = 0; i < questionsById.length; i++ ) {
+				dispatch( setCollapsed( questionsById[ i ] + '-problem', true ) )
+			}
 
 			dispatch( receiveResponseIdMap( responseIdMap ) )
 			dispatch( receiveResponses( responses ) )

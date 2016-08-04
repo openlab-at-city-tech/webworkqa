@@ -342,6 +342,7 @@ ul.question-list > a {
 .problem-library-id {
 	margin-top: 2em;
 	font-weight: bold;
+	max-width: 60%;
 }
 
 .ww-disabled-input {

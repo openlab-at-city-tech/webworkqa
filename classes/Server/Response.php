@@ -123,8 +123,10 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$this->get_vote_count();
 
-			// Bust question response count cache.
-			$this->question->get_response_count( true );
+			// Bust question response count cache. (Won't work when mocked in tests.)
+			if ( $this->question instanceof Question ) {
+				$this->question->get_response_count( true );
+			}
 
 			$this->populate();
 		}
@@ -137,7 +139,9 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 		if ( $deleted ) {
 			// Bust question response count cache.
-			$this->question->get_response_count( true );
+			if ( $this->question instanceof Question ) {
+				$this->question->get_response_count( true );
+			}
 		}
 
 		return $deleted;

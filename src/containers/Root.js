@@ -69,6 +69,8 @@ export default class Root extends Component {
 			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
 			if ( questionIdMatches ) {
 				store.dispatch( setViewType( 'problem', questionIdMatches[1] ) )
+			} else {
+				store.dispatch( setViewType( 'problem' ) )
 			}
 		}
 	}
@@ -86,6 +88,8 @@ export default class Root extends Component {
 			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
 			if ( questionIdMatches ) {
 				store.dispatch( setViewType( 'problem', questionIdMatches[1] ) )
+			} else {
+				store.dispatch( setViewType( 'problem' ) )
 			}
 		}
 	}

@@ -84,13 +84,17 @@ ul.question-list > a {
 	position: relative;
 }
 
+.problem-topmatter {
+	position: relative;
+}
+
 .ww-problem > h2 {
 	min-height: 1em;
 }
 
 .item-stats {
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	right: 0;
 	font-size: .8em;
 	border: 1px solid #aaa;
@@ -328,7 +332,7 @@ ul.question-list > a {
 }
 
 .problem-library-id {
-	margin-top: 1em;
+	margin-top: 2em;
 	font-weight: bold;
 }
 

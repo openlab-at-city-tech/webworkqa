@@ -15,15 +15,15 @@ export default class Problem extends Component {
 		const { problems, problemId, questionsById, userCanAskQuestion } = this.props
 
 		const problem = problems[problemId]
-		const title = ''
 
 		const questionFormElement = userCanAskQuestion ? <QuestionFormContainer problemId={problemId} /> : ''
 
 		return (
 			<div className="ww-problem">
-				<h2>{title}</h2>
-				<ProblemStatsContainer />
-				<ProblemSummary problemId={problemId} problem={problem} />
+				<div className="problem-topmatter">
+					<ProblemStatsContainer />
+					<ProblemSummary problemId={problemId} problem={problem} />
+				</div>
 
 				{questionFormElement}
 

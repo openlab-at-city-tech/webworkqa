@@ -51,11 +51,10 @@ function sendResponseAnswered( responseId, isAnswered ) {
 				is_answer: isAnswered
 			})
 		} )
-			.then( response => response.json() )
-			.then( json => {
-				console.log( json )
-			} );
-
+		.then( response => response.json() )
+		.then( json => {
+			//console.log( json )
+		} );
 	}
 }
 

@@ -31496,6 +31496,7 @@
 				var responses = json.responses;
 				var scores = json.scores;
 				var votes = json.votes;
+				var filterOptions = json.filterOptions;
 	
 				var score = 0;
 				var vote = 0;
@@ -31522,6 +31523,8 @@
 	
 				dispatch((0, _scores.setScoresBulk)(scores));
 				dispatch((0, _votes.setVotesBulk)(votes));
+	
+				dispatch((0, _app.receiveFilterOptions)(filterOptions));
 	
 				dispatch((0, _app.setInitialLoadComplete)(true));
 				dispatch((0, _app.setAppIsLoading)(false));

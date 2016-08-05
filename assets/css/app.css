@@ -103,6 +103,7 @@ ul.question-list > a {
 	font-size: .8em;
 	border: 1px solid #aaa;
 	padding: 4px 8px;
+	white-space: nowrap;
 }
 
 .item-stats.question-stats {
@@ -163,7 +164,7 @@ ul.question-list > a {
 	margin: 5px 20px;
 	text-decoration: underline;
 	font-size: .9em;
-	max-width: 60%;
+	max-width: 50%;
 }
 
 .question-form textarea {

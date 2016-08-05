@@ -28272,6 +28272,10 @@
 	
 	var _ProblemContainer2 = _interopRequireDefault(_ProblemContainer);
 	
+	var _SidebarContainer = __webpack_require__(764);
+	
+	var _SidebarContainer2 = _interopRequireDefault(_SidebarContainer);
+	
 	var _QuestionIndexContainer = __webpack_require__(758);
 	
 	var _QuestionIndexContainer2 = _interopRequireDefault(_QuestionIndexContainer);
@@ -28334,7 +28338,12 @@
 					_react2['default'].createElement(
 						'div',
 						{ className: 'app-content' },
-						rootElement
+						_react2['default'].createElement(
+							'div',
+							{ className: 'ww-main' },
+							rootElement
+						),
+						_react2['default'].createElement(_SidebarContainer2['default'], null)
 					)
 				);
 			}
@@ -33312,7 +33321,6 @@
 				for (var i = 0; i < parts.length; i++) {
 					var match = parts[i].match(/\{\{\{([a-z]+)_([0-9]?)\}\}\}/);
 					if (match) {
-	
 						switch (match[1]) {
 							case 'math':
 								num = parseInt(match[2]);
@@ -33332,7 +33340,10 @@
 					} else {
 						children.push(_react2['default'].createElement(
 							'span',
-							{ key: i },
+							{
+								key: i,
+								className: 'preserve-whitespace'
+							},
 							parts[i]
 						));
 					}
@@ -55266,7 +55277,7 @@
 					headerElement,
 					_react2['default'].createElement(
 						'div',
-						{ className: 'ww-main problem-index' },
+						{ className: 'problem-index' },
 						introElement,
 						_react2['default'].createElement(
 							'div',
@@ -55275,8 +55286,7 @@
 							_react2['default'].createElement(_containersQuestionSortDropdownContainer2['default'], null),
 							_react2['default'].createElement(_containersQuestionIndexListContainer2['default'], null)
 						)
-					),
-					_react2['default'].createElement(_containersSidebarContainer2['default'], null)
+					)
 				);
 			}
 		}]);

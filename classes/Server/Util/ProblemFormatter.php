@@ -20,9 +20,11 @@ class ProblemFormatter {
 		$parsed['text'] = preg_replace( '/^<[pP][ >][^>]*>\([0-9]+ points?\)/', '', $parsed['text'] );
 
 		// Tag cleanup.
-		$parsed['text'] = preg_replace( '|<br ?/?>|i', "\r\r", $parsed['text'] );
+		$parsed['text'] = preg_replace( '|<br ?/?>|i', "\n", $parsed['text'] );
 		$parsed['text'] = preg_replace( '|</?[pbi]>|i', '', $parsed['text'] );
 		$parsed['text'] = preg_replace( '|</?blockquote>|i', '', $parsed['text'] );
+
+		$parsed['text'] = $this->collapse_line_breaks( $parsed['text'] );
 
 		return $parsed;
 	}
@@ -137,5 +139,32 @@ class ProblemFormatter {
 		$text = str_replace( array( '<p>', '</p>', '<P>', '</P>' ), '', $text );
 		$text = preg_replace( '|<p [^>]+>|i', '', $text );
 		return $text;
+	}
+
+	/**
+	 * Collapse line breaks.
+	 */
+	public function collapse_line_breaks( $text ) {
+		// Normalize line endings.
+		$text = preg_replace( '~\R~u', "\r\n", $text );
+
+		// Not the best, er, algorithm.
+		$parts = explode( "\r\n", $text );
+
+		$new_parts = array();
+		$emp = true;
+		foreach ( $parts as $key => $line ) {
+			$line = trim( $line );
+
+			if ( $line ) {
+				$emp = false;
+				$new_parts[] = $line;
+			} elseif ( ! $emp ) {
+				$emp = true;
+				$new_parts[] = $line;
+			}
+		}
+
+		return implode( "\r\n", $new_parts );
 	}
 }

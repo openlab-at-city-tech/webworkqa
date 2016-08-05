@@ -138,6 +138,10 @@ ul.question-list > a {
 	cursor: pointer;
 }
 
+.preserve-whitespace {
+	white-space: pre-line;
+}
+
 .ww-question-problem-summary:hover {
 	border: 1px solid #333;
 }

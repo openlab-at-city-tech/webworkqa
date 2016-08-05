@@ -36,7 +36,14 @@ export default class FormattedProblem extends Component {
 				}
 
 			} else {
-				children.push( <span key={i}>{parts[i]}</span> )
+				children.push(
+					<span
+					  key={i}
+					  className='preserve-whitespace'
+					>
+						{parts[i]}
+					</span>
+				)
 			}
 		}
 

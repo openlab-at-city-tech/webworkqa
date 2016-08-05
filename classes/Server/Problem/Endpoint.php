@@ -140,6 +140,7 @@ class Endpoint extends \WP_Rest_Controller {
 		}
 
 		$data = array(
+			'filterOptions' => $question_query->get_all_filter_options(),
 			'problems' => array( $problem_id => $problem ),
 			'questions' => $questions,
 			'questionsById' => $questions_by_id,

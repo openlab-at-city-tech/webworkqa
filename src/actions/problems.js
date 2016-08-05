@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { setInitialLoadComplete, setAppIsLoading, setCollapsed } from './app'
+import { receiveFilterOptions, setInitialLoadComplete, setAppIsLoading, setCollapsed } from './app'
 import { receiveQuestions, receiveQuestionsById } from './questions'
 import { receiveResponseIdMap, setResponsesPendingBulk, receiveResponses } from './responses'
 import { setScoresBulk } from './scores'
@@ -73,7 +73,12 @@ export function fetchProblem( problemId ) {
 		} )
 		.then( response => response.json() )
 		.then( json => {
-			const { problems, questions, questionsById, responseIdMap, responses, scores, votes } = json
+			const {
+				problems, questions, questionsById,
+				responseIdMap, responses, scores, votes,
+				filterOptions
+			} = json
+
 			let score = 0;
 			let vote = 0;
 
@@ -99,6 +104,8 @@ export function fetchProblem( problemId ) {
 
 			dispatch( setScoresBulk( scores ) )
 			dispatch( setVotesBulk( votes ) )
+
+			dispatch( receiveFilterOptions( filterOptions ) )
 
 			dispatch( setInitialLoadComplete( true ) )
 			dispatch( setAppIsLoading( false ) )

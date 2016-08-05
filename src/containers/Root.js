@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Provider, connect } from 'react-redux'
 import configureStore from '../configureStore'
 import ProblemContainer from './ProblemContainer'
+import SidebarContainer from './SidebarContainer'
 import QuestionIndexContainer from './QuestionIndexContainer'
 import { setViewType } from '../actions/app'
 
@@ -45,7 +46,11 @@ class RootComponent extends Component {
 				</div>
 
 				<div className="app-content">
-					{rootElement}
+					<div className="ww-main">
+						{rootElement}
+					</div>
+
+					<SidebarContainer />
 				</div>
 			</div>
 		)

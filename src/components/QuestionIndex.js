@@ -36,7 +36,7 @@ export default class QuestionIndex extends Component {
 			<div>
 				{headerElement}
 
-				<div className="ww-main problem-index">
+				<div className="problem-index">
 					{introElement}
 
 					<div className="index-list">
@@ -46,8 +46,6 @@ export default class QuestionIndex extends Component {
 						<QuestionIndexListContainer />
 					</div>
 				</div>
-
-				<SidebarContainer />
 			</div>
 		)
 	}

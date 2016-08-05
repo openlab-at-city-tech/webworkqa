@@ -16,20 +16,21 @@ export default class FormattedProblem extends Component {
 		for ( var i = 0; i < parts.length; i++ ) {
 			var match = parts[i].match( /\{\{\{([a-z]+)_([0-9]?)\}\}\}/ )
 			if ( match ) {
-
 				switch ( match[1] ) {
 					case 'math' :
 						num = parseInt( match[2] )
 
 						if ( maths && maths.hasOwnProperty( num ) ) {
 							theMath = maths[num]
-							children.push( <LaTeX
-									key={i}
-									mathKey={i}
-									itemId={itemId}
-									math={theMath.math}
-									display={theMath.display}
-									/> )
+							children.push(
+								<LaTeX
+								  key={i}
+								  mathKey={i}
+								  itemId={itemId}
+								  math={theMath.math}
+								  display={theMath.display}
+								/>
+							)
 						}
 						break
 				}

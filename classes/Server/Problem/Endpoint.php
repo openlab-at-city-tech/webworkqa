@@ -56,11 +56,17 @@ class Endpoint extends \WP_Rest_Controller {
 				'maths' => $parsed['maths'],
 			);
 		} else {
-			// If the current user has posted a question, use its data for problem.
+			/**
+			 * If the current user has posted a question, use its data for problem.
+			 *
+			 * Start at the end of the array, since the first one is most likely
+			 * to have a value (it came directly from WeBWorK).
+			 */
 			$my_question = null;
-			foreach ( $questions as $question ) {
+			foreach ( array_reverse( $questions ) as $question ) {
 				if ( $question['isMyQuestion'] ) {
 					$my_question = $question;
+					_b( $my_question );
 					break;
 				}
 			}
@@ -73,8 +79,8 @@ class Endpoint extends \WP_Rest_Controller {
 					'maths' => $my_question['problemMaths'],
 				);
 			} else {
-				// Just use the first one you find.
-				$the_question = reset( $questions );
+				// Just use the first one created.
+				$the_question = end( $questions );
 				$problem = array(
 					'problemId' => $problem_id,
 					'libraryId' => $problem_id,

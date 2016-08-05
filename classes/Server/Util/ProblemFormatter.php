@@ -25,6 +25,8 @@ class ProblemFormatter {
 		$parsed['text'] = preg_replace( '|</?blockquote>|i', '', $parsed['text'] );
 
 		$parsed['text'] = $this->collapse_line_breaks( $parsed['text'] );
+		$parsed['text'] = $this->strip_knowls( $parsed['text'] );
+		$parsed['text'] = $this->convert_anchors( $parsed['text'] );
 
 		return $parsed;
 	}
@@ -166,5 +168,24 @@ class ProblemFormatter {
 		}
 
 		return implode( "\r\n", $new_parts );
+	}
+
+	/**
+	 * Weird things that come from WeBWorK.
+	 */
+	public function strip_knowls( $text ) {
+		$regex = '|<a [^>]+ knowl ?=[^>]+>.*?</a>|';
+		$text = preg_replace( $regex, '', $text );
+
+		return $text;
+	}
+
+	/**
+	 * Convert anchors to plain text.
+	 */
+	public function convert_anchors( $text ) {
+		$regex = '|<a [^>]+>(.*?)</a>|';
+		$text = preg_replace( $regex, '\1', $text );
+		return $text;
 	}
 }

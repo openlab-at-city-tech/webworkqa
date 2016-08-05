@@ -182,4 +182,20 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
 		$this->assertSame( $expected, $pf->strip_p_tags( $text ) );
 	}
+
+	public function test_strip_knowls() {
+		$text = 'foo <a href="#" knowl = "" class = "internal" value = "PEJSLz48ST4gIChJbnN0cnVjdG9yIGhpbnQgcHJldmlldzogc2hvdyB0aGUgc3R1ZGVudCBoaW50 IGFmdGVyIDcgYXR0ZW1wdHMuIFRoZSBjdXJyZW50IG51bWJlciBvZiBhdHRlbXB0cyBpcyAwLiAp PEJSLz4gPC9JPiA8QlIvPgo8QlIvPgpGb3IgdGhpcyBxdWVzdGlvbiwgPHNwYW4gY2xhc3M9Ik1h dGhKYXhfUHJldmlldyI+W21hdGhdPC9zcGFuPjxzY3JpcHQgdHlwZT0ibWF0aC90ZXgiPmEgPSAt MTUsIGIgPSAtMTU8L3NjcmlwdD4gYW5kIDxzcGFuIGNsYXNzPSJNYXRoSmF4X1ByZXZpZXciPltt YXRoXTwvc3Bhbj48c2NyaXB0IHR5cGU9Im1hdGgvdGV4Ij5jID0gMzA8L3NjcmlwdD4uCgo8UD4= " base64 = "1" >Hint: </a> bar';
+		$expected = 'foo  bar';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->strip_knowls( $text ) );
+	}
+
+	public function test_convert_anchors() {
+		$text = 'foo <a href="#">bar baz</a> quz <a href="#>chort</a> chop';
+		$expected = 'foo bar baz quz chort chop';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->convert_anchors( $text ) );
+	}
 }

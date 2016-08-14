@@ -28272,11 +28272,11 @@
 	
 	var _ProblemContainer2 = _interopRequireDefault(_ProblemContainer);
 	
-	var _SidebarContainer = __webpack_require__(764);
+	var _SidebarContainer = __webpack_require__(758);
 	
 	var _SidebarContainer2 = _interopRequireDefault(_SidebarContainer);
 	
-	var _QuestionIndexContainer = __webpack_require__(758);
+	var _QuestionIndexContainer = __webpack_require__(762);
 	
 	var _QuestionIndexContainer2 = _interopRequireDefault(_QuestionIndexContainer);
 	
@@ -33312,34 +33312,43 @@
 				var _props = this.props;
 				var itemId = _props.itemId;
 				var content = _props.content;
-				var maths = _props.maths;
 	
 				if (!content) {
 					return _react2['default'].createElement('span', null);
 				}
 	
-				var parts = content.split(/(\{\{\{[a-z]+_[0-9]?\}\}\})/g);
+				var texRegExp = /(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})([^]*)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\})/gm;
+				var parts = content.split(texRegExp);
 				var children = [];
-				var num, theMath;
+				var texIndex = undefined,
+				    texId = undefined,
+				    typeIndex = undefined,
+				    mathIndex = undefined,
+				    closeIndex = undefined,
+				    display = undefined;
 				for (var i = 0; i < parts.length; i++) {
-					var match = parts[i].match(/\{\{\{([a-z]+)_([0-9]?)\}\}\}/);
-					if (match) {
-						switch (match[1]) {
-							case 'math':
-								num = parseInt(match[2]);
+					if (i == typeIndex || i == mathIndex || i == closeIndex) {
+						continue;
+					}
 	
-								if (maths && maths.hasOwnProperty(num)) {
-									theMath = maths[num];
-									children.push(_react2['default'].createElement(_LaTeX2['default'], {
-										key: i,
-										mathKey: i,
-										itemId: itemId,
-										math: theMath.math,
-										display: theMath.display
-									}));
-								}
-								break;
-						}
+					typeIndex = mathIndex = closeIndex = display = null;
+					if (parts[i] == '{{{LATEX_DELIM_DISPLAY_OPEN}}}' || parts[i] === '{{{LATEX_DELIM_INLINE_OPEN}}}') {
+						texIndex++;
+						texId = 'tex-' + texIndex;
+	
+						typeIndex = i + 1;
+						mathIndex = i + 2;
+						closeIndex = i + 3;
+	
+						display = 'DISPLAY' == parts[typeIndex] ? 'block' : 'inline';
+	
+						children.push(_react2['default'].createElement(_LaTeX2['default'], {
+							key: texId,
+							mathKey: texId,
+							itemId: itemId,
+							math: parts[mathIndex],
+							display: display
+						}));
 					} else {
 						children.push(_react2['default'].createElement(
 							'span',
@@ -39439,7 +39448,6 @@
 				var authorAvatar = question.authorAvatar;
 				var authorName = question.authorName;
 				var problemText = question.problemText;
-				var problemMaths = question.problemMaths;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
 	
@@ -39556,6 +39564,18 @@
 				if (isCollapsed) {
 					questionSummaryElement = questionTitleElement;
 				} else {
+					var contentId = 'content-' + itemId;
+					var formattedContent = _react2['default'].createElement(_FormattedProblem2['default'], {
+						itemId: contentId,
+						content: content
+					});
+	
+					var triedId = 'tried-' + itemId;
+					var formattedTried = _react2['default'].createElement(_FormattedProblem2['default'], {
+						itemId: triedId,
+						content: tried
+					});
+	
 					questionSummaryElement = _react2['default'].createElement(
 						'div',
 						{ className: 'ww-question-content-wrapper' },
@@ -39571,7 +39591,7 @@
 							_react2['default'].createElement(
 								'div',
 								{ className: 'ww-question-content-section' },
-								content
+								formattedContent
 							),
 							_react2['default'].createElement(
 								'em',
@@ -39581,7 +39601,7 @@
 							_react2['default'].createElement(
 								'div',
 								{ className: 'ww-question-content-section' },
-								tried
+								formattedTried
 							)
 						),
 						_react2['default'].createElement(
@@ -39597,8 +39617,7 @@
 							),
 							_react2['default'].createElement(_FormattedProblem2['default'], {
 								itemId: questionId,
-								content: problemText,
-								maths: problemMaths
+								content: problemText
 							})
 						),
 						questionMetadataElement
@@ -55163,21 +55182,21 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsQuestionIndex = __webpack_require__(759);
+	var _componentsSidebar = __webpack_require__(759);
 	
-	var _componentsQuestionIndex2 = _interopRequireDefault(_componentsQuestionIndex);
+	var _componentsSidebar2 = _interopRequireDefault(_componentsSidebar);
 	
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-		var viewType = state.viewType;
-	
-		return {
-			isResultsPage: viewType.viewType == 'results'
-		};
+	var mapStateToProps = function mapStateToProps(state) {
+		return {};
 	};
 	
-	var QuestionIndexContainer = (0, _reactRedux.connect)(mapStateToProps)(_componentsQuestionIndex2['default']);
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+		return {};
+	};
 	
-	exports['default'] = QuestionIndexContainer;
+	var SidebarContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsSidebar2['default']);
+	
+	exports['default'] = SidebarContainer;
 	module.exports = exports['default'];
 
 /***/ },
@@ -55204,397 +55223,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _containersQuestionIndexListContainer = __webpack_require__(760);
-	
-	var _containersQuestionIndexListContainer2 = _interopRequireDefault(_containersQuestionIndexListContainer);
-	
-	var _containersQuestionSortDropdownContainer = __webpack_require__(626);
-	
-	var _containersQuestionSortDropdownContainer2 = _interopRequireDefault(_containersQuestionSortDropdownContainer);
-	
-	var _containersResultsHeaderContainer = __webpack_require__(762);
-	
-	var _containersResultsHeaderContainer2 = _interopRequireDefault(_containersResultsHeaderContainer);
-	
-	var _containersSidebarContainer = __webpack_require__(764);
-	
-	var _containersSidebarContainer2 = _interopRequireDefault(_containersSidebarContainer);
-	
-	var QuestionIndex = (function (_Component) {
-		_inherits(QuestionIndex, _Component);
-	
-		function QuestionIndex() {
-			_classCallCheck(this, QuestionIndex);
-	
-			_get(Object.getPrototypeOf(QuestionIndex.prototype), 'constructor', this).apply(this, arguments);
-		}
-	
-		_createClass(QuestionIndex, [{
-			key: 'render',
-			value: function render() {
-				// All the juggling here is because the Results page looks a bit different.
-				var isResultsPage = this.props.isResultsPage;
-	
-				var headerElement = isResultsPage ? _react2['default'].createElement(_containersResultsHeaderContainer2['default'], null) : '';
-	
-				var introElement = '';
-				if (isResultsPage) {
-					introElement = _react2['default'].createElement(
-						'div',
-						{ className: 'index-intro' },
-						_react2['default'].createElement(
-							'p',
-							null,
-							'Brief explanation of results?'
-						)
-					);
-				} else {
-					introElement = _react2['default'].createElement(
-						'div',
-						{ className: 'index-intro' },
-						_react2['default'].createElement(
-							'h2',
-							null,
-							'Introduction'
-						),
-						_react2['default'].createElement(
-							'p',
-							null,
-							'Quaerat nemo debitis dolorum ratione est exercitationem aut molestias. Excepturi beatae et autem et quia quo rem. Et provident id ducimus. Quaerat temporibus doloribus rerum eaque et. Odio necessitatibus eos vitae molestiae in. Numquam et et molestias velit mollitia consequatur reiciendis. Iusto quo maxime quibusdam libero. Recusandae porro maiores laudantium mollitia rerum cumque voluptatem delectus. Sit quibusdam sint animi. Nemo qui qui expedita.'
-						)
-					);
-				}
-	
-				var listHeaderElement = '';
-				if (!isResultsPage) {
-					listHeaderElement = _react2['default'].createElement(
-						'h2',
-						null,
-						'Recent Activity'
-					);
-				}
-	
-				return _react2['default'].createElement(
-					'div',
-					null,
-					headerElement,
-					_react2['default'].createElement(
-						'div',
-						{ className: 'problem-index' },
-						introElement,
-						_react2['default'].createElement(
-							'div',
-							{ className: 'index-list' },
-							listHeaderElement,
-							_react2['default'].createElement(_containersQuestionSortDropdownContainer2['default'], null),
-							_react2['default'].createElement(_containersQuestionIndexListContainer2['default'], null)
-						)
-					)
-				);
-			}
-		}]);
-	
-		return QuestionIndex;
-	})(_react.Component);
-	
-	exports['default'] = QuestionIndex;
-	module.exports = exports['default'];
-
-/***/ },
-/* 760 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _interopRequireDefault = __webpack_require__(1)['default'];
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _reactRedux = __webpack_require__(496);
-	
-	var _componentsQuestionIndexList = __webpack_require__(761);
-	
-	var _componentsQuestionIndexList2 = _interopRequireDefault(_componentsQuestionIndexList);
-	
-	var _actionsQuestions = __webpack_require__(542);
-	
-	var mapStateToProps = function mapStateToProps(state) {
-		return {
-			questionIds: state.questionsById
-		};
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-		return {
-			// @todo Pagination?
-			onComponentWillMount: function onComponentWillMount() {
-				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
-			}
-		};
-	};
-	
-	var QuestionListContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsQuestionIndexList2['default']);
-	
-	exports['default'] = QuestionListContainer;
-	module.exports = exports['default'];
-
-/***/ },
-/* 761 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _get = __webpack_require__(467)['default'];
-	
-	var _inherits = __webpack_require__(483)['default'];
-	
-	var _createClass = __webpack_require__(492)['default'];
-	
-	var _classCallCheck = __webpack_require__(495)['default'];
-	
-	var _interopRequireDefault = __webpack_require__(1)['default'];
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _react = __webpack_require__(300);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _containersQuestionContainerJs = __webpack_require__(629);
-	
-	var _containersQuestionContainerJs2 = _interopRequireDefault(_containersQuestionContainerJs);
-	
-	var QuestionList = (function (_Component) {
-		_inherits(QuestionList, _Component);
-	
-		function QuestionList() {
-			_classCallCheck(this, QuestionList);
-	
-			_get(Object.getPrototypeOf(QuestionList.prototype), 'constructor', this).apply(this, arguments);
-		}
-	
-		_createClass(QuestionList, [{
-			key: 'componentWillMount',
-			value: function componentWillMount() {
-				var onComponentWillMount = this.props.onComponentWillMount;
-	
-				onComponentWillMount();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var questionIds = this.props.questionIds;
-	
-				var listItems = [];
-				questionIds.forEach(function (questionId) {
-					listItems.push(_react2['default'].createElement(_containersQuestionContainerJs2['default'], {
-						itemId: questionId,
-						key: questionId
-					}));
-				});
-	
-				if (!listItems.length) {
-					listItems.push(_react2['default'].createElement(
-						'p',
-						{ key: '1', className: 'no-results' },
-						'No results found.'
-					));
-				}
-	
-				return _react2['default'].createElement(
-					'ul',
-					{ className: 'question-list' },
-					listItems
-				);
-			}
-		}]);
-	
-		return QuestionList;
-	})(_react.Component);
-	
-	exports['default'] = QuestionList;
-	module.exports = exports['default'];
-
-/***/ },
-/* 762 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _interopRequireDefault = __webpack_require__(1)['default'];
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _reactRedux = __webpack_require__(496);
-	
-	var _componentsResultsHeader = __webpack_require__(763);
-	
-	var _componentsResultsHeader2 = _interopRequireDefault(_componentsResultsHeader);
-	
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-		var currentFilters = state.currentFilters;
-	
-		return {
-			currentFilters: currentFilters
-		};
-	};
-	
-	var ResultsHeaderContainer = (0, _reactRedux.connect)(mapStateToProps)(_componentsResultsHeader2['default']);
-	
-	exports['default'] = ResultsHeaderContainer;
-	module.exports = exports['default'];
-
-/***/ },
-/* 763 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _get = __webpack_require__(467)['default'];
-	
-	var _inherits = __webpack_require__(483)['default'];
-	
-	var _createClass = __webpack_require__(492)['default'];
-	
-	var _classCallCheck = __webpack_require__(495)['default'];
-	
-	var _interopRequireDefault = __webpack_require__(1)['default'];
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _react = __webpack_require__(300);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var ResultsHeader = (function (_Component) {
-		_inherits(ResultsHeader, _Component);
-	
-		function ResultsHeader() {
-			_classCallCheck(this, ResultsHeader);
-	
-			_get(Object.getPrototypeOf(ResultsHeader.prototype), 'constructor', this).apply(this, arguments);
-		}
-	
-		_createClass(ResultsHeader, [{
-			key: 'render',
-			value: function render() {
-				var currentFilters = this.props.currentFilters;
-	
-				var displayFilters = ['course', 'section', 'problemSet'];
-	
-				var active = [];
-				var filterName = '';
-				for (var i = 0; i < displayFilters.length; i++) {
-					filterName = displayFilters[i];
-					if (currentFilters[filterName]) {
-						active.push(currentFilters[filterName]);
-					}
-				}
-	
-				if (currentFilters.unansweredQuestions) {
-					active.push('Unanswered');
-				} else if (currentFilters.answeredQuestions) {
-					active.push('Answered');
-				}
-	
-				var breadcrumbs = '';
-				if (active.length) {
-					var crumbs = active.join(' > ');
-					breadcrumbs = _react2['default'].createElement(
-						'div',
-						{ className: 'results-breadcrumbs' },
-						'Filtered by: ',
-						crumbs
-					);
-				}
-	
-				return _react2['default'].createElement(
-					'div',
-					{ className: 'results-header' },
-					_react2['default'].createElement(
-						'h2',
-						null,
-						'Questions'
-					),
-					breadcrumbs
-				);
-			}
-		}]);
-	
-		return ResultsHeader;
-	})(_react.Component);
-	
-	exports['default'] = ResultsHeader;
-	module.exports = exports['default'];
-
-/***/ },
-/* 764 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _interopRequireDefault = __webpack_require__(1)['default'];
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _reactRedux = __webpack_require__(496);
-	
-	var _componentsSidebar = __webpack_require__(765);
-	
-	var _componentsSidebar2 = _interopRequireDefault(_componentsSidebar);
-	
-	var mapStateToProps = function mapStateToProps(state) {
-		return {};
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-		return {};
-	};
-	
-	var SidebarContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsSidebar2['default']);
-	
-	exports['default'] = SidebarContainer;
-	module.exports = exports['default'];
-
-/***/ },
-/* 765 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _get = __webpack_require__(467)['default'];
-	
-	var _inherits = __webpack_require__(483)['default'];
-	
-	var _createClass = __webpack_require__(492)['default'];
-	
-	var _classCallCheck = __webpack_require__(495)['default'];
-	
-	var _interopRequireDefault = __webpack_require__(1)['default'];
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	
-	var _react = __webpack_require__(300);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _SidebarFilter = __webpack_require__(766);
+	var _SidebarFilter = __webpack_require__(760);
 	
 	var _SidebarFilter2 = _interopRequireDefault(_SidebarFilter);
 	
-	var _containersSidebarFilterContainer = __webpack_require__(767);
+	var _containersSidebarFilterContainer = __webpack_require__(761);
 	
 	var _containersSidebarFilterContainer2 = _interopRequireDefault(_containersSidebarFilterContainer);
 	
@@ -55676,7 +55309,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 766 */
+/* 760 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55825,7 +55458,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 767 */
+/* 761 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55838,7 +55471,7 @@
 	
 	var _reactRedux = __webpack_require__(496);
 	
-	var _componentsSidebarFilter = __webpack_require__(766);
+	var _componentsSidebarFilter = __webpack_require__(760);
 	
 	var _componentsSidebarFilter2 = _interopRequireDefault(_componentsSidebarFilter);
 	
@@ -55891,6 +55524,392 @@
 	var SidebarFilterContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsSidebarFilter2['default']);
 	
 	exports['default'] = SidebarFilterContainer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 762 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _reactRedux = __webpack_require__(496);
+	
+	var _componentsQuestionIndex = __webpack_require__(763);
+	
+	var _componentsQuestionIndex2 = _interopRequireDefault(_componentsQuestionIndex);
+	
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+		var viewType = state.viewType;
+	
+		return {
+			isResultsPage: viewType.viewType == 'results'
+		};
+	};
+	
+	var QuestionIndexContainer = (0, _reactRedux.connect)(mapStateToProps)(_componentsQuestionIndex2['default']);
+	
+	exports['default'] = QuestionIndexContainer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 763 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _get = __webpack_require__(467)['default'];
+	
+	var _inherits = __webpack_require__(483)['default'];
+	
+	var _createClass = __webpack_require__(492)['default'];
+	
+	var _classCallCheck = __webpack_require__(495)['default'];
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _react = __webpack_require__(300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _containersQuestionIndexListContainer = __webpack_require__(764);
+	
+	var _containersQuestionIndexListContainer2 = _interopRequireDefault(_containersQuestionIndexListContainer);
+	
+	var _containersQuestionSortDropdownContainer = __webpack_require__(626);
+	
+	var _containersQuestionSortDropdownContainer2 = _interopRequireDefault(_containersQuestionSortDropdownContainer);
+	
+	var _containersResultsHeaderContainer = __webpack_require__(766);
+	
+	var _containersResultsHeaderContainer2 = _interopRequireDefault(_containersResultsHeaderContainer);
+	
+	var _containersSidebarContainer = __webpack_require__(758);
+	
+	var _containersSidebarContainer2 = _interopRequireDefault(_containersSidebarContainer);
+	
+	var QuestionIndex = (function (_Component) {
+		_inherits(QuestionIndex, _Component);
+	
+		function QuestionIndex() {
+			_classCallCheck(this, QuestionIndex);
+	
+			_get(Object.getPrototypeOf(QuestionIndex.prototype), 'constructor', this).apply(this, arguments);
+		}
+	
+		_createClass(QuestionIndex, [{
+			key: 'render',
+			value: function render() {
+				// All the juggling here is because the Results page looks a bit different.
+				var isResultsPage = this.props.isResultsPage;
+	
+				var headerElement = isResultsPage ? _react2['default'].createElement(_containersResultsHeaderContainer2['default'], null) : '';
+	
+				var introElement = '';
+				if (isResultsPage) {
+					introElement = _react2['default'].createElement(
+						'div',
+						{ className: 'index-intro' },
+						_react2['default'].createElement(
+							'p',
+							null,
+							'Brief explanation of results?'
+						)
+					);
+				} else {
+					introElement = _react2['default'].createElement(
+						'div',
+						{ className: 'index-intro' },
+						_react2['default'].createElement(
+							'h2',
+							null,
+							'Introduction'
+						),
+						_react2['default'].createElement(
+							'p',
+							null,
+							'Quaerat nemo debitis dolorum ratione est exercitationem aut molestias. Excepturi beatae et autem et quia quo rem. Et provident id ducimus. Quaerat temporibus doloribus rerum eaque et. Odio necessitatibus eos vitae molestiae in. Numquam et et molestias velit mollitia consequatur reiciendis. Iusto quo maxime quibusdam libero. Recusandae porro maiores laudantium mollitia rerum cumque voluptatem delectus. Sit quibusdam sint animi. Nemo qui qui expedita.'
+						)
+					);
+				}
+	
+				var listHeaderElement = '';
+				if (!isResultsPage) {
+					listHeaderElement = _react2['default'].createElement(
+						'h2',
+						null,
+						'Recent Activity'
+					);
+				}
+	
+				return _react2['default'].createElement(
+					'div',
+					null,
+					headerElement,
+					_react2['default'].createElement(
+						'div',
+						{ className: 'problem-index' },
+						introElement,
+						_react2['default'].createElement(
+							'div',
+							{ className: 'index-list' },
+							listHeaderElement,
+							_react2['default'].createElement(_containersQuestionSortDropdownContainer2['default'], null),
+							_react2['default'].createElement(_containersQuestionIndexListContainer2['default'], null)
+						)
+					)
+				);
+			}
+		}]);
+	
+		return QuestionIndex;
+	})(_react.Component);
+	
+	exports['default'] = QuestionIndex;
+	module.exports = exports['default'];
+
+/***/ },
+/* 764 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _reactRedux = __webpack_require__(496);
+	
+	var _componentsQuestionIndexList = __webpack_require__(765);
+	
+	var _componentsQuestionIndexList2 = _interopRequireDefault(_componentsQuestionIndexList);
+	
+	var _actionsQuestions = __webpack_require__(542);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+		return {
+			questionIds: state.questionsById
+		};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+		return {
+			// @todo Pagination?
+			onComponentWillMount: function onComponentWillMount() {
+				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
+			}
+		};
+	};
+	
+	var QuestionListContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_componentsQuestionIndexList2['default']);
+	
+	exports['default'] = QuestionListContainer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 765 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _get = __webpack_require__(467)['default'];
+	
+	var _inherits = __webpack_require__(483)['default'];
+	
+	var _createClass = __webpack_require__(492)['default'];
+	
+	var _classCallCheck = __webpack_require__(495)['default'];
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _react = __webpack_require__(300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _containersQuestionContainerJs = __webpack_require__(629);
+	
+	var _containersQuestionContainerJs2 = _interopRequireDefault(_containersQuestionContainerJs);
+	
+	var QuestionList = (function (_Component) {
+		_inherits(QuestionList, _Component);
+	
+		function QuestionList() {
+			_classCallCheck(this, QuestionList);
+	
+			_get(Object.getPrototypeOf(QuestionList.prototype), 'constructor', this).apply(this, arguments);
+		}
+	
+		_createClass(QuestionList, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				var onComponentWillMount = this.props.onComponentWillMount;
+	
+				onComponentWillMount();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var questionIds = this.props.questionIds;
+	
+				var listItems = [];
+				questionIds.forEach(function (questionId) {
+					listItems.push(_react2['default'].createElement(_containersQuestionContainerJs2['default'], {
+						itemId: questionId,
+						key: questionId
+					}));
+				});
+	
+				if (!listItems.length) {
+					listItems.push(_react2['default'].createElement(
+						'p',
+						{ key: '1', className: 'no-results' },
+						'No results found.'
+					));
+				}
+	
+				return _react2['default'].createElement(
+					'ul',
+					{ className: 'question-list' },
+					listItems
+				);
+			}
+		}]);
+	
+		return QuestionList;
+	})(_react.Component);
+	
+	exports['default'] = QuestionList;
+	module.exports = exports['default'];
+
+/***/ },
+/* 766 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _reactRedux = __webpack_require__(496);
+	
+	var _componentsResultsHeader = __webpack_require__(767);
+	
+	var _componentsResultsHeader2 = _interopRequireDefault(_componentsResultsHeader);
+	
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+		var currentFilters = state.currentFilters;
+	
+		return {
+			currentFilters: currentFilters
+		};
+	};
+	
+	var ResultsHeaderContainer = (0, _reactRedux.connect)(mapStateToProps)(_componentsResultsHeader2['default']);
+	
+	exports['default'] = ResultsHeaderContainer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 767 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _get = __webpack_require__(467)['default'];
+	
+	var _inherits = __webpack_require__(483)['default'];
+	
+	var _createClass = __webpack_require__(492)['default'];
+	
+	var _classCallCheck = __webpack_require__(495)['default'];
+	
+	var _interopRequireDefault = __webpack_require__(1)['default'];
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	
+	var _react = __webpack_require__(300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var ResultsHeader = (function (_Component) {
+		_inherits(ResultsHeader, _Component);
+	
+		function ResultsHeader() {
+			_classCallCheck(this, ResultsHeader);
+	
+			_get(Object.getPrototypeOf(ResultsHeader.prototype), 'constructor', this).apply(this, arguments);
+		}
+	
+		_createClass(ResultsHeader, [{
+			key: 'render',
+			value: function render() {
+				var currentFilters = this.props.currentFilters;
+	
+				var displayFilters = ['course', 'section', 'problemSet'];
+	
+				var active = [];
+				var filterName = '';
+				for (var i = 0; i < displayFilters.length; i++) {
+					filterName = displayFilters[i];
+					if (currentFilters[filterName]) {
+						active.push(currentFilters[filterName]);
+					}
+				}
+	
+				if (currentFilters.unansweredQuestions) {
+					active.push('Unanswered');
+				} else if (currentFilters.answeredQuestions) {
+					active.push('Answered');
+				}
+	
+				var breadcrumbs = '';
+				if (active.length) {
+					var crumbs = active.join(' > ');
+					breadcrumbs = _react2['default'].createElement(
+						'div',
+						{ className: 'results-breadcrumbs' },
+						'Filtered by: ',
+						crumbs
+					);
+				}
+	
+				return _react2['default'].createElement(
+					'div',
+					{ className: 'results-header' },
+					_react2['default'].createElement(
+						'h2',
+						null,
+						'Questions'
+					),
+					breadcrumbs
+				);
+			}
+		}]);
+	
+		return ResultsHeader;
+	})(_react.Component);
+	
+	exports['default'] = ResultsHeader;
 	module.exports = exports['default'];
 
 /***/ }

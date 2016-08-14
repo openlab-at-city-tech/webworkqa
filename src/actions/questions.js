@@ -188,6 +188,22 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			dispatch( receiveQuestionById( json.questionId ) )
 			dispatch( changeQuestionText( 'content', '' ) )
 			dispatch( changeQuestionText( 'tried', '' ) )
+
+			// Remove the post_data_key param from the window location.
+			if ( false !== window.location.search.indexOf( 'post_data_key' ) ) {
+				const cleanSearch = window.location.search.replace( /&?post_data_key=[^&]+/, '' )
+
+				let newPath = window.location.toString()
+				if ( 0 == cleanSearch.length || '?' == cleanSearch ) {
+					// Remove altogether.
+					newPath = newPath.replace( window.location.search, '' )
+				} else {
+					newPath = newPath.replace( window.location.search, cleanSearch )
+				}
+
+				window.history.replaceState( {}, 'Title', newPath )
+			}
+
 			// todo - handle errors
 		} )
 	}

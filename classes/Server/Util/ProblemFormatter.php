@@ -62,11 +62,11 @@ class ProblemFormatter {
 
 	public function strip_inputs( $text ) {
 		// Remove hidden inputs.
-		$text = preg_replace( '|<input[^>]+type="?hidden"?[^>]*> ?|', '', $text );
+		$text = preg_replace( '|<input[^>]+type="?hidden"?[^>]*> ?|i', '', $text );
 
 		// Replace regular inputs with ___.
-		$text = preg_replace( '|\n+<input|', ' <input', $text );
-		$text = preg_replace( '|<input[^>]+> *|', '___ ', $text );
+		$text = preg_replace( '|\n+<input|i', ' <input', $text );
+		$text = preg_replace( '|<input[^>]+> *|i', '___ ', $text );
 
 		return $text;
 	}

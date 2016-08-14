@@ -160,6 +160,15 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$this->assertSame( $expected, $pf->strip_inputs( $text ) );
 	}
 
+	public function test_strip_inputs_should_be_case_insensitive() {
+		$text = 'foo <INPUT TYPE="text" />  bar';
+
+		$expected = 'foo ___ bar';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->strip_inputs( $text ) );
+	}
+
 	public function test_get_library_id_from_text() {
 		$text = 'foo bar <b>Test/foo/bar/baz.pg</b> baz';
 		$expected = 'Test/foo/bar/baz.pg';

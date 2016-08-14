@@ -42,7 +42,7 @@ export default class Question extends Component {
 
 		const {
 			tried, content, questionId, authorAvatar, authorName,
-			problemText, problemMaths
+			problemText
 		} = question
 
 		const isMyQuestion = question.isMyQuestion > 0
@@ -147,16 +147,31 @@ export default class Question extends Component {
 		if ( isCollapsed ) {
 			questionSummaryElement = questionTitleElement
 		} else {
+			const contentId = 'content-' + itemId
+			const formattedContent =
+				<FormattedProblem
+				  itemId={contentId}
+				  content={content}
+				/>
+
+			const triedId = 'tried-' + itemId
+			const formattedTried = (
+				<FormattedProblem
+				  itemId={triedId}
+				  content={tried}
+				/>
+			)
+
 			questionSummaryElement = (
 				<div className="ww-question-content-wrapper">
 					<div className="ww-question-content">
 						{questionTitleElement}
 						<em>My question:</em>
-						<div className="ww-question-content-section">{content}</div>
+						<div className="ww-question-content-section">{formattedContent}</div>
 
 						<em>What I've tried:</em>
 						<div className="ww-question-content-section">
-							{tried}
+							{formattedTried}
 						</div>
 
 					</div>
@@ -169,7 +184,6 @@ export default class Question extends Component {
 						<FormattedProblem
 						  itemId={questionId}
 						  content={problemText}
-						  maths={problemMaths}
 						/>
 					</div>
 

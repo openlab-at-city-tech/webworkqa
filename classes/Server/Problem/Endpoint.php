@@ -52,8 +52,7 @@ class Endpoint extends \WP_Rest_Controller {
 			$problem = array(
 				'problemId' => $problem_id,
 				'libraryId' => $problem_id,
-				'content' => $parsed['text'],
-				'maths' => $parsed['maths'],
+				'content' => $parsed,
 			);
 		} else {
 			/**
@@ -66,7 +65,6 @@ class Endpoint extends \WP_Rest_Controller {
 			foreach ( array_reverse( $questions ) as $question ) {
 				if ( $question['isMyQuestion'] ) {
 					$my_question = $question;
-					_b( $my_question );
 					break;
 				}
 			}
@@ -76,7 +74,6 @@ class Endpoint extends \WP_Rest_Controller {
 					'problemId' => $problem_id,
 					'libraryId' => $problem_id,
 					'content' => $my_question['problemText'],
-					'maths' => $my_question['problemMaths'],
 				);
 			} else {
 				// Just use the first one created.
@@ -85,7 +82,6 @@ class Endpoint extends \WP_Rest_Controller {
 					'problemId' => $problem_id,
 					'libraryId' => $problem_id,
 					'content' => $the_question['problemText'],
-					'maths' => $the_question['problemMaths'],
 				);
 			}
 		}

@@ -7,6 +7,7 @@ namespace WeBWorK\Server;
  */
 class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $p;
+	protected $pf;
 
 	protected $id = 0;
 
@@ -14,8 +15,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $problem_set;
 	protected $course;
 	protected $section;
-
-	protected $tex;
+	protected $problem_text;
 
 	protected $author_id;
 	protected $content;
@@ -26,7 +26,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		$this->p = new Util\WPPost( $this );
 		$this->p->set_post_type( 'webwork_question' );
 
-		$this->tex = new Util\TeXObject();
+		$this->pf = new Util\ProblemFormatter();
 
 		if ( $id ) {
 			$this->set_id( $id );
@@ -78,7 +78,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	}
 
 	public function set_problem_text( $problem_text ) {
-		$this->tex->set_raw_text( $problem_text );
+		$this->problem_text = $problem_text;
 	}
 
 	public function set_vote_count( $vote_count ) {
@@ -93,12 +93,28 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->author_id;
 	}
 
-	public function get_content() {
-		return $this->content;
+	public function get_content( $format = 'mathjax' ) {
+		$content = $this->content;
+		if ( 'mathjax' === $format ) {
+			$content = $this->pf->replace_latex_escape_characters( $content );
+		}
+		return $content;
 	}
 
-	public function get_tried() {
-		return $this->tried;
+	public function get_tried( $format = 'mathjax' ) {
+		$tried = $this->tried;
+		if ( 'mathjax' === $format ) {
+			$tried = $this->pf->replace_latex_escape_characters( $tried );
+		}
+		return $tried;
+	}
+
+	public function get_problem_text( $format = 'mathjax' ) {
+		$problem_text = $this->problem_text;
+		if ( 'mathjax' === $format ) {
+			$problem_text = $this->pf->replace_latex_escape_characters( $problem_text );
+		}
+		return $problem_text;
 	}
 
 	public function get_post_date() {
@@ -119,14 +135,6 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function get_section() {
 		return (string) $this->section;
-	}
-
-	public function get_problem_text() {
-		return $this->tex->get_text_for_endpoint();
-	}
-
-	public function get_maths() {
-		return $this->tex->get_maths_for_endpoint();
 	}
 
 	public function get_author_avatar() {
@@ -185,8 +193,15 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			wp_set_object_terms( $post_id, array( $this->get_section() ), 'webwork_section' );
 
 
-			update_post_meta( $this->get_id(), 'webwork_tried', $this->get_tried() );
-			update_post_meta( $this->get_id(), 'webwork_problem_text', $this->tex->get_text_for_database() );
+			$tried = $this->get_tried();
+			$tried = $this->pf->convert_delims( $tried );
+			$tried = $this->pf->swap_latex_escape_characters( $tried );
+			update_post_meta( $this->get_id(), 'webwork_tried', $tried );
+
+			$problem_text = $this->get_problem_text();
+			$problem_text = $this->pf->convert_delims( $problem_text );
+			$problem_text = $this->pf->swap_latex_escape_characters( $problem_text );
+			update_post_meta( $this->get_id(), 'webwork_problem_text', $problem_text );
 
 			// Refresh vote count.
 			$this->get_vote_count( true );
@@ -241,7 +256,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			$this->set_tried( $tried );
 
 			$problem_text = get_post_meta( $this->get_id(), 'webwork_problem_text', true );
-			$this->tex->set_swapped_text( $problem_text );
+			$this->set_problem_text( $problem_text );
 		}
 	}
 }

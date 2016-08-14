@@ -134,7 +134,6 @@ class Query {
 				'course' => $q->get_course(),
 				'section' => $q->get_section(),
 				'problemText' => $q->get_problem_text(),
-				'problemMaths' => $q->get_maths(),
 				'isMyQuestion' => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
 				'authorAvatar' => $q->get_author_avatar(),
 				'authorName' => $q->get_author_name(),

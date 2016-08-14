@@ -6,29 +6,58 @@ namespace WeBWorK\Server\Util;
  * Problem formatting utilities.
  */
 class ProblemFormatter {
+	protected $mathjax_delim_regex = '|(<script type="math/tex([^"]*)">)(.*?)(</script>)|s';
+
 	public function clean( $text ) {
 		$parsed = $this->strip_inputs( $text );
-		$parsed = $this->replace_latex_escape_characters( $parsed );
-		$parsed = $this->generate_placeholders( $parsed );
-		$parsed['text'] = $this->remove_script_tags( $parsed['text'] );
-		$parsed['text'] = str_replace( '<span class="MathJax_Preview">[math]</span>', '', $parsed['text'] );
+		$parsed = $this->convert_delims( $parsed );
+//		$parsed = $this->replace_latex_escape_characters( $parsed );
+//		$parsed = $this->generate_placeholders( $parsed );
+		$parsed = $this->remove_script_tags( $parsed );
+		$parsed = str_replace( '<span class="MathJax_Preview">[math]</span>', '', $parsed );
 
-		$parsed['text'] = trim( $parsed['text'] );
+		$parsed = trim( $parsed );
 
 		// <P>(1 point)
 		// @todo Does this happen in all questions?
-		$parsed['text'] = preg_replace( '/^<[pP][ >][^>]*>\([0-9]+ points?\)/', '', $parsed['text'] );
+		$parsed = preg_replace( '/^<[pP][ >][^>]*>\([0-9]+ points?\)/', '', $parsed );
 
 		// Tag cleanup.
-		$parsed['text'] = preg_replace( '|<br ?/?>|i', "\n", $parsed['text'] );
-		$parsed['text'] = preg_replace( '|</?[pbi]>|i', '', $parsed['text'] );
-		$parsed['text'] = preg_replace( '|</?blockquote>|i', '', $parsed['text'] );
+		$parsed = preg_replace( '|<br ?/?>|i', "\n", $parsed );
+		$parsed = preg_replace( '|</?[pbi]>|i', '', $parsed );
+		$parsed = preg_replace( '|</?blockquote>|i', '', $parsed );
 
-		$parsed['text'] = $this->collapse_line_breaks( $parsed['text'] );
-		$parsed['text'] = $this->strip_knowls( $parsed['text'] );
-		$parsed['text'] = $this->convert_anchors( $parsed['text'] );
+		$parsed = $this->collapse_line_breaks( $parsed );
+		$parsed = $this->strip_knowls( $parsed );
+		$parsed = $this->convert_anchors( $parsed );
 
 		return $parsed;
+	}
+
+	public function clean_problem_from_webwork( $text ) {
+		$text = $this->remove_script_tags( $text );
+		$text = $this->strip_inputs( $text );
+		$text = $this->swap_latex_escape_characters( $text );
+		$text = $this->convert_delims( $text );
+		$text = str_replace( '<span class="MathJax_Preview">[math]</span>', '', $text );
+
+		$text = trim( $text );
+
+		// <P>(1 point)
+		// @todo Does this happen in all questions?
+		$text = preg_replace( '/^<[pP][ >][^>]*>\([0-9]+ points?\)/', '', $text );
+
+		// Tag cleanup.
+		$text = preg_replace( '|<br ?/?>|i', "\n", $text );
+		$text = preg_replace( '|</?[pbi]>|i', '', $text );
+		$text = preg_replace( '|</?blockquote>|i', '', $text );
+
+		$text = $this->collapse_line_breaks( $text );
+		$text = $this->strip_knowls( $text );
+		$text = $this->convert_anchors( $text );
+		$text = $this->strip_p_tags( $text );
+
+		return $text;
 	}
 
 	public function strip_inputs( $text ) {
@@ -99,14 +128,73 @@ class ProblemFormatter {
 		return $retval;
 	}
 
-	public function swap_latex_escape_characters( $text ) {
-		$regex = '|(<script type="math/tex[^>]+>)(.*?)(</script>)|s';
+	public function convert_delims( $text ) {
+		// \begin{math} etc
+		$regex = ';\\\\begin\{(math|displaymath)\}(.*?)\\\\end\{\1\};s';
 		$text = preg_replace_callback( $regex, function( $matches ) {
-			$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[2] );
-			return $matches[1] . $tex . $matches[3];
+			if ( 'displaymath' === $matches[1] ) {
+				$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
+				$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+			} else {
+				$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
+				$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
+			}
+
+			return sprintf(
+				'%s%s%s',
+				$odelim,
+				$matches[2],
+				$cdelim
+			);
+		}, $text );
+
+		// <script type="math/jax">
+		$regex = $this->mathjax_delim_regex;
+		$text = preg_replace_callback( $regex, function( $matches ) {
+			if ( false !== strpos( $matches[2], 'mode=display' ) ) {
+				$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
+				$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+			} else {
+				$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
+				$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
+			}
+
+			return sprintf(
+				'%s%s%s',
+				$odelim,
+				$matches[3],
+				$cdelim
+			);
+		}, $text );
+		return $text;
+	}
+
+	public function swap_latex_escape_characters( $text ) {
+		$regex = ';(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})(.*?)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\});s';
+		$text = preg_replace_callback( $regex, function( $matches ) {
+			$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[3] );
+			return $matches[1] . $tex . $matches[4];
 		}, $text );
 
 		return $text;
+	}
+
+	public function convert_delims_to_mathjax( $text ) {
+		$search = array(
+			'{{{LATEX_DELIM_INLINE_OPEN}}}',
+			'{{{LATEX_DELIM_INLINE_CLOSE}}}',
+			'{{{LATEX_DELIM_DISPLAY_OPEN}}}',
+			'{{{LATEX_DELIM_DISPLAY_CLOSE}}}',
+		);
+
+		$replace = array(
+			'<script type="math/tex">',
+			'</script>',
+			'<script type="math/tex; mode=display">',
+			'</script>',
+		);
+
+		return str_replace( $search, $replace, $text );
 	}
 
 	public function replace_latex_escape_characters( $text ) {

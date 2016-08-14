@@ -17,12 +17,14 @@ class WPPost {
 
 	protected $post_type;
 	protected $post_data = array();
+	protected $pf;
 
 	/**
 	 * @param \WeBWorK\Server\Util\SaveableAsWPPost
 	 */
 	public function __construct( SaveableAsWPPost $c ) {
 		$this->c = $c;
+		$this->pf = new ProblemFormatter();
 	}
 
 	public function set( $field, $value ) {
@@ -46,7 +48,12 @@ class WPPost {
 			$args['ID'] = $this->c->get_id();
 		}
 
-		$args['post_content'] = $this->c->get_content();
+		// WP will gobble up LaTeX escape characters.
+		$content = $this->c->get_content();
+		$content = $this->pf->convert_delims( $content );
+		$content = $this->pf->swap_latex_escape_characters( $content );
+		$args['post_content'] = $content;
+
 		$args['post_author'] = $this->c->get_author_id();
 
 		if ( null !== $this->c->get_post_date() ) {

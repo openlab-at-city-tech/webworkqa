@@ -155,14 +155,12 @@ class Server {
 		$text = base64_decode( $raw_text );
 
 		$pf = new Server\Util\ProblemFormatter();
-		$text = $pf->remove_script_tags( $text );
-		$text = $pf->strip_inputs( $text );
-		$text = $pf->swap_latex_escape_characters( $text );
+		$text = $pf->clean_problem_from_webwork( $text );
 
 		$data['problem_id'] = $pf->get_library_id_from_text( $text );
 
 		$text = $pf->strip_library_id_from_text( $text );
-		$text = $pf->strip_p_tags( $text );
+		_b( $text );
 
 		$data['problem_text'] = $text;
 

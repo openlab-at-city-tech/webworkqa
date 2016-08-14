@@ -89,9 +89,6 @@ class Endpoint extends \WP_Rest_Controller {
 						'problem_set' => $q->get_problem_set(),
 						'course' => $q->get_course(),
 						'section' => $q->get_section(),
-
-
-						// @todo This is not getting a raw enough copy of the text.
 						'problem_text' => $q->get_problem_text(),
 					);
 

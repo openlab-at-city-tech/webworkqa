@@ -91,10 +91,27 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$this->assertSame( $expected, $found );
 	}
 
-	public function test_swap_latex_escape_characters() {
-		$text = '\foo \bar <script type="text/javascript">\foo \bar</script> <script type="math/tex">\foo \bar</script> <script type="math/tex; mode=display">\foo \bar</script>';
+	public function test_convert_delims() {
+		$text = '\foo \bar \begin{math} \foo \bar\end{math} \begin{displaymath}\foo \bar\end{displaymath} foo';
+		$expected = '\foo \bar {{{LATEX_DELIM_INLINE_OPEN}}} \foo \bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}\foo \bar{{{LATEX_DELIM_DISPLAY_CLOSE}}} foo';
 
-		$expected = '\foo \bar <script type="text/javascript">\foo \bar</script> <script type="math/tex">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script> <script type="math/tex; mode=display">{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar</script>';
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->convert_delims( $text ) );
+	}
+
+	public function test_swap_latex_escape_characters() {
+		$text = '\foo \bar <script type="text/javascript">\foo \bar</script> {{{LATEX_DELIM_INLINE_OPEN}}}\foo \bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}\foo \bar{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+
+		$expected = '\foo \bar <script type="text/javascript">\foo \bar</script> {{{LATEX_DELIM_INLINE_OPEN}}}{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->swap_latex_escape_characters( $text ) );
+	}
+
+	public function test_swap_latex_escape_characters_with_custom_delims() {
+		$text = '\foo \bar <script type="text/javascript">\foo \bar</script> {{{LATEX_DELIM_INLINE_OPEN}}}\foo \bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}\foo \bar{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+
+		$expected = '\foo \bar <script type="text/javascript">\foo \bar</script> {{{LATEX_DELIM_INLINE_OPEN}}}{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}{{{LATEX_ESCAPE_CHARACTER}}}foo {{{LATEX_ESCAPE_CHARACTER}}}bar{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
 		$this->assertSame( $expected, $pf->swap_latex_escape_characters( $text ) );

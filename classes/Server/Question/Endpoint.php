@@ -72,6 +72,9 @@ class Endpoint extends \WP_Rest_Controller {
 		if ( isset( $params['post_data_key'] ) ) {
 			$post_data_key = $params['post_data_key'];
 			$problem_data = get_option( $post_data_key );
+
+			// Don't ever keep this data around.
+			delete_option( $post_data_key );
 		}
 
 		// Try fetching another question from the same problem.

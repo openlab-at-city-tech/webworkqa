@@ -81,6 +81,7 @@ class Server {
 			$post_data = $this->sanitize_post_data();
 			$this->set_remote_class_url( $post_data['remote_problem_url'] );
 			$this->set_post_data( $post_data );
+			$this->webwork_user = $post_data['webwork_user'];
 		} else {
 			if ( isset( $_GET['remote_class_url'] ) ) {
 				$this->set_remote_class_url( wp_unslash( $_GET['remote_class_url'] ) );

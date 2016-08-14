@@ -118,16 +118,16 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_swap_latex_escape_characters_should_match_multiline_tex() {
-		$text = '<span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">\begin{array}{l}
+		$text = '<span class="MathJax_Preview">[math]</span>{{{LATEX_DELIM_DISPLAY_OPEN}}}\begin{array}{l}
         x^2+y^2 = 11, \\\\
         x+y = 1. \\\\
-\end{array}</script>
+\end{array}{{{LATEX_DELIM_DISPLAY_CLOSE}}}
 <BR/>';
 
-		$expected = '<span class="MathJax_Preview">[math]</span><script type="math/tex; mode=display">{{{LATEX_ESCAPE_CHARACTER}}}begin{array}{l}
+		$expected = '<span class="MathJax_Preview">[math]</span>{{{LATEX_DELIM_DISPLAY_OPEN}}}{{{LATEX_ESCAPE_CHARACTER}}}begin{array}{l}
         x^2+y^2 = 11, {{{LATEX_ESCAPE_CHARACTER}}}{{{LATEX_ESCAPE_CHARACTER}}}
         x+y = 1. {{{LATEX_ESCAPE_CHARACTER}}}{{{LATEX_ESCAPE_CHARACTER}}}
-{{{LATEX_ESCAPE_CHARACTER}}}end{array}</script>
+{{{LATEX_ESCAPE_CHARACTER}}}end{array}{{{LATEX_DELIM_DISPLAY_CLOSE}}}
 <BR/>';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();

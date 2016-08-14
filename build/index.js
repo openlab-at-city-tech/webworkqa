@@ -33317,10 +33317,10 @@
 					return _react2['default'].createElement('span', null);
 				}
 	
-				var texRegExp = /(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})([^]*)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\})/gm;
+				var texRegExp = /(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})([^]*?)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\})/gm;
 				var parts = content.split(texRegExp);
 				var children = [];
-				var texIndex = undefined,
+				var texIndex = 0,
 				    texId = undefined,
 				    typeIndex = undefined,
 				    mathIndex = undefined,
@@ -33333,7 +33333,7 @@
 	
 					typeIndex = mathIndex = closeIndex = display = null;
 					if (parts[i] == '{{{LATEX_DELIM_DISPLAY_OPEN}}}' || parts[i] === '{{{LATEX_DELIM_INLINE_OPEN}}}') {
-						texIndex++;
+						texIndex = texIndex + 1;
 						texId = 'tex-' + texIndex;
 	
 						typeIndex = i + 1;

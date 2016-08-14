@@ -257,8 +257,6 @@ class Server {
 	/**
 	 * Get the key to be used when storing the POST data in the options table.
 	 *
-	 * @todo Does this need to use a timestamp? Seems like probably not?
-	 *
 	 * @since 1.0.0
 	 *
 	 * @param array $args {
@@ -287,7 +285,7 @@ class Server {
 			return false;
 		}
 
-		return 'webwork_post_data_' . md5( $ip . $user );
+		return 'webwork_post_data_' . md5( $ip . $user . time() );
 	}
 
 	/**

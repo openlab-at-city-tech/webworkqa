@@ -47,12 +47,13 @@ class Endpoint extends \WP_Rest_Controller {
 			$pf = new \WeBWorK\Server\Util\ProblemFormatter();
 
 			$text = $post_data['problem_text'];
-			$parsed = $pf->clean( $text );
+			$text = $pf->clean_problem_from_webwork( $text );
+			$text = $pf->replace_latex_escape_characters( $text );
 
 			$problem = array(
 				'problemId' => $problem_id,
 				'libraryId' => $problem_id,
-				'content' => $parsed,
+				'content' => $text,
 			);
 		} else {
 			/**

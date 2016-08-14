@@ -20,7 +20,7 @@ export function fetchQuestionIndexList() {
 				qs += '&'
 			}
 
-			qs += encodeURIComponent( filterName ) 
+			qs += encodeURIComponent( filterName )
 				+ '=' + encodeURIComponent( filters[ filterName ] )
 		}
 

@@ -160,7 +160,6 @@ class Server {
 		$data['problem_id'] = $pf->get_library_id_from_text( $text );
 
 		$text = $pf->strip_library_id_from_text( $text );
-		_b( $text );
 
 		$data['problem_text'] = $text;
 

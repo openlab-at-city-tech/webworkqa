@@ -218,7 +218,7 @@ class ProblemFormatter {
 
 		if ( $library_id ) {
 			// Any tags that contain nothing but the ID should be stripped too.
-			$regex = '|(<[^>]+>)+' . preg_quote( $library_id ) . '(</[a-zA-Z0-9]+>)+|';
+			$regex = '|(<[^>]+>)*' . preg_quote( $library_id ) . '(</[a-zA-Z0-9]+>)*|';
 			$text = preg_replace( $regex, '', $text );
 		}
 

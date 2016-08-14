@@ -10,10 +10,10 @@ export default class FormattedProblem extends Component {
 			return ( <span></span> )
 		}
 
-		const texRegExp = /(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})([^]*)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\})/gm
+		const texRegExp = /(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})([^]*?)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\})/gm
 		const parts = content.split( texRegExp )
 		let children = []
-		let texIndex, texId, typeIndex, mathIndex, closeIndex, display;
+		let texIndex = 0, texId, typeIndex, mathIndex, closeIndex, display;
 		for ( var i = 0; i < parts.length; i++ ) {
 			if ( i == typeIndex || i == mathIndex || i == closeIndex ) {
 				continue
@@ -21,7 +21,7 @@ export default class FormattedProblem extends Component {
 
 			typeIndex = mathIndex = closeIndex = display = null;
 			if ( parts[i] == '{{{LATEX_DELIM_DISPLAY_OPEN}}}' || parts[i] === '{{{LATEX_DELIM_INLINE_OPEN}}}' ) {
-				texIndex++
+				texIndex = texIndex + 1
 				texId = 'tex-' + texIndex
 
 				typeIndex = i + 1

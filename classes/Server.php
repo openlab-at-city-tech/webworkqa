@@ -107,6 +107,8 @@ class Server {
 		// Store the submitted post data, so it's available after a redirect.
 		$this->store_post_data();
 
+		$ww_client_site_base = $this->get_client_site_base();
+
 		// For the time being, all requests must be authenticated.
 		// @todo Check permissions against client site - maybe share logic with endpoints.
 		if ( ! is_user_logged_in() ) {
@@ -114,12 +116,10 @@ class Server {
 				'webwork' => 1,
 				'webwork_user' => $this->webwork_user,
 				'remote_class_url' => $this->remote_class_url,
-			), home_url() );
+			), $ww_client_site_base );
 			wp_safe_redirect( wp_login_url( $redirect_url ) );
 			die();
 		}
-
-		$ww_client_site_base = $this->get_client_site_base();
 
 		$problem_slug = $post_data['problem_id'];
 		$redirect_to = $ww_client_site_base . '#/problem/' . $problem_slug;

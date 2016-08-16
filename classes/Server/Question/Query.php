@@ -139,6 +139,7 @@ class Query {
 				'authorName' => $q->get_author_name(),
 				'responseCount' => $q->get_response_count(),
 				'voteCount' => $q->get_vote_count(),
+				'hasAnswer' => $q->get_has_answer(),
 			);
 		}
 

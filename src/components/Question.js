@@ -42,7 +42,7 @@ export default class Question extends Component {
 
 		const {
 			tried, content, questionId, authorAvatar, authorName,
-			problemText
+			problemText, hasAnswer
 		} = question
 
 		const isMyQuestion = question.isMyQuestion > 0
@@ -54,21 +54,6 @@ export default class Question extends Component {
 
 		const responseScrollElementName = 'response-form-' + itemId
 		var Element = Scroll.Element
-
-		// todo move this to the server and cache as meta
-		let isAnswered = false
-		let responseId = 0
-		let response = null
-		if ( responseIds.length ) {
-			for ( var i = 0; i <= responseIds.length; i++ ) {
-				responseId = responseIds[i]
-				response = responses[responseId]
-				if ( response && response.isAnswer ) {
-					isAnswered = true
-					break
-				}
-			}
-		}
 
 		const anchorName = 'question-' + itemId
 
@@ -223,7 +208,7 @@ export default class Question extends Component {
 
 		return (
 			<li
-			  className={this.getClassName( isCollapsed, isMyQuestion, isAnswered )}
+			  className={this.getClassName( isCollapsed, isMyQuestion, hasAnswer )}
 			>
 				<Element name={anchorName}>
 					<a name={anchorName}></a>
@@ -239,7 +224,7 @@ export default class Question extends Component {
 						  } }
 						>
 							<span className="ww-question-header-text">
-								{isAnswered ? 'Answered' : 'Unanswered'}
+								{hasAnswer ? 'Answered' : 'Unanswered'}
 							</span>
 
 							<span className="ww-question-header-toggle-label">
@@ -271,7 +256,7 @@ export default class Question extends Component {
 	/**
 	 * Get a class name for the <li> element.
 	 */
-	getClassName( isCollapsed, isMyQuestion, isAnswered ) {
+	getClassName( isCollapsed, isMyQuestion, hasAnswer ) {
 		let classes = []
 
 		if ( isCollapsed ) {
@@ -284,7 +269,7 @@ export default class Question extends Component {
 			classes.push( 'my-question' )
 		}
 
-		if ( isAnswered ) {
+		if ( hasAnswer ) {
 			classes.push( 'question-answered' )
 		} else {
 			classes.push( 'question-unanswered' )

@@ -31,13 +31,13 @@ class Query {
 	 * @return array|int
 	 */
 	public function get() {
-		$args = array_merge( $this->r, array(
+		$args = array(
 			'post_type' => 'webwork_question',
 			'update_post_term_cache' => false,
 			'meta_query' => array(),
 			'posts_per_page' => -1,
 			'tax_query' => array(),
-		) );
+		);
 
 		if ( $this->r['problem_id'] ) {
 			$args['tax_query']['problem_id'] = array(
@@ -109,6 +109,12 @@ class Query {
 				$clause_key => $this->r['order'],
 				'post_date' => 'ASC',
 			);
+		} elseif ( $this->r['orderby'] ) {
+			$args['orderby'] = $this->r['orderby'];
+		}
+
+		if ( $this->r['order'] ) {
+			$args['order'] = $this->r['order'];
 		}
 
 		$question_query = new \WP_Query( $args );

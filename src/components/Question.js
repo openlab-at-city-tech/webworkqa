@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Scroll from 'react-scroll'
+import Scroll, { Element } from 'react-scroll'
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import ResponseList from './ResponseList'
@@ -10,9 +10,16 @@ var moment = require( 'moment' )
 
 export default class Question extends Component {
 	componentDidMount() {
-		const { isCurrentQuestion, itemId, initialLoadComplete } = this.props
+		const {
+			isCurrentQuestion, isSingleProblem,
+			itemId, initialLoadComplete, userCanPostResponse
+		} = this.props
 
-		if ( initialLoadComplete ) {
+		if ( ! isSingleProblem ) {
+			return
+		}
+
+		if ( initialLoadComplete && userCanPostResponse ) {
 			const responseScrollElementName = 'response-form-' + itemId
 			Scroll.scroller.scrollTo( responseScrollElementName, {
 				duration: 1000,
@@ -53,7 +60,7 @@ export default class Question extends Component {
 		}
 
 		const responseScrollElementName = 'response-form-' + itemId
-		var Element = Scroll.Element
+		const Element = Scroll.Element
 
 		const anchorName = 'question-' + itemId
 

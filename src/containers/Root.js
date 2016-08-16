@@ -4,7 +4,7 @@ import configureStore from '../configureStore'
 import ProblemContainer from './ProblemContainer'
 import SidebarContainer from './SidebarContainer'
 import QuestionIndexContainer from './QuestionIndexContainer'
-import { setViewType } from '../actions/app'
+import { resetCurrentFilters, setViewType } from '../actions/app'
 
 const store = configureStore()
 
@@ -90,6 +90,9 @@ export default class Root extends Component {
 
 		if ( 'problem' == locationArray[0] ) {
 			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
+
+			store.dispatch( resetCurrentFilters() )
+
 			if ( questionIdMatches ) {
 				store.dispatch( setViewType( 'problem', questionIdMatches[1] ) )
 			} else {

@@ -46,8 +46,16 @@ export function processFilterToggle( slug, contrary ) {
 
 export function processFilterChange( slug, value ) {
 	return ( dispatch ) => {
-		dispatch( setFilterToggle( slug, value ) )
 		dispatch( setViewType( 'results' ) )
+		dispatch( setFilterToggle( slug, value ) )
+	}
+}
+
+export const RESET_CURRENT_FILTERS = 'RESET_CURRENT_FILTERS'
+export const resetCurrentFilters = () => {
+	return {
+		type: RESET_CURRENT_FILTERS,
+		payload: {}
 	}
 }
 

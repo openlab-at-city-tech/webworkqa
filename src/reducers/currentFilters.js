@@ -1,4 +1,4 @@
-import { SET_FILTER_TOGGLE, SET_SORT_ORDERBY } from '../actions/app'
+import { RESET_CURRENT_FILTERS, SET_FILTER_TOGGLE, SET_SORT_ORDERBY } from '../actions/app'
 
 export function currentFilters( state = {
 	course: false,
@@ -25,6 +25,9 @@ export function currentFilters( state = {
 				orderby,
 				order
 			} )
+
+		case RESET_CURRENT_FILTERS :
+			return {}
 
 		default :
 			return state

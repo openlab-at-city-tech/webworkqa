@@ -28376,6 +28376,7 @@
 	
 				if ('problem' == locationArray[0]) {
 					var questionIdMatches = locationArray[locationArray.length - 1].match(/^question-(\d+)/);
+	
 					if (questionIdMatches) {
 						store.dispatch((0, _actionsApp.setViewType)('problem', questionIdMatches[1]));
 					} else {
@@ -28395,6 +28396,9 @@
 	
 				if ('problem' == locationArray[0]) {
 					var questionIdMatches = locationArray[locationArray.length - 1].match(/^question-(\d+)/);
+	
+					store.dispatch((0, _actionsApp.resetCurrentFilters)());
+	
 					if (questionIdMatches) {
 						store.dispatch((0, _actionsApp.setViewType)('problem', questionIdMatches[1]));
 					} else {
@@ -31048,11 +31052,21 @@
 	
 	function processFilterChange(slug, value) {
 		return function (dispatch) {
-			dispatch(setFilterToggle(slug, value));
 			dispatch(setViewType('results'));
+			dispatch(setFilterToggle(slug, value));
 		};
 	}
 	
+	var RESET_CURRENT_FILTERS = 'RESET_CURRENT_FILTERS';
+	exports.RESET_CURRENT_FILTERS = RESET_CURRENT_FILTERS;
+	var resetCurrentFilters = function resetCurrentFilters() {
+		return {
+			type: RESET_CURRENT_FILTERS,
+			payload: {}
+		};
+	};
+	
+	exports.resetCurrentFilters = resetCurrentFilters;
 	var SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE';
 	exports.SET_FILTER_TOGGLE = SET_FILTER_TOGGLE;
 	var setFilterToggle = function setFilterToggle(slug, value) {
@@ -31295,6 +31309,9 @@
 					orderby: orderby,
 					order: order
 				});
+	
+			case _actionsApp.RESET_CURRENT_FILTERS:
+				return {};
 	
 			default:
 				return state;
@@ -32313,9 +32330,7 @@
 				})
 			}).then(function (response) {
 				return response.json();
-			}).then(function (json) {
-				//console.log( json )
-			});
+			}).then(function (json) {});
 		};
 	}
 	
@@ -32484,9 +32499,7 @@
 				})
 			}).then(function (response) {
 				return response.json();
-			}).then(function (json) {
-				//	console.log( json )
-			});
+			}).then(function (json) {});
 		};
 	}
 	
@@ -39419,10 +39432,17 @@
 			value: function componentDidMount() {
 				var _props = this.props;
 				var isCurrentQuestion = _props.isCurrentQuestion;
+				var isSingleProblem = _props.isSingleProblem;
 				var itemId = _props.itemId;
 				var initialLoadComplete = _props.initialLoadComplete;
+				var userCanPostResponse = _props.userCanPostResponse;
 	
-				if (initialLoadComplete) {
+				if (!isSingleProblem) {
+					return;
+				}
+				console.log(isSingleProblem);
+	
+				if (initialLoadComplete && userCanPostResponse) {
 					var responseScrollElementName = 'response-form-' + itemId;
 					_reactScroll2['default'].scroller.scrollTo(responseScrollElementName, {
 						duration: 1000,
@@ -55518,7 +55538,6 @@
 				var value = event.target.value;
 	
 				dispatch((0, _actionsApp.processFilterChange)(slug, value));
-				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
 			}
 		};
 	};

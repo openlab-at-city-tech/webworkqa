@@ -146,6 +146,31 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	}
 
 	/**
+	 * Get whether the question has an answer.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param $force_query Whether to skip metadata cache. Default false.
+	 * @return bool
+	 */
+	public function get_has_answer( $force_query = false) {
+		$question_id = $this->get_id();
+		$has_answer = get_post_meta( $question_id, 'webwork_has_answer', true );
+		if ( $force_query || '' === $has_answer ) {
+			$response_query = new Response\Query( array(
+				'question_id__in' => array( $question_id ),
+				'is_answer' => true,
+			) );
+			$responses = $response_query->get();
+
+			$has_answer = ! empty( $responses );
+			update_post_meta( $question_id, 'webwork_has_answer', (int) $has_answer );
+		}
+
+		return (bool) $has_answer;
+	}
+
+	/**
 	 * Get response count.
 	 *
 	 * @since 1.0.0

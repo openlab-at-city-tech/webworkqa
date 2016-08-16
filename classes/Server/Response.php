@@ -123,9 +123,10 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$this->get_vote_count();
 
-			// Bust question response count cache. (Won't work when mocked in tests.)
+			// Bust question caches. (Won't work when mocked in tests.)
 			if ( $this->question instanceof Question ) {
 				$this->question->get_response_count( true );
+				$this->question->get_has_answer( true );
 			}
 
 			$this->populate();

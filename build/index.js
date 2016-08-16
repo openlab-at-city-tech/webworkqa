@@ -39464,6 +39464,7 @@
 				var authorAvatar = question.authorAvatar;
 				var authorName = question.authorName;
 				var problemText = question.problemText;
+				var hasAnswer = question.hasAnswer;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
 	
@@ -39474,21 +39475,6 @@
 	
 				var responseScrollElementName = 'response-form-' + itemId;
 				var Element = _reactScroll2['default'].Element;
-	
-				// todo move this to the server and cache as meta
-				var isAnswered = false;
-				var responseId = 0;
-				var response = null;
-				if (responseIds.length) {
-					for (var i = 0; i <= responseIds.length; i++) {
-						responseId = responseIds[i];
-						response = responses[responseId];
-						if (response && response.isAnswer) {
-							isAnswered = true;
-							break;
-						}
-					}
-				}
 	
 				var anchorName = 'question-' + itemId;
 	
@@ -39671,7 +39657,7 @@
 				return _react2['default'].createElement(
 					'li',
 					{
-						className: this.getClassName(isCollapsed, isMyQuestion, isAnswered)
+						className: this.getClassName(isCollapsed, isMyQuestion, hasAnswer)
 					},
 					_react2['default'].createElement(
 						Element,
@@ -39696,7 +39682,7 @@
 								_react2['default'].createElement(
 									'span',
 									{ className: 'ww-question-header-text' },
-									isAnswered ? 'Answered' : 'Unanswered'
+									hasAnswer ? 'Answered' : 'Unanswered'
 								),
 								_react2['default'].createElement(
 									'span',
@@ -39728,7 +39714,7 @@
 	   */
 		}, {
 			key: 'getClassName',
-			value: function getClassName(isCollapsed, isMyQuestion, isAnswered) {
+			value: function getClassName(isCollapsed, isMyQuestion, hasAnswer) {
 				var classes = [];
 	
 				if (isCollapsed) {
@@ -39741,7 +39727,7 @@
 					classes.push('my-question');
 				}
 	
-				if (isAnswered) {
+				if (hasAnswer) {
 					classes.push('question-answered');
 				} else {
 					classes.push('question-unanswered');

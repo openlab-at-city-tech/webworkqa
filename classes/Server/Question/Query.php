@@ -70,19 +70,24 @@ class Query {
 		}
 
 		if ( null !== $this->r['answered'] ) {
-			// @todo Make this less awful.
-			$r_query = new \WeBWorK\Server\Response\Query( array(
-				'is_answer' => true,
-			) );
-			$is_answer_responses = $r_query->get();
-
-			$has_answer_ids = array( 0 );
-			foreach ( $is_answer_responses as $is_answer_response ) {
-				$has_answer_ids[] = $is_answer_response->get_question_id();
+			if ( $this->r['answered'] ) {
+				$args['meta_query']['answered'] = array(
+					'key' => 'webwork_has_answer',
+					'value' => '1',
+				);
+			} else {
+				$args['meta_query']['answered'] = array(
+					'relation' => 'OR',
+					array(
+						'key' => 'webwork_has_answer',
+						'value' => '0',
+					),
+					array(
+						'key' => 'webwork_has_answer',
+						'compare' => 'NOT EXISTS',
+					),
+				);
 			}
-
-			$op = $this->r['answered'] ? 'post__in' : 'post__not_in';
-			$args[ $op ] = $has_answer_ids;
 		}
 
 		if ( 'votes' === $this->r['orderby'] || 'response_count' === $this->r['orderby'] ) {

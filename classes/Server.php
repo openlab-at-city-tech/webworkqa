@@ -109,22 +109,19 @@ class Server {
 
 		$ww_client_site_base = $this->get_client_site_base();
 
-		// For the time being, all requests must be authenticated.
-		// @todo Check permissions against client site - maybe share logic with endpoints.
-		if ( ! is_user_logged_in() ) {
-			$redirect_url = add_query_arg( array(
-				'webwork' => 1,
-				'webwork_user' => $this->webwork_user,
-				'remote_class_url' => $this->remote_class_url,
-			), $ww_client_site_base );
-			wp_safe_redirect( wp_login_url( $redirect_url ) );
-			die();
-		}
-
 		$problem_slug = $post_data['problem_id'];
 		$redirect_to = $ww_client_site_base . '#/problem/' . $problem_slug;
 		$redirect_to = add_query_arg( 'post_data_key', $this->post_data_key, $redirect_to );
-		wp_safe_redirect( $redirect_to );
+
+		// For the time being, all requests must be authenticated.
+		// @todo Check permissions against client site - maybe share logic with endpoints.
+		if ( ! is_user_logged_in() ) {
+			wp_safe_redirect( wp_login_url( $redirect_to ) );
+		} else {
+                        wp_safe_redirect( $redirect_to );
+                }
+
+                die();
 	}
 
 	public function sanitize_post_data() {

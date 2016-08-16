@@ -37,7 +37,6 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 			const { value } = event.target
 
 			dispatch( processFilterChange( slug, value ) )
-			dispatch( fetchQuestionIndexList() )
 		}
 	}
 }

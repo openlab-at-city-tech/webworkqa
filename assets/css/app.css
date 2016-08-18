@@ -45,7 +45,6 @@
 .index-list,
 ul.question-list > a {
 	margin: 16px 0;
-	border: 1px dashed #ccc;
 	padding: 16px;
 }
 
@@ -133,7 +132,6 @@ ul.question-list > a {
 
 .ww-question-problem-summary {
 	margin: 16px;
-	border: 1px dashed #ccc;
 	padding: 16px;
 	overflow: hidden;
 	cursor: pointer;
@@ -174,7 +172,6 @@ ul.question-list > a {
 
 .ww-ask-question-form {
 	margin: 16px 0 60px;
-	border: 1px dashed #ccc;
 	padding: 16px;
 	position: relative;
 }
@@ -187,7 +184,6 @@ ul.question-list > a {
 
 .ww-question,
 .ww-response {
-	border: 1px dashed #ccc;
 	overflow: visible;
 	padding-bottom: 20px; /* for vote checkbox */
 	position: relative;
@@ -364,7 +360,6 @@ ul.question-list > a {
 
 .ww-filter-section {
 	margin: 0;
-	border: 1px dashed #ccc;
 	padding: 16px;
 }
 

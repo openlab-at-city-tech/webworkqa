@@ -187,10 +187,10 @@ ul.question-list > a {
 }
 
 .question-course-data {
+	color: #777;
 	margin: 5px 20px;
-	text-decoration: underline;
-	font-size: .9em;
-	max-width: 50%;
+	max-width: 60%;
+	text-transform: uppercase;
 }
 
 .question-form textarea {

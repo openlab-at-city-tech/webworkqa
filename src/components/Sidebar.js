@@ -14,12 +14,12 @@ export default class Sidebar extends Component {
 					<ul className="ww-question-filters">
 						<div className="ww-filter-section">
 							<SidebarFilterContainer
-							  name="Course"
+							  name="Select Course"
 							  type="dropdown"
 							  slug="course"
 							/>
 							<SidebarFilterContainer
-							  name="Section/Faculty"
+							  name="Select Section/Faculty"
 							  type="dropdown"
 							  slug="section"
 							/>
@@ -27,7 +27,7 @@ export default class Sidebar extends Component {
 
 						<div className="ww-filter-section">
 							<SidebarFilterContainer
-							  name="Problem Set"
+							  name="Select Problem Set"
 							  type="dropdown"
 							  slug="problemSet"
 							/>
@@ -35,16 +35,9 @@ export default class Sidebar extends Component {
 
 						<div className="ww-filter-section">
 							<SidebarFilterContainer
-							  name="Answered Questions"
-							  contrary="unansweredQuestions"
-							  slug="answeredQuestions"
-							  type="toggle"
-							/>
-							<SidebarFilterContainer
-							  name="Unanswered Questions"
-							  contrary="answeredQuestions"
-							  slug="unansweredQuestions"
-							  type="toggle"
+							  name="Select Questions"
+							  slug="answered"
+							  type="dropdown"
 							/>
 						</div>
 					</ul>

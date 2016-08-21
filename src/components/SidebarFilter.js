@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 export default class SidebarFilter extends Component {
 	render() {
 		const {
-			contrary, slug, name, type, value,
-			onFilterHeaderClick
+			contrary, slug, name, type, value
 		} = this.props
 
 		const headerClassName = this.getHeaderClassName()
@@ -13,17 +12,6 @@ export default class SidebarFilter extends Component {
 
 		return (
 			<li>
-				<a
-				  onClick={ (e) => {
-					  e.preventDefault()
-					  onFilterHeaderClick()
-				  } }
-				  className={headerClassName}
-				  href="#"
-				>
-				  {name}
-				</a>
-
 				<div
 				  id={contentContainerId}
 				  className="filter-content"
@@ -55,17 +43,17 @@ export default class SidebarFilter extends Component {
 
 	getFilterContent() {
 		const {
-			slug, type, value, options,
+			name, slug, type, value, options,
 			onFilterChange
 		} = this.props
 
 		let optionElements = []
-		if ( 'dropdown' != type || 'undefined' == typeof ( options ) || ! options.length ) {
+		if ( 'undefined' == typeof ( options ) || ! options.length ) {
 			return optionElements
 		}
 
 		options.unshift( {
-			name: ' - ',
+			name: name,
 			value: ''
 		} );
 

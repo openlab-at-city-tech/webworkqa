@@ -18,20 +18,6 @@ const mapStateToProps = ( state, ownProps ) => {
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
 	return {
-		onFilterHeaderClick: function() {
-			const { contrary, slug, type } = ownProps
-
-			switch ( type ) {
-				case 'toggle' :
-					dispatch( processFilterToggle( slug, contrary ) )
-					dispatch( fetchQuestionIndexList() )
-				break;
-
-				default :
-				break;
-			}
-		},
-
 		onFilterChange: function( event ) {
 			const { slug } = ownProps
 			const { value } = event.target

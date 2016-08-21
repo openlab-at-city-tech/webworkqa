@@ -159,11 +159,10 @@ class Query {
 
 	public function get_all_filter_options() {
 		return array(
-			'course'              => $this->get_filter_options( 'course' ),
-			'section'             => $this->get_filter_options( 'section' ),
-			'problemSet'          => $this->get_filter_options( 'problem_set' ),
-			'answeredQuestions'   => array(),
-			'unansweredQuestions' => array(),
+			'course'     => $this->get_filter_options( 'course' ),
+			'section'    => $this->get_filter_options( 'section' ),
+			'problemSet' => $this->get_filter_options( 'problem_set' ),
+			'answered'   => $this->get_filter_options( 'answered' ),
 		);
 	}
 
@@ -190,6 +189,22 @@ class Query {
 				}
 			break;
 
+			case 'answered' :
+				return array(
+					array(
+						'name' => __( 'Show Answered', 'webwork' ),
+						'value' => 'answered',
+					),
+					array(
+						'name' => __( 'Show Unanswered', 'webwork' ),
+						'value' => 'unanswered',
+					),
+					array(
+						'name' => __( 'Show All', 'webwork' ),
+						'value' => '',
+					),
+				);
+			break;
 		}
 
 		return $options;

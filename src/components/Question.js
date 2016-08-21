@@ -65,7 +65,10 @@ export default class Question extends Component {
 		const anchorName = 'question-' + itemId
 
 		const questionTitleElement = (
-			<a href={questionLink}>
+			<a
+			  className="ww-question-link"
+			  href={questionLink}
+			>
 				<div className="ww-author-name">A Question from {authorName}</div>
 			</a>
 		)
@@ -231,7 +234,7 @@ export default class Question extends Component {
 						  } }
 						>
 							<span className="ww-question-header-text">
-								{hasAnswer ? 'Answered' : 'Unanswered'}
+								{hasAnswer ? 'Answered!' : 'Unanswered'}
 							</span>
 
 							<span className="ww-question-header-toggle-label">

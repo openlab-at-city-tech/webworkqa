@@ -1,5 +1,9 @@
 /** General ******************************************************************/
 
+/**
+ * blue: #0044af
+ */
+
 .ww-main {
 	float: left;
 	margin-right: -100%;
@@ -16,6 +20,10 @@
 .ww-header {
 	text-transform: uppercase;
 	font-weight: bold;
+}
+
+h2.ww-header {
+	font-size: 1.8rem;
 }
 
 .app-loading-throbber {
@@ -77,7 +85,7 @@ ul.question-list > a {
 
 #webwork-app .question-list {
 	list-style-type: none;
-	margin-top: 40px;
+	margin-top: 26px;
 }
 
 .question-list > a {
@@ -228,8 +236,9 @@ ul.question-list > a {
 }
 
 .ww-question-header {
-	padding: 3px 8px;
+	padding: 3px 8px 7px;
 	text-align: right;
+	margin: 0 0 30px;
 }
 
 .question-open .ww-question-header {
@@ -239,15 +248,18 @@ ul.question-list > a {
 .question-open .ww-question-header a {
 	color: #fff;
 	text-decoration: none;
+	text-transform: uppercase;
 	box-shadow: none;
+	font-weight: bold;
+	font-size: .9rem;
 }
 
 .question-open.question-unanswered .ww-question-header {
-	background: #ea9998;
+	background: #000;
 }
 
 .question-open.question-answered .ww-question-header {
-	background: #b6d7a8;
+	background: #0044af;
 }
 
 .question-closed .ww-question-header-toggle-label,
@@ -301,8 +313,13 @@ ul.question-list > a {
 	font-size: .9em;
 }
 
-.ww-author-name {
+.ww-question-link {
+  color: #0044af;
 	font-weight: bold;
+}
+
+.ww-author-name {
+	font-size: 1.4rem;
 	margin-bottom: .5em;
 }
 

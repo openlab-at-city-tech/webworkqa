@@ -28,7 +28,7 @@ export default class QuestionIndex extends Component {
 
 		let listHeaderElement = ''
 		if ( ! isResultsPage ) {
-			listHeaderElement = <h2>Recent Activity</h2>
+			listHeaderElement = <h2 className="ww-header">Recent Activity</h2>
 		}
 
 		let dropdownElement = ''

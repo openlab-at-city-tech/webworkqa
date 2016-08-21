@@ -183,10 +183,10 @@ export default class Question extends Component {
 					<div className="ww-question-content">
 						{questionTitleElement}
 						{questionSubtitleElement}
-						<em>My question:</em>
+						<div className="ww-question-content-section-header">My question:</div>
 						<div className="ww-question-content-section">{formattedContent}</div>
 
-						<em>What I've tried:</em>
+						<div className="ww-question-content-section-header">What I've tried:</div>
 						<div className="ww-question-content-section">
 							{formattedTried}
 						</div>
@@ -197,11 +197,20 @@ export default class Question extends Component {
 					  className={problemSummaryClass}
 					  onClick={onProblemSummaryClick}
 					>
-						<em>My problem:</em>
-						<FormattedProblem
-						  itemId={questionId}
-						  content={problemText}
-						/>
+						<div
+						  className="ww-my-problem"
+						>
+							My Problem
+						</div>
+
+						<div
+						  className="ww-my-problem-content"
+						>
+							<FormattedProblem
+							  itemId={questionId}
+							  content={problemText}
+							/>
+						</div>
 					</div>
 
 					{questionMetadataElement}

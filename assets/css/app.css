@@ -151,7 +151,7 @@ ul.question-list > a {
 
 .ww-question-problem-summary {
 	margin: 16px;
-	padding: 16px;
+	padding: 8px 16px;
 	overflow: hidden;
 	cursor: pointer;
 }
@@ -160,13 +160,22 @@ ul.question-list > a {
 	white-space: pre-line;
 }
 
+.ww-question-problem-summary {
+	border: 1px solid #ebebeb;
+}
+
 .ww-question-problem-summary:hover {
 	border: 1px solid #333;
 }
 
-.ww-question-problem-summary.problem-summary-collapsed {
-	height: 50px;
-	opacity: .25;
+.ww-my-problem {
+	color: #0044af;
+	margin-left: -8px;
+	text-transform: uppercase;
+}
+
+.ww-question-problem-summary.problem-summary-collapsed .ww-my-problem-content {
+	display: none;
 }
 
 .ww-question-problem-summary.problem-summary-collapsed:hover {
@@ -320,7 +329,7 @@ ul.question-list > a {
 .ww-question-subtitle {
 	color: #777;
 	font-size: 1rem;
-	margin: 0 0 40px;
+	margin: 0 0 30px;
 	text-transform: uppercase;
 }
 
@@ -342,9 +351,14 @@ ul.question-list > a {
 	padding-left: 136px;
 }
 
-.ww-question-content-section {
-  text-indent: 15px;
-	margin-bottom: 1em;
+.ww-question-problem-summary {
+	margin-left: 136px;
+	background-color: #ebebeb;
+}
+
+.ww-question-content-section-header {
+	font-weight: bold;
+	margin: 20px 0 10px;
 }
 
 .response-form textarea {

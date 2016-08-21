@@ -13,6 +13,11 @@
 	width: 25%;
 }
 
+.ww-header {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
 .app-loading-throbber {
 	display: none;
 }
@@ -353,6 +358,18 @@ ul.question-list > a {
 
 /** Sidebar ******************************************************************/
 
+.ww-sidebar-widget {
+	background-color: #0044af;
+	color: #fff;
+	font-size: 1rem;
+	margin-top: 8px;
+	padding: 20px 12px;
+}
+
+.ww-sidebar-widget p {
+	line-height: 1.2rem;
+}
+
 .ww-question-filters {
 	list-style-type: none;
 	margin: 0;
@@ -360,7 +377,7 @@ ul.question-list > a {
 
 .ww-filter-section {
 	margin: 0;
-	padding: 16px;
+	padding: 0 16px;
 }
 
 .toggle-enabled {

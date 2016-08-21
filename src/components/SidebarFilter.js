@@ -52,10 +52,14 @@ export default class SidebarFilter extends Component {
 			return optionElements
 		}
 
-		options.unshift( {
-			name: name,
-			value: ''
-		} );
+		optionElements.push(
+			<option
+			  value=''
+			  key={slug + '-null'}
+			>
+			  {name}
+			</option>
+		)
 
 		let option = {}
 		for ( var i = 0; i < options.length; i++ ) {

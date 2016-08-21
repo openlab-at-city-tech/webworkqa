@@ -46,6 +46,12 @@
 
 /** Index *********************************************************************/
 
+.index-intro > p {
+	line-height: 1.7rem;
+	font-weight: 600;
+	font-size: 1.2rem;
+}
+
 .index-intro,
 .index-list,
 ul.question-list > a {

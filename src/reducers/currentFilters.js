@@ -4,8 +4,7 @@ export function currentFilters( state = {
 	course: false,
 	section: false,
 	problemSet: false,
-	answeredQuestions: false,
-	unansweredQuestions: false,
+	answered: false,
 
 	orderby: 'post_date',
 	order: 'DESC'

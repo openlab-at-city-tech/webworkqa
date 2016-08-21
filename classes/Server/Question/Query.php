@@ -201,7 +201,7 @@ class Query {
 					),
 					array(
 						'name' => __( 'Show All', 'webwork' ),
-						'value' => '',
+						'value' => 'all',
 					),
 				);
 			break;

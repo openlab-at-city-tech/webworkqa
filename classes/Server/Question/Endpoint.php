@@ -181,6 +181,17 @@ class Endpoint extends \WP_Rest_Controller {
                         $args['problem_set'] = $params['problemSet'];
                 }
 
+		// More programming
+		if ( isset( $args['answered'] ) ) {
+			if ( 'all' === $args['answered'] ) {
+				$args['answered'] = null;
+			} elseif ( 'answered' === $args['answered'] ) {
+				$args['answered'] = true;
+			} elseif ( 'unanswered' === $args['answered'] ) {
+				$args['answered'] = false;
+			}
+		}
+
 		$q = new Query( $args );
 
 		$questions = $q->get_for_endpoint();

@@ -15,9 +15,9 @@ export default class ResultsHeader extends Component {
 			}
 		}
 
-		if ( currentFilters.unansweredQuestions ) {
+		if ( 'answered' == currentFilters.answered ) {
 			active.push( 'Unanswered' )
-		} else if ( currentFilters.answeredQuestions ) {
+		} else if ( 'unanswered' == currentFilters.answered ) {
 			active.push( 'Answered' )
 		}
 

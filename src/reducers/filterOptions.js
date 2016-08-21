@@ -4,8 +4,7 @@ export function filterOptions( state = {
 	course: [],
 	section: [],
 	problemSet: [],
-	unansweredQuestions: [],
-	answeredQuestions: []
+	answered: []
 }, action ) {
 	switch ( action.type ) {
 		case RECEIVE_FILTER_OPTIONS :

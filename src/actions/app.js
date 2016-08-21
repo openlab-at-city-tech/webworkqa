@@ -27,23 +27,6 @@ export const setCollapsed = ( itemId, value = null ) => {
 	}
 }
 
-export function processFilterToggle( slug, contrary ) {
-	return ( dispatch, getState ) => {
-		const { currentFilters } = getState()
-
-		if ( currentFilters[ slug ] ) {
-			// If already clicked, toggle off.
-			dispatch( setFilterToggle( slug, false ) )
-		} else {
-			// If not clicked, toggle on, and toggle off contrary.
-			dispatch( setFilterToggle( slug, true ) )
-			dispatch( setFilterToggle( contrary, false ) )
-		}
-
-		dispatch( setViewType( 'results' ) )
-	}
-}
-
 export function processFilterChange( slug, value ) {
 	return ( dispatch ) => {
 		dispatch( setViewType( 'results' ) )

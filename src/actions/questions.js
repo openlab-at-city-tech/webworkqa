@@ -66,23 +66,11 @@ function standardizeFiltersForEndpoint( filters ) {
 			case 'problemSet' :
 			case 'course' :
 			case 'section' :
+			case 'answered' :
 				if ( filters[ filterName ] ) {
 					s[ filterName ] = filters[ filterName ]
 				}
 			break
-
-			// Can't both be true at once, so don't worry about reconciling.
-			case 'answeredQuestions' :
-				if ( filters.answeredQuestions ) {
-					s.answered = '1'
-				}
-			break
-
-			case 'unansweredQuestions' :
-				if ( filters.unansweredQuestions ) {
-					s.answered = '0'
-				}
-			break;
 
 			default :
 				s[ filterName ] = filters[ filterName ]

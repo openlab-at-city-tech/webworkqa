@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SidebarFilter from '../components/SidebarFilter'
-import { processFilterToggle, processFilterChange } from '../actions/app'
+import { processFilterChange } from '../actions/app'
 import { fetchQuestionIndexList } from '../actions/questions'
 
 const mapStateToProps = ( state, ownProps ) => {

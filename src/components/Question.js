@@ -73,6 +73,27 @@ export default class Question extends Component {
 			</a>
 		)
 
+		const timeAgo = moment( question.postDate).fromNow()
+
+		let responseCount
+		if ( 1 == question.responseCount ) {
+			responseCount = '1 Response'
+		} else {
+			responseCount = question.responseCount + ' Responses'
+		}
+
+		const questionSubtitleElement = (
+			<div className="ww-question-subtitle">
+				<span className="ww-question-subtitle-section">
+					{timeAgo}
+				</span>
+				<span className="ww-question-subtitle-sep">|</span>
+				<span className="ww-question-subtitle-section">
+					{responseCount}
+				</span>
+			</div>
+		)
+
 		let respondLinkElement
 		if ( isSingleProblem && userCanPostResponse && ! isCollapsed ) {
 			respondLinkElement = (
@@ -161,6 +182,7 @@ export default class Question extends Component {
 				<div className="ww-question-content-wrapper">
 					<div className="ww-question-content">
 						{questionTitleElement}
+						{questionSubtitleElement}
 						<em>My question:</em>
 						<div className="ww-question-content-section">{formattedContent}</div>
 
@@ -214,8 +236,6 @@ export default class Question extends Component {
 			)
 		}
 
-		const timeAgo = moment( question.postDate).fromNow()
-
 		return (
 			<li
 			  className={this.getClassName( isCollapsed, isMyQuestion, hasAnswer )}
@@ -250,9 +270,6 @@ export default class Question extends Component {
 
 					<div className="ww-author-avatar hide-when-closed">
 						<img src={authorAvatar} />
-						<div className="time-ago">
-							{timeAgo}
-						</div>
 					</div>
 
 					{questionSummaryElement}

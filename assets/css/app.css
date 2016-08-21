@@ -304,13 +304,7 @@ ul.question-list > a {
 .ww-author-avatar {
 	width: 120px;
 	text-align: center;
-	padding: 8px;
 	position: absolute;
-}
-
-.time-ago {
-	font-style: italic;
-	font-size: .9em;
 }
 
 .ww-question-link {
@@ -321,6 +315,17 @@ ul.question-list > a {
 .ww-author-name {
 	font-size: 1.4rem;
 	margin-bottom: .5em;
+}
+
+.ww-question-subtitle {
+	color: #777;
+	font-size: 1rem;
+	margin: 0 0 40px;
+	text-transform: uppercase;
+}
+
+.ww-question-subtitle-sep {
+	padding: 0 10px;
 }
 
 /* Common for Twenty themes */

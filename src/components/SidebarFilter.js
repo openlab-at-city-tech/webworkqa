@@ -73,6 +73,7 @@ export default class SidebarFilter extends Component {
 			  onChange={onFilterChange}
 			  options={selectData}
 			  placeholder={name}
+			  clearable={false}
 			/>
 		)
 	}

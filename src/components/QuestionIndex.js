@@ -31,6 +31,11 @@ export default class QuestionIndex extends Component {
 			listHeaderElement = <h2>Recent Activity</h2>
 		}
 
+		let dropdownElement = ''
+		if ( isResultsPage ) {
+			dropdownElement = <QuestionSortDropdownContainer />
+		}
+
 		return (
 			<div>
 				{headerElement}
@@ -41,7 +46,7 @@ export default class QuestionIndex extends Component {
 					<div className="index-list">
 						{listHeaderElement}
 
-						<QuestionSortDropdownContainer />
+						{dropdownElement}
 						<QuestionIndexListContainer />
 					</div>
 				</div>

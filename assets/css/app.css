@@ -375,9 +375,8 @@ ul.question-list > a {
 	margin: 0;
 }
 
-.ww-filter-section {
-	margin: 0;
-	padding: 0 16px;
+.ww-question-filters > li {
+	margin: 12px 0 0;
 }
 
 .toggle-enabled {

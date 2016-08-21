@@ -61,6 +61,7 @@ class Client {
 		) );
 
 		wp_enqueue_style( 'webwork-app', plugins_url() . '/webwork/assets/css/app.css' );
+		wp_enqueue_style( 'webwork-react-select', plugins_url() . '/webwork/assets/css/select.css' );
 
 		wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . '/assets/js/webwork-mathjax-loader.js' );
 

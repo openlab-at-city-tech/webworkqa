@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Select from 'react-select'
 
 export default class SidebarFilter extends Component {
 	render() {
@@ -52,38 +53,27 @@ export default class SidebarFilter extends Component {
 			return optionElements
 		}
 
-		optionElements.push(
-			<option
-			  value=''
-			  key={slug + '-null'}
-			>
-			  {name}
-			</option>
-		)
+		let selectData = []
 
 		let option = {}
 		for ( var i = 0; i < options.length; i++ ) {
 			option = options[ i ]
-			optionElements.push(
-				<option
-				  value={option.value}
-				  key={slug + '-' + i}
-				>
-				  {option.name}
-				</option>
-			)
+			selectData.push( {
+				value: option.value,
+				label: option.name
+			} )
 		}
 
 		const filterName = 'filter-' + slug
 
 		return (
-			<select
+			<Select
 			  name={filterName}
 			  value={value}
 			  onChange={onFilterChange}
-			>
-				{optionElements}
-			</select>
+			  options={selectData}
+			  placeholder={name}
+			/>
 		)
 	}
 }

@@ -18,9 +18,13 @@ const mapStateToProps = ( state, ownProps ) => {
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
 	return {
-		onFilterChange: function( event ) {
+		onFilterChange: function( selected ) {
 			const { slug } = ownProps
-			const { value } = event.target
+
+			let value = ''
+			if ( selected ) {
+				value = selected.value
+			}
 
 			dispatch( processFilterChange( slug, value ) )
 			dispatch( fetchQuestionIndexList() )

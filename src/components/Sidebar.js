@@ -12,34 +12,28 @@ export default class Sidebar extends Component {
 					<p>Voluptatibus eos ipsa consequatur. Dolorem vel amet veritatis totam quia ducimus. Sed praesentium sit illum quasi.</p>
 
 					<ul className="ww-question-filters">
-						<div className="ww-filter-section">
-							<SidebarFilterContainer
-							  name="Select Course"
-							  type="dropdown"
-							  slug="course"
-							/>
-							<SidebarFilterContainer
-							  name="Select Section/Faculty"
-							  type="dropdown"
-							  slug="section"
-							/>
-						</div>
+						<SidebarFilterContainer
+						  name="Select Course"
+						  type="dropdown"
+						  slug="course"
+						/>
+						<SidebarFilterContainer
+						  name="Select Section/Faculty"
+						  type="dropdown"
+						  slug="section"
+						/>
 
-						<div className="ww-filter-section">
-							<SidebarFilterContainer
-							  name="Select Problem Set"
-							  type="dropdown"
-							  slug="problemSet"
-							/>
-						</div>
+						<SidebarFilterContainer
+						  name="Select Problem Set"
+						  type="dropdown"
+						  slug="problemSet"
+						/>
 
-						<div className="ww-filter-section">
-							<SidebarFilterContainer
-							  name="Select Questions"
-							  slug="answered"
-							  type="dropdown"
-							/>
-						</div>
+						<SidebarFilterContainer
+						  name="Select Questions"
+						  slug="answered"
+						  type="dropdown"
+						/>
 					</ul>
 				</div>
 			</div>

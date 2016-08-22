@@ -178,6 +178,13 @@ export default class Question extends Component {
 				/>
 			)
 
+			let accordionToggleClass = 'fa accordion-toggle'
+			if ( isProblemSummaryCollapsed ) {
+				accordionToggleClass += ' fa-arrow-circle-o-down'
+			} else {
+				accordionToggleClass += ' fa-arrow-circle-up'
+			}
+
 			questionSummaryElement = (
 				<div className="ww-question-content-wrapper">
 					<div className="ww-question-content">
@@ -200,7 +207,16 @@ export default class Question extends Component {
 						<div
 						  className="ww-my-problem"
 						>
-							My Problem
+							<span
+							  className="ww-my-problem-text"
+							>
+								My Problem
+							</span>
+
+							<i
+							  aria-hidden="true"
+							  className={accordionToggleClass}
+							></i>
 						</div>
 
 						<div

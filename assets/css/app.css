@@ -190,6 +190,8 @@ ul.question-list > a {
 
 .ww-my-problem {
 	color: #0044af;
+	font-size: 1.1rem;
+	line-height: 1.6rem;
 	margin-left: -8px;
 	text-transform: uppercase;
 }
@@ -200,6 +202,19 @@ ul.question-list > a {
 
 .ww-question-problem-summary.problem-summary-collapsed:hover {
 	opacity: 1;
+}
+
+.ww-my-problem-text {
+	margin-top: -10px;
+}
+
+.ww-my-problem > * {
+	vertical-align: top;
+}
+
+.accordion-toggle {
+	font-size: 1.6rem;
+	margin-left: 16px;
 }
 
 .ww-ask-question-form.form-collapsed .question-block {

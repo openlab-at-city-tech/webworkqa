@@ -32,9 +32,11 @@ export default class ProblemStats extends Component {
 
 		return (
 			<div className="item-stats problem-stats">
-				<div>{questionCount} questions</div>
-				<div> {responseCount} responses</div>
-				<div>{unansweredCount} unanswered</div>
+				<span className="ww-subtitle-section">{questionCount} questions</span>
+				<span className="ww-subtitle-sep">/</span>
+				<span className="ww-subtitle-section">{responseCount} responses</span>
+				<span className="ww-subtitle-sep">/</span>
+				<span className="ww-subtitle-section">{unansweredCount} unanswered</span>
 			</div>
 		)
 	}

@@ -46,6 +46,10 @@
 	font-weight: bold;
 }
 
+.ww-header.ww-header-lowercase {
+	text-transform: none;
+}
+
 h2.ww-header {
 	font-size: 2.5rem;
 }
@@ -170,6 +174,22 @@ ul.question-list > a {
 	right: 6px;
 }
 
+/* Can probably remove the absolute positioning stuff once Likes interface is settled */
+.item-stats.problem-stats {
+	border: none;
+	color: #666;
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin: 16px 0 30px 0;
+	padding: 0;
+	position: relative;
+	text-transform: uppercase;
+}
+
+.item-stats.problem-stats > div {
+	padding: 0;
+}
+
 .item-stats > div {
 	float: left;
 	padding: 0 6px;
@@ -187,6 +207,12 @@ ul.question-list > a {
 
 .ww-problem-summary {
 	margin-bottom: 60px;
+}
+
+.formatted-problem {
+	background: #ebebeb;
+	font-size: 1.2rem;
+	padding: 30px 20px;
 }
 
 .ww-question-problem-summary {
@@ -390,7 +416,7 @@ ul.question-list > a {
 	text-transform: uppercase;
 }
 
-.ww-question-subtitle-sep {
+.ww-subtitle-sep {
 	padding: 0 10px;
 }
 

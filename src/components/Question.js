@@ -84,11 +84,11 @@ export default class Question extends Component {
 
 		const questionSubtitleElement = (
 			<div className="ww-question-subtitle">
-				<span className="ww-question-subtitle-section">
+				<span className="ww-subtitle-section">
 					{timeAgo}
 				</span>
-				<span className="ww-question-subtitle-sep">|</span>
-				<span className="ww-question-subtitle-section">
+				<span className="ww-subtitle-sep">|</span>
+				<span className="ww-subtitle-section">
 					{responseCount}
 				</span>
 			</div>

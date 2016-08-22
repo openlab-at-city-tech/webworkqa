@@ -52,9 +52,9 @@ export default class FormattedProblem extends Component {
 		}
 
 		return (
-			<span>
+			<div className="formatted-problem">
 				{children}
-			</span>
+			</div>
 		)
 	}
 }

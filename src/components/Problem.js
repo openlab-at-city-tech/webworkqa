@@ -31,10 +31,6 @@ export default class Problem extends Component {
 				{questionFormElement}
 
 				<div className="problem-questions">
-					<QuestionSortDropdownContainer
-					  itemType='problem'
-					  problemId={problemId}
-					/>
 					<QuestionList questionsById={questionsById} />
 				</div>
 			</div>

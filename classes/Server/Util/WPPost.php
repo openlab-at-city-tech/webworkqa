@@ -109,7 +109,7 @@ class WPPost {
 
 	public function get_author_avatar() {
 		return get_avatar_url( $this->c->get_author_id(), array(
-			'size' => 60,
+			'size' => 80,
 		) );
 	}
 

@@ -17,20 +17,22 @@
 }
 
 #webwork-app {
+	color: #000;
 	font-family: OpenSans;
+	font-size: 1.5rem;
 }
 
 .ww-main {
 	float: left;
 	margin-right: -100%;
-	width: 70%;
+	width: 65%;
 }
 
 .ww-sidebar {
 	float: left;
-	margin-left: 75%;
+	margin-left: 70%;
 	padding: 0;
-	width: 25%;
+	width: 30%;
 }
 
 .ww-header {
@@ -39,11 +41,11 @@
 }
 
 h2.ww-header {
-	font-size: 2.0rem;
+	font-size: 2.5rem;
 }
 
 h3.ww-header {
-	font-size: 1.5rem;
+	font-size: 1.6rem;
 }
 
 .app-loading-throbber {
@@ -74,17 +76,16 @@ h3.ww-header {
 
 /** Index *********************************************************************/
 
-.index-intro > p {
-	line-height: 1.7rem;
-	font-weight: 600;
-	font-size: 1.2rem;
-}
-
 .index-intro,
 .index-list,
 ul.question-list > a {
-	margin: 16px 0;
-	padding: 16px;
+	margin: 0 0 50px 0;
+	padding: 0 16px;
+}
+
+.index-intro > p {
+	line-height: 2.2rem;
+	font-size: 1.6rem;
 }
 
 ul.question-list > a {
@@ -146,7 +147,7 @@ ul.question-list > a {
 
 .item-stats.question-stats {
 	top: auto;
-	bottom: 6px;
+	bottom: 12px;
 	right: 6px;
 }
 
@@ -190,7 +191,6 @@ ul.question-list > a {
 
 .ww-my-problem {
 	color: #0044af;
-	font-size: 1.1rem;
 	line-height: 1.6rem;
 	margin-left: -8px;
 	text-transform: uppercase;
@@ -205,7 +205,8 @@ ul.question-list > a {
 }
 
 .ww-my-problem-text {
-	margin-top: -10px;
+	display: inline-block;
+	padding-top: 2px;
 }
 
 .ww-my-problem > * {
@@ -213,7 +214,7 @@ ul.question-list > a {
 }
 
 .accordion-toggle {
-	font-size: 1.6rem;
+	font-size: 2rem;
 	margin-left: 16px;
 }
 
@@ -223,6 +224,8 @@ ul.question-list > a {
 
 .question-course-data {
 	color: #777;
+	font-size: 1.2rem;
+	line-height: 1.6rem;
 	margin: 5px 20px;
 	max-width: 60%;
 	text-transform: uppercase;
@@ -247,6 +250,8 @@ ul.question-list > a {
 
 .ww-question,
 .ww-response {
+	border-bottom: #aaa solid 1px;
+	margin-bottom: 40px;
 	overflow: visible;
 	padding-bottom: 20px; /* for vote checkbox */
 	position: relative;
@@ -280,6 +285,7 @@ ul.question-list > a {
 }
 
 .ww-question-header {
+	font-size: 1.4rem;
 	padding: 5px 8px 5px;
 	text-align: right;
 	margin: 0 0 30px;
@@ -351,14 +357,14 @@ ul.question-list > a {
 }
 
 .ww-author-name {
-	font-size: 1.4rem;
+	font-size: 1.5rem;
 	margin-bottom: .5em;
 }
 
 .ww-question-subtitle {
-	color: #777;
-	font-size: 1rem;
-	margin: 0 0 30px;
+	color: #666;
+	font-size: 1.2rem;
+	margin: 0 0 50px 0;
 	text-transform: uppercase;
 }
 
@@ -381,13 +387,18 @@ ul.question-list > a {
 }
 
 .ww-question-problem-summary {
-	margin-left: 136px;
+	margin: 30px 0 40px 136px;
 	background-color: #ebebeb;
 }
 
 .ww-question-content-section-header {
+	font-size: 1.5rem;
 	font-weight: bold;
-	margin: 20px 0 10px;
+	margin: 20px 0 15px;
+}
+
+.ww-question-content-text {
+	font-size: 1.5rem;
 }
 
 .response-form textarea {
@@ -432,7 +443,7 @@ ul.question-list > a {
 .ww-sidebar-widget {
 	background-color: #0044af;
 	color: #fff;
-	font-size: .9rem;
+	font-size: 1rem;
 	margin-top: 8px;
 	padding: 20px 12px;
 }

@@ -191,10 +191,10 @@ export default class Question extends Component {
 						{questionTitleElement}
 						{questionSubtitleElement}
 						<div className="ww-question-content-section-header">My question:</div>
-						<div className="ww-question-content-section">{formattedContent}</div>
+						<div className="ww-question-content-section ww-question-content-text">{formattedContent}</div>
 
 						<div className="ww-question-content-section-header">What I've tried:</div>
-						<div className="ww-question-content-section">
+						<div className="ww-question-content-section ww-question-content-text">
 							{formattedTried}
 						</div>
 

@@ -41390,7 +41390,7 @@
 					);
 				}
 	
-				var problemSummaryClass = 'ww-question-content-section ww-question-problem-summary';
+				var problemSummaryClass = 'ww-question-content-section ww-question-problem-summary hide-when-closed';
 				if (isProblemSummaryCollapsed) {
 					problemSummaryClass += ' problem-summary-collapsed';
 				}
@@ -41425,23 +41425,27 @@
 						questionSubtitleElement,
 						_react2['default'].createElement(
 							'div',
-							{ className: 'ww-question-content-section-header' },
-							'My question:'
-						),
-						_react2['default'].createElement(
-							'div',
-							{ className: 'ww-question-content-section ww-question-content-text' },
-							formattedContent
-						),
-						_react2['default'].createElement(
-							'div',
-							{ className: 'ww-question-content-section-header' },
-							'What I\'ve tried:'
-						),
-						_react2['default'].createElement(
-							'div',
-							{ className: 'ww-question-content-section ww-question-content-text' },
-							formattedTried
+							{ className: 'hide-when-closed' },
+							_react2['default'].createElement(
+								'div',
+								{ className: 'ww-question-content-section-header' },
+								'My question:'
+							),
+							_react2['default'].createElement(
+								'div',
+								{ className: 'ww-question-content-section ww-question-content-text' },
+								formattedContent
+							),
+							_react2['default'].createElement(
+								'div',
+								{ className: 'ww-question-content-section-header' },
+								'What I\'ve tried:'
+							),
+							_react2['default'].createElement(
+								'div',
+								{ className: 'ww-question-content-section ww-question-content-text' },
+								formattedTried
+							)
 						)
 					),
 					_react2['default'].createElement(
@@ -41478,7 +41482,11 @@
 							})
 						)
 					),
-					questionMetadataElement
+					_react2['default'].createElement(
+						'div',
+						{ className: 'hide-when-closed' },
+						questionMetadataElement
+					)
 				);
 	
 				var responseFormElement = undefined;
@@ -41547,12 +41555,12 @@
 						),
 						_react2['default'].createElement(
 							'div',
-							{ className: 'ww-author-avatar hide-when-closed' },
+							{ className: 'ww-author-avatar' },
 							_react2['default'].createElement('img', { src: authorAvatar })
 						),
 						_react2['default'].createElement(
 							'div',
-							{ className: 'hide-when-closed' },
+							null,
 							questionSummaryElement
 						)
 					),

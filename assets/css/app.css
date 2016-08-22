@@ -12,6 +12,12 @@
 
 @font-face {
 	font-family: OpenSans;
+	src: url("../../lib/OpenSans/OpenSans-Semibold.ttf");
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: OpenSans;
 	src: url("../../lib/OpenSans/OpenSans-Bold.ttf");
 	font-weight: bold;
 }
@@ -191,6 +197,7 @@ ul.question-list > a {
 
 .ww-my-problem {
 	color: #0044af;
+	font-weight: 600;
 	line-height: 1.6rem;
 	margin-left: -8px;
 	text-transform: uppercase;
@@ -224,6 +231,7 @@ ul.question-list > a {
 
 .question-course-data {
 	color: #777;
+	font-weight: 600;
 	font-size: 1.2rem;
 	line-height: 1.6rem;
 	margin: 5px 20px;
@@ -364,6 +372,7 @@ ul.question-list > a {
 .ww-question-subtitle {
 	color: #666;
 	font-size: 1.2rem;
+	font-weight: 600;
 	margin: 0 0 50px 0;
 	text-transform: uppercase;
 }
@@ -450,7 +459,7 @@ ul.question-list > a {
 
 .ww-sidebar-widget p {
 	line-height: 1.2rem;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .ww-question-filters {
@@ -472,7 +481,7 @@ ul.question-list > a {
 #webwork-app .Select-value,
 #webwork-app .Select-option {
 	color: #000;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .Select-arrow:before {

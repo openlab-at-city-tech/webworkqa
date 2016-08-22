@@ -4,6 +4,22 @@
  * blue: #0044af
  */
 
+@font-face {
+	font-family: OpenSans;
+	src: url("../../lib/OpenSans/OpenSans-Regular.ttf");
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: OpenSans;
+	src: url("../../lib/OpenSans/OpenSans-Bold.ttf");
+	font-weight: bold;
+}
+
+#webwork-app {
+	font-family: OpenSans;
+}
+
 .ww-main {
 	float: left;
 	margin-right: -100%;
@@ -403,13 +419,14 @@ ul.question-list > a {
 .ww-sidebar-widget {
 	background-color: #0044af;
 	color: #fff;
-	font-size: 1rem;
+	font-size: .9rem;
 	margin-top: 8px;
 	padding: 20px 12px;
 }
 
 .ww-sidebar-widget p {
 	line-height: 1.2rem;
+	font-weight: bold;
 }
 
 .ww-question-filters {

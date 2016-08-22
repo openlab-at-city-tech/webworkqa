@@ -18,8 +18,8 @@ const mapStateToProps = ( state, ownProps ) => {
 }
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
-	const onSortChange = ( event ) => {
-		const { value } = event.target
+	const onSortChange = ( change ) => {
+		const { value } = change
 		const { itemType, problemId } = ownProps
 
 		dispatch( setSortOrderby( value ) )

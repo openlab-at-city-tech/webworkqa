@@ -104,9 +104,11 @@ ul.question-list > a {
 }
 
 .question-sort {
+	font-size: 1rem;
 	position: absolute;
 	right: 10px;
-	top: 15px;
+	top: -110px;
+	width: 180px;
 }
 
 #webwork-app .question-list {

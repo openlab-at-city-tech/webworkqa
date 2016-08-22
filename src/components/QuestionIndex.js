@@ -12,13 +12,7 @@ export default class QuestionIndex extends Component {
 		const headerElement = isResultsPage ? <ResultsHeaderContainer /> : ''
 
 		let introElement = ''
-		if ( isResultsPage ) {
-			introElement = (
-				<div className="index-intro">
-					<p>Brief explanation of results?</p>
-				</div>
-			)
-		} else {
+		if ( ! isResultsPage ) {
 			introElement = (
 				<div className="index-intro">
 					<p>Quaerat nemo debitis dolorum ratione est exercitationem aut molestias. Excepturi beatae et autem et quia quo rem. Et provident id ducimus. Quaerat temporibus doloribus rerum eaque et. Odio necessitatibus eos vitae molestiae in. Numquam et et molestias velit mollitia consequatur reiciendis.</p>

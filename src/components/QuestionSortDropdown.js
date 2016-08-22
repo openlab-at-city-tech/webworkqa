@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
+import Select from 'react-select'
 
 export default class QuestionSortDropdown extends Component {
 	render() {
 		const { orderby, onSortChange } = this.props
 
+		const options = [
+			{ value: 'post_date', label: 'Most Recent' },
+			{ value: 'response_count', label: 'Most Responses' },
+			{ value: 'votes', label: 'Most Votes' }
+		]
+
 		return (
 			<div className='question-sort'>
-				<select	
+				<Select
 				  name='question-sort'
 				  value={orderby}
 				  onChange={onSortChange}
-				>
-					<option value='post_date'>Most Recent</option>
-					<option value='response_count'>Most Responses</option>
-					<option value='votes'>Most Votes</option>
-				</select>
+				  options={options}
+				  clearable={false}
+				/>
 			</div>
 		)
 	}

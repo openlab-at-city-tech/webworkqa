@@ -469,10 +469,6 @@ ul.question-list > a {
 	margin-left: 0;
 }
 
-.question-closed .ww-author-name {
-	margin-left: 30px;
-}
-
 .ww-question-content {
 	/* 120px + 8px*2 padding for avatar */
 	padding-left: 136px;

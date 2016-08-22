@@ -178,7 +178,7 @@ export default class Question extends Component {
 			)
 		}
 
-		let problemSummaryClass = 'ww-question-content-section ww-question-problem-summary'
+		let problemSummaryClass = 'ww-question-content-section ww-question-problem-summary hide-when-closed'
 		if ( isProblemSummaryCollapsed ) {
 			problemSummaryClass += ' problem-summary-collapsed'
 		}
@@ -211,14 +211,16 @@ export default class Question extends Component {
 					<div className="ww-question-content">
 						{questionTitleElement}
 						{questionSubtitleElement}
-						<div className="ww-question-content-section-header">My question:</div>
-						<div className="ww-question-content-section ww-question-content-text">{formattedContent}</div>
 
-						<div className="ww-question-content-section-header">What I've tried:</div>
-						<div className="ww-question-content-section ww-question-content-text">
-							{formattedTried}
+						<div className="hide-when-closed">
+							<div className="ww-question-content-section-header">My question:</div>
+							<div className="ww-question-content-section ww-question-content-text">{formattedContent}</div>
+
+							<div className="ww-question-content-section-header">What I've tried:</div>
+							<div className="ww-question-content-section ww-question-content-text">
+								{formattedTried}
+							</div>
 						</div>
-
 					</div>
 
 					<div
@@ -250,7 +252,9 @@ export default class Question extends Component {
 						</div>
 					</div>
 
-					{questionMetadataElement}
+					<div className="hide-when-closed">
+						{questionMetadataElement}
+					</div>
 				</div>
 			)
 
@@ -310,11 +314,11 @@ export default class Question extends Component {
 						{respondLinkElement}
 					</div>
 
-					<div className="ww-author-avatar hide-when-closed">
+					<div className="ww-author-avatar">
 						<img src={authorAvatar} />
 					</div>
 
-					<div className="hide-when-closed">
+					<div>
 						{questionSummaryElement}
 					</div>
 				</div>

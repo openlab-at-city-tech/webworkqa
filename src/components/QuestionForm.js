@@ -17,6 +17,13 @@ var QuestionForm = React.createClass({
 			divClassName += ' form-collapsed'
 		}
 
+		let accordionToggleClass = 'fa accordion-toggle'
+		if ( isCollapsed ) {
+			accordionToggleClass += ' fa-arrow-circle-o-down'
+		} else {
+			accordionToggleClass += ' fa-arrow-circle-up'
+		}
+
 		return (
 			<div className={divClassName}>
 				<form
@@ -25,17 +32,19 @@ var QuestionForm = React.createClass({
 					  onQuestionFormSubmit( e, content, tried, problemText )
 				  } }
 				>
-					<h3>Ask a Question</h3>
-
 					<a
 					  href="#"
 					  onClick={ e => {
 						  e.preventDefault()
 						  onAccordionClick()
 					  } }
-					  className="accordion-toggle"
 					>
-						{isCollapsed ? '\u25c1' : '\u25bd'}
+						<h3 className="ww-header">Ask a Question</h3>
+
+						<i
+						  aria-hidden="true"
+						  className={accordionToggleClass}
+						></i>
 					</a>
 
 					<div className='question-block'>
@@ -67,9 +76,10 @@ var QuestionForm = React.createClass({
 						  } }
 						/>
 						<input
+						  className="button"
 						  disabled={isPending}
 						  type="submit"
-						  value={isPending ? 'Submitting...' : 'Submit!'}
+						  value={isPending ? 'Submitting...' : 'Submit'}
 						/>
 					</div>
 				</form>

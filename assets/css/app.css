@@ -28,6 +28,19 @@
 	font-size: 1.5rem;
 }
 
+#webwork-app a {
+	color: #0044af;
+}
+
+#webwork-app .button {
+	background: #0044af;
+	border-radius: 8px;
+	color: #fff;
+	font-size: 1.5rem;
+	padding: 12px 24px;
+	text-transform: uppercase;
+}
+
 .ww-main {
 	float: left;
 	margin-right: -100%;
@@ -264,8 +277,29 @@ ul.question-list > a {
 	margin-left: 16px;
 }
 
+.ww-ask-question-form h3.ww-header {
+	font-size: 2rem;
+	margin-left: 20px;
+}
+
+.ww-ask-question-form .question-block {
+	border: 2px solid #0044af;
+	border-radius: 3px;
+	margin-top: -4px;
+	padding: 30px;
+}
+
 .ww-ask-question-form.form-collapsed .question-block {
 	display: none;
+}
+
+.ww-ask-question-form label {
+	font-weight: 600;
+}
+
+.ww-ask-question-form textarea {
+	margin-top: 8px;
+	height: 80px;
 }
 
 .question-course-data {
@@ -285,14 +319,13 @@ ul.question-list > a {
 
 .ww-ask-question-form {
 	margin: 16px 0 60px;
-	padding: 16px;
 	position: relative;
 }
 
 .ww-ask-question-form .accordion-toggle {
 	position: absolute;
-	top: 6px;
-	right: 16px;
+	top: 0;
+	right: 0;
 }
 
 .ww-question,
@@ -329,6 +362,7 @@ ul.question-list > a {
 
 .ww-question-gloss {
 	font-style: italic;
+	margin-bottom: 40px;
 }
 
 .ww-question-header {

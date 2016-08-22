@@ -99,15 +99,22 @@ export default class Question extends Component {
 			responseCount = question.responseCount + ' Responses'
 		}
 
+		let responseCountElements = []
+		if ( ! isSingleProblem ) {
+			responseCountElements.push( <span className="ww-subtitle-sep">|</span> )
+			responseCountElements.push(
+				<span className="ww-subtitle-section">
+					{responseCount}
+				</span>
+			)
+		}
+
 		const questionSubtitleElement = (
 			<div className="ww-question-subtitle">
 				<span className="ww-subtitle-section">
 					{timeAgo}
 				</span>
-				<span className="ww-subtitle-sep">|</span>
-				<span className="ww-subtitle-section">
-					{responseCount}
-				</span>
+				{responseCountElements}
 			</div>
 		)
 

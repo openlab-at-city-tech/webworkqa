@@ -33254,6 +33254,8 @@
 			var libraryId = problem.libraryId;
 			var maths = problem.maths;
 	
+			var nbsp = ' ';
+	
 			return _react2['default'].createElement(
 				'div',
 				{ className: 'ww-problem-summary' },
@@ -33265,8 +33267,17 @@
 				_react2['default'].createElement(
 					'div',
 					{ className: 'problem-library-id' },
-					'Problem ID: ',
-					libraryId
+					_react2['default'].createElement('i', {
+						'aria-hidden': 'true',
+						className: 'fa fa-folder-open problem-library-id-icon'
+					}),
+					_react2['default'].createElement(
+						'div',
+						{ className: 'problem-library-id-text' },
+						'ProblemID:',
+						nbsp,
+						libraryId
+					)
 				)
 			);
 		}
@@ -38994,6 +39005,13 @@
 				divClassName += ' form-collapsed';
 			}
 	
+			var accordionToggleClass = 'fa accordion-toggle';
+			if (isCollapsed) {
+				accordionToggleClass += ' fa-arrow-circle-o-down';
+			} else {
+				accordionToggleClass += ' fa-arrow-circle-up';
+			}
+	
 			return _react2['default'].createElement(
 				'div',
 				{ className: divClassName },
@@ -39006,21 +39024,23 @@
 						}
 					},
 					_react2['default'].createElement(
-						'h3',
-						null,
-						'Ask a Question'
-					),
-					_react2['default'].createElement(
 						'a',
 						{
 							href: '#',
 							onClick: function (e) {
 								e.preventDefault();
 								onAccordionClick();
-							},
-							className: 'accordion-toggle'
+							}
 						},
-						isCollapsed ? '◁' : '▽'
+						_react2['default'].createElement(
+							'h3',
+							{ className: 'ww-header' },
+							'Ask a Question'
+						),
+						_react2['default'].createElement('i', {
+							'aria-hidden': 'true',
+							className: accordionToggleClass
+						})
 					),
 					_react2['default'].createElement(
 						'div',
@@ -39060,9 +39080,10 @@
 							}
 						}),
 						_react2['default'].createElement('input', {
+							className: 'button',
 							disabled: isPending,
 							type: 'submit',
-							value: isPending ? 'Submitting...' : 'Submit!'
+							value: isPending ? 'Submitting...' : 'Submit'
 						})
 					)
 				)
@@ -41018,13 +41039,13 @@
 				'div',
 				{ className: 'ww-question-list' },
 				_react2['default'].createElement(
-					'h3',
-					null,
-					'Questions / Responses'
+					'h2',
+					{ className: 'ww-header ww-header-lowercase' },
+					'Questions & Responses'
 				),
 				_react2['default'].createElement(
 					'p',
-					{ className: 'ww-question-gloss' },
+					{ className: 'ww-question-gloss ww-qr-gloss' },
 					'NOTE: values may be different than those presented in your problem.'
 				),
 				_react2['default'].createElement(
@@ -41238,6 +41259,21 @@
 	
 				var anchorName = 'question-' + itemId;
 	
+				var accordionElement = '';
+				if (isSingleProblem) {
+					var aeClass = 'fa accordion-toggle';
+					if (isCollapsed) {
+						aeClass += ' fa-arrow-circle-o-down';
+					} else {
+						aeClass += ' fa-arrow-circle-up';
+					}
+	
+					accordionElement = _react2['default'].createElement('i', {
+						'aria-hidden': 'true',
+						className: aeClass
+					});
+				}
+	
 				var questionTitleElement = _react2['default'].createElement(
 					'a',
 					{
@@ -41261,6 +41297,20 @@
 					responseCount = question.responseCount + ' Responses';
 				}
 	
+				var responseCountElements = [];
+				if (!isSingleProblem) {
+					responseCountElements.push(_react2['default'].createElement(
+						'span',
+						{ className: 'ww-subtitle-sep' },
+						'|'
+					));
+					responseCountElements.push(_react2['default'].createElement(
+						'span',
+						{ className: 'ww-subtitle-section' },
+						responseCount
+					));
+				}
+	
 				var questionSubtitleElement = _react2['default'].createElement(
 					'div',
 					{ className: 'ww-question-subtitle' },
@@ -41269,16 +41319,7 @@
 						{ className: 'ww-subtitle-section' },
 						timeAgo
 					),
-					_react2['default'].createElement(
-						'span',
-						{ className: 'ww-subtitle-sep' },
-						'|'
-					),
-					_react2['default'].createElement(
-						'span',
-						{ className: 'ww-subtitle-section' },
-						responseCount
-					)
+					responseCountElements
 				);
 	
 				var respondLinkElement = undefined;
@@ -41355,94 +41396,90 @@
 				}
 	
 				var questionSummaryElement = undefined;
-				if (isCollapsed) {
-					questionSummaryElement = questionTitleElement;
+				var contentId = 'content-' + itemId;
+				var formattedContent = _react2['default'].createElement(_FormattedProblem2['default'], {
+					itemId: contentId,
+					content: content
+				});
+	
+				var triedId = 'tried-' + itemId;
+				var formattedTried = _react2['default'].createElement(_FormattedProblem2['default'], {
+					itemId: triedId,
+					content: tried
+				});
+	
+				var accordionToggleClass = 'fa accordion-toggle';
+				if (isProblemSummaryCollapsed) {
+					accordionToggleClass += ' fa-arrow-circle-o-down';
 				} else {
-					var contentId = 'content-' + itemId;
-					var formattedContent = _react2['default'].createElement(_FormattedProblem2['default'], {
-						itemId: contentId,
-						content: content
-					});
+					accordionToggleClass += ' fa-arrow-circle-up';
+				}
 	
-					var triedId = 'tried-' + itemId;
-					var formattedTried = _react2['default'].createElement(_FormattedProblem2['default'], {
-						itemId: triedId,
-						content: tried
-					});
-	
-					var accordionToggleClass = 'fa accordion-toggle';
-					if (isProblemSummaryCollapsed) {
-						accordionToggleClass += ' fa-arrow-circle-o-down';
-					} else {
-						accordionToggleClass += ' fa-arrow-circle-up';
-					}
-	
-					questionSummaryElement = _react2['default'].createElement(
+				questionSummaryElement = _react2['default'].createElement(
+					'div',
+					{ className: 'ww-question-content-wrapper' },
+					_react2['default'].createElement(
 						'div',
-						{ className: 'ww-question-content-wrapper' },
+						{ className: 'ww-question-content' },
+						questionTitleElement,
+						questionSubtitleElement,
 						_react2['default'].createElement(
 							'div',
-							{ className: 'ww-question-content' },
-							questionTitleElement,
-							questionSubtitleElement,
+							{ className: 'ww-question-content-section-header' },
+							'My question:'
+						),
+						_react2['default'].createElement(
+							'div',
+							{ className: 'ww-question-content-section ww-question-content-text' },
+							formattedContent
+						),
+						_react2['default'].createElement(
+							'div',
+							{ className: 'ww-question-content-section-header' },
+							'What I\'ve tried:'
+						),
+						_react2['default'].createElement(
+							'div',
+							{ className: 'ww-question-content-section ww-question-content-text' },
+							formattedTried
+						)
+					),
+					_react2['default'].createElement(
+						'div',
+						{
+							className: problemSummaryClass,
+							onClick: onProblemSummaryClick
+						},
+						_react2['default'].createElement(
+							'div',
+							{
+								className: 'ww-my-problem'
+							},
 							_react2['default'].createElement(
-								'div',
-								{ className: 'ww-question-content-section-header' },
-								'My question:'
+								'span',
+								{
+									className: 'ww-my-problem-text'
+								},
+								'My Problem'
 							),
-							_react2['default'].createElement(
-								'div',
-								{ className: 'ww-question-content-section ww-question-content-text' },
-								formattedContent
-							),
-							_react2['default'].createElement(
-								'div',
-								{ className: 'ww-question-content-section-header' },
-								'What I\'ve tried:'
-							),
-							_react2['default'].createElement(
-								'div',
-								{ className: 'ww-question-content-section ww-question-content-text' },
-								formattedTried
-							)
+							_react2['default'].createElement('i', {
+								'aria-hidden': 'true',
+								className: accordionToggleClass
+							})
 						),
 						_react2['default'].createElement(
 							'div',
 							{
-								className: problemSummaryClass,
-								onClick: onProblemSummaryClick
+								className: 'ww-my-problem-content'
 							},
-							_react2['default'].createElement(
-								'div',
-								{
-									className: 'ww-my-problem'
-								},
-								_react2['default'].createElement(
-									'span',
-									{
-										className: 'ww-my-problem-text'
-									},
-									'My Problem'
-								),
-								_react2['default'].createElement('i', {
-									'aria-hidden': 'true',
-									className: accordionToggleClass
-								})
-							),
-							_react2['default'].createElement(
-								'div',
-								{
-									className: 'ww-my-problem-content'
-								},
-								_react2['default'].createElement(_FormattedProblem2['default'], {
-									itemId: questionId,
-									content: problemText
-								})
-							)
-						),
-						questionMetadataElement
-					);
-				}
+							_react2['default'].createElement(_FormattedProblem2['default'], {
+								itemId: questionId,
+								content: problemText
+							})
+						)
+					),
+					questionMetadataElement
+				);
 	
 				var responseFormElement = undefined;
 				if (userCanPostResponse) {
@@ -41495,6 +41532,7 @@
 										onAccordionClick(itemId);
 									}
 								},
+								accordionElement,
 								_react2['default'].createElement(
 									'span',
 									{ className: 'ww-question-header-text' },
@@ -41502,13 +41540,21 @@
 								)
 							)
 						),
-						respondLinkElement,
+						_react2['default'].createElement(
+							'div',
+							{ className: 'hide-when-closed' },
+							respondLinkElement
+						),
 						_react2['default'].createElement(
 							'div',
 							{ className: 'ww-author-avatar hide-when-closed' },
 							_react2['default'].createElement('img', { src: authorAvatar })
 						),
-						questionSummaryElement
+						_react2['default'].createElement(
+							'div',
+							{ className: 'hide-when-closed' },
+							questionSummaryElement
+						)
 					),
 					responsesElement
 				);

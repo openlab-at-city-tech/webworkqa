@@ -32,6 +32,10 @@
 	color: #0044af;
 }
 
+#webwork-app .screen-reader-text {
+	visibility: hidden;
+}
+
 #webwork-app .button {
 	background: #0044af;
 	border-radius: 8px;
@@ -224,12 +228,6 @@ ul.question-list > a {
 
 .ww-problem-summary {
 	margin-bottom: 60px;
-}
-
-.formatted-problem {
-	background: #ebebeb;
-	font-size: 1.2rem;
-	padding: 30px 20px;
 }
 
 .ww-question-problem-summary {
@@ -485,8 +483,11 @@ ul.question-list > a {
 	margin: 20px 0 15px;
 }
 
-.ww-question-content-text {
+.question-list .ww-question-content-text {
 	font-size: 1.5rem;
+	background: #ebebeb;
+	font-size: 1.2rem;
+	padding: 30px 20px;
 }
 
 .response-form textarea {
@@ -506,13 +507,19 @@ ul.question-list > a {
 }
 
 .ww-score {
+	bottom: 20px;
 	position: absolute;
-	bottom: 3px;
 	right: 8px;
+}
+
+.ww-score button {
+	background-color: #fff;
+	cursor: pointer;
 }
 
 .ww-score-value {
 	font-style: italic;
+	padding-right: 14px;
 }
 
 .problem-library-id {

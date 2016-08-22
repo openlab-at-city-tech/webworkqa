@@ -22,22 +22,50 @@ export default class ScoreDialog extends React.Component {
 				break
 		}
 
+		const scoreText = 'Number of votes: ' + score
+
+		let heartClass = 'fa'
+		let voteText
+		if ( 'up' === myVote ) {
+			heartClass += ' fa-heart'
+			voteText = 'Click to remove vote'
+		} else {
+			heartClass += ' fa-heart-o'
+			voteText = 'Click to vote'
+		}
+
+		const heartElement = <i aria-hidden="true" className={heartClass}></i>
+		const srElement = <span className="screen-reader-text">{voteText}</span>
+
+		let voteElement
+		if ( userCanVote ) {
+			voteElement = (
+				<button
+				  onClick={ (e) => {
+					e.preventDefault()
+					onVoteClick( itemId, ( myVote === 'up' ) ? '' : 'up' )
+				  } }
+				>
+					{heartElement}
+					{srElement}
+				</button>
+			)
+		} else {
+			voteElement = (
+				<span>
+					{heartElement}
+				</span>
+			)
+		}
+
 		return (
 			<div className="ww-score">
-				<input
-				  type="checkbox"
-				  checked={myVote == 'up'}
-				  disabled={! userCanVote}
-				  value={itemId}
-				  onChange={ e => {
-					onVoteClick( e.target.value, ( myVote === 'up' ) ? '' : 'up' )
-				  } }
-				/>
-
 				<span className="ww-score-value">
 					{score}
+					<span className="screen-reader-text">{scoreText}</span>
 				</span>
 
+				{voteElement}
 			</div>
 		);
 	}

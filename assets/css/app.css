@@ -265,7 +265,7 @@ ul.question-list > a {
 }
 
 .ww-question-header {
-	padding: 3px 8px 7px;
+	padding: 5px 8px 5px;
 	text-align: right;
 	margin: 0 0 30px;
 }
@@ -280,7 +280,6 @@ ul.question-list > a {
 	text-transform: uppercase;
 	box-shadow: none;
 	font-weight: bold;
-	font-size: .9rem;
 }
 
 .question-open.question-unanswered .ww-question-header {
@@ -289,11 +288,6 @@ ul.question-list > a {
 
 .question-open.question-answered .ww-question-header {
 	background: #0044af;
-}
-
-.question-closed .ww-question-header-toggle-label,
-.question-open .ww-question-header-text {
-	padding-right: 8px;
 }
 
 .question-closed .ww-question-header-text {

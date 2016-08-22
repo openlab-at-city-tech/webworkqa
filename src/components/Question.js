@@ -265,12 +265,6 @@ export default class Question extends Component {
 							<span className="ww-question-header-text">
 								{hasAnswer ? 'Answered!' : 'Unanswered'}
 							</span>
-
-							<span className="ww-question-header-toggle-label">
-								{isCollapsed ? 'Expand' : ''}
-							</span>
-
-							{isCollapsed ? '\u25c1' : '\u25bd'}
 						</a>
 
 					</div>

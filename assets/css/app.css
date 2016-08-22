@@ -448,6 +448,13 @@ ul.question-list > a {
 
 /** Select Overrides *********************************************************/
 
+#webwork-app .Select-placeholder,
+#webwork-app .Select-value,
+#webwork-app .Select-option {
+	color: #000;
+	font-weight: bold;
+}
+
 .Select-arrow:before {
 	color: #0044af;
 	content: "\f01a";

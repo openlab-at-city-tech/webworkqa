@@ -23,7 +23,7 @@ export default class ResultsHeader extends Component {
 
 		let breadcrumbs = ''
 		if ( active.length ) {
-			const crumbs = active.join( ' > ' )
+			const crumbs = active.join( ' / ' )
 			breadcrumbs = (
 				<div className="results-breadcrumbs">
 					<span className="results-breadcrumbs-label">Filtered by:</span> {crumbs}

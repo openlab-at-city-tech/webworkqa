@@ -125,7 +125,11 @@ ul.question-list > a {
 	position: absolute;
 	right: 10px;
 	top: -110px;
-	width: 180px;
+	width: 150px;
+}
+
+.ww-problem .question-sort {
+	top: 5px;
 }
 
 #webwork-app .question-list {
@@ -302,6 +306,10 @@ ul.question-list > a {
 	height: 80px;
 }
 
+.ww-qr-gloss {
+	margin-top: 30px;
+}
+
 .question-course-data {
 	color: #777;
 	font-weight: 600;
@@ -366,17 +374,15 @@ ul.question-list > a {
 }
 
 .ww-question-header {
-	font-size: 1.4rem;
-	padding: 5px 8px 5px;
-	text-align: right;
-	margin: 0 0 30px;
-}
-
-.question-open .ww-question-header {
 	color: #fff;
+	font-size: 1.4rem;
+	margin: 0 0 30px;
+	padding: 5px 8px 5px;
+	position: relative;
+	text-align: right;
 }
 
-.question-open .ww-question-header a {
+#webwork-app .ww-question-header a {
 	color: #fff;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -384,16 +390,20 @@ ul.question-list > a {
 	font-weight: bold;
 }
 
-.question-open.question-unanswered .ww-question-header {
+.question-unanswered .ww-question-header {
 	background: #000;
 }
 
-.question-open.question-answered .ww-question-header {
+.question-answered .ww-question-header {
 	background: #0044af;
 }
 
-.question-closed .ww-question-header-text {
-	display: none;
+.ww-question-header .accordion-toggle {
+	color: #0044af;
+	font-size: 30px;
+	position: absolute;
+	right: 0;
+	top: -28px;
 }
 
 .accordion-content {

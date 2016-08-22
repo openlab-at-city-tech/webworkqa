@@ -13,17 +13,17 @@ var QuestionList = React.createClass({
 		var rows = []
 
 		questionsById.forEach(function(questionId) {
-			rows.push( 
+			rows.push(
 				<QuestionContainer
 				  itemId={questionId}
 				  key={questionId}
-				/> 
+				/>
 			);
 		});
 		return (
 			<div className="ww-question-list">
-				<h3>Questions / Responses</h3>
-				<p className="ww-question-gloss">
+				<h2 className="ww-header ww-header-lowercase">Questions & Responses</h2>
+				<p className="ww-question-gloss ww-qr-gloss">
 					NOTE: values may be different than those presented in your problem.
 				</p>
 				<ul style={styles.ul}>

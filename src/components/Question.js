@@ -64,6 +64,23 @@ export default class Question extends Component {
 
 		const anchorName = 'question-' + itemId
 
+		let accordionElement = ''
+		if ( isSingleProblem ) {
+			let aeClass = 'fa accordion-toggle'
+			if ( isCollapsed ) {
+				aeClass += ' fa-arrow-circle-o-down'
+			} else {
+				aeClass += ' fa-arrow-circle-up'
+			}
+
+			accordionElement = (
+				<i
+				  aria-hidden="true"
+				  className={aeClass}
+				></i>
+			)
+		}
+
 		const questionTitleElement = (
 			<a
 			  className="ww-question-link"
@@ -160,9 +177,6 @@ export default class Question extends Component {
 		}
 
 		let questionSummaryElement
-		if ( isCollapsed ) {
-			questionSummaryElement = questionTitleElement
-		} else {
 			const contentId = 'content-' + itemId
 			const formattedContent =
 				<FormattedProblem
@@ -232,7 +246,6 @@ export default class Question extends Component {
 					{questionMetadataElement}
 				</div>
 			)
-		}
 
 		let responseFormElement
 		if ( userCanPostResponse ) {
@@ -278,6 +291,7 @@ export default class Question extends Component {
 							  onAccordionClick( itemId )
 						  } }
 						>
+							{accordionElement}
 							<span className="ww-question-header-text">
 								{hasAnswer ? 'Answered!' : 'Unanswered'}
 							</span>
@@ -285,13 +299,17 @@ export default class Question extends Component {
 
 					</div>
 
-					{respondLinkElement}
+					<div className="hide-when-closed">
+						{respondLinkElement}
+					</div>
 
 					<div className="ww-author-avatar hide-when-closed">
 						<img src={authorAvatar} />
 					</div>
 
-					{questionSummaryElement}
+					<div className="hide-when-closed">
+						{questionSummaryElement}
+					</div>
 				</div>
 
 				{responsesElement}

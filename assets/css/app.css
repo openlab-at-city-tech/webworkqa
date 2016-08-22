@@ -476,9 +476,20 @@ ul.question-list > a {
 }
 
 .problem-library-id {
-	margin-top: 2em;
-	font-weight: bold;
-	max-width: 60%;
+	color: #666;
+	margin-top: 6px;
+}
+
+.problem-library-id-icon {
+	font-size: 40px;
+	float: left;
+}
+
+.problem-library-id-text {
+	word-wrap: break-word;
+	font-size: .8rem;
+	max-width: 50%;
+	padding-left: 50px;
 }
 
 .ww-disabled-input {

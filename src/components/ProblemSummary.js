@@ -12,6 +12,7 @@ var ProblemSummary = React.createClass({
 		}
 
 		const { content, libraryId, maths } = problem
+		const nbsp = '\u00a0'
 
 		return (
 			<div className="ww-problem-summary">
@@ -22,7 +23,13 @@ var ProblemSummary = React.createClass({
 				/>
 
 				<div className="problem-library-id">
-					Problem ID: {libraryId}
+					<i
+					  aria-hidden="true"
+					  className="fa fa-folder-open problem-library-id-icon"
+					></i>
+					<div className="problem-library-id-text">
+						ProblemID:{nbsp}{libraryId}
+					</div>
 				</div>
 			</div>
 		);

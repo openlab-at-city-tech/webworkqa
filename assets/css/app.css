@@ -418,9 +418,9 @@ ul.question-list > a {
 }
 
 .respond-link {
-	position: absolute;
-	top: 35px;
-	right: 8px;
+	font-weight: bold;
+	margin: 30px 0 0 136px;
+	text-transform: uppercase;
 }
 
 .is-answer {
@@ -475,7 +475,7 @@ ul.question-list > a {
 }
 
 .ww-question-problem-summary {
-	margin: 30px 0 40px 136px;
+	margin: 30px 0 40px 0;
 	background-color: #ebebeb;
 }
 

@@ -123,7 +123,6 @@ export default class Question extends Component {
 			respondLinkElement = (
 				<a
 				  href="#"
-				  className="respond-link"
 				  onClick={ e => {
 					  this.onGoToResponseFormClick( itemId )
 				  } }
@@ -183,80 +182,93 @@ export default class Question extends Component {
 			problemSummaryClass += ' problem-summary-collapsed'
 		}
 
-		let questionSummaryElement
-			const contentId = 'content-' + itemId
-			const formattedContent =
-				<FormattedProblem
-				  itemId={contentId}
-				  content={content}
-				/>
+		const contentId = 'content-' + itemId
+		const formattedContent =
+			<FormattedProblem
+			  itemId={contentId}
+			  content={content}
+			/>
 
-			const triedId = 'tried-' + itemId
-			const formattedTried = (
-				<FormattedProblem
-				  itemId={triedId}
-				  content={tried}
-				/>
-			)
+		const triedId = 'tried-' + itemId
+		const formattedTried = (
+			<FormattedProblem
+			  itemId={triedId}
+			  content={tried}
+			/>
+		)
 
-			let accordionToggleClass = 'fa accordion-toggle'
-			if ( isProblemSummaryCollapsed ) {
-				accordionToggleClass += ' fa-arrow-circle-o-down'
-			} else {
-				accordionToggleClass += ' fa-arrow-circle-up'
-			}
+		let accordionToggleClass = 'fa accordion-toggle'
+		if ( isProblemSummaryCollapsed ) {
+			accordionToggleClass += ' fa-arrow-circle-o-down'
+		} else {
+			accordionToggleClass += ' fa-arrow-circle-up'
+		}
 
-			questionSummaryElement = (
-				<div className="ww-question-content-wrapper">
-					<div className="ww-question-content">
-						{questionTitleElement}
-						{questionSubtitleElement}
+		const contentElements = (
+			<div key="contentElements" className="hide-when-closed">
+				<div className="ww-question-content-section-header">My question:</div>
+				<div className="ww-question-content-section ww-question-content-text">{formattedContent}</div>
 
-						<div className="hide-when-closed">
-							<div className="ww-question-content-section-header">My question:</div>
-							<div className="ww-question-content-section ww-question-content-text">{formattedContent}</div>
-
-							<div className="ww-question-content-section-header">What I've tried:</div>
-							<div className="ww-question-content-section ww-question-content-text">
-								{formattedTried}
-							</div>
-						</div>
-					</div>
-
-					<div
-					  className={problemSummaryClass}
-					  onClick={onProblemSummaryClick}
-					>
-						<div
-						  className="ww-my-problem"
-						>
-							<span
-							  className="ww-my-problem-text"
-							>
-								My Problem
-							</span>
-
-							<i
-							  aria-hidden="true"
-							  className={accordionToggleClass}
-							></i>
-						</div>
-
-						<div
-						  className="ww-my-problem-content"
-						>
-							<FormattedProblem
-							  itemId={questionId}
-							  content={problemText}
-							/>
-						</div>
-					</div>
-
-					<div className="hide-when-closed">
-						{questionMetadataElement}
-					</div>
+				<div className="ww-question-content-section-header">What I've tried:</div>
+				<div className="ww-question-content-section ww-question-content-text">
+					{formattedTried}
 				</div>
-			)
+			</div>
+		)
+
+		const problemElement = (
+			<div
+			  className={problemSummaryClass}
+			  key="problemElement"
+			  onClick={onProblemSummaryClick}
+			>
+				<div
+				  className="ww-my-problem"
+				>
+					<span
+					  className="ww-my-problem-text"
+					>
+						My Problem
+					</span>
+
+					<i
+					  aria-hidden="true"
+					  className={accordionToggleClass}
+					></i>
+				</div>
+
+				<div
+				  className="ww-my-problem-content"
+				>
+					<FormattedProblem
+					  itemId={questionId}
+					  content={problemText}
+					/>
+				</div>
+			</div>
+		)
+
+		let orderedElements = [ contentElements ]
+		if ( isSingleProblem ) {
+			orderedElements.unshift( problemElement )
+		} else {
+			orderedElements.push( problemElement )
+		}
+
+		const questionSummaryElement = (
+			<div className="ww-question-content-wrapper">
+				<div className="ww-question-content">
+					{questionTitleElement}
+					{questionSubtitleElement}
+
+					{orderedElements}
+				</div>
+
+				<div className="hide-when-closed">
+					{questionMetadataElement}
+				</div>
+			</div>
+		)
 
 		let responseFormElement
 		if ( userCanPostResponse ) {
@@ -310,16 +322,16 @@ export default class Question extends Component {
 
 					</div>
 
-					<div className="hide-when-closed">
-						{respondLinkElement}
-					</div>
-
 					<div className="ww-author-avatar">
 						<img src={authorAvatar} />
 					</div>
 
 					<div>
 						{questionSummaryElement}
+					</div>
+
+					<div className="respond-link hide-when-closed">
+						{respondLinkElement}
 					</div>
 				</div>
 

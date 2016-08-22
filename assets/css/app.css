@@ -123,6 +123,18 @@ ul.question-list > a {
 	background: #ccc;
 }
 
+.results-breadcrumbs {
+	color: #777;
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin: 16px 0;
+	text-transform: uppercase;
+}
+
+.results-breadcrumbs-label {
+	font-weight: bold;
+}
+
 /** Problem *******************************************************************/
 
 .ww-problem {

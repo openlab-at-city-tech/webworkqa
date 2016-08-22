@@ -424,3 +424,26 @@ ul.question-list > a {
 .toggle-enabled {
 	font-weight: bold;
 }
+
+/** Select Overrides *********************************************************/
+
+.Select-arrow:before {
+	color: #0044af;
+	content: "\f01a";
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: 20px;
+	text-rendering: auto;
+}
+
+#webwork-app .Select-arrow {
+	border: none;
+}
+
+#webwork-app .Select-arrow-zone {
+	padding-right: 22px;
+}
+
+.Select.is-open .Select-arrow:before {
+	content: "\f0aa";
+}

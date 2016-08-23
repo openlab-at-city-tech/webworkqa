@@ -44,7 +44,7 @@ export default class Question extends Component {
 			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, responseIds, responses,
 			userCanPostResponse,
-			onAccordionClick, onProblemSummaryClick
+			onAccordionClick, onProblemSummaryClick, onRespondClick
 		} = this.props
 
 		const {
@@ -155,6 +155,7 @@ export default class Question extends Component {
 					  onClick={ e => {
 						  e.preventDefault()
 						  this.onGoToResponseFormClick( itemId )
+						  onRespondClick()
 					  } }
 					>
 						Respond

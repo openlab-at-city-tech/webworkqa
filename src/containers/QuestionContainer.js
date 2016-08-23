@@ -49,6 +49,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 		onProblemSummaryClick: () => {
 			dispatch( setCollapsed( itemId + '-problem' ) )
+		},
+
+		onRespondClick: () => {
+			dispatch( setCollapsed( 'responseForm-' + itemId, false ) )
 		}
 	}
 }

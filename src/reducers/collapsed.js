@@ -9,7 +9,7 @@ export function collapsed( state = {}, action ) {
 			if ( null === value ) {
 				doCollapse = ! state.hasOwnProperty( itemId )
 			} else {
-				doCollapse = true
+				doCollapse = value
 			}
 
 			if ( doCollapse ) {

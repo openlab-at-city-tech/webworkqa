@@ -57,12 +57,11 @@ const ResponseForm = React.createClass( {
 						  id={textareaName}
 						  name={textareaName}
 						  onChange={onTextareaChange}
-						  placeholder="Enter your response here"
 						  value={responseText}
 						/>
 
 						<input
-						  className="response-submit"
+						  className="button"
 						  disabled={isPending}
 						  id={submitName}
 						  name={submitName}

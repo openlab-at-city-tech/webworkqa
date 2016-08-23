@@ -38,7 +38,8 @@
 
 #webwork-app .button {
 	background: #0044af;
-	border-radius: 8px;
+	border: none;
+	border-radius: 6px;
 	color: #fff;
 	font-size: 1.5rem;
 	padding: 12px 24px;
@@ -298,6 +299,11 @@ h3.ww-collapsible-section-header {
 }
 
 .form-collapsed .ww-collapsible-block {
+	height: 0;
+	padding-bottom: 0;
+}
+
+.form-collapsed .ww-collapsible-block > * {
 	display: none;
 }
 
@@ -336,6 +342,11 @@ h3.ww-collapsible-section-header {
 
 .ww-question-response-form {
 	position: relative;
+}
+
+.response-block {
+	margin-bottom: 50px;
+	padding-bottom: 50px;
 }
 
 .ww-question,
@@ -495,9 +506,9 @@ h3.ww-collapsible-section-header {
 }
 
 .response-form textarea {
-	margin: 1em 0;
-	width: 95%;
-	padding: 10px 2%;
+	height: 120px;
+	margin: 8px 0 20px 0;
+	width: 100%;
 }
 
 #webwork-app .ww-response-list > ul > li {

@@ -456,6 +456,18 @@ h3.ww-collapsible-section-header {
 	margin: 8px;
 }
 
+.question-closed {
+	border-bottom: #d7d7d7 solid 2px;
+}
+
+.question-closed .ww-question {
+	padding-bottom: 0;
+}
+
+.question-closed .ww-subtitle {
+	margin-bottom: 26px; /* hack */
+}
+
 .question-closed .hide-when-closed {
 	display: none;
 }

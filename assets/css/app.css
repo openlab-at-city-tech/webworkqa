@@ -487,16 +487,13 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question-content-section-header {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight: bold;
 	margin: 20px 0 15px;
 }
 
-.question-list .ww-question-content-text {
-	font-size: 1.5rem;
-	background: #ebebeb;
+.ww-question-content-text {
 	font-size: 1.2rem;
-	padding: 30px 20px;
 }
 
 .response-form textarea {

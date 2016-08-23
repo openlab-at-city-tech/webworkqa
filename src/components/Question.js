@@ -196,15 +196,24 @@ export default class Question extends Component {
 			accordionToggleClass += ' fa-arrow-circle-up'
 		}
 
+		let triedElements
+		if ( isSingleProblem ) {
+			triedElements = (
+				<span>
+					<div className="ww-question-content-section-header">What I've tried:</div>
+					<div className="ww-question-content-section ww-question-content-text">
+						{formattedTried}
+					</div>
+				</span>
+			)
+		}
+
 		const contentElements = (
 			<div key="contentElements" className="hide-when-closed">
 				<div className="ww-question-content-section-header">My question:</div>
 				<div className="ww-question-content-section ww-question-content-text">{formattedContent}</div>
+				{triedElements}
 
-				<div className="ww-question-content-section-header">What I've tried:</div>
-				<div className="ww-question-content-section ww-question-content-text">
-					{formattedTried}
-				</div>
 			</div>
 		)
 

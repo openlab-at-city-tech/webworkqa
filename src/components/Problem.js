@@ -21,7 +21,7 @@ export default class Problem extends Component {
 
 		return (
 			<div className="ww-problem">
-				<h2 className="ww-header ww-header-lowercase">Another Math Problem</h2>
+				<h2 className="ww-header">Another Math Problem</h2>
 
 				<div className="problem-topmatter">
 					<ProblemStatsContainer />

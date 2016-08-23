@@ -29,24 +29,11 @@ const ResponseForm = React.createClass( {
 
 		return (
 			<div className={divClassName}>
-				<a
-				  className="ww-collapsible-section-link"
-				  href="#"
-				  onClick={ e => {
-					  e.preventDefault()
-					  onAccordionClick()
-				  } }
-				>
-					<h3 className="ww-header ww-collapsible-section-header">
-						Respond to this question
-					</h3>
-					<i
-					  aria-hidden="true"
-					  className={accordionToggleClass}
-					></i>
-				</a>
+				<h3 className="ww-header">
+					Respond to this question
+				</h3>
 
-				<div className="response-block ww-collapsible-block">
+				<div className="response-block">
 					<form
 					  className={formClassName}
 					  onSubmit={ ( e ) => onResponseFormSubmit( e, responseText ) }

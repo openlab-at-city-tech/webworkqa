@@ -166,7 +166,7 @@ export default class Question extends Component {
 
 
 		const questionMetadataElement = (
-			<div className="question-metadata">
+			<div className="item-metadata">
 				{questionCourseElement}
 				{respondLinkElement}
 				{questionScoreElement}
@@ -265,17 +265,6 @@ export default class Question extends Component {
 			</div>
 		)
 
-		let responseFormElement
-		if ( userCanPostResponse ) {
-			responseFormElement = (
-				<Element name={responseScrollElementName}>
-					<ResponseFormContainer
-					  questionId={itemId}
-					/>
-				</Element>
-			)
-		}
-
 		let responsesElement
 		if ( isSingleProblem ) {
 			responsesElement = (
@@ -286,8 +275,6 @@ export default class Question extends Component {
 					  responseIds={responseIds}
 					  responses={responses}
 					/>
-
-					{responseFormElement}
 				</div>
 			)
 		}

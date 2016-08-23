@@ -1,34 +1,41 @@
 import React from 'react'
 import { If, Then } from 'react-if'
-import Response from './Response.js'
+import ResponseContainer from '../containers/ResponseContainer'
+import ResponseFormContainer from '../containers/ResponseFormContainer'
+import { Element } from 'react-scroll'
 
 var ResponseList = React.createClass({
 	render: function() {
-		const { isMyQuestion, responseIds, responses } = this.props
-
-		var styles = {
-			ul: {
-				listStyleType: 'none'
-			}
-		};
+		const { isMyQuestion, questionId, responseIds, responses } = this.props
+		const responseScrollElementName = 'response-form-' + questionId
 
 		var rows = [];
-		var response
 		this.props.responseIds.forEach( function(responseId) {
-			response = responses.hasOwnProperty( responseId ) ? responses[ responseId ] : false;
-			if ( response ) {
-				rows.push( <Response
-						key={responseId}
-						isMyQuestion={isMyQuestion}
-						responseId={responseId}
-						response={response}
-						/> );
-			}
+			rows.push(
+				<ResponseContainer
+				  key={responseId}
+				  isMyQuestion={isMyQuestion}
+				  responseId={responseId}
+				/>
+			);
 		});
+
+		if ( window.WWData.user_can_post_response ) {
+			const key = 'response-form-' + questionId
+			rows.push(
+				<li className="response-form-li" key={key}>
+					<Element name={responseScrollElementName}>
+						<ResponseFormContainer
+						  questionId={questionId}
+						/>
+					</Element>
+				</li>
+			)
+		}
 
 		return (
 			<div className="ww-response-list">
-				<ul style={styles.ul}>
+				<ul>
 					{rows}
 				</ul>
 			</div>

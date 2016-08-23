@@ -1,19 +1,41 @@
 import React from 'react';
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
+import Scroll from 'react-scroll'
 
 var moment = require( 'moment' )
 
 var Response = React.createClass({
 	render: function() {
-		const { isMyQuestion, response, responseId } = this.props
-		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response
+		const { isMyQuestion, questionId, response, responseId } = this.props
+		if ( ! response ) {
+			return null
+		}
 
+		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response
 		const userIsAdmin = window.WWData.user_is_admin
 
 		const answeredElement = ( isMyQuestion || userIsAdmin ) ? <AnsweredDialogContainer responseId={responseId} /> : ''
 
 		const timeAgo = moment( response.postDate ).fromNow()
+
+		let respondLinkElement
+		const userCanPostResponse = true
+		if ( userCanPostResponse ) {
+			respondLinkElement = (
+				<div className="respond-link">
+					<a
+					  href="#"
+					  onClick={ e => {
+						  e.preventDefault()
+						  this.onGoToResponseFormClick( questionId )
+					  } }
+					>
+						Respond
+					</a>
+				</div>
+			)
+		}
 
 		return (
 			<li className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
@@ -34,12 +56,30 @@ var Response = React.createClass({
 					{answeredElement}
 				</div>
 
-				<ScoreDialogContainer
-				  itemId={responseId}
-				  itemType='response'
-				/>
+				<div className="item-metadata">
+					{respondLinkElement}
+					<ScoreDialogContainer
+					  itemId={responseId}
+					  itemType='response'
+					/>
+				</div>
 			</li>
 		);
+	},
+
+	/**
+	 * Scrolling callback for clicking the "Respond" link.
+	 *
+	 * Not currently aware of state, but maybe it should be - ie to expand the Response form
+	 * or flash the form after scroll. At that point, callback should be moved to the
+	 * container with associated action/reducer.
+	 */
+	onGoToResponseFormClick: function( itemId ) {
+		Scroll.scroller.scrollTo( 'response-form-' + itemId, {
+			duration: 1000,
+			offset: -80, // for toolbar
+			smooth: true
+		} )
 	}
 });
 

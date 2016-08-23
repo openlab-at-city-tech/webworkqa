@@ -45,7 +45,7 @@
 	border: none;
 	border-radius: 6px;
 	color: #fff;
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	padding: 12px 24px;
 	text-transform: uppercase;
 }
@@ -73,7 +73,7 @@
 }
 
 h2.ww-header {
-	font-size: 2.5rem;
+	font-size: 2.0rem;
 }
 
 h3.ww-header {
@@ -235,6 +235,12 @@ ul.question-list > a {
 	margin-bottom: 60px;
 }
 
+.ww-problem-summary .formatted-problem {
+	background: #ededed;
+	font-size: 1rem;
+	padding: 40px;
+}
+
 .ww-question-problem-summary {
 	margin: 16px;
 	padding: 8px 16px;
@@ -331,7 +337,7 @@ h3.ww-collapsible-section-header {
 	text-transform: uppercase;
 }
 
-.question-metadata {
+.item-metadata {
 	margin-top: 40px;
 	position: relative;
 }
@@ -347,13 +353,11 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question-response-form {
-	margin-top: 40px;
 	position: relative;
 }
 
-.response-block {
-	margin-bottom: 50px;
-	padding-bottom: 50px;
+.ww-question-response-form .ww-header {
+	margin: 20px 0;
 }
 
 .ww-question,
@@ -364,7 +368,7 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question {
-	border-bottom: #d7d7d7 solid 3px;
+	/*border-bottom: #d7d7d7 solid 3px;*/
 	margin-top: 50px;
 }
 
@@ -381,11 +385,14 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-response-content {
+	font-size: 1.2rem;
 	padding-left: 136px;
 }
 
 .ww-question-gloss {
+	font-size: 1.2rem;
 	font-style: italic;
+	line-height: 1.6rem;
 	margin-bottom: 40px;
 }
 
@@ -512,12 +519,20 @@ h3.ww-collapsible-section-header {
 	width: 100%;
 }
 
+#webwork-app .ww-response-list > ul > li.response-form-li {
+	border: #d7d7d7 solid 2px;
+	border-top: none;
+	padding: 20px;
+}
+
 .ww-response-list {
+	border-top: #d7d7d7 solid 2px;
 	background-color: #f6f6f6;
+	margin-left: 40px;
 }
 
 #webwork-app .ww-response-list > ul > li {
-	border-bottom: #d7d7d7 solid 3px;
+	border-bottom: #d7d7d7 solid 2px;
 	overflow: hidden;
 	padding: 30px 0 30px 40px;
 }
@@ -572,7 +587,6 @@ h3.ww-collapsible-section-header {
 .problem-library-id-text {
 	word-wrap: break-word;
 	font-size: .8rem;
-	max-width: 50%;
 	padding-left: 50px;
 }
 

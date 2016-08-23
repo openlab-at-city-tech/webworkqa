@@ -115,22 +115,6 @@ export default class Question extends Component {
 			</div>
 		)
 
-		let respondLinkElement
-		if ( isSingleProblem && userCanPostResponse && ! isCollapsed ) {
-			respondLinkElement = (
-				<a
-				  href="#"
-				  onClick={ e => {
-					  this.onGoToResponseFormClick( itemId )
-				  } }
-				>
-					Respond
-				</a>
-			)
-		}
-
-		let questionMetadataElement
-
 		let questionCourseElement
 		if ( ! isSingleProblem ) {
 			let courseData = []
@@ -148,7 +132,7 @@ export default class Question extends Component {
 
 			const courseDataString = courseData.join( ' | ' )
 
-			const questionCourseElement = (
+			questionCourseElement = (
 				<div className="question-course-data">
 					{courseDataString}
 				</div>
@@ -162,9 +146,27 @@ export default class Question extends Component {
 			/>
 		)
 
-		questionMetadataElement = (
-			<div>
+		let respondLinkElement
+		if ( isSingleProblem && userCanPostResponse ) {
+			respondLinkElement = (
+				<div className="respond-link">
+					<a
+					  href="#"
+					  onClick={ e => {
+						  this.onGoToResponseFormClick( itemId )
+					  } }
+					>
+						Respond
+					</a>
+				</div>
+			)
+		}
+
+
+		const questionMetadataElement = (
+			<div className="question-metadata">
 				{questionCourseElement}
+				{respondLinkElement}
 				{questionScoreElement}
 			</div>
 		)
@@ -319,10 +321,6 @@ export default class Question extends Component {
 
 					<div>
 						{questionSummaryElement}
-					</div>
-
-					<div className="respond-link hide-when-closed">
-						{respondLinkElement}
 					</div>
 				</div>
 

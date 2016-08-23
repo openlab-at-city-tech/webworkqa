@@ -327,6 +327,11 @@ h3.ww-collapsible-section-header {
 	text-transform: uppercase;
 }
 
+.question-metadata {
+	margin-top: 40px;
+	position: relative;
+}
+
 .question-form textarea {
 	margin-bottom: 20px;
 	width: 100%;
@@ -522,7 +527,8 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-score {
-	bottom: 20px;
+	bottom: 0;
+	font-size: 1rem;
 	position: absolute;
 	right: 8px;
 }
@@ -532,9 +538,20 @@ h3.ww-collapsible-section-header {
 	cursor: pointer;
 }
 
+.ww-score button:hover i.fa-heart:before {
+	content: "\f08a";
+}
+
+.ww-score button:hover i.fa-heart-o:before {
+	content: "\f004";
+}
+
 .ww-score-value {
-	font-style: italic;
 	padding-right: 14px;
+}
+
+.score-display-only {
+	color: #0044af;
 }
 
 .problem-library-id {

@@ -26,19 +26,23 @@ export default class ScoreDialog extends React.Component {
 
 		let heartClass = 'fa'
 		let voteText
-		if ( 'up' === myVote ) {
-			heartClass += ' fa-heart'
-			voteText = 'Click to remove vote'
+		if ( userCanVote ) {
+			if ( 'up' === myVote ) {
+				heartClass += ' fa-heart'
+				voteText = 'Click to remove vote'
+			} else {
+				heartClass += ' fa-heart-o'
+				voteText = 'Click to vote'
+			}
 		} else {
-			heartClass += ' fa-heart-o'
-			voteText = 'Click to vote'
+			heartClass += ' fa-heart'
 		}
 
 		const heartElement = <i aria-hidden="true" className={heartClass}></i>
-		const srElement = <span className="screen-reader-text">{voteText}</span>
 
 		let voteElement
 		if ( userCanVote ) {
+			const srElement = <span className="screen-reader-text">{voteText}</span>
 			voteElement = (
 				<button
 				  onClick={ (e) => {
@@ -52,7 +56,7 @@ export default class ScoreDialog extends React.Component {
 			)
 		} else {
 			voteElement = (
-				<span>
+				<span className="score-display-only">
 					{heartElement}
 				</span>
 			)

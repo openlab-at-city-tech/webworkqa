@@ -3,10 +3,10 @@ import ScoreDialog from '../components/ScoreDialog'
 import { clickVote } from '../actions/votes'
 
 const mapStateToProps = (state) => {
-	const { scores, votes } = state
+	const { scores, viewType, votes } = state
 	return {
 		scores,
-		userCanVote: window.WWData.user_can_vote,
+		userCanVote: 'problem' == viewType.viewType && window.WWData.user_can_vote,
 		votes
 	}
 }

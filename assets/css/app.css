@@ -235,7 +235,8 @@ ul.question-list > a {
 	margin-bottom: 60px;
 }
 
-.ww-problem-summary .formatted-problem {
+.ww-problem-summary .formatted-problem,
+.ww-my-problem-content .formatted-problem {
 	background: #ededed;
 	font-size: 1rem;
 	padding: 40px;

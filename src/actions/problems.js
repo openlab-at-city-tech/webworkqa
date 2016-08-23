@@ -101,13 +101,7 @@ export function fetchProblem( problemId ) {
 					key: questionsById[ i ] + '-problem',
 					value: true
 				} )
-
-				toCollapse.push( {
-					key: 'responseForm-' + questionsById[ i ],
-					value: true
-				} )
 			}
-			dispatch( setCollapsedBulk( toCollapse ) )
 
 			dispatch( receiveResponseIdMap( responseIdMap ) )
 			dispatch( receiveResponses( responses ) )

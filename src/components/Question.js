@@ -130,14 +130,9 @@ export default class Question extends Component {
 		}
 
 		let questionMetadataElement
-		if ( isSingleProblem ) {
-			questionMetadataElement = (
-				<ScoreDialogContainer
-				  itemId={itemId}
-				  itemType='question'
-				/>
-			)
-		} else {
+
+		let questionCourseElement
+		if ( ! isSingleProblem ) {
 			let courseData = []
 			if ( question.problemSet ) {
 				courseData.push( question.problemSet );
@@ -158,21 +153,21 @@ export default class Question extends Component {
 					{courseDataString}
 				</div>
 			)
-
-			const questionStatsElement = (
-				<div className="item-stats question-stats">
-					<div>{question.voteCount} likes</div>
-					<div>{question.responseCount} responses</div>
-				</div>
-			)
-
-			questionMetadataElement = (
-				<div>
-					{questionCourseElement}
-					{questionStatsElement}
-				</div>
-			)
 		}
+
+		const questionScoreElement = (
+			<ScoreDialogContainer
+			  itemId={itemId}
+			  itemType='question'
+			/>
+		)
+
+		questionMetadataElement = (
+			<div>
+				{questionCourseElement}
+				{questionScoreElement}
+			</div>
+		)
 
 		let problemSummaryClass = 'ww-question-content-section ww-question-problem-summary hide-when-closed'
 		if ( isProblemSummaryCollapsed ) {
@@ -225,13 +220,8 @@ export default class Question extends Component {
 					<span
 					  className="ww-my-problem-text"
 					>
-						My Problem
+						View My Problem
 					</span>
-
-					<i
-					  aria-hidden="true"
-					  className={accordionToggleClass}
-					></i>
 				</div>
 
 				<div
@@ -245,12 +235,7 @@ export default class Question extends Component {
 			</div>
 		)
 
-		let orderedElements = [ contentElements ]
-		if ( isSingleProblem ) {
-			orderedElements.unshift( problemElement )
-		} else {
-			orderedElements.push( problemElement )
-		}
+		let orderedElements = [ problemElement, contentElements ]
 
 		const questionSummaryElement = (
 			<div className="ww-question-content-wrapper">

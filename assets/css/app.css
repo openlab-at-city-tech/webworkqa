@@ -252,9 +252,11 @@ ul.question-list > a {
 
 .ww-my-problem {
 	color: #0044af;
+	font-size: 1.2rem;
 	font-weight: 600;
 	line-height: 1.6rem;
 	margin-left: -8px;
+	text-align: center;
 	text-transform: uppercase;
 }
 
@@ -264,11 +266,6 @@ ul.question-list > a {
 
 .ww-question-problem-summary.problem-summary-collapsed:hover {
 	opacity: 1;
-}
-
-.ww-my-problem-text {
-	display: inline-block;
-	padding-top: 2px;
 }
 
 .ww-my-problem > * {

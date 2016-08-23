@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { receiveFilterOptions, setAppIsLoading, setCollapsed } from './app'
+import { receiveFilterOptions, setAppIsLoading, setCollapsedBulk } from './app'
 
 export function fetchQuestionIndexList() {
 	return (dispatch, getState) => {
@@ -45,9 +45,14 @@ export function fetchQuestionIndexList() {
 			dispatch( receiveQuestions( json.questions ) )
 			dispatch( receiveQuestionIds( json.questionIds ) )
 
+			let toCollapse = []
 			for ( var i = 0; i < json.questionIds.length; i++ ) {
-				dispatch( setCollapsed( json.questionIds[ i ] + '-problem', true ) )
+				toCollapse.push( {
+					key: json.questionIds[ i ] + '-problem',
+					value: '1'
+				} )
 			}
+			dispatch( setCollapsedBulk( toCollapse ) )
 
 			dispatch( setAppIsLoading( false ) )
 		} )

@@ -27,6 +27,14 @@ export const setCollapsed = ( itemId, value = null ) => {
 	}
 }
 
+export const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK'
+export const setCollapsedBulk = ( c = [] ) => {
+	return {
+		type: SET_COLLAPSED_BULK,
+		payload: c
+	}
+}
+
 export function processFilterChange( slug, value ) {
 	return ( dispatch ) => {
 		dispatch( setViewType( 'results' ) )

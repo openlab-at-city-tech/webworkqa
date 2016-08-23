@@ -77,6 +77,8 @@ export default class Root extends Component {
 			} else {
 				store.dispatch( setViewType( 'problem' ) )
 			}
+		} else {
+			store.dispatch( setViewType( '' ) )
 		}
 	}
 
@@ -84,8 +86,10 @@ export default class Root extends Component {
 		// No clue why locationArray can't be passed via props when navigating between pages.
 		const locationArray = window.location.hash.replace(/^#\/?|\/$/g, '').split('/')
 
+		let vtType = ''
+		let vtObject = null
 		if ( 'results' == locationArray[0] ) {
-			store.dispatch( setViewType( 'results' ) )
+			vtType = 'results'
 		}
 
 		if ( 'problem' == locationArray[0] ) {
@@ -93,12 +97,13 @@ export default class Root extends Component {
 
 			store.dispatch( resetCurrentFilters() )
 
+			vtType = 'problem'
 			if ( questionIdMatches ) {
-				store.dispatch( setViewType( 'problem', questionIdMatches[1] ) )
-			} else {
-				store.dispatch( setViewType( 'problem' ) )
+				vtObject = questionIdMatches[1]
 			}
 		}
+
+		store.dispatch( setViewType( vtType, vtObject ) )
 	}
 
 	render() {

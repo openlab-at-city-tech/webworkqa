@@ -32,6 +32,10 @@
 	color: #0044af;
 }
 
+#webwork-app a:hover {
+	color: #000;
+}
+
 #webwork-app .screen-reader-text {
 	visibility: hidden;
 }

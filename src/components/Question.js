@@ -64,22 +64,19 @@ export default class Question extends Component {
 
 		const anchorName = 'question-' + itemId
 
-		let accordionElement = ''
-		if ( isSingleProblem ) {
-			let aeClass = 'fa accordion-toggle'
-			if ( isCollapsed ) {
-				aeClass += ' fa-arrow-circle-o-down'
-			} else {
-				aeClass += ' fa-arrow-circle-up'
-			}
-
-			accordionElement = (
-				<i
-				  aria-hidden="true"
-				  className={aeClass}
-				></i>
-			)
+		let aeClass = 'fa accordion-toggle'
+		if ( isCollapsed ) {
+			aeClass += ' fa-arrow-circle-o-down'
+		} else {
+			aeClass += ' fa-arrow-circle-up'
 		}
+
+		const accordionElement = (
+			<i
+			  aria-hidden="true"
+			  className={aeClass}
+			></i>
+		)
 
 		const questionTitleElement = (
 			<a

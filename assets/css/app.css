@@ -415,6 +415,10 @@ h3.ww-collapsible-section-header {
 	top: -28px;
 }
 
+.question-unanswered .ww-question-header .accordion-toggle {
+	color: #000;
+}
+
 .accordion-content {
 	transition: max-height .25s ease;
 	max-height: 10000px;

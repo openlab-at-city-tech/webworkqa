@@ -2,6 +2,8 @@ import React from 'react';
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
 
+var moment = require( 'moment' )
+
 var Response = React.createClass({
 	render: function() {
 		const { isMyQuestion, response, responseId } = this.props
@@ -11,26 +13,31 @@ var Response = React.createClass({
 
 		const answeredElement = ( isMyQuestion || userIsAdmin ) ? <AnsweredDialogContainer responseId={responseId} /> : ''
 
+		const timeAgo = moment( response.postDate ).fromNow()
+
 		return (
-			<li>
-				<div className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
+			<li className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
+				<div className="ww-author-avatar">
+					<img src={authorAvatar} />
 					<div className="response-user-type">{authorUserType}</div>
-
-					<div className="ww-author-avatar">
-						<img src={authorAvatar} />
-					</div>
-
-					<div className="ww-response-content">
-						<div className="ww-author-name">{authorName}</div>
-						{content}
-						{answeredElement}
-					</div>
-
-					<ScoreDialogContainer
-					  itemId={responseId}
-					  itemType='response'
-					/>
 				</div>
+
+				<div className="ww-response-content">
+					<div className="ww-author-name">{authorName}</div>
+					<div className="ww-subtitle ww-response-subtitle">
+						<span className="ww-subtitle-section">
+							{timeAgo}
+						</span>
+					</div>
+
+					{content}
+					{answeredElement}
+				</div>
+
+				<ScoreDialogContainer
+				  itemId={responseId}
+				  itemType='response'
+				/>
 			</li>
 		);
 	}

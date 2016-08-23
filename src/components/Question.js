@@ -110,7 +110,7 @@ export default class Question extends Component {
 		}
 
 		const questionSubtitleElement = (
-			<div className="ww-question-subtitle">
+			<div className="ww-subtitle ww-question-subtitle">
 				<span className="ww-subtitle-section">
 					{timeAgo}
 				</span>

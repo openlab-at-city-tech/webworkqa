@@ -103,13 +103,14 @@ class Query {
 		foreach ( $responses as $r ) {
 			$response_id = $r->get_id();
 			$formatted[ $response_id ] = array(
-				'responseId' => $response_id,
-				'content' => $r->get_content(),
-				'questionId' => $r->get_question_id(),
 				'authorAvatar' => $r->get_author_avatar(),
 				'authorName' => $r->get_author_name(),
 				'authorUserType' => $r->get_author_type_label(),
+				'content' => $r->get_content(),
 				'isAnswer' => $r->get_is_answer(),
+				'postDate' => $r->get_post_date(),
+				'questionId' => $r->get_question_id(),
+				'responseId' => $response_id,
 			);
 		}
 

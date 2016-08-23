@@ -28,7 +28,7 @@ var Response = React.createClass({
 					  href="#"
 					  onClick={ e => {
 						  e.preventDefault()
-						  this.onGoToResponseFormClick( questionId )
+						  this.onGoToResponseFormClick( response.questionId )
 					  } }
 					>
 						Respond

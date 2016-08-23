@@ -153,6 +153,7 @@ export default class Question extends Component {
 					<a
 					  href="#"
 					  onClick={ e => {
+						  e.preventDefault()
 						  this.onGoToResponseFormClick( itemId )
 					  } }
 					>

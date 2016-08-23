@@ -33,13 +33,14 @@ var QuestionForm = React.createClass({
 				  } }
 				>
 					<a
+					  className="ww-collapsible-section-link"
 					  href="#"
 					  onClick={ e => {
 						  e.preventDefault()
 						  onAccordionClick()
 					  } }
 					>
-						<h3 className="ww-header">Ask a Question</h3>
+						<h3 className="ww-header ww-collapsible-section-header">Ask a Question</h3>
 
 						<i
 						  aria-hidden="true"
@@ -47,7 +48,7 @@ var QuestionForm = React.createClass({
 						></i>
 					</a>
 
-					<div className='question-block'>
+					<div className="ww-collapsible-block">
 						<p className="ww-question-gloss">
 							Please review the questions below to see if your question has already been answered.
 						</p>

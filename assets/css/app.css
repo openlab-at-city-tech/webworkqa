@@ -279,19 +279,25 @@ ul.question-list > a {
 	margin-left: 16px;
 }
 
-.ww-ask-question-form h3.ww-header {
+h3.ww-collapsible-section-header {
 	font-size: 2rem;
 	margin-left: 20px;
 }
 
-.ww-ask-question-form .question-block {
+.ww-collapsible-section-link .accordion-toggle {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.ww-collapsible-block {
 	border: 2px solid #0044af;
 	border-radius: 3px;
 	margin-top: -4px;
 	padding: 30px;
 }
 
-.ww-ask-question-form.form-collapsed .question-block {
+.form-collapsed .ww-collapsible-block {
 	display: none;
 }
 
@@ -328,10 +334,8 @@ ul.question-list > a {
 	position: relative;
 }
 
-.ww-ask-question-form .accordion-toggle {
-	position: absolute;
-	top: 0;
-	right: 0;
+.ww-question-response-form {
+	position: relative;
 }
 
 .ww-question,

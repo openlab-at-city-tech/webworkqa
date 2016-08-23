@@ -98,9 +98,9 @@ export default class Question extends Component {
 
 		let responseCountElements = []
 		if ( ! isSingleProblem ) {
-			responseCountElements.push( <span className="ww-subtitle-sep">|</span> )
+			responseCountElements.push( <span key="response-sep" className="ww-subtitle-sep">|</span> )
 			responseCountElements.push(
-				<span className="ww-subtitle-section">
+				<span key="response-value" className="ww-subtitle-section">
 					{responseCount}
 				</span>
 			)

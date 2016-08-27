@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router'
+import React from 'react';
 import LaTeX from './LaTeX'
 
-export default class FormattedProblem extends Component {
-	render() {
-		const { itemId, content } = this.props
+const FormattedProblem = React.createClass( {
+	getDefaultProps: function() {
+		return {
+			isVisible: true
+		}
+	},
+
+	shouldComponentUpdate: function( nextProps, nextState ) {
+		return nextProps.content !== this.props.content || nextProps.isVisible !== this.props.isVisible
+	},
+
+	render: function() {
+		const { isVisible, itemId, content } = this.props
 
 		if ( ! content ) {
 			return ( <span></span> )
@@ -37,6 +46,7 @@ export default class FormattedProblem extends Component {
 					  itemId={itemId}
 					  math={parts[mathIndex]}
 					  display={display}
+					  isVisible={isVisible}
 					/>
 				)
 			} else {
@@ -57,4 +67,6 @@ export default class FormattedProblem extends Component {
 			</div>
 		)
 	}
-}
+} )
+
+export default FormattedProblem

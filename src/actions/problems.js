@@ -101,7 +101,20 @@ export function fetchProblem( problemId ) {
 					key: questionsById[ i ] + '-problem',
 					value: true
 				} )
+
+				// Question form field previews
+				// @todo move this to componentWillMount() or something
+				toCollapse.push( {
+					key: 'questionFormField_content',
+					value: true
+				} )
+				toCollapse.push( {
+					key: 'questionFormField_tried',
+					value: true
+				} )
 			}
+
+			dispatch( setCollapsedBulk( toCollapse ) )
 
 			dispatch( receiveResponseIdMap( responseIdMap ) )
 			dispatch( receiveResponses( responses ) )

@@ -1,4 +1,5 @@
 import React from 'react';
+import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 
 var QuestionForm = React.createClass({
 	render: function() {
@@ -22,6 +23,12 @@ var QuestionForm = React.createClass({
 			accordionToggleClass += ' fa-arrow-circle-o-down'
 		} else {
 			accordionToggleClass += ' fa-arrow-circle-up'
+		}
+
+		const isPreviewContent = true
+		let contentSectionClass = 'ww-question-form-section'
+		if ( isPreviewContent ) {
+			contentSectionClass += ' preview'
 		}
 
 		return (
@@ -55,27 +62,21 @@ var QuestionForm = React.createClass({
 
 
 						<input type="hidden" name="ww-problem-id" value={problemId} />
-						<label for="ww-question-content">What is your question?</label>
-						<textarea
+
+						<PreviewableFieldContainer
+						  fieldName="content"
 						  id="ww-question-content"
-						  name="ww-question-content"
+						  label="What is your question?"
 						  value={content}
-						  disabled={isPending}
-						  onChange={ e => {
-							onTextareaChange( 'content', e.target.value )
-						  } }
 						/>
 
-						<label for="ww-question-tried">Describe what you have tried?</label>
-						<textarea
+						<PreviewableFieldContainer
+						  fieldName="tried"
 						  id="ww-question-tried"
-						  name="ww-question-tried"
+						  label="Describe what you have tried."
 						  value={tried}
-						  disabled={isPending}
-						  onChange={ e => {
-							onTextareaChange( 'tried', e.target.value )
-						  } }
 						/>
+
 						<input
 						  className="button"
 						  disabled={isPending}

@@ -50,6 +50,11 @@
 	text-transform: uppercase;
 }
 
+#webwork-app textarea,
+#webwork-app input[type="text"] {
+	background-color: #fafafa;
+}
+
 .ww-main {
 	float: left;
 	margin-right: -100%;
@@ -320,8 +325,41 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-ask-question-form textarea {
+	font-size: 1rem;
 	margin-top: 8px;
 	height: 80px;
+}
+
+.ww-preview {
+	border: 2px solid #ebebeb;
+	display: none;
+	font-size: 1.2rem;
+	margin: 8px 0 20px 0;
+	min-height: 80px;
+	padding: 30px;
+}
+
+.preview-toggle {
+	background: none;
+	color: #0044af;
+	cursor: pointer;
+	float: right;
+	font-size: 1rem;
+	padding: 3px 5px;
+	text-transform: uppercase;
+}
+
+.preview-toggle:hover {
+	color: #000;
+	background-color: #efefef;
+}
+
+.preview-visible .ww-preview {
+	display: block;
+}
+
+.preview-visible textarea {
+	display: none;
 }
 
 .ww-qr-gloss {

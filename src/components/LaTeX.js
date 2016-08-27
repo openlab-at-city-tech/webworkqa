@@ -2,7 +2,19 @@ import React, { Component } from 'react';
 
 export default class LaTeX extends Component {
 	componentDidMount() {
-		const { mathKey, itemId } = this.props
+		this.updateTeX()
+	}
+
+	componentDidUpdate() {
+		this.updateTeX()
+	}
+
+	updateTeX() {
+		const { mathKey, itemId, isVisible } = this.props
+
+		if ( ! isVisible ) {
+			return
+		}
 
 		const cssId = 'latex-' + itemId + '-' + mathKey
 
@@ -12,7 +24,7 @@ export default class LaTeX extends Component {
 	}
 
 	shouldComponentUpdate() {
-		return false
+		return true
 	}
 
 	render() {

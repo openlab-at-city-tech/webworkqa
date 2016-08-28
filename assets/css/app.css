@@ -396,7 +396,7 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question-response-form .ww-header {
-	margin: 20px 0;
+	margin: 20px 0 0 0;
 }
 
 .ww-question,
@@ -568,6 +568,10 @@ h3.ww-collapsible-section-header {
 	height: 120px;
 	margin: 8px 0 20px 0;
 	width: 100%;
+}
+
+.response-form .ww-preview {
+	margin-top: 20px;
 }
 
 #webwork-app .ww-response-list > ul > li.response-form-li {

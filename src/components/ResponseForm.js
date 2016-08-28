@@ -1,4 +1,5 @@
 import React from 'react'
+import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 
 const ResponseForm = React.createClass( {
 	render: function() {
@@ -27,6 +28,9 @@ const ResponseForm = React.createClass( {
 			divClassName += ' form-collapsed'
 		}
 
+		// Non-breaking space.
+		const pfcLabel = '\u00a0'
+
 		return (
 			<div className={divClassName}>
 				<h3 className="ww-header">
@@ -38,12 +42,10 @@ const ResponseForm = React.createClass( {
 					  className={formClassName}
 					  onSubmit={ ( e ) => onResponseFormSubmit( e, responseText ) }
 					>
-						<textarea
-						  className="response-text"
-						  disabled={isPending}
+						<PreviewableFieldContainer
+						  fieldName={textareaName}
 						  id={textareaName}
-						  name={textareaName}
-						  onChange={onTextareaChange}
+						  label={pfcLabel}
 						  value={responseText}
 						/>
 

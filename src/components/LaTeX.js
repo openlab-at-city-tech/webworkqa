@@ -23,8 +23,8 @@ export default class LaTeX extends Component {
 		}
 	}
 
-	shouldComponentUpdate() {
-		return true
+	shouldComponentUpdate( nextProps ) {
+		return this.props.math !== nextProps.math
 	}
 
 	render() {

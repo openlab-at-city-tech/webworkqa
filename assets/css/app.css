@@ -635,14 +635,14 @@ h3.ww-collapsible-section-header {
 }
 
 .problem-library-id-icon {
-	font-size: 40px;
+	font-size: 2.5rem;
 	float: left;
 }
 
 .problem-library-id-text {
 	word-wrap: break-word;
 	font-size: .8rem;
-	padding-left: 50px;
+	padding-left: 3.5rem;
 }
 
 .ww-disabled-input {
@@ -706,4 +706,59 @@ h3.ww-collapsible-section-header {
 
 .Select.is-open .Select-arrow:before {
 	content: "\f0aa";
+}
+
+/** Media queries ************************************************************/
+
+/**
+ * Note: Some of this is handled in the webwork-theme stylesheet.
+ * This needs to be untangled at some point.
+ */
+@media (max-width: 800px) {
+	.ww-main {
+		width: 100%;
+	}
+
+	.ww-sidebar {
+		display: none; /* temp */
+	}
+}
+
+@media (max-width: 500px) {
+	.ww-subtitle-sep {
+		padding: 0 5px;
+	}
+
+	.item-stats.problem-stats {
+		font-size: 1rem;
+		margin: 8px 0 20px 0;
+	}
+
+	.ww-problem-summary .formatted-problem {
+		padding: 15px;
+	}
+
+	.problem-library-id-icon {
+		font-size: 1.5rem;
+	}
+
+	.problem-library-id-text {
+		padding-left: 2.5rem;
+	}
+
+	h3.ww-collapsible-section-header {
+		margin-left: 6px;
+	}
+
+	.ww-collapsible-section-link .accordion-toggle {
+		top: .5rem;
+	}
+
+	.accordion-toggle {
+		font-size: 1.25rem;
+	}
+
+	.ww-collapsible-block {
+		padding: 20px;
+	}
 }

@@ -158,7 +158,7 @@ export default class Question extends Component {
 						  onRespondClick()
 					  } }
 					>
-						Respond
+						Reply
 					</a>
 				</div>
 			)

@@ -31,7 +31,7 @@ var Response = React.createClass({
 						  this.onGoToResponseFormClick( response.questionId )
 					  } }
 					>
-						Respond
+						Reply
 					</a>
 				</div>
 			)

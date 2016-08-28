@@ -95,6 +95,7 @@ export function fetchProblem( problemId ) {
 
 			dispatch( receiveQuestionsById( questionsById ) )
 
+			// @todo Collapsing should probably happen in componentDidMount or something
 			let toCollapse = []
 			for ( var i = 0; i < questionsById.length; i++ ) {
 				toCollapse.push( {
@@ -102,17 +103,22 @@ export function fetchProblem( problemId ) {
 					value: true
 				} )
 
-				// Question form field previews
-				// @todo move this to componentWillMount() or something
+				// Response previews.
 				toCollapse.push( {
-					key: 'questionFormField_content',
-					value: true
-				} )
-				toCollapse.push( {
-					key: 'questionFormField_tried',
+					key: 'questionFormField_response-text-' + questionsById[ i ],
 					value: true
 				} )
 			}
+
+			// Question form field and response previews
+			toCollapse.push( {
+				key: 'questionFormField_content',
+				value: true
+			} )
+			toCollapse.push( {
+				key: 'questionFormField_tried',
+				value: true
+			} )
 
 			dispatch( setCollapsedBulk( toCollapse ) )
 

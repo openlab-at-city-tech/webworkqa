@@ -750,6 +750,15 @@ h3.ww-collapsible-section-header {
 		padding-left: 2.5rem;
 	}
 
+	.ww-problem-summary {
+		margin-bottom: 30px;
+	}
+
+	.ww-ask-question-form {
+		margin-bottom: 30px;
+		margin-top: 0;
+	}
+
 	h3.ww-collapsible-section-header {
 		margin-left: 6px;
 	}
@@ -769,5 +778,30 @@ h3.ww-collapsible-section-header {
 
 	.ww-question-gloss {
 		font-size: 1rem;
+	}
+
+	#webwork-app .Select-control,
+  #webwork-app .Select-input {
+		height: 22px;
+	}
+
+	#webwork-app .Select-placeholder,
+	#webwork-app .Select--single > .Select-control .Select-value {
+		line-height: 22px;
+	}
+
+	.question-sort {
+		width: 140px;
+	}
+
+	.ww-qr-gloss {
+		margin-top: 10px;
+	}
+
+	/* Totally and completely awful */
+	.ww-problem .question-sort {
+		left: 0;
+		right: auto;
+		top: 7rem;
 	}
 }

@@ -25,10 +25,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			dispatch( setCollapsed( 'questionForm' ) )
 		},
 
-		onTextareaChange: ( fieldName, value ) => {
-			dispatch( changeQuestionText( fieldName, value ) )
-		},
-
 		onQuestionFormSubmit: ( e, content, tried, problemText ) => {
 			e.preventDefault()
 			dispatch( setQuestionPending( true ) )

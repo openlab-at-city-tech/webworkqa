@@ -22,7 +22,7 @@ var QuestionList = React.createClass({
 		});
 		return (
 			<div className="ww-question-list">
-				<h2 className="ww-header">Questions & Responses</h2>
+				<h2 className="ww-header">Questions & Replies</h2>
 				<p className="ww-question-gloss ww-qr-gloss">
 					NOTE: values may be different than those presented in your problem.
 				</p>

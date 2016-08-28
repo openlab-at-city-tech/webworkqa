@@ -725,6 +725,10 @@ h3.ww-collapsible-section-header {
 }
 
 @media (max-width: 500px) {
+	#webwork-app .button {
+		padding: 4px 8px;
+	}
+
 	.ww-subtitle-sep {
 		padding: 0 5px;
 	}
@@ -759,6 +763,11 @@ h3.ww-collapsible-section-header {
 	}
 
 	.ww-collapsible-block {
+		font-size: 80%;
 		padding: 20px;
+	}
+
+	.ww-question-gloss {
+		font-size: 1rem;
 	}
 }

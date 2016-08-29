@@ -31540,6 +31540,7 @@
 	
 				dispatch((0, _questions.receiveQuestionsById)(questionsById));
 	
+				// @todo Collapsing should probably happen in componentDidMount or something
 				var toCollapse = [];
 				for (var i = 0; i < questionsById.length; i++) {
 					toCollapse.push({
@@ -31547,17 +31548,22 @@
 						value: true
 					});
 	
-					// Question form field previews
-					// @todo move this to componentWillMount() or something
+					// Response previews.
 					toCollapse.push({
-						key: 'questionFormField_content',
-						value: true
-					});
-					toCollapse.push({
-						key: 'questionFormField_tried',
+						key: 'questionFormField_response-text-' + questionsById[i],
 						value: true
 					});
 				}
+	
+				// Question form field and response previews
+				toCollapse.push({
+					key: 'questionFormField_content',
+					value: true
+				});
+				toCollapse.push({
+					key: 'questionFormField_tried',
+					value: true
+				});
 	
 				dispatch((0, _app.setCollapsedBulk)(toCollapse));
 	
@@ -33502,8 +33508,8 @@
 			}
 		}, {
 			key: 'shouldComponentUpdate',
-			value: function shouldComponentUpdate() {
-				return true;
+			value: function shouldComponentUpdate(nextProps) {
+				return this.props.math !== nextProps.math;
 			}
 		}, {
 			key: 'render',
@@ -33580,10 +33586,6 @@
 		return {
 			onAccordionClick: function onAccordionClick() {
 				dispatch((0, _actionsApp.setCollapsed)('questionForm'));
-			},
-	
-			onTextareaChange: function onTextareaChange(fieldName, value) {
-				dispatch((0, _actionsQuestions.changeQuestionText)(fieldName, value));
 			},
 	
 			onQuestionFormSubmit: function onQuestionFormSubmit(e, content, tried, problemText) {
@@ -34022,7 +34024,7 @@
 				var orderby = _props.orderby;
 				var onSortChange = _props.onSortChange;
 	
-				var options = [{ value: 'post_date', label: 'Most Recent' }, { value: 'response_count', label: 'Most Responses' }, { value: 'votes', label: 'Most Votes' }];
+				var options = [{ value: 'post_date', label: 'Most Recent' }, { value: 'response_count', label: 'Most Replies' }, { value: 'votes', label: 'Most Votes' }];
 	
 				return _react2['default'].createElement(
 					'div',
@@ -35861,7 +35863,7 @@
 				_react2['default'].createElement(
 					'h2',
 					{ className: 'ww-header' },
-					'Questions & Responses'
+					'Questions & Replies'
 				),
 				_react2['default'].createElement(
 					'p',
@@ -36114,9 +36116,9 @@
 	
 				var responseCount = undefined;
 				if (1 == question.responseCount) {
-					responseCount = '1 Response';
+					responseCount = '1 Reply';
 				} else {
-					responseCount = question.responseCount + ' Responses';
+					responseCount = question.responseCount + ' Replies';
 				}
 	
 				var responseCountElements = [];
@@ -36188,7 +36190,7 @@
 									onRespondClick();
 								}
 							},
-							'Respond'
+							'Reply'
 						)
 					);
 				}
@@ -37637,7 +37639,7 @@
 								_this.onGoToResponseFormClick(response.questionId);
 							}
 						},
-						'Respond'
+						'Reply'
 					)
 				);
 			}
@@ -51944,6 +51946,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _containersPreviewableFieldContainer = __webpack_require__(566);
+	
+	var _containersPreviewableFieldContainer2 = _interopRequireDefault(_containersPreviewableFieldContainer);
+	
 	var ResponseForm = _react2['default'].createClass({
 		displayName: 'ResponseForm',
 	
@@ -51977,6 +51983,9 @@
 				divClassName += ' form-collapsed';
 			}
 	
+			// Non-breaking space.
+			var pfcLabel = ' ';
+	
 			return _react2['default'].createElement(
 				'div',
 				{ className: divClassName },
@@ -51996,12 +52005,10 @@
 								return onResponseFormSubmit(e, responseText);
 							}
 						},
-						_react2['default'].createElement('textarea', {
-							className: 'response-text',
-							disabled: isPending,
+						_react2['default'].createElement(_containersPreviewableFieldContainer2['default'], {
+							fieldName: textareaName,
 							id: textareaName,
-							name: textareaName,
-							onChange: onTextareaChange,
+							label: pfcLabel,
 							value: responseText
 						}),
 						_react2['default'].createElement('input', {
@@ -52328,6 +52335,10 @@
 	
 				dispatch((0, _actionsApp.processFilterChange)(slug, value));
 				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
+	
+				// For the theme to know when to collapse the menu.
+				var event = new Event('webworkFilterChange');
+				document.body.dispatchEvent(event);
 			}
 		};
 	};

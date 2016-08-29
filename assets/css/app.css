@@ -738,6 +738,7 @@ h3.ww-collapsible-section-header {
 		margin: 8px 0 20px 0;
 	}
 
+	.ww-my-problem-content .formatted-problem,
 	.ww-problem-summary .formatted-problem {
 		padding: 15px;
 	}
@@ -803,5 +804,38 @@ h3.ww-collapsible-section-header {
 		left: 0;
 		right: auto;
 		top: 7rem;
+	}
+
+	.ww-author-avatar {
+		display: none;
+	}
+
+	.ww-question-content {
+		padding-left: 0;
+	}
+
+	.ww-subtitle.ww-question-subtitle {
+		margin-bottom: 0;
+	}
+
+	.item-metadata {
+		margin-top: 20px;
+	}
+
+	.ww-score-value {
+		padding-right: 8px;
+	}
+
+	.respond-link {
+		margin-left: 0;
+		font-size: 1.2rem;
+	}
+
+	.ww-response-content {
+		padding-left: 0;
+	}
+
+	.ww-subtitle.ww-response-subtitle {
+		margin-bottom: 20px;
 	}
 }

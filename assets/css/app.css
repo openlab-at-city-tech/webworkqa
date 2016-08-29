@@ -831,11 +831,20 @@ h3.ww-collapsible-section-header {
 		font-size: 1.2rem;
 	}
 
+	.ww-response-list {
+		margin-left: 20px;
+	}
+
 	.ww-response-content {
 		padding-left: 0;
 	}
 
 	.ww-subtitle.ww-response-subtitle {
 		margin-bottom: 20px;
+	}
+
+	.question-course-data {
+		margin-left: 0;
+		max-width: 80%;
 	}
 }

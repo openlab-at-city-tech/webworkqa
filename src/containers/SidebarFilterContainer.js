@@ -28,6 +28,10 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 
 			dispatch( processFilterChange( slug, value ) )
 			dispatch( fetchQuestionIndexList() )
+
+			// For the theme to know when to collapse the menu.
+			const event = new Event( 'webworkFilterChange' );
+			document.body.dispatchEvent( event );
 		}
 	}
 }

@@ -714,17 +714,50 @@ h3.ww-collapsible-section-header {
  * Note: Some of this is handled in the webwork-theme stylesheet.
  * This needs to be untangled at some point.
  */
-@media (max-width: 800px) {
+@media (max-width: 500px) {
+	.app-content {
+		position: relative;
+	}
+
 	.ww-main {
+		float: none;
+		margin-right: 0;
+		position: relative;
 		width: 100%;
 	}
 
 	.ww-sidebar {
-		display: none; /* temp */
+		background: rgba( 255,255,255,1);
+		box-shadow: 0px 3px 10px 5px rgba(0,0,0,0.38);
+		display: none;
+		float: none;
+		margin-left: -10%;
+		margin-top: -7.5%;
+		position: absolute;
+		top: 0;
+		width: 120%;
+		z-index: 10;
 	}
-}
 
-@media (max-width: 500px) {
+	.ww-sidebar h3.ww-header {
+		font-size: 2.25rem;
+		margin: 2rem 6% 1rem 6%;
+	}
+
+	.ww-sidebar.sidebar-visible {
+		display: block;
+	}
+
+	.ww-sidebar-widget {
+		font-size: 1.5rem;
+		margin: 0 6% 2rem 6%;
+	}
+
+	.ww-sidebar-widget p {
+		font-size: 1.5rem;
+		line-height: 2rem;
+	}
+
 	#webwork-app .button {
 		padding: 4px 8px;
 	}
@@ -781,13 +814,13 @@ h3.ww-collapsible-section-header {
 		font-size: 1rem;
 	}
 
-	#webwork-app .Select-control,
-  #webwork-app .Select-input {
+	#webwork-app .ww-main .Select-control,
+  #webwork-app .ww-main .Select-input {
 		height: 22px;
 	}
 
-	#webwork-app .Select-placeholder,
-	#webwork-app .Select--single > .Select-control .Select-value {
+	#webwork-app .ww-main .Select-placeholder,
+	#webwork-app .ww-main .Select--single > .Select-control .Select-value {
 		line-height: 22px;
 	}
 

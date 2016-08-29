@@ -7,7 +7,7 @@ export default class QuestionSortDropdown extends Component {
 
 		const options = [
 			{ value: 'post_date', label: 'Most Recent' },
-			{ value: 'response_count', label: 'Most Responses' },
+			{ value: 'response_count', label: 'Most Replies' },
 			{ value: 'votes', label: 'Most Votes' }
 		]
 

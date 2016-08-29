@@ -91,9 +91,9 @@ export default class Question extends Component {
 
 		let responseCount
 		if ( 1 == question.responseCount ) {
-			responseCount = '1 Response'
+			responseCount = '1 Reply'
 		} else {
-			responseCount = question.responseCount + ' Responses'
+			responseCount = question.responseCount + ' Replies'
 		}
 
 		let responseCountElements = []

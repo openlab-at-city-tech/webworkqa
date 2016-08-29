@@ -34030,6 +34030,7 @@
 					'div',
 					{ className: 'question-sort' },
 					_react2['default'].createElement(_reactSelect2['default'], {
+						autoBlur: true,
 						name: 'question-sort',
 						value: orderby,
 						onChange: onSortChange,
@@ -52271,6 +52272,7 @@
 				var filterName = 'filter-' + slug;
 	
 				return _react2['default'].createElement(_reactSelect2['default'], {
+					autoBlur: true,
 					name: filterName,
 					value: value,
 					onChange: onFilterChange,

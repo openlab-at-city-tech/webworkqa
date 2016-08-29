@@ -68,6 +68,7 @@ export default class SidebarFilter extends Component {
 
 		return (
 			<Select
+			  autoBlur={true}
 			  name={filterName}
 			  value={value}
 			  onChange={onFilterChange}

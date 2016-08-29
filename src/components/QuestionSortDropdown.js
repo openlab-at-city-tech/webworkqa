@@ -14,6 +14,7 @@ export default class QuestionSortDropdown extends Component {
 		return (
 			<div className='question-sort'>
 				<Select
+				  autoBlur={true}
 				  name='question-sort'
 				  value={orderby}
 				  onChange={onSortChange}

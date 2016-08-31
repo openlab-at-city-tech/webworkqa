@@ -609,7 +609,7 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-score button {
-	background-color: #fff;
+	background-color: inherit;
 	cursor: pointer;
 }
 

@@ -33811,11 +33811,11 @@
 	
 				var previewId = id + '-preview';
 	
-				var delimRegExp = /\\begin\{((?:display)?math)\}([^]*?)\\end\{\1\}/gm;
 				var display = undefined,
 				    openDelim = undefined,
 				    closeDelim = undefined,
 				    newVal = undefined;
+				var delimRegExp = /\\begin\{((?:display)?math)\}([^]*?)\\end\{\1\}/gm;
 				var previewContent = value.replace(delimRegExp, function (a, type, math) {
 	
 					if ('displaymath' == type) {
@@ -33824,6 +33824,19 @@
 						closeDelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
 					} else {
 						display = 'inline';
+						openDelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
+						closeDelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
+					}
+	
+					return openDelim + math + closeDelim;
+				});
+	
+				var shortDelimRegExp = /\$latex([^\$]+)\$/gm;
+				previewContent = previewContent.replace(shortDelimRegExp, function (a, math) {
+					if (math.match(/\n/)) {
+						openDelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
+						closeDelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+					} else {
 						openDelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
 						closeDelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
 					}
@@ -37548,6 +37561,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactScroll = __webpack_require__(580);
+	
+	var _reactScroll2 = _interopRequireDefault(_reactScroll);
+	
 	var _containersScoreDialogContainer = __webpack_require__(594);
 	
 	var _containersScoreDialogContainer2 = _interopRequireDefault(_containersScoreDialogContainer);
@@ -37556,9 +37573,9 @@
 	
 	var _containersAnsweredDialogContainer2 = _interopRequireDefault(_containersAnsweredDialogContainer);
 	
-	var _reactScroll = __webpack_require__(580);
+	var _FormattedProblem = __webpack_require__(561);
 	
-	var _reactScroll2 = _interopRequireDefault(_reactScroll);
+	var _FormattedProblem2 = _interopRequireDefault(_FormattedProblem);
 	
 	var moment = __webpack_require__(602);
 	
@@ -37610,6 +37627,8 @@
 				);
 			}
 	
+			var contentId = 'response-' + responseId;
+	
 			return _react2['default'].createElement(
 				'li',
 				{ className: isAnswer ? 'ww-response is-answer' : 'ww-response' },
@@ -37640,7 +37659,10 @@
 							timeAgo
 						)
 					),
-					content,
+					_react2['default'].createElement(_FormattedProblem2['default'], {
+						itemId: contentId,
+						content: content
+					}),
 					answeredElement
 				),
 				_react2['default'].createElement(

@@ -4,16 +4,19 @@ import { sendQuestion, setQuestionPending } from '../actions/questions'
 import { setCollapsed } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
-	const { collapsed, formData } = state
+	const { collapsed, formData, questionsById } = state
 	const { content, tried, isPending } = formData
 
 	const problemText = window.WWData.problem_text
 	const isCollapsed = collapsed.hasOwnProperty( 'questionForm' )
 
+	const problemHasQuestions = questionsById.length > 0
+
 	return {
 		content,
 		isCollapsed,
 		isPending,
+		problemHasQuestions,
 		problemText,
 		tried
 	}

@@ -4,7 +4,8 @@ import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 var QuestionForm = React.createClass({
 	render: function() {
 		const {
-			content, isCollapsed, isPending, problemId, problemText, tried,
+			content, isCollapsed, isPending,
+			problemId, problemText, problemHasQuestions, tried,
 			onAccordionClick, onTextareaChange, onQuestionFormSubmit,
 		} = this.props
 
@@ -23,6 +24,15 @@ var QuestionForm = React.createClass({
 			accordionToggleClass += ' fa-arrow-circle-o-down'
 		} else {
 			accordionToggleClass += ' fa-arrow-circle-up'
+		}
+
+		let questionGloss = ''
+		if ( problemHasQuestions ) {
+			questionGloss = (
+				<p className="ww-question-gloss">
+					Please review the questions below to see if your question has already been answered.
+				</p>
+			)
 		}
 
 		const isPreviewContent = true
@@ -56,10 +66,7 @@ var QuestionForm = React.createClass({
 					</a>
 
 					<div className="ww-collapsible-block">
-						<p className="ww-question-gloss">
-							Please review the questions below to see if your question has already been answered.
-						</p>
-
+						{questionGloss}
 
 						<input type="hidden" name="ww-problem-id" value={problemId} />
 

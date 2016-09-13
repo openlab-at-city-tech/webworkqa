@@ -33522,6 +33522,7 @@
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var collapsed = state.collapsed;
 		var formData = state.formData;
+		var questionsById = state.questionsById;
 		var content = formData.content;
 		var tried = formData.tried;
 		var isPending = formData.isPending;
@@ -33529,10 +33530,13 @@
 		var problemText = window.WWData.problem_text;
 		var isCollapsed = collapsed.hasOwnProperty('questionForm');
 	
+		var problemHasQuestions = questionsById.length > 0;
+	
 		return {
 			content: content,
 			isCollapsed: isCollapsed,
 			isPending: isPending,
+			problemHasQuestions: problemHasQuestions,
 			problemText: problemText,
 			tried: tried
 		};
@@ -33587,6 +33591,7 @@
 			var isPending = _props.isPending;
 			var problemId = _props.problemId;
 			var problemText = _props.problemText;
+			var problemHasQuestions = _props.problemHasQuestions;
 			var tried = _props.tried;
 			var onAccordionClick = _props.onAccordionClick;
 			var onTextareaChange = _props.onTextareaChange;
@@ -33607,6 +33612,15 @@
 				accordionToggleClass += ' fa-arrow-circle-o-down';
 			} else {
 				accordionToggleClass += ' fa-arrow-circle-up';
+			}
+	
+			var questionGloss = '';
+			if (problemHasQuestions) {
+				questionGloss = _react2['default'].createElement(
+					'p',
+					{ className: 'ww-question-gloss' },
+					'Please review the questions below to see if your question has already been answered.'
+				);
 			}
 	
 			var isPreviewContent = true;
@@ -33649,11 +33663,7 @@
 					_react2['default'].createElement(
 						'div',
 						{ className: 'ww-collapsible-block' },
-						_react2['default'].createElement(
-							'p',
-							{ className: 'ww-question-gloss' },
-							'Please review the questions below to see if your question has already been answered.'
-						),
+						questionGloss,
 						_react2['default'].createElement('input', { type: 'hidden', name: 'ww-problem-id', value: problemId }),
 						_react2['default'].createElement(_containersPreviewableFieldContainer2['default'], {
 							fieldName: 'content',

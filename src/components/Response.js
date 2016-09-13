@@ -1,7 +1,8 @@
 import React from 'react';
+import Scroll from 'react-scroll'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
-import Scroll from 'react-scroll'
+import FormattedProblem from './FormattedProblem'
 
 var moment = require( 'moment' )
 
@@ -37,6 +38,8 @@ var Response = React.createClass({
 			)
 		}
 
+		const contentId = 'response-' + responseId
+
 		return (
 			<li className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
 				<div className="ww-author-avatar">
@@ -52,7 +55,11 @@ var Response = React.createClass({
 						</span>
 					</div>
 
-					{content}
+					<FormattedProblem
+					  itemId={contentId}
+					  content={content}
+					/>
+
 					{answeredElement}
 				</div>
 

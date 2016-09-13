@@ -22,9 +22,9 @@ export default class PreviewableField extends Component {
 
 		const previewId = id + '-preview'
 
-		const delimRegExp = /\\begin\{((?:display)?math)\}([^]*?)\\end\{\1\}/gm
 		let display, openDelim, closeDelim, newVal
-		const previewContent = value.replace( delimRegExp, function( a, type, math ) {
+		const delimRegExp = /\\begin\{((?:display)?math)\}([^]*?)\\end\{\1\}/gm
+		let previewContent = value.replace( delimRegExp, function( a, type, math ) {
 
 			if ( 'displaymath' == type ) {
 				display = 'block'
@@ -32,6 +32,19 @@ export default class PreviewableField extends Component {
 				closeDelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}'
 			} else {
 				display = 'inline'
+				openDelim = '{{{LATEX_DELIM_INLINE_OPEN}}}'
+				closeDelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}'
+			}
+
+			return openDelim + math + closeDelim
+		} )
+
+		const shortDelimRegExp = /\$latex([^\$]+)\$/gm
+		previewContent = previewContent.replace( shortDelimRegExp, function( a, math ) {
+			if ( math.match( /\n/ ) ) {
+				openDelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}'
+				closeDelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}'
+			} else {
 				openDelim = '{{{LATEX_DELIM_INLINE_OPEN}}}'
 				closeDelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}'
 			}

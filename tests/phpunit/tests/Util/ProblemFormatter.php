@@ -99,6 +99,19 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$this->assertSame( $expected, $pf->convert_delims( $text ) );
 	}
 
+	/**
+	 * @group bbg
+	 */
+	public function test_convert_shorthand_delims() {
+		$text = '\foo \bar $latex \foo \bar$ $latex\foo
+\bar$ foo';
+		$expected = '\foo \bar {{{LATEX_DELIM_INLINE_OPEN}}} \foo \bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}\foo
+\bar{{{LATEX_DELIM_DISPLAY_CLOSE}}} foo';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$this->assertSame( $expected, $pf->convert_delims( $text ) );
+	}
+
 	public function test_swap_latex_escape_characters() {
 		$text = '\foo \bar <script type="text/javascript">\foo \bar</script> {{{LATEX_DELIM_INLINE_OPEN}}}\foo \bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}\foo \bar{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
 

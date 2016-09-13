@@ -166,6 +166,25 @@ class ProblemFormatter {
 				$cdelim
 			);
 		}, $text );
+
+		$regex = ';\$latex([^\$]+)\$;s';
+		$text = preg_replace_callback( $regex, function( $matches ) {
+			if ( false !== strpos( $matches[1], "\n" ) ) {
+				$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
+				$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+			} else {
+				$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
+				$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
+			}
+
+			return sprintf(
+				'%s%s%s',
+				$odelim,
+				$matches[1],
+				$cdelim
+			);
+		}, $text );
+
 		return $text;
 	}
 

@@ -7,12 +7,11 @@ export default class ScoreDialog extends React.Component {
 	}
 
 	render() {
-		const { itemId, onVoteClick, scores, userCanVote, votes } = this.props
+		const { itemId, onVoteClick, userCanVote, vote } = this.props
 
-		const myVote = votes.hasOwnProperty( itemId ) ? votes[ itemId ] : '';
-		let score = scores.hasOwnProperty( itemId ) ? scores[ itemId ] : 0;
+		let score = this.props.score
 
-		switch ( myVote ) {
+		switch ( vote ) {
 			case 'up' :
 				score++
 				break
@@ -27,7 +26,7 @@ export default class ScoreDialog extends React.Component {
 		let heartClass = 'fa'
 		let voteText
 		if ( userCanVote ) {
-			if ( 'up' === myVote ) {
+			if ( 'up' === vote ) {
 				heartClass += ' fa-heart'
 				voteText = 'Click to remove vote'
 			} else {
@@ -47,7 +46,7 @@ export default class ScoreDialog extends React.Component {
 				<button
 				  onClick={ (e) => {
 					e.preventDefault()
-					onVoteClick( itemId, ( myVote === 'up' ) ? '' : 'up' )
+					onVoteClick( itemId, ( vote === 'up' ) ? '' : 'up' )
 				  } }
 				>
 					{heartElement}

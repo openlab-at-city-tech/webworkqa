@@ -3,6 +3,7 @@ import {
 	receiveFilterOptions, setAppIsLoading,
 	setCollapsed, setCollapsedBulk, setTextareaValue
 } from './app'
+import { setScoresBulk } from './scores'
 
 export function fetchQuestionIndexList() {
 	return (dispatch, getState) => {
@@ -49,13 +50,19 @@ export function fetchQuestionIndexList() {
 			dispatch( receiveQuestionIds( json.questionIds ) )
 
 			let toCollapse = []
+			let scores = []
+			let thisQuestionId
 			for ( var i = 0; i < json.questionIds.length; i++ ) {
+				thisQuestionId = json.questionIds[ i ]
 				toCollapse.push( {
-					key: json.questionIds[ i ] + '-problem',
+					key: thisQuestionId + '-problem',
 					value: '1'
 				} )
+
+				scores[ thisQuestionId ] = json.questions[ thisQuestionId ].voteCount
 			}
 			dispatch( setCollapsedBulk( toCollapse ) )
+			dispatch( setScoresBulk( scores ) )
 
 			dispatch( setAppIsLoading( false ) )
 		} )

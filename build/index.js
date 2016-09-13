@@ -31621,6 +31621,7 @@
 				dispatch(receiveQuestionById(json.questionId));
 				dispatch((0, _app.setTextareaValue)('content', ''));
 				dispatch((0, _app.setTextareaValue)('tried', ''));
+				dispatch((0, _app.setCollapsed)('questionFormField_response-text-' + json.questionId, true));
 	
 				// Remove the post_data_key param from the window location.
 				if (false !== window.location.search.indexOf('post_data_key')) {

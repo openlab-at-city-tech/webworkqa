@@ -46,7 +46,6 @@ const ResponseForm = React.createClass( {
 						  fieldName={textareaName}
 						  id={textareaName}
 						  label={pfcLabel}
-						  value={responseText}
 						/>
 
 						<input

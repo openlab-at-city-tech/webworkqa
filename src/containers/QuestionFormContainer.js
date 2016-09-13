@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import QuestionForm from '../components/QuestionForm'
-import { changeQuestionText, sendQuestion, setQuestionPending } from '../actions/questions'
+import { sendQuestion, setQuestionPending } from '../actions/questions'
 import { setCollapsed } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
-	const { collapsed, questionFormData } = state
-	const { content, tried, isPending } = questionFormData
+	const { collapsed, formData } = state
+	const { content, tried, isPending } = formData
 
 	const problemText = window.WWData.problem_text
 	const isCollapsed = collapsed.hasOwnProperty( 'questionForm' )

@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { setTextareaValue } from './app'
 
 export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE'
 const receiveResponse = (response) => {
@@ -68,17 +69,6 @@ const setResponseAnswered = ( responseId, isAnswered ) => {
 	}
 }
 
-export const CHANGE_RESPONSE_TEXT = 'CHANGE_RESPONSE_TEXT'
-export const changeResponseText = ( questionId, value ) => {
-	return {
-		type: CHANGE_RESPONSE_TEXT,
-		payload: {
-			questionId,
-			value
-		}
-	}
-}
-
 export const SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING'
 export const setResponsePending = ( questionId, isPending ) => {
 	return {
@@ -120,7 +110,7 @@ export function sendResponse( questionId, value ) {
 			dispatch( receiveResponse( json ) )
 			dispatch( receiveResponseIdForMap( json.responseId, questionId ) )
 			dispatch( setResponsePending( questionId, false ) )
-			dispatch( changeResponseText( questionId, '' ) )
+			dispatch( setTextareaValue( 'response-text-' + questionId, '' ) )
 			// todo - handle errors
 
 		} )

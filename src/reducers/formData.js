@@ -1,12 +1,13 @@
-import { CHANGE_QUESTION_TEXT, SET_QUESTION_PENDING } from '../actions/questions'
+import { SET_TEXTAREA_VALUE } from '../actions/app'
+import { SET_QUESTION_PENDING } from '../actions/questions'
 
-export function questionFormData( state = {
+export function formData( state = {
 	isPending: false,
 	content: '',
 	tried: ''
 }, action ) {
 	switch ( action.type ) {
-		case CHANGE_QUESTION_TEXT :
+		case SET_TEXTAREA_VALUE :
 			const { fieldName, value } = action.payload
 
 			return Object.assign( {}, state, {

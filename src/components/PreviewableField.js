@@ -59,7 +59,7 @@ export default class PreviewableField extends Component {
 				  value={value}
 				  disabled={isPending}
 				  onChange={ e => {
-					onTextareaChange( e.target.value )
+					onTextareaChange( e )
 				  } }
 				/>
 

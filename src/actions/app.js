@@ -96,3 +96,14 @@ export const setViewType = ( viewType, objectId = null ) => {
 	}
 }
 
+export const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE'
+export const setTextareaValue = ( fieldName, value ) => {
+	return {
+		type: SET_TEXTAREA_VALUE,
+		payload: {
+			fieldName,
+			value
+		}
+	}
+}
+

@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { receiveFilterOptions, setAppIsLoading, setCollapsedBulk } from './app'
+import { receiveFilterOptions, setAppIsLoading, setCollapsedBulk, setTextareaValue } from './app'
 
 export function fetchQuestionIndexList() {
 	return (dispatch, getState) => {
@@ -128,17 +128,6 @@ export const receiveQuestionsById = (questionsById) => {
 	}
 }
 
-export const CHANGE_QUESTION_TEXT = 'CHANGE_QUESTION_TEXT'
-export const changeQuestionText = ( fieldName, value ) => {
-	return {
-		type: CHANGE_QUESTION_TEXT,
-		payload: {
-			fieldName,
-			value
-		}
-	}
-}
-
 export const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING'
 export const setQuestionPending = ( isPending ) => {
 	return {
@@ -179,8 +168,8 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			dispatch( setQuestionPending( false ) )
 			dispatch( receiveQuestion( json ) )
 			dispatch( receiveQuestionById( json.questionId ) )
-			dispatch( changeQuestionText( 'content', '' ) )
-			dispatch( changeQuestionText( 'tried', '' ) )
+			dispatch( setTextareaValue( 'content', '' ) )
+			dispatch( setTextareaValue( 'tried', '' ) )
 
 			// Remove the post_data_key param from the window location.
 			if ( false !== window.location.search.indexOf( 'post_data_key' ) ) {

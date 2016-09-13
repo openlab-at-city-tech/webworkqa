@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
 import PreviewableField from '../components/PreviewableField'
-import { changeQuestionText } from '../actions/questions'
-import { setCollapsed } from '../actions/app'
+import { setCollapsed, setTextareaValue } from '../actions/app'
 
 const mapStateToProps = ( state, ownProps ) => {
-	const { collapsed, questionFormData } = state
+	const { collapsed, formData } = state
+	const { fieldName } = ownProps
 
-	const value = questionFormData.hasOwnProperty( ownProps.fieldName ) ? questionFormData[ ownProps.fieldName ] : ''
-	const isPending = questionFormData.isPending
-	const isPreviewVisible = ! collapsed.hasOwnProperty( 'questionFormField_' + ownProps.fieldName )
+	const value = formData.hasOwnProperty( fieldName ) ? formData[ fieldName ] : ''
+	const isPending = formData.isPending
+	const isPreviewVisible = ! collapsed.hasOwnProperty( 'questionFormField_' + fieldName )
 
 	return {
 		isPending,
@@ -24,8 +24,8 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 			dispatch( setCollapsed( collapsedKey ) )
 		},
 
-		onTextareaChange: ( value ) => {
-			dispatch( changeQuestionText( ownProps.fieldName, value ) )
+		onTextareaChange: ( event ) => {
+			dispatch( setTextareaValue( ownProps.fieldName, event.target.value ) )
 		}
 	}
 }

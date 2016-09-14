@@ -30888,9 +30888,9 @@
 	
 	var _formData = __webpack_require__(537);
 	
-	var _initialLoadComplete = __webpack_require__(541);
+	var _initialLoadComplete = __webpack_require__(542);
 	
-	var _problems = __webpack_require__(542);
+	var _problems = __webpack_require__(543);
 	
 	var _problemIds = __webpack_require__(547);
 	
@@ -31432,7 +31432,7 @@
 	
 	var _app = __webpack_require__(527);
 	
-	var _scores = __webpack_require__(545);
+	var _scores = __webpack_require__(541);
 	
 	function fetchQuestionIndexList() {
 		return function (dispatch, getState) {
@@ -32104,6 +32104,38 @@
 
 /***/ },
 /* 541 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	var SET_SCORE = 'SET_SCORE';
+	exports.SET_SCORE = SET_SCORE;
+	var setScore = function setScore(itemId, score) {
+		return {
+			type: SET_SCORE,
+			payload: {
+				itemId: itemId,
+				score: score
+			}
+		};
+	};
+	
+	exports.setScore = setScore;
+	var SET_SCORES_BULK = 'SET_SCORES_BULK';
+	exports.SET_SCORES_BULK = SET_SCORES_BULK;
+	var setScoresBulk = function setScoresBulk(scores) {
+		return {
+			type: SET_SCORES_BULK,
+			payload: scores
+		};
+	};
+	exports.setScoresBulk = setScoresBulk;
+
+/***/ },
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32128,7 +32160,7 @@
 	}
 
 /***/ },
-/* 542 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32138,7 +32170,7 @@
 	});
 	exports.problems = problems;
 	
-	var _actionsProblems = __webpack_require__(543);
+	var _actionsProblems = __webpack_require__(544);
 	
 	function problems(state, action) {
 		if (state === undefined) state = {};
@@ -32153,7 +32185,7 @@
 	}
 
 /***/ },
-/* 543 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32173,9 +32205,9 @@
 	
 	var _questions = __webpack_require__(538);
 	
-	var _responses = __webpack_require__(544);
+	var _responses = __webpack_require__(545);
 	
-	var _scores = __webpack_require__(545);
+	var _scores = __webpack_require__(541);
 	
 	var _votes = __webpack_require__(546);
 	
@@ -32314,7 +32346,6 @@
 				dispatch((0, _responses.receiveResponseIdMap)(responseIdMap));
 				dispatch((0, _responses.receiveResponses)(responses));
 	
-				console.log(scores);
 				dispatch((0, _scores.setScoresBulk)(scores));
 				dispatch((0, _votes.setVotesBulk)(votes));
 	
@@ -32327,7 +32358,7 @@
 	}
 
 /***/ },
-/* 544 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32487,38 +32518,6 @@
 	}
 
 /***/ },
-/* 545 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-	var SET_SCORE = 'SET_SCORE';
-	exports.SET_SCORE = SET_SCORE;
-	var setScore = function setScore(itemId, score) {
-		return {
-			type: SET_SCORE,
-			payload: {
-				itemId: itemId,
-				score: score
-			}
-		};
-	};
-	
-	exports.setScore = setScore;
-	var SET_SCORES_BULK = 'SET_SCORES_BULK';
-	exports.SET_SCORES_BULK = SET_SCORES_BULK;
-	var setScoresBulk = function setScoresBulk(scores) {
-		return {
-			type: SET_SCORES_BULK,
-			payload: scores
-		};
-	};
-	exports.setScoresBulk = setScoresBulk;
-
-/***/ },
 /* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32602,7 +32601,7 @@
 	});
 	exports.problemIds = problemIds;
 	
-	var _actionsProblems = __webpack_require__(543);
+	var _actionsProblems = __webpack_require__(544);
 	
 	function problemIds(state, action) {
 		if (state === undefined) state = [];
@@ -32694,7 +32693,7 @@
 	});
 	exports.responseFormPending = responseFormPending;
 	
-	var _actionsResponses = __webpack_require__(544);
+	var _actionsResponses = __webpack_require__(545);
 	
 	function responseFormPending(state, action) {
 		if (state === undefined) state = {};
@@ -32730,7 +32729,7 @@
 	});
 	exports.responseIdMap = responseIdMap;
 	
-	var _actionsResponses = __webpack_require__(544);
+	var _actionsResponses = __webpack_require__(545);
 	
 	function responseIdMap(state, action) {
 		if (state === undefined) state = {};
@@ -32775,7 +32774,7 @@
 	});
 	exports.responses = responses;
 	
-	var _actionsResponses = __webpack_require__(544);
+	var _actionsResponses = __webpack_require__(545);
 	
 	function responses(state, action) {
 		if (state === undefined) state = {};
@@ -32793,8 +32792,12 @@
 				    isAnswered = _action$payload.isAnswered;
 	
 				var response = state[responseId];
-				response.isAnswer = isAnswered;
-				return _Object$assign3({}, state, _defineProperty({}, responseId, response));
+	
+				var newResponse = _Object$assign3({}, state[responseId], {
+					isAnswer: isAnswered
+				});
+	
+				return _Object$assign3({}, state, _defineProperty({}, responseId, newResponse));
 			default:
 				return state;
 		}
@@ -32815,7 +32818,7 @@
 	});
 	exports.scores = scores;
 	
-	var _actionsScores = __webpack_require__(545);
+	var _actionsScores = __webpack_require__(541);
 	
 	function scores(state, action) {
 		if (state === undefined) state = {};
@@ -32930,7 +32933,7 @@
 	
 	var _actionsApp = __webpack_require__(527);
 	
-	var _actionsProblems = __webpack_require__(543);
+	var _actionsProblems = __webpack_require__(544);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var problems = state.problems;
@@ -33923,7 +33926,7 @@
 	
 	var _actionsQuestions = __webpack_require__(538);
 	
-	var _actionsProblems = __webpack_require__(543);
+	var _actionsProblems = __webpack_require__(544);
 	
 	var _actionsApp = __webpack_require__(527);
 	
@@ -37370,7 +37373,6 @@
 			var isMyQuestion = _props.isMyQuestion;
 			var questionId = _props.questionId;
 			var responseIds = _props.responseIds;
-			var responses = _props.responses;
 	
 			var responseScrollElementName = 'response-form-' + questionId;
 	
@@ -37551,9 +37553,9 @@
 		};
 	};
 	
-	var ResponseList = (0, _reactRedux.connect)(mapStateToProps)(_componentsResponse2['default']);
+	var ResponseContainer = (0, _reactRedux.connect)(mapStateToProps)(_componentsResponse2['default']);
 	
-	exports['default'] = ResponseList;
+	exports['default'] = ResponseContainer;
 	module.exports = exports['default'];
 
 /***/ },
@@ -37725,7 +37727,7 @@
 	
 	var _componentsAnsweredDialog2 = _interopRequireDefault(_componentsAnsweredDialog);
 	
-	var _actionsResponses = __webpack_require__(544);
+	var _actionsResponses = __webpack_require__(545);
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var responses = state.responses;
@@ -51883,7 +51885,7 @@
 	
 	var _componentsResponseForm2 = _interopRequireDefault(_componentsResponseForm);
 	
-	var _actionsResponses = __webpack_require__(544);
+	var _actionsResponses = __webpack_require__(545);
 	
 	var _actionsApp = __webpack_require__(527);
 	

@@ -7,6 +7,7 @@ namespace WeBWorK\Server;
  */
 class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $p;
+	protected $pf;
 
 	protected $id;
 
@@ -23,6 +24,8 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	public function __construct( $id = null ) {
 		$this->p = new Util\WPPost( $this );
 		$this->p->set_post_type( 'webwork_response' );
+
+		$this->pf = new Util\ProblemFormatter();
 
 		if ( $id ) {
 			$this->set_id( $id );
@@ -76,8 +79,12 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->author_id;
 	}
 
-	public function get_content() {
-		return $this->content;
+	public function get_content( $format = 'mathjax' ) {
+		$content = $this->content;
+		if ( 'mathjax' === $format ) {
+			$content = $this->pf->replace_latex_escape_characters( $content );
+		}
+		return $content;
 	}
 
 	public function get_post_date() {

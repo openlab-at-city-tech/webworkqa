@@ -32504,7 +32504,7 @@
 				dispatch(receiveResponse(json));
 				dispatch(receiveResponseIdForMap(json.responseId, questionId));
 				dispatch(setResponsePending(questionId, false));
-				dispatch((0, _app.setTextareaValue)('response-text-' + questionId, ''));
+				dispatch((0, _app.setTextareaValue)('response-text-' + questionId, '')) / dispatch((0, _app.setCollapsed)('questionFormField_response-text-' + questionId, true));
 				// todo - handle errors
 			});
 		};

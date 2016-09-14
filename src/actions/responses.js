@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { setTextareaValue } from './app'
+import { setCollapsed, setTextareaValue } from './app'
 
 export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE'
 const receiveResponse = (response) => {
@@ -111,6 +111,7 @@ export function sendResponse( questionId, value ) {
 			dispatch( receiveResponseIdForMap( json.responseId, questionId ) )
 			dispatch( setResponsePending( questionId, false ) )
 			dispatch( setTextareaValue( 'response-text-' + questionId, '' ) )
+/			dispatch( setCollapsed( 'questionFormField_response-text-' + questionId, true ) )
 			// todo - handle errors
 
 		} )

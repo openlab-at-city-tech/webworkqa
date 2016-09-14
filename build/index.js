@@ -31432,6 +31432,8 @@
 	
 	var _app = __webpack_require__(527);
 	
+	var _scores = __webpack_require__(545);
+	
 	function fetchQuestionIndexList() {
 		return function (dispatch, getState) {
 			var _window$WWData = window.WWData;
@@ -31481,13 +31483,19 @@
 				dispatch(receiveQuestionIds(json.questionIds));
 	
 				var toCollapse = [];
+				var scores = [];
+				var thisQuestionId = undefined;
 				for (var i = 0; i < json.questionIds.length; i++) {
+					thisQuestionId = json.questionIds[i];
 					toCollapse.push({
-						key: json.questionIds[i] + '-problem',
+						key: thisQuestionId + '-problem',
 						value: '1'
 					});
+	
+					scores[thisQuestionId] = json.questions[thisQuestionId].voteCount;
 				}
 				dispatch((0, _app.setCollapsedBulk)(toCollapse));
+				dispatch((0, _scores.setScoresBulk)(scores));
 	
 				dispatch((0, _app.setAppIsLoading)(false));
 			});
@@ -32306,6 +32314,7 @@
 				dispatch((0, _responses.receiveResponseIdMap)(responseIdMap));
 				dispatch((0, _responses.receiveResponses)(responses));
 	
+				console.log(scores);
 				dispatch((0, _scores.setScoresBulk)(scores));
 				dispatch((0, _votes.setVotesBulk)(votes));
 	
@@ -37160,15 +37169,19 @@
 	
 	var _actionsVotes = __webpack_require__(546);
 	
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
 		var scores = state.scores;
 		var viewType = state.viewType;
 		var votes = state.votes;
+		var itemId = ownProps.itemId;
+	
+		var score = scores.hasOwnProperty(itemId) ? scores[itemId] : 0;
+		var vote = votes.hasOwnProperty(itemId) ? votes[itemId] : '';
 	
 		return {
-			scores: scores,
+			score: score,
 			userCanVote: 'problem' == viewType.viewType && window.WWData.user_can_vote,
-			votes: votes
+			vote: vote
 		};
 	};
 	
@@ -37226,14 +37239,12 @@
 				var _props = this.props;
 				var itemId = _props.itemId;
 				var onVoteClick = _props.onVoteClick;
-				var scores = _props.scores;
 				var userCanVote = _props.userCanVote;
-				var votes = _props.votes;
+				var vote = _props.vote;
 	
-				var myVote = votes.hasOwnProperty(itemId) ? votes[itemId] : '';
-				var score = scores.hasOwnProperty(itemId) ? scores[itemId] : 0;
+				var score = this.props.score;
 	
-				switch (myVote) {
+				switch (vote) {
 					case 'up':
 						score++;
 						break;
@@ -37248,7 +37259,7 @@
 				var heartClass = 'fa';
 				var voteText = undefined;
 				if (userCanVote) {
-					if ('up' === myVote) {
+					if ('up' === vote) {
 						heartClass += ' fa-heart';
 						voteText = 'Click to remove vote';
 					} else {
@@ -37273,7 +37284,7 @@
 						{
 							onClick: function (e) {
 								e.preventDefault();
-								onVoteClick(itemId, myVote === 'up' ? '' : 'up');
+								onVoteClick(itemId, vote === 'up' ? '' : 'up');
 							}
 						},
 						heartElement,

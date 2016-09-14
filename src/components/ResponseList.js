@@ -6,7 +6,7 @@ import { Element } from 'react-scroll'
 
 var ResponseList = React.createClass({
 	render: function() {
-		const { isMyQuestion, questionId, responseIds, responses } = this.props
+		const { isMyQuestion, questionId, responseIds } = this.props
 		const responseScrollElementName = 'response-form-' + questionId
 
 		var rows = [];

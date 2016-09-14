@@ -13,8 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 	}
 }
 
-const ResponseList = connect(
+const ResponseContainer = connect(
 	mapStateToProps
 )(Response)
 
-export default ResponseList
+export default ResponseContainer

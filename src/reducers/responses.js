@@ -13,9 +13,13 @@ export function responses( state = {}, action ) {
 		case SET_RESPONSE_ANSWERED :
 			const { responseId, isAnswered } = action.payload
 			let response = state[responseId]
-			response.isAnswer = isAnswered
+
+			const newResponse = Object.assign( {}, state[responseId], {
+				isAnswer: isAnswered
+			} )
+
 			return Object.assign( {}, state, {
-				[responseId]: response
+				[responseId]: newResponse
 			} )
 		default :
 			return state

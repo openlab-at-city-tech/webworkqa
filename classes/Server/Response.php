@@ -84,6 +84,9 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		if ( 'mathjax' === $format ) {
 			$content = $this->pf->replace_latex_escape_characters( $content );
 		}
+
+		$content = $this->pf->strip_illegal_markup( $content );
+
 		return $content;
 	}
 

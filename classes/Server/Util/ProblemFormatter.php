@@ -8,6 +8,21 @@ namespace WeBWorK\Server\Util;
 class ProblemFormatter {
 	protected $mathjax_delim_regex = '|(<script type="math/tex([^"]*)">)(.*?)(</script>)|s';
 
+	/**
+	 * Default allowed tags for content.
+	 *
+	 * Some content types may be more permissive.
+	 */
+	protected $allowed_tags = array(
+		'a' => array(
+			'href' => true,
+		),
+		'b' => array(),
+		'em' => array(),
+		'i' => array(),
+		'strong' => array(),
+	);
+
 	public function clean( $text ) {
 		$parsed = $this->strip_inputs( $text );
 		$parsed = $this->convert_delims( $parsed );
@@ -69,6 +84,30 @@ class ProblemFormatter {
 		$text = preg_replace( '|<input[^>]+> *|i', '___ ', $text );
 
 		return $text;
+	}
+
+
+	public function strip_illegal_markup( $text, $allowed_html_set = 'normal' ) {
+		$allowed_tags = $this->allowed_tags;
+		if ( 'extended' === $allowed_html_set ) {
+			// Positioning.
+			$allowed_tags['center'] = array();
+
+			// Lists.
+			$allowed_tags['li'] = array();
+			$allowed_tags['ol'] = array();
+			$allowed_tags['ul'] = array();
+
+			// Tables.
+			$allowed_tags['table'] = array();
+			$allowed_tags['thead'] = array();
+			$allowed_tags['tbody'] = array();
+			$allowed_tags['tr'] = array();
+			$allowed_tags['th'] = array();
+			$allowed_tags['td'] = array();
+		}
+
+		return wp_kses( $text, $allowed_tags );
 	}
 
 	public function remove_script_tags( $text ) {

@@ -98,6 +98,9 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		if ( 'mathjax' === $format ) {
 			$content = $this->pf->replace_latex_escape_characters( $content );
 		}
+
+		$content = $this->pf->strip_illegal_markup( $content );
+
 		return $content;
 	}
 
@@ -106,6 +109,9 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		if ( 'mathjax' === $format ) {
 			$tried = $this->pf->replace_latex_escape_characters( $tried );
 		}
+
+		$tried = $this->pf->strip_illegal_markup( $tried );
+
 		return $tried;
 	}
 
@@ -114,6 +120,9 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		if ( 'mathjax' === $format ) {
 			$problem_text = $this->pf->replace_latex_escape_characters( $problem_text );
 		}
+
+		$problem_text = $this->pf->strip_illegal_markup( $problem_text, 'extended' );
+
 		return $problem_text;
 	}
 

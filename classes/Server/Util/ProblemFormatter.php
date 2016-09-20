@@ -49,7 +49,7 @@ class ProblemFormatter {
 		return $parsed;
 	}
 
-	public function clean_problem_from_webwork( $text ) {
+	public function clean_problem_from_webwork( $text, $data = array() ) {
 		$text = $this->remove_script_tags( $text );
 		$text = $this->remove_style_tags( $text );
 		$text = $this->strip_inputs( $text );
@@ -66,12 +66,14 @@ class ProblemFormatter {
 		// Tag cleanup.
 		$text = preg_replace( '|<br ?/?>|i', "\n", $text );
 		$text = preg_replace( '|</?[pbi]>|i', '', $text );
-		$text = preg_replace( '|</?blockquote>|i', '', $text );
 
 		$text = $this->collapse_line_breaks( $text );
 		$text = $this->strip_knowls( $text );
-		$text = $this->convert_anchors( $text );
 		$text = $this->strip_p_tags( $text );
+
+		if ( isset( $data['remote_course_url'] ) ) {
+			$text = $this->convert_image_urls( $text, $data['remote_course_url'] );
+		}
 
 		return $text;
 	}
@@ -359,6 +361,18 @@ class ProblemFormatter {
 	public function convert_anchors( $text ) {
 		$regex = '|<a [^>]+>(.*?)</a>|';
 		$text = preg_replace( $regex, '\1', $text );
+		return $text;
+	}
+
+	public function convert_image_urls( $text, $course_url ) {
+		if ( false === strpos( $text, '<img' ) && false === strpos( $text, '<a ' ) ) {
+			return $text;
+		}
+
+		$parts = parse_url( $course_url );
+
+		$text = str_replace( 'href="/', 'href="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
+		$text = str_replace( 'src="/', 'src="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
 		return $text;
 	}
 }

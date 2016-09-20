@@ -153,7 +153,7 @@ class Server {
 		$text = base64_decode( $raw_text );
 
 		$pf = new Server\Util\ProblemFormatter();
-		$text = $pf->clean_problem_from_webwork( $text );
+		$text = $pf->clean_problem_from_webwork( $text, $data );
 
 		$data['problem_id'] = $pf->get_library_id_from_text( $text );
 

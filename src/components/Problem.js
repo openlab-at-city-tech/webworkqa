@@ -12,6 +12,16 @@ export default class Problem extends Component {
 		onComponentWillMount( problemId )
 	}
 
+	componentDidMount() {
+		// This is so amazing it makes me want to wrap up my programming career
+		setTimeout( function() {
+			if ( ! document.hasOwnProperty( 'webwork_initialized' ) ) {
+				document.webwork_scaffold_init()
+				document.webwork_initialized = true
+			}
+		}, 1000 );
+	}
+
 	render() {
 		const { problems, problemId, questionsById, userCanAskQuestion } = this.props
 

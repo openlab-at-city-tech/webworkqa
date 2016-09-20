@@ -7,13 +7,6 @@ const FormattedProblem = React.createClass( {
 		}
 	},
 
-	componentDidMount: function() {
-		if ( ! document.hasOwnProperty( 'webwork_initialized' ) ) {
-			document.webwork_scaffold_init()
-			document.webwork_initialized = true
-		}
-	},
-
 	shouldComponentUpdate: function( nextProps, nextState ) {
 		return nextProps.content !== this.props.content || nextProps.isVisible !== this.props.isVisible
 	},

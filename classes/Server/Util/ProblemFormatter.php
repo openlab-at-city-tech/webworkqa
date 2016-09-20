@@ -119,6 +119,11 @@ class ProblemFormatter {
 			$allowed_tags['tr'] = array();
 			$allowed_tags['th'] = array();
 			$allowed_tags['td'] = array();
+
+			// Images.
+			$allowed_tags['img'] = array(
+				'src' => true,
+			);
 		}
 
 		return wp_kses( $text, $allowed_tags );

@@ -713,6 +713,53 @@ h3.ww-collapsible-section-header {
 	content: "\f0aa";
 }
 
+/** From WeBWorK *************************************************************/
+.section-div > div {padding:0 .5em;}    /* move the contents away from the edges */
+.section-div > h3 > .ui-icon {
+display: inline-block;                /* make the triangle be on the same line as the title */
+margin: 3px 1px;                      /* adjust its position slightly */
+vertical-align: -5px;
+}
+.section-div > h3 {
+color: #212121!important;
+border-color: #AAAAAA!important;
+font-weight: normal!important;
+font-style: normal!important;
+width: 100%;
+height: 100%;
+}
+
+.section-div > h3:focus {
+outline-style:solid;
+outline-color:#aaaa00;
+outline-width:2px;
+}
+
+.section-div > h3.ui-state-default {
+color: #555555!important;
+}
+.section-div > div.ui-accordion-content {
+background: #FAFAFA!important;
+}
+.canopen    {background:yellow!important;}
+.iscorrect  {background:lightgreen!important;}
+.cannotopen {
+background:#EEEEEE!important;
+padding: 3px 0px 3px 16px;        /* leave space that would have been triangle */
+}
+
+/* Local overrides of WW styles */
+.section-div {
+	margin: .5rem 0;
+	cursor: pointer;
+}
+.section-div > h3 {
+	padding: 4px 8px;
+}
+.section-div .ui-accordion-content {
+	padding: 1rem;
+}
+
 /** Media queries ************************************************************/
 
 /**

@@ -51,6 +51,7 @@ class ProblemFormatter {
 
 	public function clean_problem_from_webwork( $text ) {
 		$text = $this->remove_script_tags( $text );
+		$text = $this->remove_style_tags( $text );
 		$text = $this->strip_inputs( $text );
 		$text = $this->swap_latex_escape_characters( $text );
 		$text = $this->convert_delims( $text );
@@ -88,10 +89,23 @@ class ProblemFormatter {
 
 
 	public function strip_illegal_markup( $text, $allowed_html_set = 'normal' ) {
+		$text = $this->remove_script_tags( $text, 'all' );
+		$text = $this->remove_style_tags( $text );
+
 		$allowed_tags = $this->allowed_tags;
 		if ( 'extended' === $allowed_html_set ) {
 			// Positioning.
 			$allowed_tags['center'] = array();
+			$allowed_tags['div'] = array(
+				'class' => true,
+				'id' => true,
+			);
+
+			// Headers.
+			$allowed_tags['h3'] = array(
+				'class' => true,
+				'id' => true,
+			);
 
 			// Lists.
 			$allowed_tags['li'] = array();
@@ -110,8 +124,16 @@ class ProblemFormatter {
 		return wp_kses( $text, $allowed_tags );
 	}
 
-	public function remove_script_tags( $text ) {
-		$text = preg_replace( '|<script type="text[^>]+>[^<]+</script>|', '', $text );
+	public function remove_script_tags( $text, $all = 'all' ) {
+		$text = preg_replace( '|<script type="text[^>]+>[^<]+</script>|m', '', $text );
+		if ( 'all' === $all ) {
+			$text = preg_replace( '|<script[^>]*>.*?</script>|s', '', $text );
+		}
+		return $text;
+	}
+
+	public function remove_style_tags( $text ) {
+		$text = preg_replace( '|<style[^>]+>[^<]+</style>|s', '', $text );
 		return $text;
 	}
 

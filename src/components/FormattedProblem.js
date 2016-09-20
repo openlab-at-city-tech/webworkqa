@@ -7,6 +7,13 @@ const FormattedProblem = React.createClass( {
 		}
 	},
 
+	componentDidMount: function() {
+		if ( ! document.hasOwnProperty( 'webwork_initialized' ) ) {
+			document.webwork_scaffold_init()
+			document.webwork_initialized = true
+		}
+	},
+
 	shouldComponentUpdate: function( nextProps, nextState ) {
 		return nextProps.content !== this.props.content || nextProps.isVisible !== this.props.isVisible
 	},
@@ -41,7 +48,7 @@ const FormattedProblem = React.createClass( {
 
 			document.latexIncrementor = document.latexIncrementor + 1
 
-			return '<script type="' + typeAttr + '" id="' + cssId + '">'	
+			return '<script type="' + typeAttr + '" id="' + cssId + '">'
 		} )
 
 		if ( window.hasOwnProperty( 'MathJax' ) && window.MathJax.hasOwnProperty( 'Hub' ) ) {
@@ -51,7 +58,7 @@ const FormattedProblem = React.createClass( {
 		}
 
 		return (
-			<div 
+			<div
 			  className="formatted-problem"
 			  dangerouslySetInnerHTML={{__html: markup}}
 			/>

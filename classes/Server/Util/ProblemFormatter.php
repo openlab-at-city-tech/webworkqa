@@ -365,14 +365,14 @@ class ProblemFormatter {
 	}
 
 	public function convert_image_urls( $text, $course_url ) {
-		if ( false === strpos( $text, '<img' ) && false === strpos( $text, '<a ' ) ) {
+		if ( false === stripos( $text, '<img' ) && false === stripos( $text, '<a ' ) ) {
 			return $text;
 		}
 
 		$parts = parse_url( $course_url );
 
-		$text = str_replace( 'href="/', 'href="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
-		$text = str_replace( 'src="/', 'src="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
+		$text = str_ireplace( 'href="/', 'href="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
+		$text = str_ireplace( 'src="/', 'src="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
 		return $text;
 	}
 }

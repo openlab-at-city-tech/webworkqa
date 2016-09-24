@@ -29,9 +29,14 @@ export default class Problem extends Component {
 
 		const questionFormElement = userCanAskQuestion ? <QuestionFormContainer problemId={problemId} /> : ''
 
+		let problemTitle = 'Another Math Problem'
+		if ( problem && problem.hasOwnProperty( 'problemSet' ) ) {
+			problemTitle = 'Problem: ' + problem.problemSet
+		}
+
 		return (
 			<div className="ww-problem">
-				<h2 className="ww-header">Another Math Problem</h2>
+				<h2 className="ww-header">{problemTitle}</h2>
 
 				<div className="problem-topmatter">
 					<ProblemStatsContainer />

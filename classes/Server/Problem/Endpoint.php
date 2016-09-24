@@ -54,6 +54,7 @@ class Endpoint extends \WP_Rest_Controller {
 				'problemId' => $problem_id,
 				'libraryId' => $problem_id,
 				'content' => $text,
+				'problemSet' => $post_data['problem_set'],
 			);
 		} else {
 			/**
@@ -75,6 +76,7 @@ class Endpoint extends \WP_Rest_Controller {
 					'problemId' => $problem_id,
 					'libraryId' => $problem_id,
 					'content' => $my_question['problemText'],
+					'problemSet' => $my_question['problemSet'],
 				);
 			} else {
 				// Just use the first one created.
@@ -83,6 +85,7 @@ class Endpoint extends \WP_Rest_Controller {
 					'problemId' => $problem_id,
 					'libraryId' => $problem_id,
 					'content' => $the_question['problemText'],
+					'problemSet' => $the_question['problemSet'],
 				);
 			}
 		}

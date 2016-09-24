@@ -8,7 +8,7 @@ var moment = require( 'moment' )
 
 var Response = React.createClass({
 	render: function() {
-		const { isMyQuestion, questionId, response, responseId } = this.props
+		const { isMyQuestion, questionId, response, responseId, userCanPostResponse } = this.props
 		if ( ! response ) {
 			return null
 		}
@@ -21,7 +21,6 @@ var Response = React.createClass({
 		const timeAgo = moment( response.postDate ).fromNow()
 
 		let respondLinkElement
-		const userCanPostResponse = true
 		if ( userCanPostResponse ) {
 			respondLinkElement = (
 				<div className="respond-link">

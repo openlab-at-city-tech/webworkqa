@@ -33061,11 +33061,16 @@
 			value: function componentDidMount() {
 				// This is so amazing it makes me want to wrap up my programming career
 				setTimeout(function () {
-					if (!document.hasOwnProperty('webwork_initialized')) {
+					if (!document.hasOwnProperty('webwork_initialized') || !document.webwork_initialized) {
 						document.webwork_scaffold_init();
 						document.webwork_initialized = true;
 					}
 				}, 1000);
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				document.webwork_initialized = false;
 			}
 		}, {
 			key: 'render',
@@ -33080,13 +33085,18 @@
 	
 				var questionFormElement = userCanAskQuestion ? _react2['default'].createElement(_containersQuestionFormContainer2['default'], { problemId: problemId }) : '';
 	
+				var problemTitle = 'Another Math Problem';
+				if (problem && problem.hasOwnProperty('problemSet')) {
+					problemTitle = 'Problem: ' + problem.problemSet;
+				}
+	
 				return _react2['default'].createElement(
 					'div',
 					{ className: 'ww-problem' },
 					_react2['default'].createElement(
 						'h2',
 						{ className: 'ww-header' },
-						'Another Math Problem'
+						problemTitle
 					),
 					_react2['default'].createElement(
 						'div',
@@ -37500,6 +37510,7 @@
 			var questionId = _props.questionId;
 			var response = _props.response;
 			var responseId = _props.responseId;
+			var userCanPostResponse = _props.userCanPostResponse;
 	
 			if (!response) {
 				return null;
@@ -37518,7 +37529,6 @@
 			var timeAgo = moment(response.postDate).fromNow();
 	
 			var respondLinkElement = undefined;
-			var userCanPostResponse = true;
 			if (userCanPostResponse) {
 				respondLinkElement = _react2['default'].createElement(
 					'div',

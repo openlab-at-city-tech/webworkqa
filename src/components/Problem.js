@@ -15,11 +15,15 @@ export default class Problem extends Component {
 	componentDidMount() {
 		// This is so amazing it makes me want to wrap up my programming career
 		setTimeout( function() {
-			if ( ! document.hasOwnProperty( 'webwork_initialized' ) ) {
+			if ( ! document.hasOwnProperty( 'webwork_initialized' ) || ! document.webwork_initialized ) {
 				document.webwork_scaffold_init()
 				document.webwork_initialized = true
 			}
 		}, 1000 );
+	}
+
+	componentWillUnmount() {
+		document.webwork_initialized = false
 	}
 
 	render() {

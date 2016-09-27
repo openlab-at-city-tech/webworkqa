@@ -18,7 +18,7 @@ class RootComponent extends Component {
 
 		// Create a clone to prevent direct modification of props.
 		let _l = locationArray.slice(0)
-		if ( 'problem' == _l[0] ) {
+		if ( 'problem' == _l[0] && _l.length > 1 ) {
 			isSingleProblem = true
 			_l.splice( 0, 1 )
 

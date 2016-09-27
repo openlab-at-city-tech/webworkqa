@@ -5,6 +5,20 @@ import ResultsHeaderContainer from '../containers/ResultsHeaderContainer'
 import SidebarContainer from '../containers/SidebarContainer'
 
 export default class QuestionIndex extends Component {
+	componentDidMount() {
+		// This is so amazing it makes me want to wrap up my programming career
+		setTimeout( function() {
+			if ( ! document.hasOwnProperty( 'webwork_initialized' ) || ! document.webwork_initialized ) {
+				document.webwork_scaffold_init()
+				document.webwork_initialized = true
+			}
+		}, 1000 );
+	}
+
+	componentWillUnmount() {
+		document.webwork_initialized = false
+	}
+
 	render() {
 		// All the juggling here is because the Results page looks a bit different.
 		const { isResultsPage } = this.props

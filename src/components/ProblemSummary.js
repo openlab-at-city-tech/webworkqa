@@ -14,10 +14,12 @@ var ProblemSummary = React.createClass({
 		const { content, libraryId, maths } = problem
 		const nbsp = '\u00a0'
 
+		const itemId = problemId.split( '/' ).join( '-' )
+
 		return (
 			<div className="ww-problem-summary">
 				<FormattedProblem
-				  itemId={problemId}
+				  itemId={itemId}
 				  content={content}
 				  maths={maths}
 				/>

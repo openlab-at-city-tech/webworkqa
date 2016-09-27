@@ -1,6 +1,11 @@
-import React from 'react';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 const FormattedProblem = React.createClass( {
+	componentDidMount: function() {
+		document.webwork_scaffold_init( ReactDOM.findDOMNode( this.refs.problem ) )
+	},
+
 	getDefaultProps: function() {
 		return {
 			isVisible: true
@@ -53,7 +58,9 @@ const FormattedProblem = React.createClass( {
 		return (
 			<div
 			  className="formatted-problem"
+			  id={itemId}
 			  dangerouslySetInnerHTML={{__html: markup}}
+			  ref="problem"
 			/>
 		)
 	}

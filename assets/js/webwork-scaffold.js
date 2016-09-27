@@ -45,8 +45,6 @@
 	}
 }(jQuery))
 
-document.webwork_scaffold_init = function() {
-	jQuery( '.formatted-problem h3' ).each( function( k, v ) {
-		jQuery( v ).canopen();
-	} );
+document.webwork_scaffold_init = function( el ) {
+	jQuery( el ).find( 'h3' ).canopen();
 }

@@ -131,7 +131,7 @@ class ProblemFormatter {
 		return wp_kses( $text, $allowed_tags );
 	}
 
-	public function remove_script_tags( $text, $all = 'all' ) {
+	public function remove_script_tags( $text, $all = '' ) {
 		$text = preg_replace( '|<script type="text[^>]+>[^<]+</script>|m', '', $text );
 		if ( 'all' === $all ) {
 			$text = preg_replace( '|<script[^>]*>.*?</script>|s', '', $text );

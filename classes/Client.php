@@ -23,9 +23,8 @@ class Client {
 			$ww_problem = get_query_var( 'ww_problem' );
 		}
 
-		wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js' );
-
 		wp_enqueue_script( 'webwork-scaffold', plugins_url() . '/webwork/assets/js/webwork-scaffold.js', array( 'jquery' ) );
+		wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js' );
 
 		$route_base = get_option( 'home' );
 		$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );

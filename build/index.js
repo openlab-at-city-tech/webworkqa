@@ -28306,7 +28306,7 @@
 	
 				// Create a clone to prevent direct modification of props.
 				var _l = locationArray.slice(0);
-				if ('problem' == _l[0]) {
+				if ('problem' == _l[0] && _l.length > 1) {
 					isSingleProblem = true;
 					_l.splice(0, 1);
 	
@@ -33305,11 +33305,13 @@
 	
 			var nbsp = ' ';
 	
+			var itemId = problemId.split('/').join('-');
+	
 			return _react2['default'].createElement(
 				'div',
 				{ className: 'ww-problem-summary' },
 				_react2['default'].createElement(_FormattedProblem2['default'], {
-					itemId: problemId,
+					itemId: itemId,
 					content: content,
 					maths: maths
 				}),
@@ -33351,8 +33353,16 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(336);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	var FormattedProblem = _react2['default'].createClass({
 		displayName: 'FormattedProblem',
+	
+		componentDidMount: function componentDidMount() {
+			document.webwork_scaffold_init(_reactDom2['default'].findDOMNode(this.refs.problem));
+		},
 	
 		getDefaultProps: function getDefaultProps() {
 			return {
@@ -33408,7 +33418,9 @@
 	
 			return _react2['default'].createElement('div', {
 				className: 'formatted-problem',
-				dangerouslySetInnerHTML: { __html: markup }
+				id: itemId,
+				dangerouslySetInnerHTML: { __html: markup },
+				ref: 'problem'
 			});
 		}
 	});
@@ -52333,6 +52345,22 @@
 		}
 	
 		_createClass(QuestionIndex, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				// This is so amazing it makes me want to wrap up my programming career
+				setTimeout(function () {
+					if (!document.hasOwnProperty('webwork_initialized') || !document.webwork_initialized) {
+						document.webwork_scaffold_init();
+						document.webwork_initialized = true;
+					}
+				}, 1000);
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				document.webwork_initialized = false;
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				// All the juggling here is because the Results page looks a bit different.

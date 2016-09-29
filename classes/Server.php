@@ -108,10 +108,13 @@ class Server {
 		$this->store_post_data();
 
 		$ww_client_site_base = $this->get_client_site_base();
+		$redirect_to = $ww_client_site_base;
 
 		$problem_slug = $post_data['problem_id'];
-		$redirect_to = $ww_client_site_base . '#/problem/' . $problem_slug;
-		$redirect_to = add_query_arg( 'post_data_key', $this->post_data_key, $redirect_to );
+		if ( $problem_slug ) {
+			$redirect_to = $ww_client_site_base . '#/problem/' . $problem_slug;
+			$redirect_to = add_query_arg( 'post_data_key', $this->post_data_key, $redirect_to );
+		}
 
 		// For the time being, all requests must be authenticated.
 		// @todo Check permissions against client site - maybe share logic with endpoints.

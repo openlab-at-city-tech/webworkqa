@@ -187,6 +187,11 @@ class Query {
 						'value' => $term->name,
 					);
 				}
+
+				$options[] = array(
+					'name' => __( 'Show All', 'webwork' ),
+					'value' => '',
+				);
 			break;
 
 			case 'answered' :

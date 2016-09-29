@@ -25,7 +25,10 @@ const mapStateToProps = (state, ownProps) => {
 		+ question.problemId + '/question-'
 		+ itemId
 
+	const { hasAnswer } = question
+
 	return {
+		hasAnswer,
 		initialLoadComplete,
 		isCollapsed,
 		isProblemSummaryCollapsed,

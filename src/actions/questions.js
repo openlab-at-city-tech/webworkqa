@@ -105,7 +105,7 @@ const receiveQuestionIds = (questionIds) => {
 }
 
 export const RECEIVE_QUESTION = 'RECEIVE_QUESTION'
-const receiveQuestion = (question) => {
+export const receiveQuestion = (question) => {
 	return {
 		type: RECEIVE_QUESTION,
 		payload: question

@@ -41,6 +41,7 @@ export default class Question extends Component {
 
 	render() {
 		const {
+			hasAnswer,
 			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, responseIds, responses,
 			userCanPostResponse,
@@ -49,7 +50,7 @@ export default class Question extends Component {
 
 		const {
 			tried, content, questionId, authorAvatar, authorName,
-			problemText, hasAnswer
+			problemText
 		} = question
 
 		const isMyQuestion = question.isMyQuestion > 0

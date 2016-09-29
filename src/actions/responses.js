@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { setCollapsed, setTextareaValue } from './app'
+import { receiveQuestion } from './questions'
 
 export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE'
 const receiveResponse = (response) => {
@@ -54,6 +55,11 @@ function sendResponseAnswered( responseId, isAnswered ) {
 		} )
 		.then( response => response.json() )
 		.then( json => {
+			for ( var i in json ) {
+				if ( json.hasOwnProperty( i ) ) {
+					dispatch( receiveQuestion( json[ i ] ) )
+				}
+			}
 		} );
 	}
 }

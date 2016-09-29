@@ -94,7 +94,12 @@ class Endpoint extends \WP_Rest_Controller {
 			$response = new \WeBWorK\Server\Response( $params['id'] );
 			if ( $response->exists() ) {
 				$response->set_is_answer( $params['is_answer'] );
-				$retval = $response->save();
+				$response->save();
+
+				$q = new \WeBWork\Server\Question\Query( array(
+					'question_id' => $response->get_question_id(),
+				) );
+				$retval = $q->get_for_endpoint();
 			}
 		}
 

@@ -31547,6 +31547,7 @@
 		};
 	};
 	
+	exports.receiveQuestion = receiveQuestion;
 	var RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 	exports.RECEIVE_QUESTIONS = RECEIVE_QUESTIONS;
 	var receiveQuestions = function receiveQuestions(questions) {
@@ -32377,6 +32378,8 @@
 	
 	var _app = __webpack_require__(527);
 	
+	var _questions = __webpack_require__(538);
+	
 	var RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
 	exports.RECEIVE_RESPONSE = RECEIVE_RESPONSE;
 	var receiveResponse = function receiveResponse(response) {
@@ -32439,7 +32442,13 @@
 				})
 			}).then(function (response) {
 				return response.json();
-			}).then(function (json) {});
+			}).then(function (json) {
+				for (var i in json) {
+					if (json.hasOwnProperty(i)) {
+						dispatch((0, _questions.receiveQuestion)(json[i]));
+					}
+				}
+			});
 		};
 	}
 	
@@ -35833,7 +35842,10 @@
 		var routeBase = window.WWData.route_base;
 		var questionLink = '/' + routeBase + '#/problem/' + question.problemId + '/question-' + itemId;
 	
+		var hasAnswer = question.hasAnswer;
+	
 		return {
+			hasAnswer: hasAnswer,
 			initialLoadComplete: initialLoadComplete,
 			isCollapsed: isCollapsed,
 			isProblemSummaryCollapsed: isProblemSummaryCollapsed,
@@ -35964,6 +35976,7 @@
 				var _this = this;
 	
 				var _props2 = this.props;
+				var hasAnswer = _props2.hasAnswer;
 				var isCollapsed = _props2.isCollapsed;
 				var isProblemSummaryCollapsed = _props2.isProblemSummaryCollapsed;
 				var isSingleProblem = _props2.isSingleProblem;
@@ -35982,7 +35995,6 @@
 				var authorAvatar = question.authorAvatar;
 				var authorName = question.authorName;
 				var problemText = question.problemText;
-				var hasAnswer = question.hasAnswer;
 	
 				var isMyQuestion = question.isMyQuestion > 0;
 	

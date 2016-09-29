@@ -31066,6 +31066,11 @@
 		// Don't tell the Redux gods about this.
 		window.location.hash = 'results';
 	
+		// Or this.
+		if ('' == value) {
+			value = false;
+		}
+	
 		return {
 			type: SET_FILTER_TOGGLE,
 			payload: {

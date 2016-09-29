@@ -142,7 +142,10 @@ class Endpoint extends \WP_Rest_Controller {
 			return false;
 		}
 
-		return $question->post_author == get_current_user_id();
+		$user_is_admin = current_user_can( 'edit_others_posts' );
+		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+
+		return $user_is_admin || $question->post_author == get_current_user_id();
 	}
 
 	public function get_item_schema() {

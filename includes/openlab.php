@@ -18,9 +18,9 @@ add_filter( 'webwork_author_type_label', 'openlab_webwork_author_type_label', 10
 function openlab_user_is_admin( $is_admin ) {
 	$account_type = xprofile_get_field_data( 'Account Type', get_current_user_id() );
 	if ( $account_type && 'Faculty' == $account_type ) {
-		$account_type = true;
+		$is_admin = true;
 	}
 
-	return $account_type;
+	return $is_admin;
 }
 add_filter( 'webwork_user_is_admin', 'openlab_user_is_admin' );

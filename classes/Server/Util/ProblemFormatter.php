@@ -122,6 +122,9 @@ class ProblemFormatter {
 			$allowed_tags['th'] = array();
 			$allowed_tags['td'] = array();
 
+			$allowed_tags['select'] = array();
+			$allowed_tags['option'] = array();
+
 			// Images.
 			$allowed_tags['img'] = array(
 				'src' => true,

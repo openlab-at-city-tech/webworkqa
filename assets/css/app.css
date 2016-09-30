@@ -138,7 +138,7 @@ ul.question-list > a {
 	font-size: 1rem;
 	position: absolute;
 	right: 10px;
-	top: -110px;
+	top: -105px;
 	width: 180px;
 }
 
@@ -159,11 +159,15 @@ ul.question-list > a {
 	background: #ccc;
 }
 
+.results-header {
+	height: 4rem;
+}
+
 .results-breadcrumbs {
 	color: #777;
 	font-size: 1.2rem;
 	font-weight: 600;
-	margin: 16px 0;
+	margin: 16px 0 0 0;
 	text-transform: uppercase;
 }
 

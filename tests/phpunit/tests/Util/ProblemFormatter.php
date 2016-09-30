@@ -237,4 +237,68 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
 		$this->assertSame( $expected, $pf->convert_anchors( $text ) );
 	}
+
+	public function test_convert_image_urls_should_convert_relative_href() {
+		$text =	'This is a <a href="/link">link</a>';
+		$course_url = "http://example.com/testcourse";
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$found = $pf->convert_image_urls( $text, $course_url );
+		$this->assertContains( 'href="http://example.com/link"', $found );
+	}
+
+	public function test_convert_image_urls_should_convert_relative_src() {
+		$text =	'This is a <img src="/image.jpg" />';
+		$course_url = "http://example.com/testcourse";
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$found = $pf->convert_image_urls( $text, $course_url );
+		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
+	}
+
+	public function test_convert_image_urls_should_be_case_insensitive_for_tag_match() {
+		$text =	'This is a <IMG SRC="/image.jpg" />';
+		$course_url = "http://example.com/testcourse";
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$found = $pf->convert_image_urls( $text, $course_url );
+		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
+	}
+
+	public function test_convert_image_urls_should_recognize_single_quotes() {
+		$text =	'This is a <img src=\'/image.jpg\' />';
+		$course_url = "http://example.com/testcourse";
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$found = $pf->convert_image_urls( $text, $course_url );
+		$this->assertContains( 'src=\'http://example.com/image.jpg\'', $found );
+	}
+
+	public function test_convert_image_urls_should_ignore_absolute_href() {
+		$text =	'This is a <a href="http://foo.bar/link">link</a>';
+		$course_url = "http://example.com/testcourse";
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$found = $pf->convert_image_urls( $text, $course_url );
+		$this->assertContains( 'href="http://foo.bar/link"', $found );
+	}
+
+	public function test_convert_image_urls_should_ignore_absolute_src() {
+		$text =	'This is a <img src="http://foo.bar/image.jpg" />';
+		$course_url = "http://example.com/testcourse";
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$found = $pf->convert_image_urls( $text, $course_url );
+		$this->assertContains( 'src="http://foo.bar/image.jpg"', $found );
+	}
+
+	public function test_convert_image_urls_should_ignore_spaces_after_attribute_names() {
+		$text =	'This is a <a href = "/link">link</a> and <img src = "/image.jpg" />';
+		$course_url = "http://example.com/testcourse";
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$found = $pf->convert_image_urls( $text, $course_url );
+		$this->assertContains( 'href="http://example.com/link"', $found );
+		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
+	}
 }

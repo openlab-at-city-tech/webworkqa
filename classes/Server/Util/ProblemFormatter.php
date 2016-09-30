@@ -374,8 +374,12 @@ class ProblemFormatter {
 
 		$parts = parse_url( $course_url );
 
-		$text = str_ireplace( 'href="/', 'href="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
-		$text = str_ireplace( 'src="/', 'src="' . $parts['scheme'] . '://' . $parts['host'] . '/', $text );
+		$regex = '/((?:href)|(?:src))\s*=\s*([\'"])\//i';
+		$text = preg_replace_callback( $regex, function( $matches ) use ( $parts ) {
+			$replace = strtolower( $matches[1] ) . '=' . $matches[2] . $parts['scheme'] . '://' . $parts['host'] . '/';
+			return $replace;
+		}, $text );
+
 		return $text;
 	}
 }

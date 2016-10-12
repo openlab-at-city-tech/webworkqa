@@ -8,14 +8,24 @@ const loggerMiddleware = createLogger({
 	collapsed: true
 })
 
+let middleware
+if ( 'development' === process.env.NODE_ENV ) {
+	middleware = applyMiddleware(
+		thunkMiddleware,
+		loggerMiddleware
+	)
+} else {
+	middleware = applyMiddleware(
+		thunkMiddleware
+	)
+}
+
+
 export default function configureStore( initialState ) {
 	const store = createStore(
 		rootReducer,
 		initialState,
-		applyMiddleware(
-			thunkMiddleware,
-			loggerMiddleware
-		),
+		middleware,
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 

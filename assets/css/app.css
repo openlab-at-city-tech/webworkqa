@@ -383,6 +383,7 @@ h3.ww-collapsible-section-header {
 .item-metadata {
 	margin-top: 40px;
 	position: relative;
+	height: 50px;
 }
 
 .question-form textarea {
@@ -406,8 +407,11 @@ h3.ww-collapsible-section-header {
 .ww-question,
 .ww-response {
 	overflow: visible;
-	padding-bottom: 20px; /* for vote checkbox */
 	position: relative;
+}
+
+.ww-response {
+	padding-bottom: 20px; /* for vote checkbox */
 }
 
 .ww-question {
@@ -447,7 +451,6 @@ h3.ww-collapsible-section-header {
 .ww-question-header {
 	color: #fff;
 	font-size: 1.4rem;
-	margin: 0 0 30px;
 	padding: 5px 8px 5px;
 	position: relative;
 	text-align: right;
@@ -490,6 +493,14 @@ h3.ww-collapsible-section-header {
 .accordion-content.accordion-closed {
 	max-height: 0;
 	transition: max-height .25s ease;
+}
+
+.ww-question-wrapper {
+	padding: 30px 0;
+}
+
+.current-question .ww-question-wrapper {
+	background: #f9f5ac;
 }
 
 .respond-link {

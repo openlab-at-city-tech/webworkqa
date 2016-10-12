@@ -41,7 +41,7 @@ export default class Question extends Component {
 
 	render() {
 		const {
-			hasAnswer,
+			hasAnswer, isCurrentQuestion,
 			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, responseIds, responses,
 			userCanPostResponse,
@@ -282,7 +282,7 @@ export default class Question extends Component {
 
 		return (
 			<li
-			  className={this.getClassName( isCollapsed, isMyQuestion, hasAnswer )}
+			  className={this.getClassName( isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion )}
 			>
 				<Element name={anchorName}>
 					<a name={anchorName}></a>
@@ -305,12 +305,14 @@ export default class Question extends Component {
 
 					</div>
 
-					<div className="ww-author-avatar">
-						<img src={authorAvatar} />
-					</div>
+					<div className="ww-question-wrapper">
+						<div className="ww-author-avatar">
+							<img src={authorAvatar} />
+						</div>
 
-					<div>
-						{questionSummaryElement}
+						<div>
+							{questionSummaryElement}
+						</div>
 					</div>
 				</div>
 
@@ -322,7 +324,7 @@ export default class Question extends Component {
 	/**
 	 * Get a class name for the <li> element.
 	 */
-	getClassName( isCollapsed, isMyQuestion, hasAnswer ) {
+	getClassName( isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion ) {
 		let classes = []
 
 		if ( isCollapsed ) {
@@ -339,6 +341,10 @@ export default class Question extends Component {
 			classes.push( 'question-answered' )
 		} else {
 			classes.push( 'question-unanswered' )
+		}
+
+		if ( isCurrentQuestion ) {
+			classes.push( 'current-question' )
 		}
 
 		return classes.join( ' ' )

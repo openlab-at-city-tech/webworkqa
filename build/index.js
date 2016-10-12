@@ -35982,6 +35982,7 @@
 	
 				var _props2 = this.props;
 				var hasAnswer = _props2.hasAnswer;
+				var isCurrentQuestion = _props2.isCurrentQuestion;
 				var isCollapsed = _props2.isCollapsed;
 				var isProblemSummaryCollapsed = _props2.isProblemSummaryCollapsed;
 				var isSingleProblem = _props2.isSingleProblem;
@@ -36256,7 +36257,7 @@
 				return _react2['default'].createElement(
 					'li',
 					{
-						className: this.getClassName(isCollapsed, isMyQuestion, hasAnswer)
+						className: this.getClassName(isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion)
 					},
 					_react2['default'].createElement(
 						Element,
@@ -36288,13 +36289,17 @@
 						),
 						_react2['default'].createElement(
 							'div',
-							{ className: 'ww-author-avatar' },
-							_react2['default'].createElement('img', { src: authorAvatar })
-						),
-						_react2['default'].createElement(
-							'div',
-							null,
-							questionSummaryElement
+							{ className: 'ww-question-wrapper' },
+							_react2['default'].createElement(
+								'div',
+								{ className: 'ww-author-avatar' },
+								_react2['default'].createElement('img', { src: authorAvatar })
+							),
+							_react2['default'].createElement(
+								'div',
+								null,
+								questionSummaryElement
+							)
 						)
 					),
 					responsesElement
@@ -36306,7 +36311,7 @@
 	   */
 		}, {
 			key: 'getClassName',
-			value: function getClassName(isCollapsed, isMyQuestion, hasAnswer) {
+			value: function getClassName(isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion) {
 				var classes = [];
 	
 				if (isCollapsed) {
@@ -36323,6 +36328,10 @@
 					classes.push('question-answered');
 				} else {
 					classes.push('question-unanswered');
+				}
+	
+				if (isCurrentQuestion) {
+					classes.push('current-question');
 				}
 	
 				return classes.join(' ');

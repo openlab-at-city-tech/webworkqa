@@ -25,11 +25,13 @@ export default class QuestionIndex extends Component {
 
 		const headerElement = isResultsPage ? <ResultsHeaderContainer /> : ''
 
+		const aboutURL = window.parent.document.location.protocol + '//' + window.WWData.route_base + 'about'
+
 		let introElement = ''
 		if ( ! isResultsPage ) {
 			introElement = (
 				<div className="index-intro">
-					<p>Quaerat nemo debitis dolorum ratione est exercitationem aut molestias. Excepturi beatae et autem et quia quo rem. Et provident id ducimus. Quaerat temporibus doloribus rerum eaque et. Odio necessitatibus eos vitae molestiae in. Numquam et et molestias velit mollitia consequatur reiciendis.</p>
+					<p>You are viewing <a href={aboutURL}>WeBWorK on the OpenLab</a>. Here, you can ask questions and discuss WeBWorK homework problems, and also see what other students have been asking.</p>
 				</div>
 			)
 		}

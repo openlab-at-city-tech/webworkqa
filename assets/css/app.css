@@ -685,6 +685,15 @@ h3.ww-collapsible-section-header {
 	font-weight: 600;
 }
 
+#webwork-app .ww-sidebar-widget p a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#webwork-app .ww-sidebar-widget p a:hover {
+	text-decoration: none;
+}
+
 .ww-question-filters {
 	list-style-type: none;
 	margin: 0;

@@ -4,12 +4,17 @@ import SidebarFilterContainer from '../containers/SidebarFilterContainer'
 
 export default class Sidebar extends Component {
 	render() {
+		const helpURL = window.parent.document.location.protocol + '//' + window.WWData.route_base + 'help/explore-existing-question-and-replies/#filter'
+
 		return (
 			<div className="ww-sidebar">
 				<h3 className="ww-header">Explore Questions</h3>
 
 				<div className="ww-sidebar-widget">
-					<p>Voluptatibus eos ipsa consequatur. Dolorem vel amet veritatis totam quia ducimus. Sed praesentium sit illum quasi.</p>
+					<p>
+						Use the <a href={helpURL} >filters</a> below to navigate the questions that have been posted. You can select questions by course, section,
+						a specific WeBWorK problem set, and to select only answered or unanswered questions.
+					</p>
 
 					<ul className="ww-question-filters">
 						<SidebarFilterContainer

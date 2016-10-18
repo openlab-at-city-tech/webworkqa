@@ -37,11 +37,13 @@ class Loader {
 	 * @since 1.0.0
 	 */
 	private function __construct() {
-		if ( 1 === get_current_blog_id() ) {
+		$server_site_id = (int) apply_filters( 'webwork_server_site_id', get_current_blog_id() );
+		if ( $server_site_id === get_current_blog_id() ) {
 			$this->server = new Server();
-//			$this->schema = new Schema();
-//			$this->schema->init();
-		} else {
+		}
+
+		$client_site_id = (int) apply_filters( 'webwork_client_site_id', get_current_blog_id() );
+		if ( $client_site_id === get_current_blog_id() ) {
 			$this->client = new Client();
 		}
 

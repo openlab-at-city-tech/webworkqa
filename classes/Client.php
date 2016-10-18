@@ -30,8 +30,8 @@ class Client {
 		$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
 
 		// @todo Centralize this logic.
-		$main_site_url = get_blog_option( 1, 'home' );
-		$rest_api_endpoint = trailingslashit( $main_site_url ) . 'wp-json/webwork/v1/';
+		$main_site_url = apply_filters( 'webwork_server_site_base', get_option( 'home' ) );
+		$rest_api_endpoint = set_url_scheme( trailingslashit( $main_site_url ) . 'wp-json/webwork/v1/' );
 
 		// @todo Abstract.
 		$post_data = null;

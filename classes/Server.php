@@ -304,10 +304,10 @@ class Server {
 	}
 
 	public function get_server_site_base() {
-		return apply_filters( 'webwork_server_site_base', get_option( 'home' ) );
+		return set_url_scheme( apply_filters( 'webwork_server_site_base', get_option( 'home' ) ) );
 	}
 
 	public function get_client_site_base() {
-		return apply_filters( 'webwork_client_site_base', get_option( 'home' ) );
+		return set_url_scheme( apply_filters( 'webwork_client_site_base', get_option( 'home' ) ) );
 	}
 }

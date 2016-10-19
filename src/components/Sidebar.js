@@ -4,7 +4,7 @@ import SidebarFilterContainer from '../containers/SidebarFilterContainer'
 
 export default class Sidebar extends Component {
 	render() {
-		const helpURL = window.parent.document.location.protocol + '//' + window.WWData.route_base + 'help/explore-existing-question-and-replies/#filter'
+		const helpURL = window.WWData.page_base + 'help/explore-existing-question-and-replies/#filter'
 
 		return (
 			<div className="ww-sidebar">

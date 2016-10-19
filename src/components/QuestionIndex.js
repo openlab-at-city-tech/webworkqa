@@ -25,7 +25,7 @@ export default class QuestionIndex extends Component {
 
 		const headerElement = isResultsPage ? <ResultsHeaderContainer /> : ''
 
-		const aboutURL = window.parent.document.location.protocol + '//' + window.WWData.route_base + 'about'
+		const aboutURL = window.WWData.page_base + 'about'
 
 		let introElement = ''
 		if ( ! isResultsPage ) {

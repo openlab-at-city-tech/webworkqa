@@ -11,6 +11,8 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 	protected $id;
 
+	protected $is_new;
+
 	protected $question_id;
 	protected $question;
 	protected $is_answer;
@@ -18,6 +20,8 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $author_id;
 	protected $content;
 	protected $post_date;
+
+	protected $client_url;
 
 	protected $vote_count = null;
 
@@ -71,6 +75,14 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		$this->vote_count = (int) $vote_count;
 	}
 
+	public function set_is_new( $is_new ) {
+		$this->is_new = (bool) $is_new;
+	}
+
+	public function set_client_url( $client_url ) {
+		$this->client_url = $client_url;
+	}
+
 	public function get_id() {
 		return $this->id;
 	}
@@ -114,6 +126,14 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		return apply_filters( 'webwork_author_type_label', '', $this->get_author_id() );
 	}
 
+	public function get_is_new() {
+		return $this->is_new;
+	}
+
+	public function get_client_url() {
+		return $this->client_url;
+	}
+
 	/**
 	 * Get vote count.
 	 *
@@ -142,6 +162,8 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			$this->populate();
 		}
 
+		$this->send_notifications();
+
 		return (bool) $saved;
 	}
 
@@ -166,5 +188,44 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			$question_answer = get_post_meta( $this->get_id(), 'webwork_question_answer', true );
 			$this->set_is_answer( $question_answer );
 		}
+	}
+
+	/**
+	 * @todo Abstract when there are more notification types to send.
+	 */
+	protected function send_notifications() {
+		// Send a notification to the author of the parent question.
+		$question_author_id = $this->question->get_author_id();
+		$question_author = new \WP_User( $question_author_id );
+		if ( ! $question_author->exists() ) {
+			return;
+		}
+
+		$response_author_id = $this->get_author_id();
+		$response_author = new \WP_User( $response_author_id );
+		if ( ! $response_author->exists() ) {
+			return;
+		}
+
+		// Don't send authors an email about their own replies.
+		if ( $response_author_id === $question_author_id ) {
+			return;
+		}
+
+		$email = new Util\Email();
+		$email->set_recipient( $question_author->user_email );
+		$email->set_subject( sprintf( __( '%1$s has replied to your question', 'webwork' ), $response_author->display_name ) );
+
+		$message = sprintf(
+			__( '%1$s has replied to your question on %2$s.
+
+To read and reply, visit %3$s.', 'webwork' ),
+			$response_author->display_name,
+			get_option( 'blogname' ),
+			$this->question->get_url( $this->get_client_url() )
+		);
+		$email->set_message( $message );
+
+		$email->send();
 	}
 }

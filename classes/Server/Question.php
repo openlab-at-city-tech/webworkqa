@@ -155,6 +155,13 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	}
 
 	/**
+	 * @todo Do something better than this.
+	 */
+	public function get_url( $client_url ) {
+		return trailingslashit( $client_url ) . '#/problem/' . $this->get_problem_id() . '/question-' . $this->get_id();
+	}
+
+	/**
 	 * Get whether the question has an answer.
 	 *
 	 * @since 1.0.0

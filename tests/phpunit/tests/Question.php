@@ -277,4 +277,14 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 
 		$this->assertTrue( $q->get_has_answer() );
 	}
+
+	public function test_get_url() {
+		$problem_id = 'foo-bar';
+		$q = self::factory()->question->create_and_get( array(
+			'problem_id' => $problem_id,
+		) );
+
+		$expected = 'http://' . WP_TESTS_DOMAIN . '/#/problem/foo-bar/question-' . $q->get_id();
+		$this->assertSame( $expected, $q->get_url( 'http://' . WP_TESTS_DOMAIN ) );
+	}
 }

@@ -50,7 +50,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			dispatch( setCollapsed( itemId ) )
 		},
 
-		onProblemSummaryClick: () => {
+		onProblemSummaryClick: ( event ) => {
+			// Don't close for clickable elements.
+			const clickable = {
+				'SELECT': 1,
+				'OPTION': 1,
+				'A': 1,
+			}
+
+			if ( clickable.hasOwnProperty( event.target.tagName ) ) {
+				return
+			}
+
 			dispatch( setCollapsed( itemId + '-problem' ) )
 		},
 

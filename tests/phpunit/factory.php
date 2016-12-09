@@ -76,7 +76,7 @@ class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
 		$question = new \WeBWorK\Server\Question( $post_id );
 		$clean_question = clone $question;
 
-		$problem_id = isset( $args['problem_id'] ) ? (int) $args['problem_id'] : false;
+		$problem_id = isset( $args['problem_id'] ) ? $args['problem_id'] : false;
 		if ( $problem_id ) {
 			$question->set_problem_id( $problem_id );
 		}

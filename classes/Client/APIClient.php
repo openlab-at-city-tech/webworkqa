@@ -16,7 +16,11 @@ class APIClient {
 
 	protected function set_endpoint() {
 		// @todo non-multisite support
-		$root = get_blog_option( 1, 'home' );
+		if ( is_multisite() ) {
+			$root = get_blog_option( 1, 'home' );
+		} else {
+			$root = get_option( 'home' );
+		}
 
 		$this->endpoint = $root . '/wp-json/wp/v2/';
 		//var_dump( $this->endpoint );

@@ -67,7 +67,7 @@ export function fetchProblem( problemId ) {
 		{
 			credentials: 'same-origin',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'text/plain',
 				'X-WP-Nonce': rest_api_nonce
 			},
 		} )

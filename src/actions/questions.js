@@ -38,7 +38,7 @@ export function fetchQuestionIndexList() {
 		{
 			credentials: 'same-origin',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'text/plain',
 				'X-WP-Nonce': rest_api_nonce
 			},
 		} )

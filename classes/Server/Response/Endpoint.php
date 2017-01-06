@@ -64,6 +64,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$response->set_question_id( $question_id );
 		$response->set_is_new( true );
 		$response->set_client_url( $params['client_url'] );
+		$response->set_client_name( $params['client_name'] );
 
 		if ( $response->save() ) {
 			$retval = array(

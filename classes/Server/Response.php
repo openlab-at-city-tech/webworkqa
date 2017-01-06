@@ -83,6 +83,10 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		$this->client_url = $client_url;
 	}
 
+	public function set_client_name( $client_name ) {
+		$this->client_name = $client_name;
+	}
+
 	public function get_id() {
 		return $this->id;
 	}
@@ -132,6 +136,10 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function get_client_url() {
 		return $this->client_url;
+	}
+
+	public function get_client_name() {
+		return $this->client_name;
 	}
 
 	/**
@@ -213,6 +221,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		}
 
 		$email = new Util\Email();
+		$email->set_client_name( $this->get_client_name() );
 		$email->set_recipient( $question_author->user_email );
 		$email->set_subject( sprintf( __( '%1$s has replied to your question', 'webwork' ), $response_author->display_name ) );
 

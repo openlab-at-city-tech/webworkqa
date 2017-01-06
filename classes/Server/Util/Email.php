@@ -12,6 +12,8 @@ namespace WeBWorK\Server\Util;
 class Email {
 	protected $recipient;
 	protected $subject;
+	protected $message;
+	protected $client_name;
 
 	public function set_recipient( $recipient ) {
 		$this->recipient = $recipient;
@@ -25,8 +27,18 @@ class Email {
 		$this->message = $message;
 	}
 
+	public function set_client_name( $client_name ) {
+		$this->client_name = $client_name;
+	}
+
 	public function send() {
-		$subject = sprintf( '[%s] %s', get_option( 'blogname' ), $this->subject );
+		$client_name = get_option( 'blogname' );
+		if ( ! empty( $this->client_name ) ) {
+			$client_name = $this->client_name;
+		}
+
+		$subject = sprintf( '[%s] %s', $client_name, $this->subject );
+
 		$sent = wp_mail( $this->recipient, $subject, $this->message );
 		return $sent;
 	}

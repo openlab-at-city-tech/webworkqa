@@ -96,7 +96,7 @@ export const setResponsesPendingBulk = ( pending ) => {
 
 export function sendResponse( questionId, value ) {
 	return ( dispatch ) => {
-		const { page_base, rest_api_endpoint, rest_api_nonce } = window.WWData
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData
 		const endpoint = rest_api_endpoint + 'responses/'
 
 		return fetch( endpoint, {
@@ -108,6 +108,7 @@ export function sendResponse( questionId, value ) {
 			},
 			body: JSON.stringify({
 				client_url: page_base,
+				client_name: client_name,
 				question_id: questionId,
 				value: value
 			})

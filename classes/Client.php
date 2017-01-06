@@ -49,9 +49,9 @@ class Client {
 		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
 
 		wp_localize_script( 'webwork-app', 'WWData', array(
+			'client_name' => get_option( 'blogname' ),
 			'page_base' => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
 			'problem_id' => $ww_problem,
-//			'problem_text' => $ww_problem_text,
 			'remote_course_url' => $remote_course_url,
 			'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
 			'rest_api_endpoint' => $rest_api_endpoint,

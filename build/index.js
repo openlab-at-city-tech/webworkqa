@@ -32503,6 +32503,7 @@
 	function sendResponse(questionId, value) {
 		return function (dispatch) {
 			var _window$WWData2 = window.WWData;
+			var client_name = _window$WWData2.client_name;
 			var page_base = _window$WWData2.page_base;
 			var rest_api_endpoint = _window$WWData2.rest_api_endpoint;
 			var rest_api_nonce = _window$WWData2.rest_api_nonce;
@@ -32518,6 +32519,7 @@
 				},
 				body: JSON.stringify({
 					client_url: page_base,
+					client_name: client_name,
 					question_id: questionId,
 					value: value
 				})

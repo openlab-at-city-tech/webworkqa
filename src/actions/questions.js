@@ -150,7 +150,7 @@ export const setQuestionPending = ( isPending ) => {
 
 export function sendQuestion( problemId, content, tried, problemText ) {
 	return ( dispatch, getState ) => {
-		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData
 		let endpoint = rest_api_endpoint + 'questions/'
 
 		const { queryString } = getState()
@@ -168,6 +168,8 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			},
 			body: JSON.stringify({
 				problem_id: problemId,
+				client_name: client_name,
+				client_url: page_base,
 				content,
 				problem_text: problemText,
 				tried

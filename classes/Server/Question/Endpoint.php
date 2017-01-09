@@ -110,6 +110,8 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_course( $problem_data['course'] );
 		$question->set_section( $problem_data['section'] );
 		$question->set_problem_text( $problem_data['problem_text'] );
+		$question->set_client_url( $params['client_url'] );
+		$question->set_client_name( $params['client_name'] );
 
 		if ( $question->save() ) {
 			$query = new Query( array(

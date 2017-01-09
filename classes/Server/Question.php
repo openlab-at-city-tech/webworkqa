@@ -85,6 +85,14 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		$this->vote_count = (int) $vote_count;
 	}
 
+	public function set_client_url( $client_url ) {
+		$this->client_url = $client_url;
+	}
+
+	public function set_client_name( $client_name ) {
+		$this->client_name = $client_name;
+	}
+
 	public function get_id() {
 		return $this->id;
 	}
@@ -154,6 +162,14 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->p->get_author_name();
 	}
 
+	public function get_client_url() {
+		return $this->client_url;
+	}
+
+	public function get_client_name() {
+		return $this->client_name;
+	}
+
 	/**
 	 * @todo Do something better than this.
 	 */
@@ -220,6 +236,26 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->p->get_vote_count( $force_query );
 	}
 
+	/**
+	 * Get instructor email.
+	 *
+	 * Instructor matching currently happens via a hardcoded config list.
+	 *
+	 * @return string
+	 */
+	public function get_instructor_email() {
+		$email = '';
+
+		$section = $this->get_section();
+
+		$instructor_map = apply_filters( 'webwork_section_instructor_map', array() );
+		if ( isset( $instructor_map[ $section ] ) ) {
+			$email = $instructor_map[ $section ];
+		}
+
+		return $email;
+	}
+
 	public function save() {
 		$saved = $this->p->save();
 
@@ -249,6 +285,8 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$this->populate();
 		}
+
+		$this->send_notifications();
 
 		return (bool) $saved;
 	}
@@ -299,5 +337,48 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			$problem_text = get_post_meta( $this->get_id(), 'webwork_problem_text', true );
 			$this->set_problem_text( $problem_text );
 		}
+	}
+
+	/**
+	 * Send notifications.
+	 */
+	protected function send_notifications() {
+		$this->send_notification_to_instructor();
+	}
+
+	/**
+	 * Send an email notification to the course instructor.
+	 */
+	protected function send_notification_to_instructor() {
+		$instructor_email = $this->get_instructor_email();
+		$section = $this->get_section();
+
+		$question_author_id = $this->get_author_id();
+		$question_author = new \WP_User( $question_author_id );
+		if ( ! $question_author->exists() ) {
+			return;
+		}
+
+		// Don't send instructors an email about their own questions.
+		if ( $question_author->user_email === $instructor_email ) {
+			return;
+		}
+
+		$email = new Util\Email();
+		$email->set_client_name( $this->get_client_name() );
+		$email->set_recipient( $instructor_email );
+		$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webwork' ), $question_author->display_name, $section ) );
+
+		$message = sprintf(
+			__( '%1$s has posted a question in your course %2$s.
+
+To read and reply, visit %3$s.', 'webwork' ),
+			$question_author->display_name,
+			$section,
+			$this->get_url( $this->get_client_url() )
+		);
+		$email->set_message( $message );
+
+		$email->send();
 	}
 }

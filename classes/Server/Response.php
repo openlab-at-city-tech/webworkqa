@@ -202,7 +202,15 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	 * @todo Abstract when there are more notification types to send.
 	 */
 	protected function send_notifications() {
-		// Send a notification to the author of the parent question.
+		$this->send_notification_to_question_author();
+
+		$this->send_notification_to_instructor();
+	}
+
+	/**
+	 * Send an email notification to the author of the parent question.
+	 */
+	protected function send_notification_to_question_author() {
 		$question_author_id = $this->question->get_author_id();
 		$question_author = new \WP_User( $question_author_id );
 		if ( ! $question_author->exists() ) {
@@ -230,7 +238,43 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 To read and reply, visit %3$s.', 'webwork' ),
 			$response_author->display_name,
-			get_option( 'blogname' ),
+			$this->get_client_name(),
+			$this->question->get_url( $this->get_client_url() )
+		);
+		$email->set_message( $message );
+
+		$email->send();
+	}
+
+	/**
+	 * Send an email notification to the course instructor.
+	 */
+	protected function send_notification_to_instructor() {
+		$instructor_email = $this->question->get_instructor_email();
+		$section = $this->question->get_section();
+
+		$response_author_id = $this->get_author_id();
+		$response_author = new \WP_User( $response_author_id );
+		if ( ! $response_author->exists() ) {
+			return;
+		}
+
+		// Don't send instructors an email about their own replies.
+		if ( $response_author->user_email === $instructor_email ) {
+			return;
+		}
+
+		$email = new Util\Email();
+		$email->set_client_name( $this->get_client_name() );
+		$email->set_recipient( $instructor_email );
+		$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webwork' ), $response_author->display_name, $section ) );
+
+		$message = sprintf(
+			__( '%1$s has replied to a question in your course %2$s.
+
+To read and reply, visit %3$s.', 'webwork' ),
+			$response_author->display_name,
+			$section,
 			$this->question->get_url( $this->get_client_url() )
 		);
 		$email->set_message( $message );

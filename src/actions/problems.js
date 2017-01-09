@@ -79,54 +79,57 @@ export function fetchProblem( problemId ) {
 				filterOptions
 			} = json
 
-			let score = 0;
-			let vote = 0;
+			// No problems? No problem. This will be a 404.
+			if ( 0 !== problems.length ) {
+				let score = 0;
+				let vote = 0;
 
-			dispatch( receiveProblems( problems ) )
+				dispatch( receiveProblems( problems ) )
 
-			dispatch( receiveQuestions( questions ) )
+				dispatch( receiveQuestions( questions ) )
 
-			// Set "pending" status for response forms.
-			let pending = {}
-			questionsById.forEach( questionId => {
-				pending[questionId] = false
-			} )
-			dispatch( setResponsesPendingBulk( pending ) )
+				// Set "pending" status for response forms.
+				let pending = {}
+				questionsById.forEach( questionId => {
+					pending[questionId] = false
+				} )
+				dispatch( setResponsesPendingBulk( pending ) )
 
-			dispatch( receiveQuestionsById( questionsById ) )
+				dispatch( receiveQuestionsById( questionsById ) )
 
-			// @todo Collapsing should probably happen in componentDidMount or something
-			let toCollapse = []
-			for ( var i = 0; i < questionsById.length; i++ ) {
+				// @todo Collapsing should probably happen in componentDidMount or something
+				let toCollapse = []
+				for ( var i = 0; i < questionsById.length; i++ ) {
+					toCollapse.push( {
+						key: questionsById[ i ] + '-problem',
+						value: true
+					} )
+
+					// Response previews.
+					toCollapse.push( {
+						key: 'questionFormField_response-text-' + questionsById[ i ],
+						value: true
+					} )
+				}
+
+				// Question form field and response previews
 				toCollapse.push( {
-					key: questionsById[ i ] + '-problem',
+					key: 'questionFormField_content',
+					value: true
+				} )
+				toCollapse.push( {
+					key: 'questionFormField_tried',
 					value: true
 				} )
 
-				// Response previews.
-				toCollapse.push( {
-					key: 'questionFormField_response-text-' + questionsById[ i ],
-					value: true
-				} )
+				dispatch( setCollapsedBulk( toCollapse ) )
+
+				dispatch( receiveResponseIdMap( responseIdMap ) )
+				dispatch( receiveResponses( responses ) )
+
+				dispatch( setScoresBulk( scores ) )
+				dispatch( setVotesBulk( votes ) )
 			}
-
-			// Question form field and response previews
-			toCollapse.push( {
-				key: 'questionFormField_content',
-				value: true
-			} )
-			toCollapse.push( {
-				key: 'questionFormField_tried',
-				value: true
-			} )
-
-			dispatch( setCollapsedBulk( toCollapse ) )
-
-			dispatch( receiveResponseIdMap( responseIdMap ) )
-			dispatch( receiveResponses( responses ) )
-
-			dispatch( setScoresBulk( scores ) )
-			dispatch( setVotesBulk( votes ) )
 
 			dispatch( receiveFilterOptions( filterOptions ) )
 

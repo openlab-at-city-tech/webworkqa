@@ -4,7 +4,7 @@ import { setAppIsLoading } from '../actions/app'
 import { fetchProblem } from '../actions/problems'
 
 const mapStateToProps = ( state, ownProps ) => {
-	const { problems, questions, questionsById, responseIdMap, responses } = state
+	const { initialLoadComplete, problems, questions, questionsById, responseIdMap, responses } = state
 
 	// @todo - All of this should be moved out so it doesn't run on every state update
 	const questionCount = questionsById.length
@@ -35,6 +35,7 @@ const mapStateToProps = ( state, ownProps ) => {
 	const userCanAskQuestion = window.WWData.user_can_ask_question
 
 	return {
+		initialLoadComplete,
 		problems,
 		questionCount,
 		questions,

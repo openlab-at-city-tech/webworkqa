@@ -78,7 +78,7 @@ class Endpoint extends \WP_Rest_Controller {
 					'content' => $my_question['problemText'],
 					'problemSet' => $my_question['problemSet'],
 				);
-			} else {
+			} elseif ( ! empty( $questions ) ) {
 				// Just use the first one created.
 				$the_question = end( $questions );
 				$problem = array(
@@ -87,6 +87,8 @@ class Endpoint extends \WP_Rest_Controller {
 					'content' => $the_question['problemText'],
 					'problemSet' => $the_question['problemSet'],
 				);
+			} else {
+				$problem = null;
 			}
 		}
 
@@ -139,9 +141,14 @@ class Endpoint extends \WP_Rest_Controller {
 			$votes[ $vote->item_id ] = $value;
 		}
 
+		$problems = array();
+		if ( $problem ) {
+			$problems[ $problem_id ] = $problem;
+		}
+
 		$data = array(
 			'filterOptions' => $question_query->get_all_filter_options(),
-			'problems' => array( $problem_id => $problem ),
+			'problems' => $problems,
 			'questions' => $questions,
 			'questionsById' => $questions_by_id,
 			'responseIdMap' => $response_id_map,

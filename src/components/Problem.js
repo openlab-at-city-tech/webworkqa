@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Problem404 from '../components/Problem404'
 import ProblemStatsContainer from '../containers/ProblemStatsContainer'
 import ProblemSummary from '../components/ProblemSummary'
 import QuestionFormContainer from '../containers/QuestionFormContainer'
@@ -27,7 +28,7 @@ export default class Problem extends Component {
 	}
 
 	render() {
-		const { problems, problemId, questionsById, userCanAskQuestion } = this.props
+		const { initialLoadComplete ,problems, problemId, questionsById, userCanAskQuestion } = this.props
 
 		const problem = problems[problemId]
 
@@ -38,25 +39,32 @@ export default class Problem extends Component {
 			problemTitle = 'Problem: ' + problem.problemSet
 		}
 
-		return (
-			<div className="ww-problem">
-				<h2 className="ww-header">{problemTitle}</h2>
+		let element
+		if ( problem || ! initialLoadComplete ) {
+			element = (
+				<div className="ww-problem">
+					<h2 className="ww-header">{problemTitle}</h2>
 
-				<div className="problem-topmatter">
-					<ProblemStatsContainer />
-					<ProblemSummary problemId={problemId} problem={problem} />
+					<div className="problem-topmatter">
+						<ProblemStatsContainer />
+						<ProblemSummary problemId={problemId} problem={problem} />
+					</div>
+
+					{questionFormElement}
+
+					<div className="problem-questions">
+						<QuestionSortDropdownContainer
+						  itemType='problem'
+						  problemId={problemId}
+						/>
+						<QuestionList questionsById={questionsById} />
+					</div>
 				</div>
+			)
+		} else {
+			element = <Problem404 />
+		}
 
-				{questionFormElement}
-
-				<div className="problem-questions">
-					<QuestionSortDropdownContainer
-					  itemType='problem'
-					  problemId={problemId}
-					/>
-					<QuestionList questionsById={questionsById} />
-				</div>
-			</div>
-		);
+		return element
 	}
 }

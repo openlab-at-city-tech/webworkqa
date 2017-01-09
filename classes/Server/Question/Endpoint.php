@@ -80,7 +80,7 @@ class Endpoint extends \WP_Rest_Controller {
 		// Try fetching another question from the same problem.
 		if ( ! $problem_data ) {
 			$query = new Query( array(
-				'problem_id' => $problem_id
+				'problem_id' => $problem_id,
 			) );
 
 			$questions = $query->get();
@@ -176,10 +176,10 @@ class Endpoint extends \WP_Rest_Controller {
 			}
 		}
 
-                // Programming
-                if ( isset( $params['problemSet'] ) ) {
-                        $args['problem_set'] = $params['problemSet'];
-                }
+		// Programming
+		if ( isset( $params['problemSet'] ) ) {
+			$args['problem_set'] = $params['problemSet'];
+		}
 
 		// More programming
 		if ( isset( $args['answered'] ) ) {

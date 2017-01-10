@@ -430,7 +430,7 @@ ul.question-list > li {
 	margin-top: 50px;
 }
 
-.question-unanswered .ww-question {
+.ww-question-list > ul > li.question-unanswered {
 	border-color: #000;
 }
 

@@ -387,6 +387,10 @@ h3.ww-collapsible-section-header {
 	height: 50px;
 }
 
+.ww-response .item-metadata {
+	height: auto;
+}
+
 .question-form textarea {
 	margin-bottom: 20px;
 	width: 100%;
@@ -415,10 +419,13 @@ h3.ww-collapsible-section-header {
 	padding-bottom: 20px; /* for vote checkbox */
 }
 
-.ww-question {
+.ww-question-list > ul > li {
 	border: 2px solid #0044ff;
 	border-radius: 0 0 4px 4px;
 	border-top: none;
+}
+
+.ww-question {
 	margin-top: 50px;
 }
 
@@ -431,9 +438,9 @@ h3.ww-collapsible-section-header {
 	position: relative;
 }
 
-.is-answer {
-	margin-left: -30px;
+#webwork-app .ww-response-list > ul > li.is-answer {
 	border-left: 30px solid #0044af;
+	padding-left: 30px; /* 60px - 30px */
 }
 
 .response-user-type {
@@ -445,7 +452,7 @@ h3.ww-collapsible-section-header {
 
 .ww-response-content {
 	font-size: 1.2rem;
-	padding-left: 136px;
+	padding-left: 104px;
 }
 
 .ww-question-gloss {
@@ -507,7 +514,7 @@ h3.ww-collapsible-section-header {
 
 .respond-link {
 	font-weight: bold;
-	margin: 30px 0 0 136px;
+	margin: 30px 0 0 104px;
 	text-transform: uppercase;
 }
 
@@ -533,7 +540,7 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-author-avatar {
-	width: 100px;
+	width: 80px;
 	position: absolute;
 }
 
@@ -566,8 +573,8 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question-content {
-	/* 100px + 8px*2 padding for avatar */
-	padding-left: 116px;
+	/* 80px + 8px*2 padding for avatar + padding */
+	padding-left: 104px;
 }
 
 .ww-question-problem-summary {
@@ -604,13 +611,12 @@ h3.ww-collapsible-section-header {
 .ww-response-list {
 	border-top: #d7d7d7 solid 2px;
 	background-color: #f6f6f6;
-	margin-left: 40px;
 }
 
 #webwork-app .ww-response-list > ul > li {
 	border-bottom: #d7d7d7 solid 2px;
 	overflow: hidden;
-	padding: 30px 0 30px 40px;
+	padding: 30px 15px 30px 60px;
 }
 
 .ww-answered {
@@ -951,10 +957,6 @@ padding: 3px 0px 3px 16px;        /* leave space that would have been triangle *
 	.respond-link {
 		margin-left: 0;
 		font-size: 1.2rem;
-	}
-
-	.ww-response-list {
-		margin-left: 20px;
 	}
 
 	.ww-response-content {

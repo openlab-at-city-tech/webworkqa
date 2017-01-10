@@ -419,7 +419,8 @@ h3.ww-collapsible-section-header {
 	padding-bottom: 20px; /* for vote checkbox */
 }
 
-.ww-question-list > ul > li {
+.ww-question-list > ul > li,
+ul.question-list > li {
 	border: 2px solid #0044ff;
 	border-radius: 0 0 4px 4px;
 	border-top: none;

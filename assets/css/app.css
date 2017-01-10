@@ -376,7 +376,7 @@ h3.ww-collapsible-section-header {
 	font-weight: 600;
 	font-size: 1.2rem;
 	line-height: 1.6rem;
-	margin: 5px 20px;
+	margin: 5px 20px 5px 0;
 	max-width: 60%;
 	text-transform: uppercase;
 }
@@ -416,8 +416,14 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question {
-	/*border-bottom: #d7d7d7 solid 3px;*/
+	border: 2px solid #0044ff;
+	border-radius: 0 0 4px 4px;
+	border-top: none;
 	margin-top: 50px;
+}
+
+.question-unanswered .ww-question {
+	border-color: #000;
 }
 
 .ww-response {
@@ -491,7 +497,7 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question-wrapper {
-	padding: 30px 0;
+	padding: 30px 15px 15px;
 }
 
 .current-question .ww-question-wrapper {
@@ -526,8 +532,7 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-author-avatar {
-	width: 120px;
-	text-align: center;
+	width: 100px;
 	position: absolute;
 }
 
@@ -560,8 +565,8 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question-content {
-	/* 120px + 8px*2 padding for avatar */
-	padding-left: 136px;
+	/* 100px + 8px*2 padding for avatar */
+	padding-left: 116px;
 }
 
 .ww-question-problem-summary {
@@ -620,7 +625,7 @@ h3.ww-collapsible-section-header {
 	bottom: 0;
 	font-size: 1rem;
 	position: absolute;
-	right: 8px;
+	right: 0;
 }
 
 .ww-score button {
@@ -887,6 +892,10 @@ padding: 3px 0px 3px 16px;        /* leave space that would have been triangle *
 
 	.ww-question-header {
 		font-size: 1.3rem;
+	}
+
+	.ww-question-wrapper {
+		padding: 15px 12px 12px;
 	}
 
 	.ww-question-gloss {

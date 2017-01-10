@@ -293,6 +293,7 @@ ul.question-list > a {
 }
 
 .accordion-toggle {
+	color: #fff;
 	font-size: 2rem;
 	margin-left: 16px;
 }
@@ -453,7 +454,6 @@ h3.ww-collapsible-section-header {
 	font-size: 1.4rem;
 	padding: 5px 8px 5px;
 	position: relative;
-	text-align: right;
 }
 
 #webwork-app .ww-question-header a {
@@ -473,15 +473,10 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-question-header .accordion-toggle {
-	color: #0044af;
-	font-size: 30px;
+	font-size: 16px;
 	position: absolute;
-	right: 0;
-	top: -28px;
-}
-
-.question-unanswered .ww-question-header .accordion-toggle {
-	color: #000;
+	right: 6px;
+	top: 4px;
 }
 
 .accordion-content {

@@ -67,9 +67,9 @@ export default class Question extends Component {
 
 		let aeClass = 'fa accordion-toggle'
 		if ( isCollapsed ) {
-			aeClass += ' fa-arrow-circle-o-down'
+			aeClass += ' fa-plus-circle'
 		} else {
-			aeClass += ' fa-arrow-circle-up'
+			aeClass += ' fa-minus-circle'
 		}
 
 		const accordionElement = (
@@ -196,9 +196,9 @@ export default class Question extends Component {
 
 		let accordionToggleClass = 'fa accordion-toggle'
 		if ( isProblemSummaryCollapsed ) {
-			accordionToggleClass += ' fa-arrow-circle-o-down'
+			accordionToggleClass += ' fa-plus-circle'
 		} else {
-			accordionToggleClass += ' fa-arrow-circle-up'
+			accordionToggleClass += ' fa-minus-circle'
 		}
 
 		let triedElements

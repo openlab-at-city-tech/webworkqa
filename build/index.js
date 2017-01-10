@@ -36113,9 +36113,9 @@
 	
 				var aeClass = 'fa accordion-toggle';
 				if (isCollapsed) {
-					aeClass += ' fa-arrow-circle-o-down';
+					aeClass += ' fa-plus-circle';
 				} else {
-					aeClass += ' fa-arrow-circle-up';
+					aeClass += ' fa-minus-circle';
 				}
 	
 				var accordionElement = _react2['default'].createElement('i', {
@@ -36247,9 +36247,9 @@
 	
 				var accordionToggleClass = 'fa accordion-toggle';
 				if (isProblemSummaryCollapsed) {
-					accordionToggleClass += ' fa-arrow-circle-o-down';
+					accordionToggleClass += ' fa-plus-circle';
 				} else {
-					accordionToggleClass += ' fa-arrow-circle-up';
+					accordionToggleClass += ' fa-minus-circle';
 				}
 	
 				var triedElements = undefined;
@@ -37301,21 +37301,21 @@
 	
 				var scoreText = 'Number of votes: ' + score;
 	
-				var heartClass = 'fa';
+				var iconClass = 'score-icon fa';
 				var voteText = undefined;
 				if (userCanVote) {
 					if ('up' === vote) {
-						heartClass += ' fa-heart';
+						iconClass += ' fa-thumbs-up';
 						voteText = 'Click to remove vote';
 					} else {
-						heartClass += ' fa-heart-o';
+						iconClass += ' fa-thumbs-o-up';
 						voteText = 'Click to vote';
 					}
 				} else {
-					heartClass += ' fa-heart';
+					iconClass += ' fa-thumbs-up';
 				}
 	
-				var heartElement = _react2['default'].createElement('i', { 'aria-hidden': 'true', className: heartClass });
+				var iconElement = _react2['default'].createElement('i', { 'aria-hidden': 'true', className: iconClass });
 	
 				var voteElement = undefined;
 				if (userCanVote) {
@@ -37332,14 +37332,14 @@
 								onVoteClick(itemId, vote === 'up' ? '' : 'up');
 							}
 						},
-						heartElement,
+						iconElement,
 						srElement
 					);
 				} else {
 					voteElement = _react2['default'].createElement(
 						'span',
 						{ className: 'score-display-only' },
-						heartElement
+						iconElement
 					);
 				}
 	

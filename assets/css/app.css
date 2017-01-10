@@ -376,9 +376,10 @@ h3.ww-collapsible-section-header {
 	font-weight: 600;
 	font-size: 1.2rem;
 	line-height: 1.6rem;
-	margin: 5px 20px 5px 0;
 	max-width: 60%;
 	text-transform: uppercase;
+	position: absolute;
+	bottom: 0;
 }
 
 .item-metadata {

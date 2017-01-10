@@ -604,7 +604,7 @@ ul.question-list > li {
 }
 
 #webwork-app .ww-response-list > ul > li.response-form-li {
-	border: #d7d7d7 solid 2px;
+	background: #fff;
 	border-top: none;
 	padding: 20px;
 }

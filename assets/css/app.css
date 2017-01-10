@@ -500,7 +500,7 @@ h3.ww-collapsible-section-header {
 	padding: 30px 15px 15px;
 }
 
-.current-question .ww-author-name {
+.current-question .ww-question-content .ww-author-name {
 	background: #ffff03;
 	padding: 3px;
 }

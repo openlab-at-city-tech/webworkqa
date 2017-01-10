@@ -23,21 +23,21 @@ export default class ScoreDialog extends React.Component {
 
 		const scoreText = 'Number of votes: ' + score
 
-		let heartClass = 'fa'
+		let iconClass = 'score-icon fa'
 		let voteText
 		if ( userCanVote ) {
 			if ( 'up' === vote ) {
-				heartClass += ' fa-heart'
+				iconClass += ' fa-thumbs-up'
 				voteText = 'Click to remove vote'
 			} else {
-				heartClass += ' fa-heart-o'
+				iconClass += ' fa-thumbs-o-up'
 				voteText = 'Click to vote'
 			}
 		} else {
-			heartClass += ' fa-heart'
+			iconClass += ' fa-thumbs-up'
 		}
 
-		const heartElement = <i aria-hidden="true" className={heartClass}></i>
+		const iconElement = <i aria-hidden="true" className={iconClass}></i>
 
 		let voteElement
 		if ( userCanVote ) {
@@ -49,14 +49,14 @@ export default class ScoreDialog extends React.Component {
 					onVoteClick( itemId, ( vote === 'up' ) ? '' : 'up' )
 				  } }
 				>
-					{heartElement}
+					{iconElement}
 					{srElement}
 				</button>
 			)
 		} else {
 			voteElement = (
 				<span className="score-display-only">
-					{heartElement}
+					{iconElement}
 				</span>
 			)
 		}

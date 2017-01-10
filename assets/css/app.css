@@ -637,7 +637,11 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-score-value {
-	padding-right: 14px;
+	padding-right: 10px;
+}
+
+.score-icon {
+	font-size: 20px;
 }
 
 .score-display-only {

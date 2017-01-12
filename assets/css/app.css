@@ -422,7 +422,7 @@ h3.ww-collapsible-section-header {
 
 .ww-question-list > ul > li,
 ul.question-list > li {
-	border: 2px solid #0044ff;
+	border: 2px solid #0044af;
 	border-radius: 0 0 4px 4px;
 	border-top: none;
 }
@@ -431,7 +431,8 @@ ul.question-list > li {
 	margin-top: 50px;
 }
 
-.ww-question-list > ul > li.question-unanswered {
+.ww-question-list > ul > li.question-unanswered,
+ul.question-list > li.question-unanswered {
 	border-color: #000;
 }
 

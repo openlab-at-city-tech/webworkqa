@@ -442,8 +442,18 @@ ul.question-list > li.question-unanswered {
 }
 
 #webwork-app .ww-response-list > ul > li.is-answer {
+	margin-left: 30px; /* 60px - 30px */
+	position: relative;
+	overflow: visible;
+}
+
+li.is-answer:before {
+	content: "";
+	position: absolute;
+	height: 100%;
 	border-left: 30px solid #0044af;
-	padding-left: 30px; /* 60px - 30px */
+	left: -30px;
+	top: 0;
 }
 
 .response-user-type {

@@ -705,8 +705,9 @@ li.is-answer:before {
 }
 
 .ww-sidebar-widget p {
-	line-height: 1.2rem;
-	font-weight: 600;
+	line-height: 1.4rem;
+	font-weight: 500;
+	padding: 0 .5rem .5rem .5rem;
 }
 
 #webwork-app .ww-sidebar-widget p a {

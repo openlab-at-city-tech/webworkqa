@@ -653,12 +653,12 @@ li.is-answer:before {
 	cursor: pointer;
 }
 
-.ww-score button:hover i.fa-heart:before {
-	content: "\f08a";
+.ww-score button:hover i.fa-thumbs-up:before {
+	content: "\f087";
 }
 
-.ww-score button:hover i.fa-heart-o:before {
-	content: "\f004";
+.ww-score button:hover i.fa-thumbs-o-up:before {
+	content: "\f164";
 }
 
 .ww-score-value {

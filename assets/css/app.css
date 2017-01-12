@@ -675,18 +675,18 @@ li.is-answer:before {
 
 .problem-library-id {
 	color: #666;
-	margin-top: 6px;
+	margin-top: .5em;
 }
 
 .problem-library-id-icon {
-	font-size: 2.5rem;
+	font-size: 1.5rem;
 	float: left;
 }
 
 .problem-library-id-text {
 	word-wrap: break-word;
 	font-size: .8rem;
-	padding-left: 3.5rem;
+	padding-left: 2.2rem;
 }
 
 .ww-disabled-input {

@@ -52141,7 +52141,7 @@
 		_createClass(Sidebar, [{
 			key: 'render',
 			value: function render() {
-				var helpURL = window.WWData.page_base + 'help/explore-existing-question-and-replies/#Filters';
+				var helpURL = window.WWData.page_base + 'help/explore-existing-questions-and-replies/#Filters';
 	
 				return _react2['default'].createElement(
 					'div',

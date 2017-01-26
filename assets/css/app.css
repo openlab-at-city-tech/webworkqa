@@ -566,6 +566,7 @@ li.is-answer:before {
 	font-weight: 600;
 	font-size: 1.5rem;
 	margin-bottom: .5em;
+	word-wrap: break-word;
 }
 
 .ww-subtitle {

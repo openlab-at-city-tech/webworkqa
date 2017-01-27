@@ -119,12 +119,15 @@ class Server {
 		// For the time being, all requests must be authenticated.
 		// @todo Check permissions against client site - maybe share logic with endpoints.
 		if ( ! is_user_logged_in() ) {
-			wp_safe_redirect( wp_login_url( $redirect_to ) );
-		} else {
-                        wp_safe_redirect( $redirect_to );
-                }
+			$redirect_to = wp_login_url( $redirect_to );
+		}
 
-                die();
+		/*
+		 * Redirect must happen via JS. Sending 302 Redirect header strips
+		 * URL fragment on iOS.
+		 */
+		echo '<script type="text/javascript">window.location.replace("' . $redirect_to . '");</script>';
+		die;
 	}
 
 	public function sanitize_post_data() {

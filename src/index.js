@@ -7,6 +7,7 @@ import Root from './containers/Root'
 // Split location into `/` separated parts, then render `Application` with it
 function handleNewHash() {
 	const locationArray = window.location.hash.replace(/^#\/?|\/$/g, '').split('/')
+	console.log(locationArray);
 	const Application = <Root locationArray={locationArray} />
 	render( Application, document.getElementById( 'webwork-app' ) )
 }

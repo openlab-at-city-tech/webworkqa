@@ -63,7 +63,6 @@
 	// Split location into `/` separated parts, then render `Application` with it
 	function handleNewHash() {
 		var locationArray = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
-		console.log(locationArray);
 		var Application = _react2['default'].createElement(_containersRoot2['default'], { locationArray: locationArray });
 		(0, _reactDom.render)(Application, document.getElementById('webwork-app'));
 	}

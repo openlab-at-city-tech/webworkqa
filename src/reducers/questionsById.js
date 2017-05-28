@@ -9,7 +9,7 @@ export function questionsById( state = [], action ) {
 
 		case RECEIVE_QUESTIONS_BY_ID :
 		case RECEIVE_QUESTION_IDS :
-			return action.payload
+			return state.concat( action.payload )
 
 		default :
 			return state

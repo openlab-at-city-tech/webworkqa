@@ -20,6 +20,8 @@ class Query {
 			'orderby' => 'votes',
 			'order' => 'ASC',
 			'answered' => null,
+			'last_question' => null,
+			'max_results' => 10,
 		), $args );
 	}
 
@@ -116,6 +118,9 @@ class Query {
 		if ( $this->r['order'] ) {
 			$args['order'] = $this->r['order'];
 		}
+
+		$args['offset'] = $this->r['offset'];
+		$args['posts_per_page'] = $this->r['max_results'];
 
 		$question_query = new \WP_Query( $args );
 		$_questions = $question_query->posts;

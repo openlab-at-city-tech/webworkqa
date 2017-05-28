@@ -11,7 +11,7 @@ export function scores( state = {}, action ) {
 			} )
 
 		case SET_SCORES_BULK :
-			return action.payload
+			return Object.assign( {}, state, action.payload )
 
 		default :
 			return state

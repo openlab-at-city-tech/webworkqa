@@ -10,9 +10,12 @@ export function fetchQuestionIndexList() {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
 		let endpoint = rest_api_endpoint + 'questions/'
 
-		const { currentFilters, queryString } = getState()
+		const { currentFilters, queryString, questionsById } = getState()
 
 		let filters = standardizeFiltersForEndpoint( currentFilters )
+
+		filters.offset = questionsById.length
+		filters.maxResults = 2
 
 		let qs = ''
 		for ( var filterName in filters ) {
@@ -45,12 +48,11 @@ export function fetchQuestionIndexList() {
 		.then( response => response.json() )
 		.then( json => {
 			dispatch( receiveFilterOptions( json.filterOptions ) )
-			dispatch( receiveQuestionIds( [] ) )
 			dispatch( receiveQuestions( json.questions ) )
 			dispatch( receiveQuestionIds( json.questionIds ) )
 
 			let toCollapse = []
-			let scores = []
+			let scores = {}
 			let thisQuestionId
 			for ( var i = 0; i < json.questionIds.length; i++ ) {
 				thisQuestionId = json.questionIds[ i ]
@@ -144,6 +146,23 @@ export const setQuestionPending = ( isPending ) => {
 		type: SET_QUESTION_PENDING,
 		payload: {
 			isPending
+		}
+	}
+}
+
+export function setScrolledTo( itemId ) {
+	return ( dispatch, getState ) => {
+		const { questionsById } = getState()
+
+		let pos = null
+		for ( let i = 0; i < questionsById.length; i++ ) {
+			if ( questionsById[ i ] === itemId ) {
+				pos = i
+			}
+		}
+
+		if ( pos === ( questionsById.length - 1 ) ) {
+			dispatch( fetchQuestionIndexList() )
 		}
 	}
 }

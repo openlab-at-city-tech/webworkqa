@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Scroll, { Element } from 'react-scroll'
+import Waypoint from 'react-waypoint'
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import ResponseList from './ResponseList'
@@ -45,7 +46,8 @@ export default class Question extends Component {
 			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, responseIds, responses,
 			userCanPostResponse,
-			onAccordionClick, onProblemSummaryClick, onRespondClick
+			onAccordionClick, onProblemSummaryClick, onRespondClick,
+			onWaypointEnter
 		} = this.props
 
 		const {
@@ -284,6 +286,11 @@ export default class Question extends Component {
 			<li
 			  className={this.getClassName( isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion )}
 			>
+
+				<Waypoint
+					onEnter={onWaypointEnter}
+				/>
+
 				<Element name={anchorName}>
 					<a name={anchorName}></a>
 				</Element>

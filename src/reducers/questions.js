@@ -8,7 +8,7 @@ export function questions( state = {}, action ) {
 			} )
 
 		case RECEIVE_QUESTIONS :
-			return action.payload
+			return Object.assign( {}, state, action.payload )
 
 		default :
 			return state

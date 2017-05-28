@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import Question from '../components/Question'
 import { setCollapsed } from '../actions/app'
+import { setScrolledTo } from '../actions/questions'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
@@ -67,6 +68,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 		onRespondClick: () => {
 			dispatch( setCollapsed( 'responseForm-' + itemId, false ) )
+		},
+
+		onWaypointEnter: () => {
+			dispatch( setScrolledTo( itemId ) )
 		}
 	}
 }

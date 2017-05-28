@@ -169,6 +169,8 @@ class Endpoint extends \WP_Rest_Controller {
 			'answered',
 			'course',
 			'section',
+			'lastQuestion',
+			'maxResults',
 		);
 
 		$args = array();
@@ -193,6 +195,9 @@ class Endpoint extends \WP_Rest_Controller {
 				$args['answered'] = false;
 			}
 		}
+
+		$args['offset'] = (int) $params['offset'];
+		$args['max_results'] = (int) $params['maxResults'];
 
 		$q = new Query( $args );
 

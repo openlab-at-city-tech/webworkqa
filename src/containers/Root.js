@@ -11,7 +11,7 @@ const store = configureStore()
 class RootComponent extends Component {
 	render() {
 		const { route_base } = window.WWData
-		const { appIsLoading, locationArray } = this.props
+		const { appIsLoading, initialLoadComplete, locationArray } = this.props
 
 		let isSingleProblem = false
 		let problemId = null
@@ -37,7 +37,7 @@ class RootComponent extends Component {
 			rootElement = <QuestionIndexContainer />
 		}
 
-		const wrapperClassName = appIsLoading ? 'app-loading' : ''
+		const wrapperClassName = appIsLoading && ! initialLoadComplete ? 'app-loading' : ''
 
 		return (
 			<div className={wrapperClassName}>
@@ -58,8 +58,11 @@ class RootComponent extends Component {
 }
 
 function mapStateToProps( state, ownProps ) {
-	const { appIsLoading } = state
-	return { appIsLoading }
+	const { appIsLoading, initialLoadComplete } = state
+	return {
+		appIsLoading,
+		initialLoadComplete
+	}
 }
 
 const InnerRoot = connect(

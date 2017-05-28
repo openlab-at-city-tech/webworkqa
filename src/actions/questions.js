@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import {
-	receiveFilterOptions, setAppIsLoading,
+	receiveFilterOptions, setAppIsLoading, setInitialLoadComplete,
 	setCollapsed, setCollapsedBulk, setTextareaValue
 } from './app'
 import { setScoresBulk } from './scores'
@@ -67,6 +67,7 @@ export function fetchQuestionIndexList() {
 			dispatch( setScoresBulk( scores ) )
 
 			dispatch( setAppIsLoading( false ) )
+			dispatch( setInitialLoadComplete( true ) )
 		} )
 	}
 }

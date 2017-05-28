@@ -28299,6 +28299,7 @@
 				var route_base = window.WWData.route_base;
 				var _props = this.props;
 				var appIsLoading = _props.appIsLoading;
+				var initialLoadComplete = _props.initialLoadComplete;
 				var locationArray = _props.locationArray;
 	
 				var isSingleProblem = false;
@@ -28325,7 +28326,7 @@
 					rootElement = _react2['default'].createElement(_QuestionIndexContainer2['default'], null);
 				}
 	
-				var wrapperClassName = appIsLoading ? 'app-loading' : '';
+				var wrapperClassName = appIsLoading && !initialLoadComplete ? 'app-loading' : '';
 	
 				return _react2['default'].createElement(
 					'div',
@@ -28354,8 +28355,12 @@
 	
 	function mapStateToProps(state, ownProps) {
 		var appIsLoading = state.appIsLoading;
+		var initialLoadComplete = state.initialLoadComplete;
 	
-		return { appIsLoading: appIsLoading };
+		return {
+			appIsLoading: appIsLoading,
+			initialLoadComplete: initialLoadComplete
+		};
 	}
 	
 	var InnerRoot = (0, _reactRedux.connect)(mapStateToProps)(RootComponent);
@@ -31514,6 +31519,7 @@
 				dispatch((0, _scores.setScoresBulk)(scores));
 	
 				dispatch((0, _app.setAppIsLoading)(false));
+				dispatch((0, _app.setInitialLoadComplete)(true));
 			});
 		};
 	}

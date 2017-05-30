@@ -10,7 +10,6 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch ) => {
 	return {
-		// @todo Pagination?
 		onComponentWillMount: function() {
 			dispatch( fetchQuestionIndexList() )
 		}

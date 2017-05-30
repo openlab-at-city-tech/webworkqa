@@ -21,7 +21,7 @@ export default class QuestionIndex extends Component {
 
 	render() {
 		// All the juggling here is because the Results page looks a bit different.
-		const { isResultsPage } = this.props
+		const { isLoading, isResultsPage } = this.props
 
 		const headerElement = isResultsPage ? <ResultsHeaderContainer /> : ''
 
@@ -46,6 +46,15 @@ export default class QuestionIndex extends Component {
 			dropdownElement = <QuestionSortDropdownContainer />
 		}
 
+		let loadingElement = ''
+		if ( isLoading ) {
+			loadingElement = (
+				<div className="question-list-loading-more">
+					Loading more...
+				</div>
+			)
+		}
+
 		return (
 			<div>
 				{headerElement}
@@ -59,6 +68,8 @@ export default class QuestionIndex extends Component {
 						{dropdownElement}
 						<QuestionIndexListContainer />
 					</div>
+
+					{loadingElement}
 				</div>
 			</div>
 		)

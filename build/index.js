@@ -31520,6 +31520,13 @@
 	
 				dispatch((0, _app.setAppIsLoading)(false));
 				dispatch((0, _app.setInitialLoadComplete)(true));
+	
+				// todo:
+				// - "Loading more" dialog at bottom
+				// - increase number of items loading
+				// - load when at the second- or third-to-last item rather than very last
+				// - verify that votes, etc are loaded properly
+				// - verify that filters are respected
 			});
 		};
 	}
@@ -54301,6 +54308,7 @@
 		var viewType = state.viewType;
 	
 		return {
+			isLoading: state.appIsLoading,
 			isResultsPage: viewType.viewType == 'results'
 		};
 	};
@@ -54379,7 +54387,9 @@
 			key: 'render',
 			value: function render() {
 				// All the juggling here is because the Results page looks a bit different.
-				var isResultsPage = this.props.isResultsPage;
+				var _props = this.props;
+				var isLoading = _props.isLoading;
+				var isResultsPage = _props.isResultsPage;
 	
 				var headerElement = isResultsPage ? _react2['default'].createElement(_containersResultsHeaderContainer2['default'], null) : '';
 	
@@ -54418,6 +54428,15 @@
 					dropdownElement = _react2['default'].createElement(_containersQuestionSortDropdownContainer2['default'], null);
 				}
 	
+				var loadingElement = '';
+				if (isLoading) {
+					loadingElement = _react2['default'].createElement(
+						'div',
+						{ className: 'question-list-loading-more' },
+						'Loading more...'
+					);
+				}
+	
 				return _react2['default'].createElement(
 					'div',
 					null,
@@ -54432,7 +54451,8 @@
 							listHeaderElement,
 							dropdownElement,
 							_react2['default'].createElement(_containersQuestionIndexListContainer2['default'], null)
-						)
+						),
+						loadingElement
 					)
 				);
 			}
@@ -54472,7 +54492,6 @@
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		return {
-			// @todo Pagination?
 			onComponentWillMount: function onComponentWillMount() {
 				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
 			}

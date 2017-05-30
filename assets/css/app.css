@@ -175,6 +175,12 @@ ul.question-list > a {
 	font-weight: bold;
 }
 
+.question-list-loading-more {
+	opacity: .75;
+	font-weight: bold;
+	font-style: italic;
+}
+
 /** Problem *******************************************************************/
 
 .ww-problem {

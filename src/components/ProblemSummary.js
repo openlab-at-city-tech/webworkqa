@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import FormattedProblem from './FormattedProblem'
 
-var ProblemSummary = React.createClass({
-	render: function() {
+export default class ProblemSummary extends Component {
+	render() {
 		const { problemId, problem } = this.props
 
 		if ( ! problem ) {
@@ -36,6 +36,4 @@ var ProblemSummary = React.createClass({
 			</div>
 		);
 	}
-});
-
-export default ProblemSummary;
+}

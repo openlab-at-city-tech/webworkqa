@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { If, Then } from 'react-if'
 import ResponseContainer from '../containers/ResponseContainer'
 import ResponseFormContainer from '../containers/ResponseFormContainer'
 import { Element } from 'react-scroll'
 
-var ResponseList = React.createClass({
-	render: function() {
+export default class ResponseList extends Component {
+	render() {
 		const { isMyQuestion, questionId, responseIds } = this.props
 		const responseScrollElementName = 'response-form-' + questionId
 
@@ -41,6 +41,4 @@ var ResponseList = React.createClass({
 			</div>
 		);
 	}
-});
-
-export default ResponseList;
+}

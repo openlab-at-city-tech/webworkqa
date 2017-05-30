@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 
-var QuestionForm = React.createClass({
-	render: function() {
+export default class QuestionForm extends Component {
+	render() {
 		const {
 			content, isCollapsed, isPending,
 			problemId, problemText, problemHasQuestions, tried,
@@ -95,6 +95,4 @@ var QuestionForm = React.createClass({
 			</div>
 		);
 	}
-});
-
-export default QuestionForm;
+}

@@ -68,6 +68,11 @@ export function fetchQuestionIndexList() {
 
 			dispatch( setAppIsLoading( false ) )
 			dispatch( setInitialLoadComplete( true ) )
+
+			// todo:
+			// - load when at the second- or third-to-last item rather than very last
+			// - verify that votes, etc are loaded properly
+			// - verify that filters are respected
 		} )
 	}
 }

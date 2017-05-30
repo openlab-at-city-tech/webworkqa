@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Scroll from 'react-scroll'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
@@ -6,8 +6,8 @@ import FormattedProblem from './FormattedProblem'
 
 var moment = require( 'moment' )
 
-var Response = React.createClass({
-	render: function() {
+export default class Response extends Component {
+	render() {
 		const { isMyQuestion, questionId, response, responseId, userCanPostResponse } = this.props
 		if ( ! response ) {
 			return null
@@ -71,7 +71,7 @@ var Response = React.createClass({
 				</div>
 			</li>
 		);
-	},
+	}
 
 	/**
 	 * Scrolling callback for clicking the "Respond" link.
@@ -80,13 +80,11 @@ var Response = React.createClass({
 	 * or flash the form after scroll. At that point, callback should be moved to the
 	 * container with associated action/reducer.
 	 */
-	onGoToResponseFormClick: function( itemId ) {
+	onGoToResponseFormClick( itemId ) {
 		Scroll.scroller.scrollTo( 'response-form-' + itemId, {
 			duration: 1000,
 			offset: -80, // for toolbar
 			smooth: true
 		} )
 	}
-});
-
-export default Response;
+}

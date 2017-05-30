@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import QuestionContainer from '../containers/QuestionContainer'
 
-var QuestionList = React.createClass({
-	render: function() {
+export default class QuestionList extends Component {
+	render() {
 		const { questionsById } = this.props
 
 		var styles = {
@@ -32,6 +32,4 @@ var QuestionList = React.createClass({
 			</div>
 		);
 	}
-});
-
-export default QuestionList
+}

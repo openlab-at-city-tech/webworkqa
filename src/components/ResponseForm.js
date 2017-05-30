@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 
-const ResponseForm = React.createClass( {
-	render: function() {
+export default class ResponseForm extends Component {
+	render() {
 		const {
 			isCollapsed, isPending, questionId, responseText,
 			onAccordionClick, onResponseFormSubmit, onTextareaChange
@@ -61,6 +61,4 @@ const ResponseForm = React.createClass( {
 			</div>
 		)
 	}
-} )
-
-export default ResponseForm
+}

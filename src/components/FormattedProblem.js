@@ -1,22 +1,16 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-const FormattedProblem = React.createClass( {
-	componentDidMount: function() {
+export default class FormattedProblem extends Component {
+	componentDidMount() {
 		document.webwork_scaffold_init( ReactDOM.findDOMNode( this.refs.problem ) )
-	},
+	}
 
-	getDefaultProps: function() {
-		return {
-			isVisible: true
-		}
-	},
-
-	shouldComponentUpdate: function( nextProps, nextState ) {
+	shouldComponentUpdate( nextProps, nextState ) {
 		return nextProps.content !== this.props.content || nextProps.isVisible !== this.props.isVisible
-	},
+	}
 
-	render: function() {
+	render() {
 		const { isVisible, itemId, content } = this.props
 
 		if ( ! content ) {
@@ -64,6 +58,8 @@ const FormattedProblem = React.createClass( {
 			/>
 		)
 	}
-} )
+}
 
-export default FormattedProblem
+FormattedProblem.defaultProps = {
+	isVisible: true
+}

@@ -60353,6 +60353,7 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 		return {
+			isLoading: state.appIsLoading,
 			questionIds: state.questionsById
 		};
 	};
@@ -60417,7 +60418,9 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var questionIds = this.props.questionIds;
+				var _props = this.props;
+				var isLoading = _props.isLoading;
+				var questionIds = _props.questionIds;
 	
 				var listItems = [];
 				questionIds.forEach(function (questionId) {
@@ -60427,7 +60430,7 @@
 					}));
 				});
 	
-				if (!listItems.length) {
+				if (!listItems.length && !isLoading) {
 					listItems.push(_react2['default'].createElement(
 						'p',
 						{ key: '1', className: 'no-results' },

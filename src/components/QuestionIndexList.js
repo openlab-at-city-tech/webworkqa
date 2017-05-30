@@ -8,7 +8,7 @@ export default class QuestionList extends Component {
 	}
 
 	render() {
-		const { questionIds } = this.props
+		const { isLoading, questionIds } = this.props
 
 		let listItems = []
 		questionIds.forEach( function( questionId ) {
@@ -20,7 +20,7 @@ export default class QuestionList extends Component {
 			)
 		} )
 
-		if ( ! listItems.length ) {
+		if ( ! listItems.length && ! isLoading ) {
 			listItems.push( <p key="1" className="no-results">No results found.</p> )
 		}
 

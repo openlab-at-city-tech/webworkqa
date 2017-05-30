@@ -4,6 +4,7 @@ import { fetchQuestionIndexList } from '../actions/questions'
 
 const mapStateToProps = ( state ) => {
 	return {
+		isLoading: state.appIsLoading,
 		questionIds: state.questionsById
 	}
 }

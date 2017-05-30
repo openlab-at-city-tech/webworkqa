@@ -15,7 +15,7 @@ export function fetchQuestionIndexList() {
 		let filters = standardizeFiltersForEndpoint( currentFilters )
 
 		filters.offset = questionsById.length
-		filters.maxResults = 2
+		filters.maxResults = 10
 
 		let qs = ''
 		for ( var filterName in filters ) {

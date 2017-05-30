@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { If, Then } from 'react-if'
 import ResponseContainer from '../containers/ResponseContainer'
 import ResponseFormContainer from '../containers/ResponseFormContainer'
 import { Element } from 'react-scroll'

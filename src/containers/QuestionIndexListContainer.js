@@ -11,7 +11,7 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		onComponentWillMount: function() {
-			dispatch( fetchQuestionIndexList() )
+			dispatch( fetchQuestionIndexList( true ) )
 		}
 	}
 }

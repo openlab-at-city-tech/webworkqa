@@ -121,6 +121,7 @@ class Query {
 
 		$args['offset'] = $this->r['offset'];
 		$args['posts_per_page'] = $this->r['max_results'];
+		_b( $args );
 
 		$question_query = new \WP_Query( $args );
 		$_questions = $question_query->posts;

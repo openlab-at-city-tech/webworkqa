@@ -5,7 +5,7 @@ import {
 } from './app'
 import { setScoresBulk } from './scores'
 
-export function fetchQuestionIndexList() {
+export function fetchQuestionIndexList( append ) {
 	return (dispatch, getState) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
 		let endpoint = rest_api_endpoint + 'questions/'
@@ -14,8 +14,14 @@ export function fetchQuestionIndexList() {
 
 		let filters = standardizeFiltersForEndpoint( currentFilters )
 
-		filters.offset = questionsById.length
-		filters.maxResults = 10
+		if ( ! append ) {
+			dispatch( resetQuestionIds() )
+			filters.offset = 0
+		} else {
+			filters.offset = questionsById.length
+		}
+
+		filters.maxResults = 2
 
 		let qs = ''
 		for ( var filterName in filters ) {
@@ -48,6 +54,7 @@ export function fetchQuestionIndexList() {
 		.then( response => response.json() )
 		.then( json => {
 			dispatch( receiveFilterOptions( json.filterOptions ) )
+
 			dispatch( receiveQuestions( json.questions ) )
 			dispatch( receiveQuestionIds( json.questionIds ) )
 
@@ -146,6 +153,14 @@ export const receiveQuestionsById = (questionsById) => {
 	}
 }
 
+export const RESET_QUESTION_IDS = 'RESET_QUESTION_IDS'
+export const resetQuestionIds = () => {
+	return {
+		type: RESET_QUESTION_IDS,
+		payload: {}
+	}
+}
+
 export const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING'
 export const setQuestionPending = ( isPending ) => {
 	return {
@@ -168,7 +183,7 @@ export function setScrolledTo( itemId ) {
 		}
 
 		if ( pos === ( questionsById.length - 1 ) ) {
-			dispatch( fetchQuestionIndexList() )
+			dispatch( fetchQuestionIndexList( true ) )
 		}
 	}
 }

@@ -85,7 +85,7 @@ class Schema {
 		) );
 
 		register_taxonomy( 'webwork_problem_set', 'webwork_question', array(
-			'public' => false,
+			'public' => true,
 		) );
 
 		register_taxonomy( 'webwork_course', 'webwork_question', array(

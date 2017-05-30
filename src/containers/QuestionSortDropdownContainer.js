@@ -29,7 +29,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 		if ( 'problem' == itemType ) {
 			dispatch( fetchProblem( problemId ) )
 		} else {
-			dispatch( fetchQuestionIndexList() )
+			dispatch( fetchQuestionIndexList( false ) )
 		}
 	}
 

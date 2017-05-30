@@ -1,4 +1,8 @@
-import { RECEIVE_QUESTION_BY_ID, RECEIVE_QUESTIONS_BY_ID, RECEIVE_QUESTION_IDS } from '../actions/questions'
+import { 
+	RECEIVE_QUESTION_BY_ID, RECEIVE_QUESTIONS_BY_ID, 
+	RECEIVE_QUESTION_IDS,
+	RESET_QUESTION_IDS
+} from '../actions/questions'
 
 export function questionsById( state = [], action ) {
 	switch ( action.type ) {
@@ -10,6 +14,9 @@ export function questionsById( state = [], action ) {
 		case RECEIVE_QUESTIONS_BY_ID :
 		case RECEIVE_QUESTION_IDS :
 			return state.concat( action.payload )
+
+		case RESET_QUESTION_IDS :
+			return []
 
 		default :
 			return state

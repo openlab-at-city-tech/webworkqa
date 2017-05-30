@@ -27,7 +27,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 			}
 
 			dispatch( processFilterChange( slug, value ) )
-			dispatch( fetchQuestionIndexList() )
+			dispatch( fetchQuestionIndexList( false ) )
 
 			// For the theme to know when to collapse the menu.
 			const event = new Event( 'webworkFilterChange' );

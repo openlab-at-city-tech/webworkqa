@@ -34297,7 +34297,7 @@
 	
 	var _scores = __webpack_require__(578);
 	
-	function fetchQuestionIndexList() {
+	function fetchQuestionIndexList(append) {
 		return function (dispatch, getState) {
 			var _window$WWData = window.WWData;
 			var rest_api_endpoint = _window$WWData.rest_api_endpoint;
@@ -34313,8 +34313,14 @@
 	
 			var filters = standardizeFiltersForEndpoint(currentFilters);
 	
-			filters.offset = questionsById.length;
-			filters.maxResults = 10;
+			if (!append) {
+				dispatch(resetQuestionIds());
+				filters.offset = 0;
+			} else {
+				filters.offset = questionsById.length;
+			}
+	
+			filters.maxResults = 2;
 	
 			var qs = '';
 			for (var filterName in filters) {
@@ -34345,6 +34351,7 @@
 				return response.json();
 			}).then(function (json) {
 				dispatch((0, _app.receiveFilterOptions)(json.filterOptions));
+	
 				dispatch(receiveQuestions(json.questions));
 				dispatch(receiveQuestionIds(json.questionIds));
 	
@@ -34451,6 +34458,16 @@
 	};
 	
 	exports.receiveQuestionsById = receiveQuestionsById;
+	var RESET_QUESTION_IDS = 'RESET_QUESTION_IDS';
+	exports.RESET_QUESTION_IDS = RESET_QUESTION_IDS;
+	var resetQuestionIds = function resetQuestionIds() {
+		return {
+			type: RESET_QUESTION_IDS,
+			payload: {}
+		};
+	};
+	
+	exports.resetQuestionIds = resetQuestionIds;
 	var SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
 	exports.SET_QUESTION_PENDING = SET_QUESTION_PENDING;
 	var setQuestionPending = function setQuestionPending(isPending) {
@@ -34478,7 +34495,7 @@
 			}
 	
 			if (pos === questionsById.length - 1) {
-				dispatch(fetchQuestionIndexList());
+				dispatch(fetchQuestionIndexList(true));
 			}
 		};
 	}
@@ -35587,6 +35604,9 @@
 			case _actionsQuestions.RECEIVE_QUESTIONS_BY_ID:
 			case _actionsQuestions.RECEIVE_QUESTION_IDS:
 				return state.concat(action.payload);
+	
+			case _actionsQuestions.RESET_QUESTION_IDS:
+				return [];
 	
 			default:
 				return state;
@@ -36911,7 +36931,7 @@
 			if ('problem' == itemType) {
 				dispatch((0, _actionsProblems.fetchProblem)(problemId));
 			} else {
-				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
+				dispatch((0, _actionsQuestions.fetchQuestionIndexList)(false));
 			}
 		};
 	
@@ -60119,7 +60139,7 @@
 				}
 	
 				dispatch((0, _actionsApp.processFilterChange)(slug, value));
-				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
+				dispatch((0, _actionsQuestions.fetchQuestionIndexList)(false));
 	
 				// For the theme to know when to collapse the menu.
 				var event = new Event('webworkFilterChange');
@@ -60340,7 +60360,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		return {
 			onComponentWillMount: function onComponentWillMount() {
-				dispatch((0, _actionsQuestions.fetchQuestionIndexList)());
+				dispatch((0, _actionsQuestions.fetchQuestionIndexList)(true));
 			}
 		};
 	};

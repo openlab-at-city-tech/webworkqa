@@ -32798,9 +32798,7 @@
 	}
 	
 	function configureStore(initialState) {
-		var store = (0, _redux.createStore)(_reducers2['default'], initialState, middleware, window.devToolsExtension ? window.devToolsExtension() : function (f) {
-			return f;
-		});
+		var store = (0, _redux.createStore)(_reducers2['default'], initialState, (0, _redux.compose)(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 	
 		return store;
 	}

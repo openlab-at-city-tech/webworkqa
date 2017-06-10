@@ -22,8 +22,8 @@ const mapStateToProps = (state, ownProps) => {
 
 	const routeBase = window.WWData.route_base
 	const questionLink = '/'
-		+ routeBase + '#/problem/'
-		+ question.problemId + '/question-'
+		+ routeBase + '#:problemId='
+		+ question.problemId + ':questionId='
 		+ itemId
 
 	const { hasAnswer } = question

@@ -1,3 +1,5 @@
+import { push } from 'react-router-redux'
+
 export const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE'
 export const setInitialLoadComplete = ( isInitialLoadComplete ) => {
 	return {
@@ -37,6 +39,7 @@ export const setCollapsedBulk = ( c = [] ) => {
 
 export function processFilterChange( slug, value ) {
 	return ( dispatch ) => {
+		dispatch( push( '#results' ) ) 
 		dispatch( setViewType( 'results' ) )
 		dispatch( setFilterToggle( slug, value ) )
 	}
@@ -53,12 +56,12 @@ export const resetCurrentFilters = () => {
 export const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE'
 export const setFilterToggle = ( slug, value ) => {
 	// Don't tell the Redux gods about this.
-	window.location.hash = 'results'
+//	window.location.hash = 'results'
 
 	// Or this.
-	if ( '' == value ) {
-		value = false
-	}
+//	if ( '' == value ) {
+//		value = false
+//	}
 
 	return {
 		type: SET_FILTER_TOGGLE,

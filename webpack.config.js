@@ -38,9 +38,19 @@ var webpackConfig = {
 			}
 		]
 	},
+	plugins: [
+		new webpack.OldWatchingPlugin()
+	],
 	resolve: {
 		extensions: [ '', '.js', '.jsx' ],
-		modulesDirectories: [ 'node_modules', 'src' ]
+		modules: [ 
+			'node_modules', 
+			'src',
+			'src/actions',
+			'src/components',
+			'src/containers',
+			'src/reducers',
+		]
 	},
 	node: {
 		fs: "empty",

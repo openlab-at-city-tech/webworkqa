@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { Provider, connect } from 'react-redux'
-import configureStore from '../configureStore'
+import { Route, RouteHandler } from 'react-router' 
+import { syncHistoryWithStore } from 'react-router-redux'
+import { createHistory } from 'history'
 import ProblemContainer from './ProblemContainer'
 import SidebarContainer from './SidebarContainer'
 import QuestionIndexContainer from './QuestionIndexContainer'
 import { resetCurrentFilters, setViewType } from '../actions/app'
 
-const store = configureStore()
+syncHistoryWithStore(
+	createHistory(),
+	store
+)
 
 class RootComponent extends Component {
 	render() {
@@ -115,7 +120,19 @@ export default class Root extends Component {
 		return (
 			<Provider store={store}>
 				<InnerRoot locationArray={locationArray} />
+
+				<RouteHandler />
 			</Provider>
 		)
 	}
 }
+
+let routes = (
+	<Route name="app" path="/" handler="Root">
+		
+	</Route>
+);
+
+Router.run( routes, function( Handler ) {
+	React.render( <Handler />, document.getElementById( 'webwork-app' ) )
+} );

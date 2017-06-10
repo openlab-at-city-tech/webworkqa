@@ -13,6 +13,7 @@ import { questionsById } from './questionsById'
 import { responseFormPending } from './responseFormPending'
 import { responseIdMap } from './responseIdMap'
 import { responses } from './responses'
+import { routerReducer } from 'react-router-redux'
 import { scores } from './scores'
 import { viewType } from './viewType'
 import { votes } from './votes'
@@ -55,6 +56,7 @@ const rootReducer = combineReducers({
   responseFormPending,
   responseIdMap,
   responses,
+  routing: routerReducer,
   scores,
   viewType,
   votes

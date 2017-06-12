@@ -1,23 +1,17 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import { routerMiddleware } from 'react-router-redux'
+import { createBrowserHistory } from 'history'
 import rootReducer from './reducers'
-const loggerMiddleware = createLogger({
-	level: 'log',
-	collapsed: true
+
+const browserHistory = createBrowserHistory({
+	basename: 'wpmaster/foo1'
 })
 
-let middleware
-if ( 'development' === process.env.NODE_ENV ) {
-	middleware = applyMiddleware(
-		thunkMiddleware,
-		loggerMiddleware
-	)
-} else {
-	middleware = applyMiddleware(
-		thunkMiddleware
-	)
-}
+const middleware = applyMiddleware(
+	thunkMiddleware,
+	routerMiddleware( browserHistory )
+)
 
 export default function configureStore( initialState ) {
 	const store = createStore(

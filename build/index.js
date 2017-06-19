@@ -36829,9 +36829,7 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SidebarFilter__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_SidebarFilterContainer__ = __webpack_require__(397);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__ = __webpack_require__(397);
 
 
 
@@ -36864,22 +36862,22 @@ class Sidebar extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'ul',
 					{ className: 'ww-question-filters' },
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_SidebarFilterContainer__["a" /* default */], {
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
 						name: 'Select Course',
 						type: 'dropdown',
 						slug: 'course'
 					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_SidebarFilterContainer__["a" /* default */], {
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
 						name: 'Select Section/Faculty',
 						type: 'dropdown',
 						slug: 'section'
 					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_SidebarFilterContainer__["a" /* default */], {
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
 						name: 'Select Problem Set',
 						type: 'dropdown',
 						slug: 'problemSet'
 					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_SidebarFilterContainer__["a" /* default */], {
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
 						name: 'Select Questions',
 						slug: 'answered',
 						type: 'dropdown'

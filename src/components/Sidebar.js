@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SidebarFilter from './SidebarFilter'
 import SidebarFilterContainer from '../containers/SidebarFilterContainer'
 
 export default class Sidebar extends Component {
@@ -18,26 +17,26 @@ export default class Sidebar extends Component {
 
 					<ul className="ww-question-filters">
 						<SidebarFilterContainer
-						  name="Select Course"
-						  type="dropdown"
-						  slug="course"
+							name="Select Course"
+							type="dropdown"
+							slug="course"
 						/>
 						<SidebarFilterContainer
-						  name="Select Section/Faculty"
-						  type="dropdown"
-						  slug="section"
-						/>
-
-						<SidebarFilterContainer
-						  name="Select Problem Set"
-						  type="dropdown"
-						  slug="problemSet"
+							name="Select Section/Faculty"
+							type="dropdown"
+							slug="section"
 						/>
 
 						<SidebarFilterContainer
-						  name="Select Questions"
-						  slug="answered"
-						  type="dropdown"
+							name="Select Problem Set"
+							type="dropdown"
+							slug="problemSet"
+						/>
+
+						<SidebarFilterContainer
+							name="Select Questions"
+							slug="answered"
+							type="dropdown"
 						/>
 					</ul>
 				</div>

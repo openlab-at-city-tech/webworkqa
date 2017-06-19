@@ -53,6 +53,8 @@ export function fetchQuestionIndexList( append ) {
 		} )
 		.then( response => response.json() )
 		.then( json => {
+			// @todo This should probably be moved into its own separate request
+			// maybe part of the initial setup (localize_script())
 			dispatch( receiveFilterOptions( json.filterOptions ) )
 
 			dispatch( receiveQuestions( json.questions ) )

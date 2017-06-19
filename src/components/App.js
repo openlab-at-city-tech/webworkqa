@@ -12,7 +12,6 @@ export default class App extends Component {
 
 		const currentView = getCurrentView( routing )
 		const { problemId } = currentView
-		console.log(currentView)
 
 		let rootElement = ''
 		if ( problemId ) {

@@ -22,15 +22,14 @@ var webpackConfig = {
 	module: {
 
 		// Webpack loaders are applied when a resource is matches the test case
-		loaders: [
+		rules: [
 			{
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
-				loaders: [ 'babel-loader?cacheDirectory&optional[]=runtime' ]
-			},
-			{
-				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract( 'style-loader', 'css!sass' )
+				loader: 'babel-loader',
+				query: {
+					presets: ['react']
+				}
 			},
 			{
 				test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
@@ -38,11 +37,8 @@ var webpackConfig = {
 			}
 		]
 	},
-	plugins: [
-		new webpack.OldWatchingPlugin()
-	],
 	resolve: {
-		extensions: [ '', '.js', '.jsx' ],
+		extensions: [ '.js', '.jsx' ],
 		modules: [ 
 			'node_modules', 
 			'src',

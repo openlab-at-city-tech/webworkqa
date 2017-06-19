@@ -1,5 +1,9 @@
+const getCurrentHash = ( router ) => {
+	return ( null === router.locationBeforeTransitions ) ? window.location.hash : router.locationBeforeTransitions.hash
+}
+
 const getCurrentView = ( router ) => {
-	const hash = ( null === router.locationBeforeTransitions ) ? window.location.hash : router.locationBeforeTransitions.hash
+	const hash = getCurrentHash( router )
 
 	const rawParams = hash.split( ':' )
 	let params = {}
@@ -18,4 +22,4 @@ const getCurrentView = ( router ) => {
 	return params
 }
 
-export { getCurrentView }
+export { getCurrentHash, getCurrentView }

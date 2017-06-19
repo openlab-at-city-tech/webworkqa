@@ -7,7 +7,6 @@ import { resetCurrentFilters, setViewType } from '../actions/app'
 
 class RootComponent extends Component {
 	render() {
-		const { route_base } = window.WWData
 		const { appIsLoading, initialLoadComplete, locationArray } = this.props
 
 		let isSingleProblem = false
@@ -15,7 +14,7 @@ class RootComponent extends Component {
 
 		// Create a clone to prevent direct modification of props.
 		let _l = locationArray.slice(0)
-		if ( 'problem' == _l[0] && _l.length > 1 ) {
+		if ( 'problem' === _l[0] && _l.length > 1 ) {
 			isSingleProblem = true
 			_l.splice( 0, 1 )
 
@@ -54,7 +53,7 @@ class RootComponent extends Component {
 	}
 }
 
-function mapStateToProps( state, ownProps ) {
+function mapStateToProps( state ) {
 	const { appIsLoading, initialLoadComplete } = state
 	return {
 		appIsLoading,
@@ -70,7 +69,7 @@ export default class Root extends Component {
 	componentWillMount() {
 		const { locationArray } = this.props
 
-		if ( 'problem' == locationArray[0] ) {
+		if ( 'problem' === locationArray[0] ) {
 			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
 			if ( questionIdMatches ) {
 				store.dispatch( setViewType( 'problem', questionIdMatches[1] ) )
@@ -88,11 +87,11 @@ export default class Root extends Component {
 
 		let vtType = ''
 		let vtObject = null
-		if ( 'results' == locationArray[0] ) {
+		if ( 'results' === locationArray[0] ) {
 			vtType = 'results'
 		}
 
-		if ( 'problem' == locationArray[0] ) {
+		if ( 'problem' === locationArray[0] ) {
 			const questionIdMatches = locationArray[ locationArray.length - 1 ].match( /^question-(\d+)/ )
 
 			store.dispatch( resetCurrentFilters() )

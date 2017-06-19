@@ -16,11 +16,11 @@ export function collapsed( state = {}, action ) {
 				return Object.assign( {}, state, {
 					[itemId]: '1'
 				} )
-			} else {
-				let newState = Object.assign( {}, state )
-				delete newState[ itemId ]
-				return newState
 			}
+
+			let newState = Object.assign( {}, state )
+			delete newState[ itemId ]
+			return newState
 
 		case SET_COLLAPSED_BULK :
 			let newState = Object.assign( {}, state )

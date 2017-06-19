@@ -26,7 +26,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 
 		// This suggests that the handler should belong to the QuestionContainer
 		// and ProblemContainer. Passing this param feels icky.
-		if ( 'problem' == itemType ) {
+		if ( 'problem' === itemType ) {
 			dispatch( fetchProblem( problemId ) )
 		} else {
 			dispatch( fetchQuestionIndexList( false ) )

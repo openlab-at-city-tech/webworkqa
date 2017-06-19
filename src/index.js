@@ -11,7 +11,7 @@ const store = configureStore()
 
 syncHistoryWithStore(
 	createHistory({
-		basename: '/wpmaster/foo1'	
+		basename: '/wpmaster/foo1' /* @todo */
 	}),
 	store
 )

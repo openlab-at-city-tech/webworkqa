@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import ResultsHeader from '../components/ResultsHeader'
 
-const mapStateToProps = ( state, ownProps ) => {
+const mapStateToProps = ( state ) => {
 	const { currentFilters } = state
 
 	return {

@@ -20,7 +20,7 @@ export function routing( state = initialState, action ) {
 			let location = state.locationBeforeTransitions;
 			console.log('setting toggle')
 			console.log(location)
-			const pathname = '/fresh/'
+/*			const pathname = '/fresh/' */
 			/*location = { ...location, pathname, action: 'PUSH' } */
 			return state
 /*			return { ...state, locationBeforeTransitions: location } */
@@ -32,6 +32,5 @@ export function routing( state = initialState, action ) {
 
 		default :
 			return state
-	
 	}
 }

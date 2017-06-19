@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
 
 	return {
 		score,
-		userCanVote: 'problem' == viewType.viewType && window.WWData.user_can_vote,
+		userCanVote: 'problem' === viewType.viewType && window.WWData.user_can_vote,
 		vote
 	}
 }

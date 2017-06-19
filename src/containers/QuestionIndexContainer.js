@@ -6,7 +6,7 @@ const mapStateToProps = ( state, ownProps ) => {
 
 	return {
 		isLoading: state.appIsLoading,
-		isResultsPage: viewType.viewType == 'results'
+		isResultsPage: viewType.viewType === 'results'
 	}
 }
 

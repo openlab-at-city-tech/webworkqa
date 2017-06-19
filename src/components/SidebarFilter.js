@@ -3,21 +3,18 @@ import Select from 'react-select'
 
 export default class SidebarFilter extends Component {
 	render() {
-		const {
-			contrary, slug, name, type, value
-		} = this.props
+		const { slug } = this.props
 
-		const headerClassName = this.getHeaderClassName()
 		const contentContainerId = slug + '-content'
 		const filterContent = this.getFilterContent()
 
 		return (
 			<li>
 				<div
-				  id={contentContainerId}
-				  className="filter-content"
+					id={contentContainerId}
+					className="filter-content"
 				>
-				  {filterContent}
+					{filterContent}
 				</div>
 			</li>
 		)
@@ -34,7 +31,7 @@ export default class SidebarFilter extends Component {
 				if ( value ) {
 					classNames.push( 'toggle-enabled' )
 				}
-			break
+				break
 
 			default: break;
 		}
@@ -44,12 +41,12 @@ export default class SidebarFilter extends Component {
 
 	getFilterContent() {
 		const {
-			name, slug, type, value, options,
+			name, slug, value, options,
 			onFilterChange
 		} = this.props
 
 		let optionElements = []
-		if ( 'undefined' == typeof ( options ) || ! options.length ) {
+		if ( 'undefined' === typeof ( options ) || ! options.length ) {
 			return optionElements
 		}
 
@@ -68,13 +65,13 @@ export default class SidebarFilter extends Component {
 
 		return (
 			<Select
-			  autoBlur={true}
-			  name={filterName}
-			  value={value}
-			  onChange={onFilterChange}
-			  options={selectData}
-			  placeholder={name}
-			  clearable={false}
+				autoBlur={true}
+				name={filterName}
+				value={value}
+				onChange={onFilterChange}
+				options={selectData}
+				placeholder={name}
+				clearable={false}
 			/>
 		)
 	}

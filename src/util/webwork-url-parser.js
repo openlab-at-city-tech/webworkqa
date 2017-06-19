@@ -12,7 +12,7 @@ const getCurrentView = ( router ) => {
 		paramParts = rawParams[ i ].split( '=' )
 
 		// All params must have values. Leading '#' will not.
-		if ( 1 == paramParts.length ) {
+		if ( 1 === paramParts.length ) {
 			continue
 		}
 

@@ -17,8 +17,8 @@ const mapStateToProps = (state, ownProps) => {
 	const question = questions[itemId]
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
 
-	const isSingleProblem = viewType.viewType == 'problem'
-	const isCurrentQuestion = ( isSingleProblem && viewType.objectId == itemId )
+	const isSingleProblem = viewType.viewType === 'problem'
+	const isCurrentQuestion = ( isSingleProblem && viewType.objectId === itemId )
 
 	const routeBase = window.WWData.route_base
 	const questionLink = '/'
@@ -54,9 +54,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		onProblemSummaryClick: ( event ) => {
 			// Don't close for clickable elements.
 			const clickable = {
-				'SELECT': 1,
-				'OPTION': 1,
-				'A': 1,
+				SELECT: 1,
+				OPTION: 1,
+				A: 1,
 			}
 
 			if ( clickable.hasOwnProperty( event.target.tagName ) ) {

@@ -38,7 +38,6 @@ export const setCollapsedBulk = ( c = [] ) => {
 export function processFilterChange( slug, value ) {
 	return ( dispatch ) => {
 		dispatch( setFilterToggle( slug, value ) )
-		dispatch( rebuildHash() )
 	}
 }
 

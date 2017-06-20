@@ -1,19 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import { routerMiddleware } from 'react-router-redux'
-import { createBrowserHistory } from 'history'
 import rootReducer from './reducers'
-
-const browserHistory = createBrowserHistory({
-	basename: 'wpmaster/foo1'
-})
-
-const middleware = applyMiddleware(
-	thunkMiddleware,
-	routerMiddleware( browserHistory )
-)
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { syncHistoryWithStore } from 'react-router-redux'
 
 export default function configureStore( initialState ) {
+	const history = createBrowserHistory()
+
+	const middleware = applyMiddleware(
+		thunkMiddleware
+	)
+
 	const store = createStore(
 		rootReducer,
 		initialState,
@@ -22,6 +19,8 @@ export default function configureStore( initialState ) {
 			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 		)
 	)
+
+	syncHistoryWithStore( history, store )
 
 	return store
 };

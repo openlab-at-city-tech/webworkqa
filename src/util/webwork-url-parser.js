@@ -22,4 +22,37 @@ const getCurrentView = ( router ) => {
 	return params
 }
 
-export { getCurrentHash, getCurrentView }
+const buildHashFromFilter = ( slug, value, currentLocation ) => {
+	let newState
+	const currentView = getCurrentView( currentLocation )
+
+	if ( value ) {
+		let newStatelet = {}
+		newStatelet[ slug ] = value
+		newState = Object.assign( {}, currentView, newStatelet ) 
+	} else {
+		newState = Object.assign( {}, currentView )
+		delete newState[ slug ]
+	}
+
+	return buildHashFromState( newState )
+}
+
+const buildHashFromState = ( state ) => {
+	if ( 0 === state.length ) {
+		return ''
+	}
+
+	let hash = ''
+	for ( var i in state ) {
+		hash += ':' + i + '=' + state[i]	
+	}
+
+	if ( hash.length ) {
+		hash = '#' + hash
+	}
+
+	return hash
+}
+
+export { buildHashFromFilter, getCurrentHash, getCurrentView }

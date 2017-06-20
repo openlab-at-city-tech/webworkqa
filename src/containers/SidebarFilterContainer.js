@@ -38,7 +38,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 			// - Then, ensure that the list of questions is listening for changes to location
 			// - Something like a componentWillReceiveProps that bails if location is not change
 			// - that method will trigger an AJAX request
-			dispatch( push( '#:great=bar' ) )
+			//dispatch( push( '#:great=bar' ) )
 
 			// I need to dispatch to a thunk in order to trigger a question
 			// lookup based on current filters

@@ -1,6 +1,8 @@
 import { RESET_CURRENT_FILTERS, SET_FILTER_TOGGLE, SET_SORT_ORDERBY } from '../actions/app'
+import { LOCATION_CHANGE } from 'react-router-redux'
+import { getCurrentView } from '../util/webwork-url-parser'
 
-export function currentFilters( state = {
+const initialState = {
 	course: false,
 	section: false,
 	problemSet: false,
@@ -8,8 +10,25 @@ export function currentFilters( state = {
 
 	orderby: 'post_date',
 	order: 'DESC'
-}, action ) {
+}
+
+export function currentFilters( state = initialState, action ) {
 	switch ( action.type ) {
+		case LOCATION_CHANGE :
+			const currentView = getCurrentView( {
+				locationBeforeTransitions: action.payload	
+			} )
+
+			for ( var i in state ) {
+				if ( currentView.hasOwnProperty( i ) ) {
+					state[ i ] = currentView[ i ]
+				} else {
+					state[ i ] = initialState[ i ]
+				}
+			}
+
+			return state
+
 		case SET_FILTER_TOGGLE :
 			const { slug, value } = action.payload
 

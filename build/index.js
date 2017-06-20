@@ -36704,9 +36704,14 @@ function collapsed(state = {}, action) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = currentFilters;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_app__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_redux__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__ = __webpack_require__(164);
 
 
-function currentFilters(state = {
+
+
+const initialState = {
 	course: false,
 	section: false,
 	problemSet: false,
@@ -36714,8 +36719,25 @@ function currentFilters(state = {
 
 	orderby: 'post_date',
 	order: 'DESC'
-}, action) {
+};
+
+function currentFilters(state = initialState, action) {
 	switch (action.type) {
+		case __WEBPACK_IMPORTED_MODULE_1_react_router_redux__["LOCATION_CHANGE"]:
+			const currentView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["a" /* getCurrentView */])({
+				locationBeforeTransitions: action.payload
+			});
+
+			for (var i in state) {
+				if (currentView.hasOwnProperty(i)) {
+					state[i] = currentView[i];
+				} else {
+					state[i] = initialState[i];
+				}
+			}
+
+			return state;
+
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["j" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 

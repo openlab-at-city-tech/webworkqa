@@ -48,8 +48,12 @@ class Client {
 		$user_is_admin = current_user_can( 'edit_others_posts' );
 		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
 
+		// @todo Also awful.
+		$q = new \WeBWorK\Server\Question\Query();
+
 		wp_localize_script( 'webwork-app', 'WWData', array(
 			'client_name' => get_option( 'blogname' ),
+			'filter_options' => $q->get_all_filter_options(),
 			'page_base' => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
 			'problem_id' => $ww_problem,
 			'remote_course_url' => $remote_course_url,

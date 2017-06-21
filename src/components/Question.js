@@ -282,14 +282,21 @@ export default class Question extends Component {
 			)
 		}
 
+		let scrollWaypoint
+		if ( isSingleProblem ) {
+			scrollWaypoint = (
+				<Waypoint
+					onEnter={onWaypointEnter}
+				/>
+			)
+		}
+
 		return (
 			<li
 			  className={this.getClassName( isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion )}
 			>
 
-				<Waypoint
-					onEnter={onWaypointEnter}
-				/>
+				{scrollWaypoint}
 
 				<Element name={anchorName}>
 					<a name={anchorName}></a>

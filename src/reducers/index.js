@@ -14,7 +14,6 @@ import { responseIdMap } from './responseIdMap'
 import { responses } from './responses'
 import { routing } from './routing'
 import { scores } from './scores'
-import { viewType } from './viewType'
 import { votes } from './votes'
 
 const queryString = function() {
@@ -56,7 +55,6 @@ const rootReducer = combineReducers({
 	responses,
 	routing,
 	scores,
-	viewType,
 	votes
 })
 

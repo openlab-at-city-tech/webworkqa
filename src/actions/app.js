@@ -99,17 +99,6 @@ export const receiveFilterOptions = ( filterOptions ) => {
 	}
 }
 
-export const SET_VIEW_TYPE = 'SET_VIEW_TYPE'
-export const setViewType = ( viewType, objectId = null ) => {
-	return {
-		type: SET_VIEW_TYPE,
-		payload: {
-			viewType,
-			objectId
-		}
-	}
-}
-
 export const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE'
 export const setTextareaValue = ( fieldName, value ) => {
 	return {

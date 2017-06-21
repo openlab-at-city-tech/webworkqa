@@ -204,7 +204,6 @@ class Endpoint extends \WP_Rest_Controller {
 		$questions = $q->get_for_endpoint();
 
 		$retval = array(
-			'filterOptions' => $q->get_all_filter_options(),
 			'questionIds' => array_keys( $questions ),
 			'questions' => $questions,
 		);

@@ -5169,7 +5169,7 @@ const setInitialLoadComplete = isInitialLoadComplete => {
 		payload: isInitialLoadComplete
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = setInitialLoadComplete;
+/* harmony export (immutable) */ __webpack_exports__["d"] = setInitialLoadComplete;
 
 
 const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
@@ -5198,7 +5198,7 @@ const setCollapsed = (itemId, value = null) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["g"] = setCollapsed;
+/* harmony export (immutable) */ __webpack_exports__["f"] = setCollapsed;
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
@@ -5210,7 +5210,7 @@ const setCollapsedBulk = (c = []) => {
 		payload: c
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = setCollapsedBulk;
+/* harmony export (immutable) */ __webpack_exports__["c"] = setCollapsedBulk;
 
 
 function processFilterChange(slug, value) {
@@ -5277,7 +5277,7 @@ const setSortOrderby = orderby => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["h"] = setSortOrderby;
+/* harmony export (immutable) */ __webpack_exports__["g"] = setSortOrderby;
 
 
 const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS';
@@ -5289,7 +5289,7 @@ const receiveFilterOptions = filterOptions => {
 		payload: filterOptions
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = receiveFilterOptions;
+/* harmony export (immutable) */ __webpack_exports__["h"] = receiveFilterOptions;
 
 
 const SET_VIEW_TYPE = 'SET_VIEW_TYPE';
@@ -5319,7 +5319,7 @@ const setTextareaValue = (fieldName, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = setTextareaValue;
+/* harmony export (immutable) */ __webpack_exports__["e"] = setTextareaValue;
 
 
 /***/ }),
@@ -6079,8 +6079,8 @@ if (true) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = fetchQuestionIndexList;
-/* harmony export (immutable) */ __webpack_exports__["b"] = setScrolledTo;
+/* harmony export (immutable) */ __webpack_exports__["c"] = fetchQuestionIndexList;
+/* harmony export (immutable) */ __webpack_exports__["a"] = setScrolledTo;
 /* harmony export (immutable) */ __webpack_exports__["g"] = sendQuestion;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
@@ -6134,10 +6134,6 @@ function fetchQuestionIndexList(append) {
 				'X-WP-Nonce': rest_api_nonce
 			}
 		}).then(response => response.json()).then(json => {
-			// @todo This should probably be moved into its own separate request
-			// maybe part of the initial setup (localize_script())
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* receiveFilterOptions */])(json.filterOptions));
-
 			dispatch(receiveQuestions(json.questions));
 			dispatch(receiveQuestionIds(json.questionIds));
 
@@ -6153,16 +6149,11 @@ function fetchQuestionIndexList(append) {
 
 				scores[thisQuestionId] = json.questions[thisQuestionId].voteCount;
 			}
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setCollapsedBulk */])(toCollapse));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__scores__["a" /* setScoresBulk */])(scores));
 
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setAppIsLoading */])(false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setInitialLoadComplete */])(true));
-
-			// todo:
-			// - load when at the second- or third-to-last item rather than very last
-			// - verify that votes, etc are loaded properly
-			// - verify that filters are respected
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setInitialLoadComplete */])(true));
 		});
 	};
 }
@@ -6213,7 +6204,7 @@ const receiveQuestion = question => {
 		payload: question
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = receiveQuestion;
+/* harmony export (immutable) */ __webpack_exports__["b"] = receiveQuestion;
 
 
 const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
@@ -6325,9 +6316,9 @@ function sendQuestion(problemId, content, tried, problemText) {
 			dispatch(setQuestionPending(false));
 			dispatch(receiveQuestion(json));
 			dispatch(receiveQuestionById(json.questionId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('tried', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValue */])('content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValue */])('tried', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
 
 			// Remove the post_data_key param from the window location.
 			if (false !== window.location.search.indexOf('post_data_key')) {
@@ -8543,7 +8534,7 @@ function sendResponseAnswered(responseId, isAnswered) {
 		}).then(response => response.json()).then(json => {
 			for (var i in json) {
 				if (json.hasOwnProperty(i)) {
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["c" /* receiveQuestion */])(json[i]));
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["b" /* receiveQuestion */])(json[i]));
 				}
 			}
 		});
@@ -8612,7 +8603,7 @@ function sendResponse(questionId, value) {
 			dispatch(receiveResponse(json));
 			dispatch(receiveResponseIdForMap(json.responseId, questionId));
 			dispatch(setResponsePending(questionId, false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('response-text-' + questionId, '')) / dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setCollapsed */])('questionFormField_response-text-' + questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValue */])('response-text-' + questionId, '')) / dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setCollapsed */])('questionFormField_response-text-' + questionId, true));
 			// todo - handle errors
 		});
 	};
@@ -13348,7 +13339,7 @@ function fetchProblem(problemId) {
 	return (dispatch, getState) => {
 		// Reset a bunch of stuff.
 		// Could work around this with a better-structured state (store all data per-problem)
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setInitialLoadComplete */])(false));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setInitialLoadComplete */])(false));
 		dispatch(receiveProblems({}));
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["d" /* receiveQuestionsById */])([]));
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["d" /* receiveResponseIdMap */])({}));
@@ -13421,7 +13412,7 @@ function fetchProblem(problemId) {
 					value: true
 				});
 
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setCollapsedBulk */])(toCollapse));
 
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["d" /* receiveResponseIdMap */])(responseIdMap));
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["f" /* receiveResponses */])(responses));
@@ -13430,9 +13421,9 @@ function fetchProblem(problemId) {
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__votes__["b" /* setVotesBulk */])(votes));
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* receiveFilterOptions */])(filterOptions));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* receiveFilterOptions */])(filterOptions));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setInitialLoadComplete */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setInitialLoadComplete */])(true));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setAppIsLoading */])(false));
 		});
 	};
@@ -16624,11 +16615,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onPreviewToggleClick: () => {
 			const collapsedKey = 'questionFormField_' + ownProps.fieldName;
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])(collapsedKey));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setCollapsed */])(collapsedKey));
 		},
 
 		onTextareaChange: event => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setTextareaValue */])(ownProps.fieldName, event.target.value));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["e" /* setTextareaValue */])(ownProps.fieldName, event.target.value));
 		}
 	};
 };
@@ -16694,7 +16685,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setCollapsed */])(itemId));
 		},
 
 		onProblemSummaryClick: event => {
@@ -16709,15 +16700,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				return;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])(itemId + '-problem'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setCollapsed */])(itemId + '-problem'));
 		},
 
 		onRespondClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])('responseForm-' + itemId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setCollapsed */])('responseForm-' + itemId, false));
 		},
 
 		onWaypointEnter: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["b" /* setScrolledTo */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["a" /* setScrolledTo */])(itemId));
 		}
 	};
 };
@@ -16761,14 +16752,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		const { value } = change;
 		const { itemType, problemId } = ownProps;
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["h" /* setSortOrderby */])(value));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["g" /* setSortOrderby */])(value));
 
 		// This suggests that the handler should belong to the QuestionContainer
 		// and ProblemContainer. Passing this param feels icky.
 		if ('problem' === itemType) {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_problems__["a" /* fetchProblem */])(problemId));
 		} else {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["a" /* fetchQuestionIndexList */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["c" /* fetchQuestionIndexList */])(false));
 		}
 	};
 
@@ -16816,7 +16807,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["g" /* setCollapsed */])('responseForm-' + ownProps.questionId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["f" /* setCollapsed */])('responseForm-' + ownProps.questionId));
 		},
 
 		onResponseFormSubmit: (e, responseText) => {
@@ -34356,6 +34347,8 @@ Root.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_lib_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_lib_createBrowserHistory__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_questions__ = __webpack_require__(35);
+
 
 
 
@@ -34365,11 +34358,40 @@ Root.propTypes = {
 function configureStore(initialState) {
 	const history = __WEBPACK_IMPORTED_MODULE_3_history_lib_createBrowserHistory___default()();
 
-	const middleware = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["applyMiddleware"])(__WEBPACK_IMPORTED_MODULE_1_redux_thunk___default.a);
+	const middleware = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["applyMiddleware"])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__["routerMiddleware"])(history), __WEBPACK_IMPORTED_MODULE_1_redux_thunk___default.a);
 
 	const store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["createStore"])(__WEBPACK_IMPORTED_MODULE_2__reducers__["a" /* default */], initialState, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["compose"])(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__["syncHistoryWithStore"])(history, store);
+
+	let prevState = {
+		currentFilters: {}
+	};
+	store.subscribe(() => {
+		const { currentFilters } = store.getState();
+		const prevFilters = prevState.currentFilters;
+
+		prevState.currentFilters = currentFilters;
+
+		let currentFiltersHaveChanged = false;
+		if (currentFilters.length !== prevFilters.length) {
+			currentFiltersHaveChanged = true;
+		} else {
+			for (var i in currentFilters) {
+				if (!prevFilters.hasOwnProperty(i) || prevFilters[i] !== currentFilters[i]) {
+					currentFiltersHaveChanged = true;
+					break;
+				}
+			}
+		}
+
+		if (currentFiltersHaveChanged) {
+			store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions_questions__["c" /* fetchQuestionIndexList */])(false));
+			prevState.currentFilters = currentFilters;
+		}
+		//		console.log( 'there is a change' )
+		//		store.dispatch(something())
+	});
 
 	return store;
 };
@@ -36408,7 +36430,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["g" /* setCollapsed */])('questionForm'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["f" /* setCollapsed */])('questionForm'));
 		},
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
@@ -36470,7 +36492,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onComponentWillMount: function () {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["a" /* fetchQuestionIndexList */])(true));
+			//dispatch( fetchQuestionIndexList( true ) )
 		}
 	};
 };
@@ -36770,12 +36792,7 @@ function currentFilters(state = initialState, action) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_app__ = __webpack_require__(15);
 
 
-function filterOptions(state = {
-	course: [],
-	section: [],
-	problemSet: [],
-	answered: []
-}, action) {
+function filterOptions(state = window.WWData.filter_options, action) {
 	switch (action.type) {
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* RECEIVE_FILTER_OPTIONS */]:
 			return action.payload;

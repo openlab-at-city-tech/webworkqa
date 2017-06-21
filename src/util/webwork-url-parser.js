@@ -25,6 +25,13 @@ const getViewFromHash = ( hash ) => {
 	return params
 }
 
+const indexFilters = {
+	course: 1,	
+	section: 1,	
+	problemSet: 1,	
+	answered: 1
+}
+
 const buildHashFromFilter = ( slug, value, currentLocation ) => {
 	let newState
 	const currentView = getCurrentView( currentLocation )
@@ -36,6 +43,11 @@ const buildHashFromFilter = ( slug, value, currentLocation ) => {
 	} else {
 		newState = Object.assign( {}, currentView )
 		delete newState[ slug ]
+	}
+
+	if ( indexFilters.hasOwnProperty( slug ) ) {
+		delete( newState.problemId )
+		delete( newState.questionId )
 	}
 
 	return buildHashFromState( newState )

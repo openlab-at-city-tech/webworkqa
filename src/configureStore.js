@@ -4,7 +4,7 @@ import rootReducer from './reducers'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import { fetchQuestionIndexList } from './actions/questions'
-import { getCurrentHash } from './util/webwork-url-parser'
+import { getCurrentHash, getViewFromHash } from './util/webwork-url-parser'
 
 export default function configureStore( initialState ) {
 	const history = createBrowserHistory()
@@ -36,7 +36,10 @@ export default function configureStore( initialState ) {
 		prevHash = currentHash
 
 		if ( hashIsChanged ) {
-			store.dispatch( fetchQuestionIndexList( false ) )
+			const newView = getViewFromHash( currentHash )
+			if ( ! newView.hasOwnProperty( 'problemId' ) ) {
+				store.dispatch( fetchQuestionIndexList( false ) )
+			}
 		}
 
 	})

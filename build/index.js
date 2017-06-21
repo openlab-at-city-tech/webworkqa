@@ -16853,20 +16853,24 @@ const ResponseFormContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ScoreDialog__ = __webpack_require__(379);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_votes__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_webwork_url_parser__ = __webpack_require__(164);
+
 
 
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { scores, viewType, votes } = state;
+	const { scores, routing, votes } = state;
 	const { itemId } = ownProps;
+
+	const currentView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_webwork_url_parser__["a" /* getCurrentView */])(routing);
 
 	const score = scores.hasOwnProperty(itemId) ? scores[itemId] : 0;
 	const vote = votes.hasOwnProperty(itemId) ? votes[itemId] : '';
 
 	return {
 		score,
-		userCanVote: 'problem' === viewType.viewType && window.WWData.user_can_vote,
+		userCanVote: currentView.hasOwnProperty('problemId') && window.WWData.user_can_vote,
 		vote
 	};
 };
@@ -36498,15 +36502,18 @@ const QuestionFormContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_QuestionIndex__ = __webpack_require__(371);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__ = __webpack_require__(164);
+
 
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { viewType } = state;
+	const { routing } = state;
+	const currentHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["b" /* getCurrentHash */])(routing);
 
 	return {
 		isLoading: state.appIsLoading,
-		isResultsPage: viewType.viewType === 'results'
+		isResultsPage: currentHash.length > 0
 	};
 };
 

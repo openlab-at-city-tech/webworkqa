@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
 import QuestionIndex from '../components/QuestionIndex'
+import { getCurrentHash } from '../util/webwork-url-parser'
 
 const mapStateToProps = ( state, ownProps ) => {
-	const { viewType } = state
+	const { routing } = state
+	const currentHash = getCurrentHash( routing )
 
 	return {
 		isLoading: state.appIsLoading,
-		isResultsPage: viewType.viewType === 'results'
+		isResultsPage: currentHash.length > 0
 	}
 }
 

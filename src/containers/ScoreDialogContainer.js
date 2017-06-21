@@ -1,17 +1,20 @@
 import { connect } from 'react-redux'
 import ScoreDialog from '../components/ScoreDialog'
 import { clickVote } from '../actions/votes'
+import { getCurrentView } from '../util/webwork-url-parser'
 
 const mapStateToProps = (state, ownProps) => {
-	const { scores, viewType, votes } = state
+	const { scores, routing, votes } = state
 	const { itemId } = ownProps
+
+	const currentView = getCurrentView( routing )
 
 	const score = scores.hasOwnProperty( itemId ) ? scores[ itemId ] : 0
 	const vote = votes.hasOwnProperty( itemId ) ? votes[ itemId ] : ''
 
 	return {
 		score,
-		userCanVote: 'problem' === viewType.viewType && window.WWData.user_can_vote,
+		userCanVote: currentView.hasOwnProperty( 'problemId' ) && window.WWData.user_can_vote,
 		vote
 	}
 }

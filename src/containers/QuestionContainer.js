@@ -2,14 +2,17 @@ import { connect } from 'react-redux'
 import Question from '../components/Question'
 import { setCollapsed } from '../actions/app'
 import { setScrolledTo } from '../actions/questions'
+import { getCurrentView } from '../util/webwork-url-parser'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
 		collapsed, initialLoadComplete,
-		questions, responseIdMap, responses, viewType
+		questions, responseIdMap, responses, routing
 	} = state
 
 	const { itemId } = ownProps
+
+	const currentView = getCurrentView( routing )
 
 	const isCollapsed = collapsed.hasOwnProperty( itemId )
 	const isProblemSummaryCollapsed = collapsed.hasOwnProperty( itemId + '-problem' )
@@ -17,8 +20,9 @@ const mapStateToProps = (state, ownProps) => {
 	const question = questions[itemId]
 	const responseIds = responseIdMap.hasOwnProperty( itemId ) ? responseIdMap[itemId] : []
 
-	const isSingleProblem = viewType.viewType === 'problem'
-	const isCurrentQuestion = ( isSingleProblem && viewType.objectId === itemId )
+	const isSingleProblem = currentView.hasOwnProperty( 'problemId' )
+	const isQuestionAnchor = currentView.hasOwnProperty( 'questionId' )
+	const isCurrentQuestion = ( isSingleProblem && isQuestionAnchor && currentView.questionId == itemId )
 
 	const routeBase = window.WWData.route_base
 	const questionLink = '/'

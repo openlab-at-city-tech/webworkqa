@@ -16655,6 +16655,8 @@ const PreviewableFieldContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODUL
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Question__ = __webpack_require__(369);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_app__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_questions__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_webwork_url_parser__ = __webpack_require__(164);
+
 
 
 
@@ -16663,10 +16665,12 @@ const PreviewableFieldContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODUL
 const mapStateToProps = (state, ownProps) => {
 	const {
 		collapsed, initialLoadComplete,
-		questions, responseIdMap, responses, viewType
+		questions, responseIdMap, responses, routing
 	} = state;
 
 	const { itemId } = ownProps;
+
+	const currentView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__util_webwork_url_parser__["a" /* getCurrentView */])(routing);
 
 	const isCollapsed = collapsed.hasOwnProperty(itemId);
 	const isProblemSummaryCollapsed = collapsed.hasOwnProperty(itemId + '-problem');
@@ -16674,8 +16678,9 @@ const mapStateToProps = (state, ownProps) => {
 	const question = questions[itemId];
 	const responseIds = responseIdMap.hasOwnProperty(itemId) ? responseIdMap[itemId] : [];
 
-	const isSingleProblem = viewType.viewType === 'problem';
-	const isCurrentQuestion = isSingleProblem && viewType.objectId === itemId;
+	const isSingleProblem = currentView.hasOwnProperty('problemId');
+	const isQuestionAnchor = currentView.hasOwnProperty('questionId');
+	const isCurrentQuestion = isSingleProblem && isQuestionAnchor && currentView.questionId == itemId;
 
 	const routeBase = window.WWData.route_base;
 	const questionLink = '/' + routeBase + '#:problemId=' + question.problemId + ':questionId=' + itemId;

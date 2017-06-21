@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import QuestionContainer from '../containers/QuestionContainer'
+import shortid from 'shortid'
 
 export default class QuestionList extends Component {
 	render() {
@@ -12,11 +13,13 @@ export default class QuestionList extends Component {
 		};
 		let rows = []
 
+		let rowKey
 		questionsById.forEach(function(questionId) {
+			rowKey = shortid.generate()
 			rows.push(
 				<QuestionContainer
 				  itemId={questionId}
-				  key={questionId}
+				  key={rowKey}
 				/>
 			);
 		});

@@ -12,7 +12,7 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		onComponentWillMount: function() {
-			//dispatch( fetchQuestionIndexList( true ) )
+			dispatch( fetchQuestionIndexList( true ) )
 		}
 	}
 }

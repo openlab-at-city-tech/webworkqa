@@ -30,20 +30,6 @@ export function routing( state = initialState, action ) {
 				locationBeforeTransitions: newLocation
 			} )
 
-			/*
-			let location = state.locationBeforeTransitions;
-			const pathname = '/fresh/' 
-
-			const newLocation = Object.assign( {}, location, {
-				pathname,
-				action: 'PUSH'
-			} )
-
-			return Object.assign( {}, state, {
-				locationBeforeTransitions: newLocation
-			} )
-			*/
-
 		default :
 			return state
 	}

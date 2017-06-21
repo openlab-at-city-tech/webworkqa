@@ -5160,6 +5160,9 @@ module.exports = ReactDOMComponentTree;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = processFilterChange;
 /* unused harmony export rebuildHash */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__questions__ = __webpack_require__(35);
+
+
 const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
 /* harmony export (immutable) */ __webpack_exports__["k"] = SET_INITIAL_LOAD_COMPLETE;
 
@@ -5216,6 +5219,7 @@ const setCollapsedBulk = (c = []) => {
 function processFilterChange(slug, value) {
 	return dispatch => {
 		dispatch(setFilterToggle(slug, value));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__questions__["a" /* fetchQuestionIndexList */])(false));
 	};
 }
 
@@ -6079,8 +6083,8 @@ if (true) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = fetchQuestionIndexList;
-/* harmony export (immutable) */ __webpack_exports__["a"] = setScrolledTo;
+/* harmony export (immutable) */ __webpack_exports__["a"] = fetchQuestionIndexList;
+/* harmony export (immutable) */ __webpack_exports__["b"] = setScrolledTo;
 /* harmony export (immutable) */ __webpack_exports__["g"] = sendQuestion;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
@@ -6204,7 +6208,7 @@ const receiveQuestion = question => {
 		payload: question
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = receiveQuestion;
+/* harmony export (immutable) */ __webpack_exports__["c"] = receiveQuestion;
 
 
 const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
@@ -8534,7 +8538,7 @@ function sendResponseAnswered(responseId, isAnswered) {
 		}).then(response => response.json()).then(json => {
 			for (var i in json) {
 				if (json.hasOwnProperty(i)) {
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["b" /* receiveQuestion */])(json[i]));
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["c" /* receiveQuestion */])(json[i]));
 				}
 			}
 		});
@@ -16708,7 +16712,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onWaypointEnter: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["a" /* setScrolledTo */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["b" /* setScrolledTo */])(itemId));
 		}
 	};
 };
@@ -16759,7 +16763,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		if ('problem' === itemType) {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_problems__["a" /* fetchProblem */])(problemId));
 		} else {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["c" /* fetchQuestionIndexList */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["a" /* fetchQuestionIndexList */])(false));
 		}
 	};
 
@@ -16889,8 +16893,8 @@ const SidebarContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return buildHashFromFilter; });
-/* unused harmony export getCurrentHash */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return buildHashFromFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCurrentHash; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getCurrentView; });
 const getCurrentHash = router => {
 	return null === router.locationBeforeTransitions ? window.location.hash : router.locationBeforeTransitions.hash;
@@ -34348,6 +34352,8 @@ Root.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_questions__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__ = __webpack_require__(164);
+
 
 
 
@@ -34364,33 +34370,19 @@ function configureStore(initialState) {
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__["syncHistoryWithStore"])(history, store);
 
-	let prevState = {
-		currentFilters: {}
-	};
+	let prevHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__["b" /* getCurrentHash */])(store.getState().routing);
+
 	store.subscribe(() => {
-		const { currentFilters } = store.getState();
-		const prevFilters = prevState.currentFilters;
+		const currentHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__["b" /* getCurrentHash */])(store.getState().routing);
 
-		prevState.currentFilters = currentFilters;
+		const hashIsChanged = currentHash !== prevHash;
 
-		let currentFiltersHaveChanged = false;
-		if (currentFilters.length !== prevFilters.length) {
-			currentFiltersHaveChanged = true;
-		} else {
-			for (var i in currentFilters) {
-				if (!prevFilters.hasOwnProperty(i) || prevFilters[i] !== currentFilters[i]) {
-					currentFiltersHaveChanged = true;
-					break;
-				}
-			}
+		// Set prevHash to avoid recursion during dispatch.
+		prevHash = currentHash;
+
+		if (hashIsChanged) {
+			store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions_questions__["a" /* fetchQuestionIndexList */])(false));
 		}
-
-		if (currentFiltersHaveChanged) {
-			store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions_questions__["c" /* fetchQuestionIndexList */])(false));
-			prevState.currentFilters = currentFilters;
-		}
-		//		console.log( 'there is a change' )
-		//		store.dispatch(something())
 	});
 
 	return store;
@@ -36492,7 +36484,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onComponentWillMount: function () {
-			//dispatch( fetchQuestionIndexList( true ) )
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["a" /* fetchQuestionIndexList */])(true));
 		}
 	};
 };
@@ -36594,22 +36586,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			}
 
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["a" /* processFilterChange */])(slug, value));
-
-			// No
-			// Instead of this:
-			// - Trigger a filter change
-			// - In the corresponding reducer, modify the 'routing' state
-			// - This should automatically trigger a location change because of react-router-redux
-			// - Then, ensure that the list of questions is listening for changes to location
-			// - Something like a componentWillReceiveProps that bails if location is not change
-			// - that method will trigger an AJAX request
-			//dispatch( push( '#:great=bar' ) )
-
-			// I need to dispatch to a thunk in order to trigger a question
-			// lookup based on current filters
-			// A thunk takes getState as a parameter
-
-			return;
 
 			// For the theme to know when to collapse the menu.
 			const event = new Event('webworkFilterChange');
@@ -37138,7 +37114,7 @@ function routing(state = initialState, action) {
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["j" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
-			const newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["b" /* buildHashFromFilter */])(slug, value, state);
+			const newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["c" /* buildHashFromFilter */])(slug, value, state);
 
 			const newLocation = Object.assign({}, location, {
 				hash: newHash,
@@ -37148,18 +37124,6 @@ function routing(state = initialState, action) {
 			return Object.assign({}, state, {
 				locationBeforeTransitions: newLocation
 			});
-
-		/*
-  let location = state.locationBeforeTransitions;
-  const pathname = '/fresh/' 
-  	const newLocation = Object.assign( {}, location, {
-  	pathname,
-  	action: 'PUSH'
-  } )
-  	return Object.assign( {}, state, {
-  	locationBeforeTransitions: newLocation
-  } )
-  */
 
 		default:
 			return state;

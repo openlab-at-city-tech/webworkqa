@@ -1,3 +1,5 @@
+import { fetchQuestionIndexList } from './questions'
+
 export const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE'
 export const setInitialLoadComplete = ( isInitialLoadComplete ) => {
 	return {
@@ -38,6 +40,7 @@ export const setCollapsedBulk = ( c = [] ) => {
 export function processFilterChange( slug, value ) {
 	return ( dispatch ) => {
 		dispatch( setFilterToggle( slug, value ) )
+		dispatch( fetchQuestionIndexList( false ) )
 	}
 }
 

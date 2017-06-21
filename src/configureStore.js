@@ -4,6 +4,7 @@ import rootReducer from './reducers'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import { fetchQuestionIndexList } from './actions/questions'
+import { getCurrentHash } from './util/webwork-url-parser'
 
 export default function configureStore( initialState ) {
 	const history = createBrowserHistory()
@@ -24,33 +25,20 @@ export default function configureStore( initialState ) {
 
 	syncHistoryWithStore( history, store )
 
-	let prevState = {
-		currentFilters: {}
-	}
+	let prevHash = getCurrentHash( store.getState().routing )
+
 	store.subscribe(() => {
-		const { currentFilters } = store.getState()
-		const prevFilters = prevState.currentFilters;
+		const currentHash = getCurrentHash( store.getState().routing )
 
-		prevState.currentFilters = currentFilters
+		const hashIsChanged = currentHash !== prevHash
 
-		let currentFiltersHaveChanged = false
-		if ( currentFilters.length !== prevFilters.length ) {
-			currentFiltersHaveChanged = true
-		} else {
-			for ( var i in currentFilters ) {
-				if ( ! prevFilters.hasOwnProperty( i ) || prevFilters[ i ] !== currentFilters[ i ] ) {
-					currentFiltersHaveChanged = true
-					break
-				}
-			}
-		}
+		// Set prevHash to avoid recursion during dispatch.
+		prevHash = currentHash
 
-		if ( currentFiltersHaveChanged ) {
+		if ( hashIsChanged ) {
 			store.dispatch( fetchQuestionIndexList( false ) )
-			prevState.currentFilters = currentFilters
 		}
-//		console.log( 'there is a change' )
-//		store.dispatch(something())
+
 	})
 
 	return store

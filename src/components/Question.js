@@ -283,7 +283,7 @@ export default class Question extends Component {
 		}
 
 		let scrollWaypoint
-		if ( isSingleProblem ) {
+		if ( ! isSingleProblem ) {
 			scrollWaypoint = (
 				<Waypoint
 					onEnter={onWaypointEnter}

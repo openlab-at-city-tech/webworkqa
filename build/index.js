@@ -35217,7 +35217,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		let scrollWaypoint;
-		if (isSingleProblem) {
+		if (!isSingleProblem) {
 			scrollWaypoint = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_waypoint___default.a, {
 				onEnter: onWaypointEnter
 			});

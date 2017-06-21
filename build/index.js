@@ -5172,7 +5172,7 @@ const setInitialLoadComplete = isInitialLoadComplete => {
 		payload: isInitialLoadComplete
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = setInitialLoadComplete;
+/* harmony export (immutable) */ __webpack_exports__["b"] = setInitialLoadComplete;
 
 
 const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
@@ -5186,7 +5186,7 @@ const setAppIsLoading = appIsLoading => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = setAppIsLoading;
+/* harmony export (immutable) */ __webpack_exports__["c"] = setAppIsLoading;
 
 
 const SET_COLLAPSED = 'SET_COLLAPSED';
@@ -5213,7 +5213,7 @@ const setCollapsedBulk = (c = []) => {
 		payload: c
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = setCollapsedBulk;
+/* harmony export (immutable) */ __webpack_exports__["d"] = setCollapsedBulk;
 
 
 function processFilterChange(slug, value) {
@@ -6091,12 +6091,13 @@ function fetchQuestionIndexList(append) {
 		if (!append) {
 			dispatch(resetQuestionIds());
 			dispatch(resetQuestions());
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(false));
 			filters.offset = 0;
 		} else {
 			filters.offset = questionsById.length;
 		}
 
-		filters.maxResults = 2;
+		filters.maxResults = 5;
 
 		let qs = '';
 		for (var filterName in filters) {
@@ -6115,7 +6116,7 @@ function fetchQuestionIndexList(append) {
 			endpoint += '?' + qs;
 		}
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setAppIsLoading */])(true));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setAppIsLoading */])(true));
 
 		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
 			credentials: 'same-origin',
@@ -6139,11 +6140,11 @@ function fetchQuestionIndexList(append) {
 
 				scores[thisQuestionId] = json.questions[thisQuestionId].voteCount;
 			}
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setCollapsedBulk */])(toCollapse));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__scores__["a" /* setScoresBulk */])(scores));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setAppIsLoading */])(false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setInitialLoadComplete */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(true));
 		});
 	};
 }
@@ -13341,7 +13342,7 @@ function fetchProblem(problemId) {
 	return (dispatch, getState) => {
 		// Reset a bunch of stuff.
 		// Could work around this with a better-structured state (store all data per-problem)
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setInitialLoadComplete */])(false));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(false));
 		dispatch(receiveProblems({}));
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["d" /* resetQuestionIds */])());
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["d" /* receiveResponseIdMap */])({}));
@@ -13414,7 +13415,7 @@ function fetchProblem(problemId) {
 					value: true
 				});
 
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setCollapsedBulk */])(toCollapse));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
 
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["d" /* receiveResponseIdMap */])(responseIdMap));
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["f" /* receiveResponses */])(responses));
@@ -13425,8 +13426,8 @@ function fetchProblem(problemId) {
 
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* receiveFilterOptions */])(filterOptions));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setInitialLoadComplete */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setAppIsLoading */])(false));
 		});
 	};
 }
@@ -36392,7 +36393,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onComponentWillMount: function (problemId) {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["b" /* setAppIsLoading */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["c" /* setAppIsLoading */])(true));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_problems__["a" /* fetchProblem */])(problemId));
 		}
 	};

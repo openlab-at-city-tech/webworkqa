@@ -17,12 +17,13 @@ export function fetchQuestionIndexList( append ) {
 		if ( ! append ) {
 			dispatch( resetQuestionIds() )
 			dispatch( resetQuestions() )
+			dispatch( setInitialLoadComplete( false ) )
 			filters.offset = 0
 		} else {
 			filters.offset = questionsById.length
 		}
 
-		filters.maxResults = 2
+		filters.maxResults = 5
 
 		let qs = ''
 		for ( var filterName in filters ) {

@@ -35568,11 +35568,18 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const { isLoading, questionIds } = this.props;
 
 		let listItems = [];
+		let alreadyListed = {}; // Hack to work around dupes.
 		questionIds.forEach(function (questionId) {
+			if (alreadyListed.hasOwnProperty(questionId)) {
+				return;
+			}
+
 			listItems.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_QuestionContainer_js__["a" /* default */], {
 				itemId: questionId,
 				key: questionId
 			}));
+
+			alreadyListed[questionId] = 1;
 		});
 
 		if (!listItems.length && !isLoading) {

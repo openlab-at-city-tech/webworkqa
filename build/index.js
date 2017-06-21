@@ -34385,7 +34385,9 @@ Root.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_router_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__actions_questions__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__actions_problems__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__util_webwork_url_parser__ = __webpack_require__(164);
+
 
 
 
@@ -34403,10 +34405,10 @@ function configureStore(initialState) {
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_react_router_redux__["syncHistoryWithStore"])(history, store);
 
-	let prevHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__["b" /* getCurrentHash */])(store.getState().routing);
+	let prevHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__util_webwork_url_parser__["b" /* getCurrentHash */])(store.getState().routing);
 
 	store.subscribe(() => {
-		const currentHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__["b" /* getCurrentHash */])(store.getState().routing);
+		const currentHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__util_webwork_url_parser__["b" /* getCurrentHash */])(store.getState().routing);
 
 		const hashIsChanged = currentHash !== prevHash;
 
@@ -34414,9 +34416,11 @@ function configureStore(initialState) {
 		prevHash = currentHash;
 
 		if (hashIsChanged) {
-			const newView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__["c" /* getViewFromHash */])(currentHash);
+			const newView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__util_webwork_url_parser__["c" /* getViewFromHash */])(currentHash);
 			if (!newView.hasOwnProperty('problemId')) {
 				store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions_questions__["a" /* fetchQuestionIndexList */])(false));
+			} else {
+				store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__actions_problems__["a" /* fetchProblem */])(newView.problemId));
 			}
 		}
 	});

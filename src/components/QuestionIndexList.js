@@ -3,7 +3,12 @@ import QuestionContainer from '../containers/QuestionContainer.js'
 
 export default class QuestionList extends Component {
 	componentWillMount() {
-		const { onComponentWillMount } = this.props
+		const { initialLoadComplete, onComponentWillMount } = this.props
+
+		if ( initialLoadComplete ) {
+			return
+		}
+
 		onComponentWillMount()
 	}
 

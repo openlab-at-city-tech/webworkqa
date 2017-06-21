@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTION, RECEIVE_QUESTIONS } from '../actions/questions'
+import { RECEIVE_QUESTION, RECEIVE_QUESTIONS, RESET_QUESTIONS } from '../actions/questions'
 
 export function questions( state = {}, action ) {
 	switch ( action.type ) {
@@ -9,6 +9,9 @@ export function questions( state = {}, action ) {
 
 		case RECEIVE_QUESTIONS :
 			return Object.assign( {}, state, action.payload )
+
+		case RESET_QUESTIONS :
+			return {}
 
 		default :
 			return state

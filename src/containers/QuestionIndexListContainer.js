@@ -4,6 +4,7 @@ import { fetchQuestionIndexList } from '../actions/questions'
 
 const mapStateToProps = ( state ) => {
 	return {
+		initialLoadComplete: state.initialLoadComplete,
 		isLoading: state.appIsLoading,
 		questionIds: state.questionsById
 	}
@@ -12,7 +13,7 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 	return {
 		onComponentWillMount: function() {
-			dispatch( fetchQuestionIndexList( true ) )
+			dispatch( fetchQuestionIndexList( false ) )
 		}
 	}
 }

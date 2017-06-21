@@ -6105,6 +6105,7 @@ function fetchQuestionIndexList(append) {
 
 		if (!append) {
 			dispatch(resetQuestionIds());
+			dispatch(resetQuestions());
 			filters.offset = 0;
 		} else {
 			filters.offset = questionsById.length;
@@ -6223,6 +6224,18 @@ const receiveQuestions = questions => {
 /* harmony export (immutable) */ __webpack_exports__["e"] = receiveQuestions;
 
 
+const RESET_QUESTIONS = 'RESET_QUESTIONS';
+/* harmony export (immutable) */ __webpack_exports__["n"] = RESET_QUESTIONS;
+
+const resetQuestions = () => {
+	return {
+		type: RESET_QUESTIONS,
+		payload: {}
+	};
+};
+/* unused harmony export resetQuestions */
+
+
 const RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID';
 /* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVE_QUESTION_BY_ID;
 
@@ -6260,7 +6273,7 @@ const resetQuestionIds = () => {
 
 
 const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["n"] = SET_QUESTION_PENDING;
+/* harmony export (immutable) */ __webpack_exports__["o"] = SET_QUESTION_PENDING;
 
 const setQuestionPending = isPending => {
 	return {
@@ -16893,16 +16906,20 @@ const SidebarContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return buildHashFromFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return buildHashFromFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getCurrentHash; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getCurrentView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getViewFromHash; });
 const getCurrentHash = router => {
 	return null === router.locationBeforeTransitions ? window.location.hash : router.locationBeforeTransitions.hash;
 };
 
 const getCurrentView = router => {
 	const hash = getCurrentHash(router);
+	return getViewFromHash(hash);
+};
 
+const getViewFromHash = hash => {
 	const rawParams = hash.split(':');
 	let params = {};
 	let paramParts;
@@ -34381,7 +34398,10 @@ function configureStore(initialState) {
 		prevHash = currentHash;
 
 		if (hashIsChanged) {
-			store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions_questions__["a" /* fetchQuestionIndexList */])(false));
+			const newView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__util_webwork_url_parser__["c" /* getViewFromHash */])(currentHash);
+			if (!newView.hasOwnProperty('problemId')) {
+				store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions_questions__["a" /* fetchQuestionIndexList */])(false));
+			}
 		}
 	});
 
@@ -35190,14 +35210,19 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			);
 		}
 
+		let scrollWaypoint;
+		if (isSingleProblem) {
+			scrollWaypoint = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_waypoint___default.a, {
+				onEnter: onWaypointEnter
+			});
+		}
+
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
 			{
 				className: this.getClassName(isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion)
 			},
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_waypoint___default.a, {
-				onEnter: onWaypointEnter
-			}),
+			scrollWaypoint,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				Element,
 				{ name: anchorName },
@@ -35523,7 +35548,12 @@ class QuestionIndex extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	componentWillMount() {
-		const { onComponentWillMount } = this.props;
+		const { initialLoadComplete, onComponentWillMount } = this.props;
+
+		if (initialLoadComplete) {
+			return;
+		}
+
 		onComponentWillMount();
 	}
 
@@ -35576,7 +35606,7 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				listStyleType: 'none'
 			}
 		};
-		var rows = [];
+		let rows = [];
 
 		questionsById.forEach(function (questionId) {
 			rows.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_QuestionContainer__["a" /* default */], {
@@ -35584,6 +35614,7 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				key: questionId
 			}));
 		});
+
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: 'ww-question-list' },
@@ -36476,6 +36507,7 @@ const QuestionIndexContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0
 
 const mapStateToProps = state => {
 	return {
+		initialLoadComplete: state.initialLoadComplete,
 		isLoading: state.appIsLoading,
 		questionIds: state.questionsById
 	};
@@ -36484,7 +36516,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onComponentWillMount: function () {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["a" /* fetchQuestionIndexList */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["a" /* fetchQuestionIndexList */])(false));
 		}
 	};
 };
@@ -36802,7 +36834,7 @@ function formData(state = {
 				[fieldName]: value
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["n" /* SET_QUESTION_PENDING */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["o" /* SET_QUESTION_PENDING */]:
 			return Object.assign({}, state, {
 				isPending: action.payload.isPending
 			});
@@ -36954,6 +36986,9 @@ function questions(state = {}, action) {
 
 		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RECEIVE_QUESTIONS */]:
 			return Object.assign({}, state, action.payload);
+
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RESET_QUESTIONS */]:
+			return {};
 
 		default:
 			return state;
@@ -37114,7 +37149,7 @@ function routing(state = initialState, action) {
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["j" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
-			const newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["c" /* buildHashFromFilter */])(slug, value, state);
+			const newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["d" /* buildHashFromFilter */])(slug, value, state);
 
 			const newLocation = Object.assign({}, location, {
 				hash: newHash,

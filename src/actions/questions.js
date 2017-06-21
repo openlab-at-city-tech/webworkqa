@@ -16,6 +16,7 @@ export function fetchQuestionIndexList( append ) {
 
 		if ( ! append ) {
 			dispatch( resetQuestionIds() )
+			dispatch( resetQuestions() )
 			filters.offset = 0
 		} else {
 			filters.offset = questionsById.length
@@ -125,6 +126,14 @@ export const receiveQuestions = (questions) => {
 	return {
 		type: RECEIVE_QUESTIONS,
 		payload: questions
+	}
+}
+
+export const RESET_QUESTIONS = 'RESET_QUESTIONS'
+export const resetQuestions = () => {
+	return {
+		type: RESET_QUESTIONS,
+		payload: {}
 	}
 }
 

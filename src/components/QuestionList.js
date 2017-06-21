@@ -10,7 +10,7 @@ export default class QuestionList extends Component {
 				listStyleType: 'none'
 			}
 		};
-		var rows = []
+		let rows = []
 
 		questionsById.forEach(function(questionId) {
 			rows.push(
@@ -20,6 +20,7 @@ export default class QuestionList extends Component {
 				/>
 			);
 		});
+
 		return (
 			<div className="ww-question-list">
 				<h2 className="ww-header">Questions & Replies</h2>

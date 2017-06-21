@@ -4,7 +4,10 @@ const getCurrentHash = ( router ) => {
 
 const getCurrentView = ( router ) => {
 	const hash = getCurrentHash( router )
+	return getViewFromHash( hash )
+}
 
+const getViewFromHash = ( hash ) => {
 	const rawParams = hash.split( ':' )
 	let params = {}
 	let paramParts
@@ -55,4 +58,4 @@ const buildHashFromState = ( state ) => {
 	return hash
 }
 
-export { buildHashFromFilter, getCurrentHash, getCurrentView }
+export { buildHashFromFilter, getCurrentHash, getCurrentView, getViewFromHash }

@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import { receiveFilterOptions, setInitialLoadComplete, setAppIsLoading, setCollapsedBulk } from './app'
-import { receiveQuestions, receiveQuestionsById } from './questions'
+import { receiveQuestions, receiveQuestionsById, resetQuestionIds } from './questions'
 import { receiveResponseIdMap, setResponsesPendingBulk, receiveResponses } from './responses'
 import { setScoresBulk } from './scores'
 import { setVotesBulk } from './votes'
@@ -48,7 +48,7 @@ export function fetchProblem( problemId ) {
 		// Could work around this with a better-structured state (store all data per-problem)
 		dispatch( setInitialLoadComplete( false ) )
 		dispatch( receiveProblems( {} ) )
-		dispatch( receiveQuestionsById( [] ) )
+		dispatch( resetQuestionIds() )
 		dispatch( receiveResponseIdMap( {} ) )
 
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData

@@ -6085,7 +6085,7 @@ if (true) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetchQuestionIndexList;
 /* harmony export (immutable) */ __webpack_exports__["b"] = setScrolledTo;
-/* harmony export (immutable) */ __webpack_exports__["g"] = sendQuestion;
+/* harmony export (immutable) */ __webpack_exports__["h"] = sendQuestion;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(15);
@@ -6191,7 +6191,7 @@ function standardizeFiltersForEndpoint(filters) {
 }
 
 const RECEIVE_QUESTION_IDS = 'RECEIVE_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["k"] = RECEIVE_QUESTION_IDS;
 
 const receiveQuestionIds = questionIds => {
 	return {
@@ -6201,7 +6201,7 @@ const receiveQuestionIds = questionIds => {
 };
 
 const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
-/* harmony export (immutable) */ __webpack_exports__["l"] = RECEIVE_QUESTION;
+/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_QUESTION;
 
 const receiveQuestion = question => {
 	return {
@@ -6213,7 +6213,7 @@ const receiveQuestion = question => {
 
 
 const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_QUESTIONS;
 
 const receiveQuestions = questions => {
 	return {
@@ -6225,7 +6225,7 @@ const receiveQuestions = questions => {
 
 
 const RESET_QUESTIONS = 'RESET_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["n"] = RESET_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["o"] = RESET_QUESTIONS;
 
 const resetQuestions = () => {
 	return {
@@ -6237,7 +6237,7 @@ const resetQuestions = () => {
 
 
 const RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVE_QUESTION_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_QUESTION_BY_ID;
 
 const receiveQuestionById = questionId => {
 	return {
@@ -6249,7 +6249,7 @@ const receiveQuestionById = questionId => {
 };
 
 const RECEIVE_QUESTIONS_BY_ID = 'RECEIVE_QUESTIONS_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_QUESTIONS_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_QUESTIONS_BY_ID;
 
 const receiveQuestionsById = questionsById => {
 	return {
@@ -6257,11 +6257,11 @@ const receiveQuestionsById = questionsById => {
 		payload: questionsById
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = receiveQuestionsById;
+/* harmony export (immutable) */ __webpack_exports__["f"] = receiveQuestionsById;
 
 
 const RESET_QUESTION_IDS = 'RESET_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["k"] = RESET_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["l"] = RESET_QUESTION_IDS;
 
 const resetQuestionIds = () => {
 	return {
@@ -6269,11 +6269,11 @@ const resetQuestionIds = () => {
 		payload: {}
 	};
 };
-/* unused harmony export resetQuestionIds */
+/* harmony export (immutable) */ __webpack_exports__["d"] = resetQuestionIds;
 
 
 const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["o"] = SET_QUESTION_PENDING;
+/* harmony export (immutable) */ __webpack_exports__["p"] = SET_QUESTION_PENDING;
 
 const setQuestionPending = isPending => {
 	return {
@@ -6283,7 +6283,7 @@ const setQuestionPending = isPending => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = setQuestionPending;
+/* harmony export (immutable) */ __webpack_exports__["g"] = setQuestionPending;
 
 
 function setScrolledTo(itemId) {
@@ -13358,7 +13358,7 @@ function fetchProblem(problemId) {
 		// Could work around this with a better-structured state (store all data per-problem)
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setInitialLoadComplete */])(false));
 		dispatch(receiveProblems({}));
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["d" /* receiveQuestionsById */])([]));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["d" /* resetQuestionIds */])());
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["d" /* receiveResponseIdMap */])({}));
 
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
@@ -13402,7 +13402,7 @@ function fetchProblem(problemId) {
 				});
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["e" /* setResponsesPendingBulk */])(pending));
 
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["d" /* receiveQuestionsById */])(questionsById));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["f" /* receiveQuestionsById */])(questionsById));
 
 				// @todo Collapsing should probably happen in componentDidMount or something
 				let toCollapse = [];
@@ -36468,8 +36468,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
 			e.preventDefault();
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["f" /* setQuestionPending */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["g" /* sendQuestion */])(ownProps.problemId, content, tried, problemText));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["g" /* setQuestionPending */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["h" /* sendQuestion */])(ownProps.problemId, content, tried, problemText));
 		}
 	};
 };
@@ -36844,7 +36844,7 @@ function formData(state = {
 				[fieldName]: value
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["o" /* SET_QUESTION_PENDING */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["p" /* SET_QUESTION_PENDING */]:
 			return Object.assign({}, state, {
 				isPending: action.payload.isPending
 			});
@@ -36989,15 +36989,15 @@ function problems(state = {}, action) {
 
 function questions(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* RECEIVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RECEIVE_QUESTION */]:
 			return Object.assign({}, state, {
 				[action.payload.questionId]: action.payload
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RECEIVE_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RECEIVE_QUESTIONS */]:
 			return Object.assign({}, state, action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RESET_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["o" /* RESET_QUESTIONS */]:
 			return {};
 
 		default:
@@ -37016,16 +37016,16 @@ function questions(state = {}, action) {
 
 function questionsById(state = [], action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["h" /* RECEIVE_QUESTION_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["i" /* RECEIVE_QUESTION_BY_ID */]:
 			let newState = state;
 			newState.push(action.payload.questionId);
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["i" /* RECEIVE_QUESTIONS_BY_ID */]:
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["j" /* RECEIVE_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["j" /* RECEIVE_QUESTIONS_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* RECEIVE_QUESTION_IDS */]:
 			return state.concat(action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* RESET_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* RESET_QUESTION_IDS */]:
 			return [];
 
 		default:

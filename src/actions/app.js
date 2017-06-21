@@ -1,3 +1,4 @@
+import { fetchProblem } from './problems'
 import { fetchQuestionIndexList } from './questions'
 
 export const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE'
@@ -74,6 +75,20 @@ export const setFilterToggle = ( slug, value ) => {
 		payload: {
 			slug,
 			value
+		}
+	}
+}
+
+export function processOrderbyChange( orderby, problemId ) {
+	return ( dispatch ) => {
+		dispatch( setSortOrderby( orderby ) )
+
+		// This suggests that the handler should belong to the QuestionContainer
+		// and ProblemContainer. Passing this param feels icky.
+		if ( problemId ) {
+			dispatch( fetchProblem( problemId ) )
+		} else {
+			dispatch( fetchQuestionIndexList( false ) )
 		}
 	}
 }

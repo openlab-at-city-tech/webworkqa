@@ -13,14 +13,20 @@ export default class QuestionList extends Component {
 		let rows = []
 
 		let rowKey
+		let generated = {}
 		questionsById.forEach(function(questionId) {
-			console.log(questionId)
+			if ( generated.hasOwnProperty( questionId ) ) {
+				return
+			}
+
 			rows.push(
 				<QuestionContainer
 				  itemId={questionId}
 				  key={questionId}
 				/>
 			);
+
+			generated[ questionId ] = 1
 		});
 
 		return (

@@ -8,7 +8,7 @@ export default class ScoreDialog extends React.Component {
 	}
 
 	render() {
-		const { itemId, onVoteClick, userCanVote, vote } = this.props
+		const { isSingleProblem, itemId, onVoteClick, userCanVote, vote } = this.props
 
 		let score = this.props.score
 
@@ -22,20 +22,23 @@ export default class ScoreDialog extends React.Component {
 				break
 		}
 
+		let scoreClass = 'ww-score'
+
+		scoreClass += userCanVote && isSingleProblem ? ' can-vote' : ' cannot-vote'
+		scoreClass += score > 0 ? ' has-votes' : ' has-no-votes'
+		scoreClass += 'up' === vote ? ' liked-by-me' : ' not-liked-by-me'
+
 		const scoreText = 'Number of votes: ' + score
 
 		let iconClass = 'score-icon fa'
 		let voteText
-		if ( userCanVote ) {
+		if ( userCanVote && isSingleProblem ) {
 			if ( 'up' === vote ) {
-				iconClass += ' fa-thumbs-up'
 				voteText = 'Click to remove vote'
 			} else {
-				iconClass += ' fa-thumbs-o-up'
 				voteText = 'Click to vote'
 			}
 		} else {
-			iconClass += ' fa-thumbs-up'
 			voteText = 'Join / login to like'
 		}
 
@@ -57,8 +60,13 @@ export default class ScoreDialog extends React.Component {
 			</button>
 		)
 
+		let tooltip
+		if ( ! userCanVote ) {
+			tooltip = <ReactTooltip id='vote-element' type='info' className='login-tooltip'>{voteText}</ReactTooltip>
+		}
+
 		return (
-			<div className="ww-score">
+			<div className={scoreClass}>
 				<span className="ww-score-value">
 					{score}
 					<span className="screen-reader-text">{scoreText}</span>
@@ -68,7 +76,7 @@ export default class ScoreDialog extends React.Component {
 				<span data-tip data-for='vote-element'>
 					{voteElement}
 				</span>
-				<ReactTooltip id='vote-element' type='info' className='login-tooltip'>{voteText}</ReactTooltip>
+				{tooltip}
 			</div>
 		);
 	}

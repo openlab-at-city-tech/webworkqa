@@ -655,17 +655,50 @@ li.is-answer:before {
 	right: 0;
 }
 
+.ww-score.cannot-vote.has-votes,
+.ww-score.cannot-vote.has-votes button:disabled {
+	color: #000;
+}
+
+.ww-score.can-vote.has-votes,
+.ww-score.can-vote.has-votes button:disabled i {
+	content: "\f164"; /* fa-thumbs-up */
+}
+
+.ww-score.can-vote.liked-by-me,
+.ww-score.can-vote.liked-by-me button {
+	color: #0044af;
+}
+
+.ww-score.can-vote.has-votes.liked-by-me:hover,
+.ww-score.can-vote.has-votes.liked-by-me:hover button {
+	color: #666;
+}
+
+.ww-score.can-vote.not-liked-by-me:hover,
+.ww-score.can-vote.not-liked-by-me:hover button {
+	color: #0044af;
+}
+
 .ww-score button {
 	background-color: inherit;
 	cursor: pointer;
 }
 
-.ww-score button:hover i.fa-thumbs-up:before {
-	content: "\f087";
+.ww-score.has-votes i:before {
+	content: "\f164"; /* fa-thumbs-up */
 }
 
-.ww-score button:hover i.fa-thumbs-o-up:before {
-	content: "\f164";
+.ww-score.has-no-votes i:before {
+	content: "\f087"; /* fa-thumbs-o-up */
+}
+
+.ww-score.can-vote.has-votes.liked-by-me button:hover i:before {
+	content: "\f087"; /* fa-thumbs-o-up */
+}
+
+.ww-score.can-vote.has-no-votes button:hover i:before {
+	content: "\f164"; /* fa-thumbs-up */
 }
 
 .ww-score-value {
@@ -674,10 +707,6 @@ li.is-answer:before {
 
 .score-icon {
 	font-size: 20px;
-}
-
-.score-display-only {
-	color: #0044af;
 }
 
 .problem-library-id {
@@ -737,10 +766,6 @@ li.is-answer:before {
 
 .toggle-enabled {
 	font-weight: bold;
-}
-
-.login-tooltip {
-	border: 1px solid #000;
 }
 
 /** Select Overrides *********************************************************/

@@ -13,8 +13,9 @@ const mapStateToProps = (state, ownProps) => {
 	const vote = votes.hasOwnProperty( itemId ) ? votes[ itemId ] : ''
 
 	return {
+		isSingleProblem: currentView.hasOwnProperty( 'problemId' ),
 		score,
-		userCanVote: currentView.hasOwnProperty( 'problemId' ) && window.WWData.user_can_vote,
+		userCanVote: window.WWData.user_can_vote,
 		vote
 	}
 }

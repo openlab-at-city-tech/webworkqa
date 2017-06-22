@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import ReactTooltip from 'react-tooltip'
 
 export default class ScoreDialog extends React.Component {
 	constructor(props) {
@@ -35,31 +36,26 @@ export default class ScoreDialog extends React.Component {
 			}
 		} else {
 			iconClass += ' fa-thumbs-up'
+			voteText = 'Join / login to like'
 		}
 
 		const iconElement = <i aria-hidden="true" className={iconClass}></i>
 
 		let voteElement
-		if ( userCanVote ) {
-			const srElement = <span className="screen-reader-text">{voteText}</span>
-			voteElement = (
-				<button
-				  onClick={ (e) => {
+
+		const srElement = <span className="screen-reader-text">{voteText}</span>
+		voteElement = (
+			<button
+				disabled={! userCanVote}
+				onClick={ (e) => {
 					e.preventDefault()
 					onVoteClick( itemId, ( vote === 'up' ) ? '' : 'up' )
-				  } }
-				>
-					{iconElement}
-					{srElement}
-				</button>
-			)
-		} else {
-			voteElement = (
-				<span className="score-display-only">
-					{iconElement}
-				</span>
-			)
-		}
+				} }
+			>
+			{iconElement}
+			<span className="screen-reader-text">{voteText}</span>
+			</button>
+		)
 
 		return (
 			<div className="ww-score">
@@ -68,7 +64,11 @@ export default class ScoreDialog extends React.Component {
 					<span className="screen-reader-text">{scoreText}</span>
 				</span>
 
-				{voteElement}
+				{/* span wrapper is to allow tooltip on disabled button */}
+				<span data-tip data-for='vote-element'>
+					{voteElement}
+				</span>
+				<ReactTooltip id='vote-element' type='info' className='login-tooltip'>{voteText}</ReactTooltip>
 			</div>
 		);
 	}

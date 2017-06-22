@@ -739,6 +739,10 @@ li.is-answer:before {
 	font-weight: bold;
 }
 
+.login-tooltip {
+	border: 1px solid #000;
+}
+
 /** Select Overrides *********************************************************/
 
 #webwork-app .Select-placeholder,

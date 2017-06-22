@@ -15,12 +15,11 @@ export default function configureStore( initialState ) {
 		thunkMiddleware
 	)
 
+	const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 	const store = createStore(
 		rootReducer,
-		initialState,
-		compose(
-			middleware,
-			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+		composeEnhancers(
+			middleware
 		)
 	)
 

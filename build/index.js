@@ -35558,7 +35558,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				break;
 
 			case 'in-progress':
-				statusText = 'In Progress';
+				statusText = 'In-Progress';
 				break;
 		}
 

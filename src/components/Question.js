@@ -88,7 +88,7 @@ export default class Question extends Component {
 				break;
 
 			case 'in-progress' :
-				statusText = 'In Progress'
+				statusText = 'In-Progress'
 				break;
 		}
 

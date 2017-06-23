@@ -30,10 +30,14 @@ const mapStateToProps = (state, ownProps) => {
 		+ question.problemId + ':questionId='
 		+ itemId
 
-	const { hasAnswer } = question
+	let questionStatus = 'unanswered'
+	if ( question.hasAnswer ) {
+		questionStatus = 'answered'
+	} else if ( responseIds.length > 0 ) {
+		questionStatus = 'in-progress'
+	}
 
 	return {
-		hasAnswer,
 		initialLoadComplete,
 		isCollapsed,
 		isProblemSummaryCollapsed,
@@ -41,6 +45,7 @@ const mapStateToProps = (state, ownProps) => {
 		isSingleProblem,
 		question,
 		questionLink,
+		questionStatus,
 		responseIds,
 		responses,
 		userCanPostResponse: window.WWData.user_can_post_response > 0

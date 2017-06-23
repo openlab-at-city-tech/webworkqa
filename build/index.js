@@ -17096,10 +17096,14 @@ const mapStateToProps = (state, ownProps) => {
 	const routeBase = window.WWData.route_base;
 	const questionLink = '/' + routeBase + '#:problemId=' + question.problemId + ':questionId=' + itemId;
 
-	const { hasAnswer } = question;
+	let questionStatus = 'unanswered';
+	if (question.hasAnswer) {
+		questionStatus = 'answered';
+	} else if (responseIds.length > 0) {
+		questionStatus = 'in-progress';
+	}
 
 	return {
-		hasAnswer,
 		initialLoadComplete,
 		isCollapsed,
 		isProblemSummaryCollapsed,
@@ -17107,6 +17111,7 @@ const mapStateToProps = (state, ownProps) => {
 		isSingleProblem,
 		question,
 		questionLink,
+		questionStatus,
 		responseIds,
 		responses,
 		userCanPostResponse: window.WWData.user_can_post_response > 0
@@ -35509,10 +35514,10 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 	render() {
 		const {
-			hasAnswer, isCurrentQuestion,
+			isCurrentQuestion,
 			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
-			itemId, question, questionLink, responseIds, responses,
-			userCanPostResponse,
+			itemId, question, questionLink, questionStatus,
+			responseIds, responses, userCanPostResponse,
 			onAccordionClick, onProblemSummaryClick, onRespondClick,
 			onWaypointEnter
 		} = this.props;
@@ -35545,6 +35550,17 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			'aria-hidden': 'true',
 			className: aeClass
 		});
+
+		let statusText = 'Unanswered';
+		switch (questionStatus) {
+			case 'answered':
+				statusText = 'Answered!';
+				break;
+
+			case 'in-progress':
+				statusText = 'In Progress';
+				break;
+		}
 
 		const questionTitleElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'a',
@@ -35784,7 +35800,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
 			{
-				className: this.getClassName(isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion)
+				className: this.getClassName(isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion)
 			},
 			scrollWaypoint,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -35811,7 +35827,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'span',
 							{ className: 'ww-question-header-text' },
-							hasAnswer ? 'Answered!' : 'Unanswered'
+							statusText
 						)
 					)
 				),
@@ -35837,7 +35853,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	/**
   * Get a class name for the <li> element.
   */
-	getClassName(isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion) {
+	getClassName(isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion) {
 		let classes = [];
 
 		if (isCollapsed) {
@@ -35850,10 +35866,18 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			classes.push('my-question');
 		}
 
-		if (hasAnswer) {
-			classes.push('question-answered');
-		} else {
-			classes.push('question-unanswered');
+		switch (questionStatus) {
+			case 'answered':
+				classes.push('question-answered');
+				break;
+
+			case 'unanswered':
+				classes.push('question-unanswered');
+				break;
+
+			case 'in-progress':
+				classes.push('question-in-progress');
+				break;
 		}
 
 		if (isCurrentQuestion) {

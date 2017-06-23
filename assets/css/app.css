@@ -504,6 +504,10 @@ li.is-answer:before {
 	background: #0044af;
 }
 
+.question-in-progress .ww-question-header {
+	background: #476faf;
+}
+
 .ww-question-header .accordion-toggle {
 	font-size: 20px;
 	position: absolute;

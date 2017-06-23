@@ -42,10 +42,10 @@ export default class Question extends Component {
 
 	render() {
 		const {
-			hasAnswer, isCurrentQuestion,
+			isCurrentQuestion,
 			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
-			itemId, question, questionLink, responseIds, responses,
-			userCanPostResponse,
+			itemId, question, questionLink, questionStatus,
+			responseIds, responses, userCanPostResponse,
 			onAccordionClick, onProblemSummaryClick, onRespondClick,
 			onWaypointEnter
 		} = this.props
@@ -80,6 +80,17 @@ export default class Question extends Component {
 			  className={aeClass}
 			></i>
 		)
+
+		let statusText = 'Unanswered'
+		switch ( questionStatus ) {
+			case 'answered' :
+				statusText = 'Answered!'
+				break;
+
+			case 'in-progress' :
+				statusText = 'In Progress'
+				break;
+		}
 
 		const questionTitleElement = (
 			<a
@@ -293,7 +304,7 @@ export default class Question extends Component {
 
 		return (
 			<li
-			  className={this.getClassName( isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion )}
+			  className={this.getClassName( isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion )}
 			>
 
 				{scrollWaypoint}
@@ -313,7 +324,7 @@ export default class Question extends Component {
 						>
 							{accordionElement}
 							<span className="ww-question-header-text">
-								{hasAnswer ? 'Answered!' : 'Unanswered'}
+								{statusText}
 							</span>
 						</a>
 
@@ -338,7 +349,7 @@ export default class Question extends Component {
 	/**
 	 * Get a class name for the <li> element.
 	 */
-	getClassName( isCollapsed, isMyQuestion, hasAnswer, isCurrentQuestion ) {
+	getClassName( isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion ) {
 		let classes = []
 
 		if ( isCollapsed ) {
@@ -351,10 +362,18 @@ export default class Question extends Component {
 			classes.push( 'my-question' )
 		}
 
-		if ( hasAnswer ) {
-			classes.push( 'question-answered' )
-		} else {
-			classes.push( 'question-unanswered' )
+		switch ( questionStatus ) {
+			case 'answered' :
+				classes.push( 'question-answered' )
+				break
+
+			case 'unanswered' :
+				classes.push( 'question-unanswered' )
+				break
+
+			case 'in-progress' :
+				classes.push( 'question-in-progress' )
+				break
 		}
 
 		if ( isCurrentQuestion ) {

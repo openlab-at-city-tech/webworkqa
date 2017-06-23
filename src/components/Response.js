@@ -18,7 +18,7 @@ export default class Response extends Component {
 
 		const answeredElement = ( isMyQuestion || userIsAdmin ) ? <AnsweredDialogContainer responseId={responseId} /> : ''
 
-		const timeAgo = moment( response.postDate ).fromNow()
+		const timestamp = moment( response.postDate ).format( 'MMMM D, YYYY' )
 
 		let respondLinkElement
 		if ( userCanPostResponse ) {
@@ -50,7 +50,7 @@ export default class Response extends Component {
 					<div className="ww-author-name">{authorName}</div>
 					<div className="ww-subtitle ww-response-subtitle">
 						<span className="ww-subtitle-section">
-							{timeAgo}
+							Posted {timestamp}
 						</span>
 					</div>
 

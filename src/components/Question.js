@@ -101,7 +101,7 @@ export default class Question extends Component {
 			</a>
 		)
 
-		const timeAgo = moment( question.postDate).fromNow()
+		const timestamp = moment( question.postDate ).format( 'MMMM D, YYYY' )
 
 		let responseCount
 		if ( 1 == question.responseCount ) {
@@ -123,7 +123,7 @@ export default class Question extends Component {
 		const questionSubtitleElement = (
 			<div className="ww-subtitle ww-question-subtitle">
 				<span className="ww-subtitle-section">
-					{timeAgo}
+					Posted {timestamp}
 				</span>
 				{responseCountElements}
 			</div>

@@ -35576,7 +35576,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			)
 		);
 
-		const timeAgo = moment(question.postDate).fromNow();
+		const timestamp = moment(question.postDate).format('MMMM D, YYYY');
 
 		let responseCount;
 		if (1 == question.responseCount) {
@@ -35605,7 +35605,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				{ className: 'ww-subtitle-section' },
-				timeAgo
+				'Posted ',
+				timestamp
 			),
 			responseCountElements
 		);
@@ -36309,7 +36310,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		const answeredElement = isMyQuestion || userIsAdmin ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_AnsweredDialogContainer__["a" /* default */], { responseId: responseId }) : '';
 
-		const timeAgo = moment(response.postDate).fromNow();
+		const timestamp = moment(response.postDate).format('MMMM D, YYYY');
 
 		let respondLinkElement;
 		if (userCanPostResponse) {
@@ -36359,7 +36360,8 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'span',
 						{ className: 'ww-subtitle-section' },
-						timeAgo
+						'Posted ',
+						timestamp
 					)
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__FormattedProblem__["a" /* default */], {

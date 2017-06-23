@@ -71,22 +71,38 @@ class Query {
 			$args['post__in'] = $q_ids;
 		}
 
-		if ( null !== $this->r['answered'] ) {
-			if ( $this->r['answered'] ) {
+		if ( null !== $this->r['answered'] && 'all' !== $this->r['answered'] ) {
+			if ( 'answered' === $this->r['answered'] ) {
 				$args['meta_query']['answered'] = array(
 					'key' => 'webwork_has_answer',
 					'value' => '1',
 				);
-			} else {
+			} elseif ( 'unanswered' === $this->r['answered'] ) {
 				$args['meta_query']['answered'] = array(
-					'relation' => 'OR',
+					'relation' => 'AND',
+					array(
+						'key' => 'webwork_response_count',
+						'value' => '0',
+						'compare' => '=',
+						'type' => 'NUMERIC',
+					),
 					array(
 						'key' => 'webwork_has_answer',
 						'value' => '0',
 					),
+				);
+			} elseif ( 'in-progress' === $this->r['answered'] ) {
+				$args['meta_query']['answered'] = array(
+					'relation' => 'AND',
+					array(
+						'key' => 'webwork_response_count',
+						'value' => '1',
+						'compare' => '>=',
+						'type' => 'NUMERIC',
+					),
 					array(
 						'key' => 'webwork_has_answer',
-						'compare' => 'NOT EXISTS',
+						'value' => '0',
 					),
 				);
 			}
@@ -121,7 +137,6 @@ class Query {
 
 		$args['offset'] = $this->r['offset'];
 		$args['posts_per_page'] = $this->r['max_results'];
-		_b( $args );
 
 		$question_query = new \WP_Query( $args );
 		$_questions = $question_query->posts;
@@ -209,6 +224,10 @@ class Query {
 					array(
 						'name' => __( 'Show Unanswered', 'webwork' ),
 						'value' => 'unanswered',
+					),
+					array(
+						'name' => __( 'Show In-Progress', 'webwork' ),
+						'value' => 'in-progress',
 					),
 					array(
 						'name' => __( 'Show All', 'webwork' ),

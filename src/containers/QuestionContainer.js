@@ -33,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
 	let questionStatus = 'unanswered'
 	if ( question.hasAnswer ) {
 		questionStatus = 'answered'
-	} else if ( responseIds.length > 0 ) {
+	} else if ( question.responseCount > 0 ) {
 		questionStatus = 'in-progress'
 	}
 

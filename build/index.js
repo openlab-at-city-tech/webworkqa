@@ -5183,14 +5183,14 @@ exports.connect = _connect2["default"];
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = processFilterChange;
 /* unused harmony export rebuildHash */
-/* harmony export (immutable) */ __webpack_exports__["h"] = processOrderbyChange;
+/* harmony export (immutable) */ __webpack_exports__["i"] = processOrderbyChange;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__problems__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__questions__ = __webpack_require__(27);
 
 
 
 const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
-/* harmony export (immutable) */ __webpack_exports__["k"] = SET_INITIAL_LOAD_COMPLETE;
+/* harmony export (immutable) */ __webpack_exports__["l"] = SET_INITIAL_LOAD_COMPLETE;
 
 const setInitialLoadComplete = isInitialLoadComplete => {
 	return {
@@ -5202,7 +5202,7 @@ const setInitialLoadComplete = isInitialLoadComplete => {
 
 
 const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
-/* harmony export (immutable) */ __webpack_exports__["q"] = SET_APP_IS_LOADING;
+/* harmony export (immutable) */ __webpack_exports__["s"] = SET_APP_IS_LOADING;
 
 const setAppIsLoading = appIsLoading => {
 	return {
@@ -5215,8 +5215,22 @@ const setAppIsLoading = appIsLoading => {
 /* harmony export (immutable) */ __webpack_exports__["e"] = setAppIsLoading;
 
 
+const TOGGLE_EDITING = 'TOGGLE_EDITING';
+/* harmony export (immutable) */ __webpack_exports__["o"] = TOGGLE_EDITING;
+
+const toggleEditing = itemId => {
+	return {
+		type: TOGGLE_EDITING,
+		payload: {
+			itemId
+		}
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["h"] = toggleEditing;
+
+
 const SET_COLLAPSED = 'SET_COLLAPSED';
-/* harmony export (immutable) */ __webpack_exports__["o"] = SET_COLLAPSED;
+/* harmony export (immutable) */ __webpack_exports__["q"] = SET_COLLAPSED;
 
 const setCollapsed = (itemId, value = null) => {
 	return {
@@ -5231,7 +5245,7 @@ const setCollapsed = (itemId, value = null) => {
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
-/* harmony export (immutable) */ __webpack_exports__["p"] = SET_COLLAPSED_BULK;
+/* harmony export (immutable) */ __webpack_exports__["r"] = SET_COLLAPSED_BULK;
 
 const setCollapsedBulk = (c = []) => {
 	return {
@@ -5259,7 +5273,7 @@ function rebuildHash() {
 }
 
 const RESET_CURRENT_FILTERS = 'RESET_CURRENT_FILTERS';
-/* harmony export (immutable) */ __webpack_exports__["n"] = RESET_CURRENT_FILTERS;
+/* harmony export (immutable) */ __webpack_exports__["p"] = RESET_CURRENT_FILTERS;
 
 const resetCurrentFilters = () => {
 	return {
@@ -5271,7 +5285,7 @@ const resetCurrentFilters = () => {
 
 
 const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE';
-/* harmony export (immutable) */ __webpack_exports__["i"] = SET_FILTER_TOGGLE;
+/* harmony export (immutable) */ __webpack_exports__["j"] = SET_FILTER_TOGGLE;
 
 const setFilterToggle = (slug, value) => {
 	// Don't tell the Redux gods about this.
@@ -5308,7 +5322,7 @@ function processOrderbyChange(orderby, problemId) {
 }
 
 const SET_SORT_ORDERBY = 'SET_SORT_ORDERBY';
-/* harmony export (immutable) */ __webpack_exports__["j"] = SET_SORT_ORDERBY;
+/* harmony export (immutable) */ __webpack_exports__["k"] = SET_SORT_ORDERBY;
 
 const setSortOrderby = orderby => {
 	const order = 'DESC';
@@ -5325,7 +5339,7 @@ const setSortOrderby = orderby => {
 
 
 const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS';
-/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_FILTER_OPTIONS;
+/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_FILTER_OPTIONS;
 
 const receiveFilterOptions = filterOptions => {
 	return {
@@ -5337,7 +5351,7 @@ const receiveFilterOptions = filterOptions => {
 
 
 const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE';
-/* harmony export (immutable) */ __webpack_exports__["l"] = SET_TEXTAREA_VALUE;
+/* harmony export (immutable) */ __webpack_exports__["m"] = SET_TEXTAREA_VALUE;
 
 const setTextareaValue = (fieldName, value) => {
 	return {
@@ -17075,7 +17089,7 @@ const PreviewableFieldContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODUL
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, initialLoadComplete,
+		collapsed, editing, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state;
 
@@ -17093,6 +17107,8 @@ const mapStateToProps = (state, ownProps) => {
 	const isQuestionAnchor = currentView.hasOwnProperty('questionId');
 	const isCurrentQuestion = isSingleProblem && isQuestionAnchor && currentView.questionId == itemId;
 
+	const isEditing = editing.hasOwnProperty(itemId);
+
 	const routeBase = window.WWData.route_base;
 	const questionLink = '/' + routeBase + '#:problemId=' + question.problemId + ':questionId=' + itemId;
 
@@ -17103,9 +17119,12 @@ const mapStateToProps = (state, ownProps) => {
 		questionStatus = 'in-progress';
 	}
 
+	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id;
+
 	return {
 		initialLoadComplete,
 		isCollapsed,
+		isEditing,
 		isProblemSummaryCollapsed,
 		isCurrentQuestion,
 		isSingleProblem,
@@ -17114,6 +17133,7 @@ const mapStateToProps = (state, ownProps) => {
 		questionStatus,
 		responseIds,
 		responses,
+		userCanEdit,
 		userCanPostResponse: window.WWData.user_can_post_response > 0
 	};
 };
@@ -17124,6 +17144,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])(itemId));
+		},
+
+		onEditClick: () => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* toggleEditing */])(itemId));
 		},
 
 		onProblemSummaryClick: event => {
@@ -17190,7 +17214,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		const { value } = change;
 		const { problemId } = ownProps;
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["h" /* processOrderbyChange */])(value, problemId));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["i" /* processOrderbyChange */])(value, problemId));
 	};
 
 	return {
@@ -35515,11 +35539,11 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	render() {
 		const {
 			isCurrentQuestion,
-			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
+			isCollapsed, isEditing, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
-			responseIds, responses, userCanPostResponse,
-			onAccordionClick, onProblemSummaryClick, onRespondClick,
-			onWaypointEnter
+			responseIds, responses, userCanEdit, userCanPostResponse,
+			onAccordionClick, onEditClick,
+			onProblemSummaryClick, onRespondClick, onWaypointEnter
 		} = this.props;
 
 		const {
@@ -35599,6 +35623,44 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			));
 		}
 
+		const editLinkOnclick = function (e) {
+			e.preventDefault();
+			onEditClick();
+		};
+
+		let editLinkElements = [];
+		if (userCanEdit) {
+			editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'span',
+				{ key: 'editing-sep', className: 'ww-subtitle-sep' },
+				'|'
+			));
+
+			if (isEditing) {
+				editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{
+						href: '#',
+						onClick: editLinkOnclick,
+						key: 'edit-link-editing',
+						className: 'ww-edit-link ww-edit-link-editing'
+					},
+					'Editing'
+				));
+			} else {
+				editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{
+						href: '#',
+						onClick: editLinkOnclick,
+						key: 'edit-link-edit',
+						className: 'ww-edit-link ww-edit-link-edit'
+					},
+					'Edit'
+				));
+			}
+		}
+
 		const questionSubtitleElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: 'ww-subtitle ww-question-subtitle' },
@@ -35608,7 +35670,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				'Posted ',
 				timestamp
 			),
-			responseCountElements
+			responseCountElements,
+			editLinkElements
 		);
 
 		let questionCourseElement;
@@ -37293,7 +37356,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"])(__WEBPA
 
 function appIsLoading(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* SET_APP_IS_LOADING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_APP_IS_LOADING */]:
 			const { appIsLoading } = action.payload;
 			return appIsLoading;
 
@@ -37315,7 +37378,7 @@ function collapsed(state = {}, action) {
 	let newState;
 
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["o" /* SET_COLLAPSED */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* SET_COLLAPSED */]:
 			const { itemId, value } = action.payload;
 
 			let doCollapse;
@@ -37335,7 +37398,7 @@ function collapsed(state = {}, action) {
 			delete newState[itemId];
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* SET_COLLAPSED_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* SET_COLLAPSED_BULK */]:
 			newState = Object.assign({}, state);
 			const items = action.payload;
 
@@ -37395,14 +37458,14 @@ function currentFilters(state = initialState, action) {
 
 			return state;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["i" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["j" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			return Object.assign({}, state, {
 				[slug]: value
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["j" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["k" /* SET_SORT_ORDERBY */]:
 			const { orderby, order } = action.payload;
 
 			return Object.assign({}, state, {
@@ -37410,7 +37473,7 @@ function currentFilters(state = initialState, action) {
 				order
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["n" /* RESET_CURRENT_FILTERS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* RESET_CURRENT_FILTERS */]:
 			return {};
 
 		default:
@@ -37429,7 +37492,7 @@ function currentFilters(state = initialState, action) {
 
 function filterOptions(state = window.WWData.filter_options, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* RECEIVE_FILTER_OPTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["n" /* RECEIVE_FILTER_OPTIONS */]:
 			return action.payload;
 
 		default:
@@ -37454,7 +37517,7 @@ function formData(state = {
 	tried: ''
 }, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_TEXTAREA_VALUE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* SET_TEXTAREA_VALUE */]:
 			const { fieldName, value } = action.payload;
 
 			return Object.assign({}, state, {
@@ -37480,18 +37543,20 @@ function formData(state = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appIsLoading__ = __webpack_require__(402);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__collapsed__ = __webpack_require__(403);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__currentFilters__ = __webpack_require__(404);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filterOptions__ = __webpack_require__(405);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__formData__ = __webpack_require__(406);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__initialLoadComplete__ = __webpack_require__(408);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__problems__ = __webpack_require__(409);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__questions__ = __webpack_require__(410);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__questionsById__ = __webpack_require__(411);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__responseFormPending__ = __webpack_require__(412);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__responseIdMap__ = __webpack_require__(413);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__responses__ = __webpack_require__(414);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__routing__ = __webpack_require__(415);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__scores__ = __webpack_require__(416);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__votes__ = __webpack_require__(417);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__editing__ = __webpack_require__(778);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__filterOptions__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__formData__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__initialLoadComplete__ = __webpack_require__(408);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__problems__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__questions__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__questionsById__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__responseFormPending__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__responseIdMap__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__responses__ = __webpack_require__(414);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__routing__ = __webpack_require__(415);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__scores__ = __webpack_require__(416);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__votes__ = __webpack_require__(417);
+
 
 
 
@@ -37537,19 +37602,20 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 	appIsLoading: __WEBPACK_IMPORTED_MODULE_1__appIsLoading__["a" /* appIsLoading */],
 	collapsed: __WEBPACK_IMPORTED_MODULE_2__collapsed__["a" /* collapsed */],
 	currentFilters: __WEBPACK_IMPORTED_MODULE_3__currentFilters__["a" /* currentFilters */],
-	filterOptions: __WEBPACK_IMPORTED_MODULE_4__filterOptions__["a" /* filterOptions */],
-	formData: __WEBPACK_IMPORTED_MODULE_5__formData__["a" /* formData */],
-	initialLoadComplete: __WEBPACK_IMPORTED_MODULE_6__initialLoadComplete__["a" /* initialLoadComplete */],
-	problems: __WEBPACK_IMPORTED_MODULE_7__problems__["a" /* problems */],
+	editing: __WEBPACK_IMPORTED_MODULE_4__editing__["a" /* editing */],
+	filterOptions: __WEBPACK_IMPORTED_MODULE_5__filterOptions__["a" /* filterOptions */],
+	formData: __WEBPACK_IMPORTED_MODULE_6__formData__["a" /* formData */],
+	initialLoadComplete: __WEBPACK_IMPORTED_MODULE_7__initialLoadComplete__["a" /* initialLoadComplete */],
+	problems: __WEBPACK_IMPORTED_MODULE_8__problems__["a" /* problems */],
 	queryString,
-	questions: __WEBPACK_IMPORTED_MODULE_8__questions__["a" /* questions */],
-	questionsById: __WEBPACK_IMPORTED_MODULE_9__questionsById__["a" /* questionsById */],
-	responseFormPending: __WEBPACK_IMPORTED_MODULE_10__responseFormPending__["a" /* responseFormPending */],
-	responseIdMap: __WEBPACK_IMPORTED_MODULE_11__responseIdMap__["a" /* responseIdMap */],
-	responses: __WEBPACK_IMPORTED_MODULE_12__responses__["a" /* responses */],
-	routing: __WEBPACK_IMPORTED_MODULE_13__routing__["a" /* routing */],
-	scores: __WEBPACK_IMPORTED_MODULE_14__scores__["a" /* scores */],
-	votes: __WEBPACK_IMPORTED_MODULE_15__votes__["a" /* votes */]
+	questions: __WEBPACK_IMPORTED_MODULE_9__questions__["a" /* questions */],
+	questionsById: __WEBPACK_IMPORTED_MODULE_10__questionsById__["a" /* questionsById */],
+	responseFormPending: __WEBPACK_IMPORTED_MODULE_11__responseFormPending__["a" /* responseFormPending */],
+	responseIdMap: __WEBPACK_IMPORTED_MODULE_12__responseIdMap__["a" /* responseIdMap */],
+	responses: __WEBPACK_IMPORTED_MODULE_13__responses__["a" /* responses */],
+	routing: __WEBPACK_IMPORTED_MODULE_14__routing__["a" /* routing */],
+	scores: __WEBPACK_IMPORTED_MODULE_15__scores__["a" /* scores */],
+	votes: __WEBPACK_IMPORTED_MODULE_16__votes__["a" /* votes */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (rootReducer);
@@ -37565,7 +37631,7 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 
 function initialLoadComplete(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["k" /* SET_INITIAL_LOAD_COMPLETE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_INITIAL_LOAD_COMPLETE */]:
 			return action.payload;
 
 		default:
@@ -37772,7 +37838,7 @@ function routing(state = initialState, action) {
 
 		// Here is our code to set the location state when the user chooses
 		// a different option in the menu
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["i" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["j" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["d" /* buildHashFromFilter */])(slug, value, state);
@@ -37786,7 +37852,7 @@ function routing(state = initialState, action) {
 				locationBeforeTransitions: newLocation
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["j" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["k" /* SET_SORT_ORDERBY */]:
 			const { order, orderby } = action.payload;
 
 			let locationClone = Object.assign({}, state);
@@ -60534,6 +60600,35 @@ function symbolObservablePonyfill(root) {
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
+
+/***/ }),
+/* 778 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = editing;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_app__ = __webpack_require__(16);
+
+
+function editing(state = {}, action) {
+	switch (action.type) {
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["o" /* TOGGLE_EDITING */]:
+			const { itemId } = action.payload;
+
+			let newState = Object.assign({}, state);
+
+			if (state.hasOwnProperty(itemId)) {
+				delete newState[itemId];
+			} else {
+				newState[itemId] = 1;
+			}
+
+			return newState;
+
+		default:
+			return state;
+	}
+}
 
 /***/ })
 /******/ ]);

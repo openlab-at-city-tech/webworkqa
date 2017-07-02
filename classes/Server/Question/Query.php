@@ -168,6 +168,7 @@ class Query {
 				'problemText' => $q->get_problem_text(),
 				'isMyQuestion' => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
 				'authorAvatar' => $q->get_author_avatar(),
+				'authorId' => $q->get_author_id(),
 				'authorName' => $q->get_author_name(),
 				'responseCount' => $q->get_response_count(),
 				'voteCount' => $q->get_vote_count(),

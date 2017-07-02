@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import { appIsLoading } from './appIsLoading'
 import { collapsed } from './collapsed'
 import { currentFilters } from './currentFilters'
+import { editing } from './editing'
 import { filterOptions } from './filterOptions'
 import { formData } from './formData'
 import { initialLoadComplete } from './initialLoadComplete'
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
 	appIsLoading,
 	collapsed,
 	currentFilters,
+	editing,
 	filterOptions,
 	formData,
 	initialLoadComplete,

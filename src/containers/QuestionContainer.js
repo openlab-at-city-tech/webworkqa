@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 import Question from '../components/Question'
-import { setCollapsed } from '../actions/app'
+import { setCollapsed, toggleEditing } from '../actions/app'
 import { setScrolledTo } from '../actions/questions'
 import { getCurrentView } from '../util/webwork-url-parser'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, initialLoadComplete,
+		collapsed, editing, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state
 
@@ -24,6 +24,8 @@ const mapStateToProps = (state, ownProps) => {
 	const isQuestionAnchor = currentView.hasOwnProperty( 'questionId' )
 	const isCurrentQuestion = ( isSingleProblem && isQuestionAnchor && currentView.questionId == itemId )
 
+	const isEditing = editing.hasOwnProperty( itemId )
+
 	const routeBase = window.WWData.route_base
 	const questionLink = '/'
 		+ routeBase + '#:problemId='
@@ -37,9 +39,12 @@ const mapStateToProps = (state, ownProps) => {
 		questionStatus = 'in-progress'
 	}
 
+	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id
+
 	return {
 		initialLoadComplete,
 		isCollapsed,
+		isEditing,
 		isProblemSummaryCollapsed,
 		isCurrentQuestion,
 		isSingleProblem,
@@ -48,6 +53,7 @@ const mapStateToProps = (state, ownProps) => {
 		questionStatus,
 		responseIds,
 		responses,
+		userCanEdit,
 		userCanPostResponse: window.WWData.user_can_post_response > 0
 	}
 }
@@ -58,6 +64,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
 			dispatch( setCollapsed( itemId ) )
+		},
+
+		onEditClick: () => {
+			dispatch( toggleEditing( itemId ) )
 		},
 
 		onProblemSummaryClick: ( event ) => {

@@ -43,11 +43,11 @@ export default class Question extends Component {
 	render() {
 		const {
 			isCurrentQuestion,
-			isCollapsed, isProblemSummaryCollapsed, isSingleProblem,
+			isCollapsed, isEditing, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
-			responseIds, responses, userCanPostResponse,
-			onAccordionClick, onProblemSummaryClick, onRespondClick,
-			onWaypointEnter
+			responseIds, responses, userCanEdit, userCanPostResponse,
+			onAccordionClick, onEditClick,
+			onProblemSummaryClick, onRespondClick, onWaypointEnter
 		} = this.props
 
 		const {
@@ -120,12 +120,45 @@ export default class Question extends Component {
 			)
 		}
 
+		const editLinkOnclick = function( e ) {
+			e.preventDefault()
+			onEditClick()
+		}
+
+		let editLinkElements = []
+		if ( userCanEdit ) {
+			editLinkElements.push(
+				<span key="editing-sep" className="ww-subtitle-sep">|</span>
+			)
+
+			if ( isEditing ) {
+				editLinkElements.push(
+					<a
+						href="#"
+						onClick={editLinkOnclick}
+						key="edit-link-editing"
+						className="ww-edit-link ww-edit-link-editing"
+					>Editing</a>
+				)
+			} else {
+				editLinkElements.push(
+					<a
+						href="#"
+						onClick={editLinkOnclick}
+						key="edit-link-edit"
+						className="ww-edit-link ww-edit-link-edit"
+					>Edit</a>
+				)
+			}
+		}
+
 		const questionSubtitleElement = (
 			<div className="ww-subtitle ww-question-subtitle">
 				<span className="ww-subtitle-section">
 					Posted {timestamp}
 				</span>
 				{responseCountElements}
+				{editLinkElements}
 			</div>
 		)
 

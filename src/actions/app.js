@@ -19,6 +19,16 @@ export const setAppIsLoading = (appIsLoading) => {
 	}
 }
 
+export const TOGGLE_EDITING = 'TOGGLE_EDITING'
+export const toggleEditing = ( itemId ) => {
+	return {
+		type: TOGGLE_EDITING,
+		payload: {
+			itemId
+		}
+	}
+}
+
 export const SET_COLLAPSED = 'SET_COLLAPSED'
 export const setCollapsed = ( itemId, value = null ) => {
 	return {

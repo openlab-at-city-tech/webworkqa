@@ -66,6 +66,7 @@ class Client {
 			'user_can_ask_question' => is_user_logged_in(), // todo
 			'user_can_post_response' => is_user_logged_in(), // todo
 			'user_can_vote' => is_user_logged_in(), // todo
+			'user_id' => get_current_user_id(),
 			'user_is_admin' => $user_is_admin,
 		) );
 

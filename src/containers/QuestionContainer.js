@@ -6,7 +6,7 @@ import { getCurrentView } from '../util/webwork-url-parser'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, editing, initialLoadComplete,
+		collapsed, editing, formData, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state
 
@@ -25,6 +25,8 @@ const mapStateToProps = (state, ownProps) => {
 	const isCurrentQuestion = ( isSingleProblem && isQuestionAnchor && currentView.questionId == itemId )
 
 	const isEditing = editing.hasOwnProperty( itemId )
+
+	const isPending = formData.hasOwnProperty( 'question-' + itemId ) && formData[ 'question-' + itemId ].isPending
 
 	const routeBase = window.WWData.route_base
 	const questionLink = '/'
@@ -45,6 +47,7 @@ const mapStateToProps = (state, ownProps) => {
 		initialLoadComplete,
 		isCollapsed,
 		isEditing,
+		isPending,
 		isProblemSummaryCollapsed,
 		isCurrentQuestion,
 		isSingleProblem,

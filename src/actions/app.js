@@ -20,11 +20,12 @@ export const setAppIsLoading = (appIsLoading) => {
 }
 
 export const TOGGLE_EDITING = 'TOGGLE_EDITING'
-export const toggleEditing = ( itemId ) => {
+export const toggleEditing = ( itemId, value ) => {
 	return {
 		type: TOGGLE_EDITING,
 		payload: {
-			itemId
+			itemId,
+			value
 		}
 	}
 }

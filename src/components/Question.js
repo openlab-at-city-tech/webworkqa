@@ -7,6 +7,7 @@ import ResponseList from './ResponseList'
 import ResponseFormContainer from '../containers/ResponseFormContainer'
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 import FormattedProblem from './FormattedProblem'
+import EditSaveButtonContainer from '../containers/EditSaveButtonContainer'
 
 var moment = require( 'moment' )
 
@@ -44,10 +45,10 @@ export default class Question extends Component {
 	render() {
 		const {
 			isCurrentQuestion,
-			isCollapsed, isEditing, isProblemSummaryCollapsed, isSingleProblem,
+			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
-			onAccordionClick, onEditClick,
+			onAccordionClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter
 		} = this.props
 
@@ -274,6 +275,13 @@ export default class Question extends Component {
 				</div>
 			)
 
+			contentElementsChildren.push(
+				<EditSaveButtonContainer
+					fieldId={itemId}
+					fieldType='question'
+					key="content-elements-children-3"
+				/>
+			)
 		} else {
 			let triedElements
 			if ( isSingleProblem ) {

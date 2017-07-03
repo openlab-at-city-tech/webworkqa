@@ -5195,11 +5195,12 @@ const setAppIsLoading = appIsLoading => {
 const TOGGLE_EDITING = 'TOGGLE_EDITING';
 /* harmony export (immutable) */ __webpack_exports__["q"] = TOGGLE_EDITING;
 
-const toggleEditing = itemId => {
+const toggleEditing = (itemId, value) => {
 	return {
 		type: TOGGLE_EDITING,
 		payload: {
-			itemId
+			itemId,
+			value
 		}
 	};
 };
@@ -5936,7 +5937,8 @@ module.exports = ReactComponentTreeHook;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetchQuestionIndexList;
 /* harmony export (immutable) */ __webpack_exports__["f"] = setScrolledTo;
-/* harmony export (immutable) */ __webpack_exports__["h"] = sendQuestion;
+/* harmony export (immutable) */ __webpack_exports__["i"] = sendQuestion;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateQuestion;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(15);
@@ -6062,7 +6064,7 @@ function standardizeFiltersForEndpoint(filters) {
 }
 
 const RECEIVE_QUESTION_IDS = 'RECEIVE_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["k"] = RECEIVE_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["l"] = RECEIVE_QUESTION_IDS;
 
 const receiveQuestionIds = questionIds => {
 	return {
@@ -6072,7 +6074,7 @@ const receiveQuestionIds = questionIds => {
 };
 
 const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
-/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_QUESTION;
+/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_QUESTION;
 
 const receiveQuestion = question => {
 	return {
@@ -6084,7 +6086,7 @@ const receiveQuestion = question => {
 
 
 const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["o"] = RECEIVE_QUESTIONS;
 
 const receiveQuestions = questions => {
 	return {
@@ -6096,7 +6098,7 @@ const receiveQuestions = questions => {
 
 
 const RESET_QUESTIONS = 'RESET_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["o"] = RESET_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["p"] = RESET_QUESTIONS;
 
 const resetQuestions = () => {
 	return {
@@ -6108,7 +6110,7 @@ const resetQuestions = () => {
 
 
 const RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_QUESTION_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_QUESTION_BY_ID;
 
 const receiveQuestionById = questionId => {
 	return {
@@ -6120,7 +6122,7 @@ const receiveQuestionById = questionId => {
 };
 
 const RECEIVE_QUESTIONS_BY_ID = 'RECEIVE_QUESTIONS_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_QUESTIONS_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["k"] = RECEIVE_QUESTIONS_BY_ID;
 
 const receiveQuestionsById = questionsById => {
 	return {
@@ -6132,7 +6134,7 @@ const receiveQuestionsById = questionsById => {
 
 
 const RESET_QUESTION_IDS = 'RESET_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["l"] = RESET_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["m"] = RESET_QUESTION_IDS;
 
 const resetQuestionIds = () => {
 	return {
@@ -6144,7 +6146,7 @@ const resetQuestionIds = () => {
 
 
 const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["p"] = SET_QUESTION_PENDING;
+/* harmony export (immutable) */ __webpack_exports__["q"] = SET_QUESTION_PENDING;
 
 const setQuestionPending = isPending => {
 	return {
@@ -6154,7 +6156,7 @@ const setQuestionPending = isPending => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["g"] = setQuestionPending;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setQuestionPending;
 
 
 function setScrolledTo(itemId) {
@@ -6224,6 +6226,33 @@ function sendQuestion(problemId, content, tried, problemText) {
 			}
 
 			// todo - handle errors
+		});
+	};
+}
+
+function updateQuestion(questionId) {
+	return (dispatch, getState) => {
+		const { formData } = getState();
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
+
+		let endpoint = rest_api_endpoint + 'questions/' + questionId;
+
+		const questionData = formData['question-' + questionId];
+
+		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				content: questionData.content,
+				tried: questionData.tried
+			})
+		}).then(response => response.json()).then(json => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(questionId, false));
 		});
 	};
 }
@@ -17123,7 +17152,7 @@ function warning(message) {
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, editing, initialLoadComplete,
+		collapsed, editing, formData, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state;
 
@@ -17143,6 +17172,8 @@ const mapStateToProps = (state, ownProps) => {
 
 	const isEditing = editing.hasOwnProperty(itemId);
 
+	const isPending = formData.hasOwnProperty('question-' + itemId) && formData['question-' + itemId].isPending;
+
 	const routeBase = window.WWData.route_base;
 	const questionLink = '/' + routeBase + '#:problemId=' + question.problemId + ':questionId=' + itemId;
 
@@ -17159,6 +17190,7 @@ const mapStateToProps = (state, ownProps) => {
 		initialLoadComplete,
 		isCollapsed,
 		isEditing,
+		isPending,
 		isProblemSummaryCollapsed,
 		isCurrentQuestion,
 		isSingleProblem,
@@ -35531,6 +35563,8 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_ResponseFormContainer__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__FormattedProblem__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__containers_EditSaveButtonContainer__ = __webpack_require__(780);
+
 
 
 
@@ -35577,10 +35611,10 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	render() {
 		const {
 			isCurrentQuestion,
-			isCollapsed, isEditing, isProblemSummaryCollapsed, isSingleProblem,
+			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
-			onAccordionClick, onEditClick,
+			onAccordionClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter
 		} = this.props;
 
@@ -35818,6 +35852,12 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					value: tried
 				})
 			));
+
+			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__containers_EditSaveButtonContainer__["a" /* default */], {
+				fieldId: itemId,
+				fieldType: 'question',
+				key: 'content-elements-children-3'
+			}));
 		} else {
 			let triedElements;
 			if (isSingleProblem) {
@@ -37212,8 +37252,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
 			e.preventDefault();
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["g" /* setQuestionPending */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["h" /* sendQuestion */])(ownProps.problemId, content, tried, problemText));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["h" /* setQuestionPending */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["i" /* sendQuestion */])(ownProps.problemId, content, tried, problemText));
 		}
 	};
 };
@@ -37560,14 +37600,19 @@ function currentFilters(state = initialState, action) {
 function editing(state = {}, action) {
 	switch (action.type) {
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* TOGGLE_EDITING */]:
-			const { itemId } = action.payload;
+			const { itemId, value } = action.payload;
+
+			let updateValue = value;
+			if ('undefined' === typeof updateValue) {
+				updateValue = !state.hasOwnProperty(itemId);
+			}
 
 			let newState = Object.assign({}, state);
 
-			if (state.hasOwnProperty(itemId)) {
-				delete newState[itemId];
-			} else {
+			if (updateValue) {
 				newState[itemId] = 1;
+			} else {
+				delete newState[itemId];
 			}
 
 			return newState;
@@ -37624,7 +37669,7 @@ function formData(state = {}, action) {
 			const { values } = action.payload;
 			return Object.assign({}, state, values);
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["p" /* SET_QUESTION_PENDING */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["q" /* SET_QUESTION_PENDING */]:
 			return Object.assign({}, state, {
 				isPending: action.payload.isPending
 			});
@@ -37769,15 +37814,15 @@ function problems(state = {}, action) {
 
 function questions(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RECEIVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RECEIVE_QUESTION */]:
 			return Object.assign({}, state, {
 				[action.payload.questionId]: action.payload
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RECEIVE_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["o" /* RECEIVE_QUESTIONS */]:
 			return Object.assign({}, state, action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["o" /* RESET_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["p" /* RESET_QUESTIONS */]:
 			return {};
 
 		default:
@@ -37796,16 +37841,16 @@ function questions(state = {}, action) {
 
 function questionsById(state = [], action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["i" /* RECEIVE_QUESTION_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["j" /* RECEIVE_QUESTION_BY_ID */]:
 			let newState = state;
 			newState.push(action.payload.questionId);
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["j" /* RECEIVE_QUESTIONS_BY_ID */]:
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* RECEIVE_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* RECEIVE_QUESTIONS_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* RECEIVE_QUESTION_IDS */]:
 			return state.concat(action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* RESET_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RESET_QUESTION_IDS */]:
 			return [];
 
 		default:
@@ -60700,6 +60745,87 @@ function symbolObservablePonyfill(root) {
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
+
+/***/ }),
+/* 779 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class EditSaveButton extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	render() {
+		const { isPending, onClick } = this.props;
+
+		let buttonText = 'Save';
+		if (isPending) {
+			buttonText = 'Saving...';
+		}
+
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'button',
+			{
+				className: 'button edit-save-button',
+				onClick: onClick,
+				type: 'submit'
+			},
+			buttonText
+		);
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = EditSaveButton;
+
+
+/***/ }),
+/* 780 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_EditSaveButton__ = __webpack_require__(779);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_app__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_questions__ = __webpack_require__(27);
+
+
+
+
+
+const mapStateToProps = (state, ownProps) => {
+	const { formData } = state;
+	const { fieldId, fieldType } = ownProps;
+
+	const key = fieldType + '-' + fieldId;
+	const isPending = formData.hasOwnProperty(key) && formData[key].isPending;
+
+	return {
+		isPending
+	};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const { fieldId, fieldType } = ownProps;
+
+	const key = fieldType + '-' + fieldId;
+
+	return {
+		onClick: () => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setTextareaValue */])(key, 'isPending', true));
+
+			switch (fieldType) {
+				case 'question':
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["g" /* updateQuestion */])(fieldId));
+					break;
+			}
+		}
+	};
+};
+
+const EditSaveButtonContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__components_EditSaveButton__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (EditSaveButtonContainer);
 
 /***/ })
 /******/ ]);

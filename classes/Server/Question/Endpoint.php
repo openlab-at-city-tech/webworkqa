@@ -30,7 +30,6 @@ class Endpoint extends \WP_Rest_Controller {
 			),
 		) );
 
-		/*
 		register_rest_route( $namespace, '/' . $base . '/(?P<id>[\d]+)', array(
 			array(
 				'methods'         => \WP_REST_Server::EDITABLE,
@@ -39,7 +38,6 @@ class Endpoint extends \WP_Rest_Controller {
 				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::EDITABLE ),
 			),
 		) );
-		*/
 	}
 
 	/**
@@ -142,12 +140,14 @@ class Endpoint extends \WP_Rest_Controller {
 		$retval = false;
 
 		$params = $request->get_params();
-		if ( isset( $params['id'] ) && isset( $params['is_answer'] ) ) {
-			$response = new \WeBWorK\Server\Response( $params['id'] );
-			if ( $response->exists() ) {
-				$response->set_is_answer( $params['is_answer'] );
-				$retval = $response->save();
-			}
+
+		$question = new \WeBWorK\Server\Question( $params['id'] );
+
+		$retval = false;
+		if ( $question->exists() ) {
+			$question->set_content( $params['content'] );
+			$question->set_tried( $params['tried'] );
+			$retval = $question->save();
 		}
 
 		$response = rest_ensure_response( $retval );
@@ -207,9 +207,9 @@ class Endpoint extends \WP_Rest_Controller {
 		return true;
 	}
 
-	// @todo
 	public function update_item_permissions_check( $request ) {
-		return is_user_logged_in();
+		$params = $request->get_params();
+		return current_user_can( 'edit_post', $params['id'] );
 	}
 
 	// @todo here and Response

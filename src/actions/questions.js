@@ -1,7 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import {
 	receiveFilterOptions, setAppIsLoading, setInitialLoadComplete,
-	setCollapsed, setCollapsedBulk, setTextareaValue, setTextareaValues
+	setCollapsed, setCollapsedBulk, setTextareaValue, setTextareaValues,
+	toggleEditing
 } from './app'
 import { setScoresBulk } from './scores'
 
@@ -262,6 +263,35 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			}
 
 			// todo - handle errors
+		} )
+	}
+}
+
+export function updateQuestion( questionId ) {
+	return ( dispatch, getState ) => {
+		const { formData } = getState()
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData
+
+		let endpoint = rest_api_endpoint + 'questions/' + questionId
+
+		const questionData = formData[ 'question-' + questionId ]
+
+		return fetch( endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				content: questionData.content,
+				tried: questionData.tried
+			})
+		} )
+		.then( response => response.json() )
+		.then( json => {
+			dispatch( setTextareaValue( 'question-' + questionId, 'isPending', false ) )
+			dispatch( toggleEditing( questionId, false ) )
 		} )
 	}
 }

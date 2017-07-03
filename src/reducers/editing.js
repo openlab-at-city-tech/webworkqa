@@ -3,14 +3,19 @@ import { TOGGLE_EDITING } from '../actions/app'
 export function editing( state = {}, action ) {
 	switch ( action.type ) {
 		case TOGGLE_EDITING :
-			const { itemId } = action.payload
+			const { itemId, value } = action.payload
+
+			let updateValue = value
+			if ( 'undefined' === typeof updateValue ) {
+				updateValue = ! state.hasOwnProperty( itemId )
+			}
 
 			let newState = Object.assign( {}, state )
 
-			if ( state.hasOwnProperty( itemId ) ) {
-				delete newState[ itemId ]
-			} else {
+			if ( updateValue ) {
 				newState[ itemId ] = 1
+			} else {
+				delete newState[ itemId ]
 			}
 
 			return newState

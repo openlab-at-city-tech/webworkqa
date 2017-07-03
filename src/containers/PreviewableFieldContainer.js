@@ -4,11 +4,11 @@ import { setCollapsed, setTextareaValue } from '../actions/app'
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { collapsed, formData } = state
-	const { fieldName } = ownProps
+	const { fieldId, fieldName } = ownProps
 
-	const value = formData.hasOwnProperty( fieldName ) ? formData[ fieldName ] : ''
-	const isPending = formData.isPending
-	const isPreviewVisible = ! collapsed.hasOwnProperty( 'questionFormField_' + fieldName )
+	const value = formData[ fieldId ][ fieldName ]
+	const isPending = formData[ fieldId ].isPending 
+	const isPreviewVisible = ! collapsed.hasOwnProperty( fieldId + '-' + fieldName )
 
 	return {
 		isPending,
@@ -20,12 +20,12 @@ const mapStateToProps = ( state, ownProps ) => {
 const mapDispatchToProps = ( dispatch, ownProps ) => {
 	return {
 		onPreviewToggleClick: () => {
-			const collapsedKey = 'questionFormField_' + ownProps.fieldName
+			const collapsedKey = ownProps.fieldId + '-' + ownProps.fieldName
 			dispatch( setCollapsed( collapsedKey ) )
 		},
 
 		onTextareaChange: ( event ) => {
-			dispatch( setTextareaValue( ownProps.fieldName, event.target.value ) )
+			dispatch( setTextareaValue( ownProps.fieldId, ownProps.fieldName, event.target.value ) )
 		}
 	}
 }

@@ -5,6 +5,7 @@ import Waypoint from 'react-waypoint'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import ResponseList from './ResponseList'
 import ResponseFormContainer from '../containers/ResponseFormContainer'
+import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 import FormattedProblem from './FormattedProblem'
 
 var moment = require( 'moment' )
@@ -247,24 +248,51 @@ export default class Question extends Component {
 			accordionToggleClass += ' fa-minus-circle'
 		}
 
-		let triedElements
-		if ( isSingleProblem ) {
-			triedElements = (
-				<span>
-					<div className="ww-question-content-section-header">What I've tried:</div>
-					<div className="ww-question-content-section ww-question-content-text">
-						{formattedTried}
-					</div>
-				</span>
+		let contentElementsChildren = []
+		if ( isEditing ) {
+			contentElementsChildren.push( 
+				<PreviewableFieldContainer
+				  fieldId={'question-' + itemId}
+				  fieldName='content'
+				  id="ww-question-content"
+				  key="content-editable-children-1"
+				  label="My question:"
+				  value={content}
+				/>
 			)
+
+			contentElementsChildren.push( 
+				<PreviewableFieldContainer
+				  fieldId={'question-' + itemId}
+				  fieldName='tried'
+				  id="ww-question-content"
+				  key="content-editable-children-2"
+				  label="What I've tried:"
+				  value={tried}
+				/>
+			)
+
+		} else {
+			let triedElements
+			if ( isSingleProblem ) {
+				triedElements = (
+					<span key="content-elements-children-3">
+						<div className="ww-question-content-section-header">What I've tried:</div>
+						<div className="ww-question-content-section ww-question-content-text">
+							{formattedTried}
+						</div>
+					</span>
+				)
+			}
+
+			contentElementsChildren.push( <div key="content-elements-children-1" className="ww-question-content-section-header">My question:</div> )
+			contentElementsChildren.push( <div key="content-elements-children-2" className="ww-question-content-section ww-question-content-text">{formattedContent}</div> )
+			contentElementsChildren.push( triedElements )
 		}
 
 		const contentElements = (
 			<div key="contentElements" className="hide-when-closed">
-				<div className="ww-question-content-section-header">My question:</div>
-				<div className="ww-question-content-section ww-question-content-text">{formattedContent}</div>
-				{triedElements}
-
+				{contentElementsChildren}
 			</div>
 		)
 

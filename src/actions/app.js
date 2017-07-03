@@ -125,12 +125,23 @@ export const receiveFilterOptions = ( filterOptions ) => {
 }
 
 export const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE'
-export const setTextareaValue = ( fieldName, value ) => {
+export const setTextareaValue = ( fieldId, fieldName, value ) => {
 	return {
 		type: SET_TEXTAREA_VALUE,
 		payload: {
+			fieldId,
 			fieldName,
 			value
+		}
+	}
+}
+
+export const SET_TEXTAREA_VALUES = 'SET_TEXTAREA_VALUES'
+export const setTextareaValues = ( values ) => {
+	return {
+		type: SET_TEXTAREA_VALUES,
+		payload: {
+			values
 		}
 	}
 }

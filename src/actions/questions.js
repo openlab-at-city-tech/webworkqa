@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import {
 	receiveFilterOptions, setAppIsLoading, setInitialLoadComplete,
-	setCollapsed, setCollapsedBulk, setTextareaValue
+	setCollapsed, setCollapsedBulk, setTextareaValue, setTextareaValues
 } from './app'
 import { setScoresBulk } from './scores'
 
@@ -72,6 +72,25 @@ export function fetchQuestionIndexList( append ) {
 			}
 			dispatch( setCollapsedBulk( toCollapse ) )
 			dispatch( setScoresBulk( scores ) )
+
+			const defaultFormContent = {
+				isPending: false,
+				content: '',
+				tried: ''
+			}
+
+			let newFormData = {}
+			let newFormContent
+			for ( var j in json.questions ) {
+				newFormContent = Object.assign( {}, defaultFormContent )
+
+				newFormContent.content = json.questions[ j ].content
+				newFormContent.tried = json.questions[ j ].tried
+
+				newFormData[ 'question-' + j ] = newFormContent
+			}
+
+			dispatch( setTextareaValues( newFormData ) )
 
 			dispatch( setAppIsLoading( false ) )
 			dispatch( setInitialLoadComplete( true ) )

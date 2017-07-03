@@ -6,8 +6,13 @@ const mapStateToProps = ( state, ownProps ) => {
 	const { collapsed, formData } = state
 	const { fieldId, fieldName } = ownProps
 
-	const value = formData[ fieldId ][ fieldName ]
-	const isPending = formData[ fieldId ].isPending 
+	let value = ''
+	let isPending = false
+	if ( formData.hasOwnProperty( fieldId ) ) {
+		value = formData[ fieldId ][ fieldName ]
+		isPending = formData[ fieldId ].isPending 
+	}
+
 	const isPreviewVisible = ! collapsed.hasOwnProperty( fieldId + '-' + fieldName )
 
 	return {

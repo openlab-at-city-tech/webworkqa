@@ -1,5 +1,8 @@
 import fetch from 'isomorphic-fetch'
-import { receiveFilterOptions, setInitialLoadComplete, setAppIsLoading, setCollapsedBulk } from './app'
+import { 
+	receiveFilterOptions, setInitialLoadComplete, setAppIsLoading, 
+	setCollapsedBulk, setTextareaValues 
+} from './app'
 import { receiveQuestions, receiveQuestionsById, resetQuestionIds } from './questions'
 import { receiveResponseIdMap, setResponsesPendingBulk, receiveResponses } from './responses'
 import { setScoresBulk } from './scores'
@@ -114,11 +117,11 @@ export function fetchProblem( problemId ) {
 
 				// Question form field and response previews
 				toCollapse.push( {
-					key: 'questionFormField_content',
+					key: 'question-form-content',
 					value: true
 				} )
 				toCollapse.push( {
-					key: 'questionFormField_tried',
+					key: 'question-form-tried',
 					value: true
 				} )
 
@@ -129,6 +132,27 @@ export function fetchProblem( problemId ) {
 
 				dispatch( setScoresBulk( scores ) )
 				dispatch( setVotesBulk( votes ) )
+
+				const defaultFormContent = {
+					isPending: false,
+					content: '',
+					tried: ''
+				}
+
+				let newFormData = {}
+				let newFormContent
+				for ( var j in json.questions ) {
+					newFormContent = Object.assign( {}, defaultFormContent )
+
+					newFormContent.content = json.questions[ j ].content
+					newFormContent.tried = json.questions[ j ].tried
+
+					newFormData[ 'question-' + j ] = newFormContent
+				}
+
+				newFormData['question-form'] = Object.assign( {}, defaultFormContent )
+
+				dispatch( setTextareaValues( newFormData ) )
 			}
 
 			dispatch( receiveFilterOptions( filterOptions ) )

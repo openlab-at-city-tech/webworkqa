@@ -71,17 +71,17 @@ export default class QuestionForm extends Component {
 						<input type="hidden" name="ww-problem-id" value={problemId} />
 
 						<PreviewableFieldContainer
+						  fieldId='question-form'
 						  fieldName="content"
-						  id="ww-question-content"
+						  id="ww-question-form-content"
 						  label="What is your question?"
-						  value={content}
 						/>
 
 						<PreviewableFieldContainer
+						  fieldId='question-form'
 						  fieldName="tried"
-						  id="ww-question-tried"
+						  id="ww-question-form-tried"
 						  label="Describe what you have tried."
-						  value={tried}
 						/>
 
 						<input

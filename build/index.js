@@ -5189,7 +5189,7 @@ const setAppIsLoading = appIsLoading => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = setAppIsLoading;
+/* harmony export (immutable) */ __webpack_exports__["f"] = setAppIsLoading;
 
 
 const TOGGLE_EDITING = 'TOGGLE_EDITING';
@@ -5219,7 +5219,7 @@ const setCollapsed = (itemId, value = null) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["g"] = setCollapsed;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setCollapsed;
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
@@ -5325,7 +5325,7 @@ const receiveFilterOptions = filterOptions => {
 		payload: filterOptions
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = receiveFilterOptions;
+/* harmony export (immutable) */ __webpack_exports__["e"] = receiveFilterOptions;
 
 
 const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE';
@@ -5341,7 +5341,7 @@ const setTextareaValue = (fieldId, fieldName, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = setTextareaValue;
+/* harmony export (immutable) */ __webpack_exports__["g"] = setTextareaValue;
 
 
 const SET_TEXTAREA_VALUES = 'SET_TEXTAREA_VALUES';
@@ -5355,7 +5355,7 @@ const setTextareaValues = values => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["h"] = setTextareaValues;
+/* harmony export (immutable) */ __webpack_exports__["d"] = setTextareaValues;
 
 
 /***/ }),
@@ -5984,7 +5984,7 @@ function fetchQuestionIndexList(append) {
 			endpoint += '?' + qs;
 		}
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setAppIsLoading */])(true));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setAppIsLoading */])(true));
 
 		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
 			credentials: 'same-origin',
@@ -6028,9 +6028,9 @@ function fetchQuestionIndexList(append) {
 				newFormData['question-' + j] = newFormContent;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValues */])(newFormData));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setTextareaValues */])(newFormData));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setAppIsLoading */])(false));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(true));
 		});
 	};
@@ -6206,9 +6206,9 @@ function sendQuestion(problemId, content, tried, problemText) {
 			dispatch(setQuestionPending(false));
 			dispatch(receiveQuestion(json));
 			dispatch(receiveQuestionById(json.questionId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('tried', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('tried', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
 
 			// Remove the post_data_key param from the window location.
 			if (false !== window.location.search.indexOf('post_data_key')) {
@@ -6251,7 +6251,7 @@ function updateQuestion(questionId) {
 				tried: questionData.tried
 			})
 		}).then(response => response.json()).then(json => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(questionId, false));
 		});
 	};
@@ -8783,7 +8783,7 @@ function sendResponse(questionId, value) {
 			dispatch(receiveResponse(json));
 			dispatch(receiveResponseIdForMap(json.responseId, questionId));
 			dispatch(setResponsePending(questionId, false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValue */])('response-text-' + questionId, '')) / dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setCollapsed */])('questionFormField_response-text-' + questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('response-text-' + questionId, '')) / dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setCollapsed */])('questionFormField_response-text-' + questionId, true));
 			// todo - handle errors
 		});
 	};
@@ -9574,11 +9574,11 @@ function fetchProblem(problemId) {
 
 				// Question form field and response previews
 				toCollapse.push({
-					key: 'questionFormField_content',
+					key: 'question-form-content',
 					value: true
 				});
 				toCollapse.push({
-					key: 'questionFormField_tried',
+					key: 'question-form-tried',
 					value: true
 				});
 
@@ -9589,12 +9589,33 @@ function fetchProblem(problemId) {
 
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__scores__["a" /* setScoresBulk */])(scores));
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__votes__["a" /* setVotesBulk */])(votes));
+
+				const defaultFormContent = {
+					isPending: false,
+					content: '',
+					tried: ''
+				};
+
+				let newFormData = {};
+				let newFormContent;
+				for (var j in json.questions) {
+					newFormContent = Object.assign({}, defaultFormContent);
+
+					newFormContent.content = json.questions[j].content;
+					newFormContent.tried = json.questions[j].tried;
+
+					newFormData['question-' + j] = newFormContent;
+				}
+
+				newFormData['question-form'] = Object.assign({}, defaultFormContent);
+
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setTextareaValues */])(newFormData));
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* receiveFilterOptions */])(filterOptions));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* receiveFilterOptions */])(filterOptions));
 
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setAppIsLoading */])(false));
 		});
 	};
 }
@@ -13892,8 +13913,13 @@ const mapStateToProps = (state, ownProps) => {
 	const { collapsed, formData } = state;
 	const { fieldId, fieldName } = ownProps;
 
-	const value = formData[fieldId][fieldName];
-	const isPending = formData[fieldId].isPending;
+	let value = '';
+	let isPending = false;
+	if (formData.hasOwnProperty(fieldId)) {
+		value = formData[fieldId][fieldName];
+		isPending = formData[fieldId].isPending;
+	}
+
 	const isPreviewVisible = !collapsed.hasOwnProperty(fieldId + '-' + fieldName);
 
 	return {
@@ -13907,11 +13933,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onPreviewToggleClick: () => {
 			const collapsedKey = ownProps.fieldId + '-' + ownProps.fieldName;
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])(collapsedKey));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])(collapsedKey));
 		},
 
 		onTextareaChange: event => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setTextareaValue */])(ownProps.fieldId, ownProps.fieldName, event.target.value));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setTextareaValue */])(ownProps.fieldId, ownProps.fieldName, event.target.value));
 		}
 	};
 };
@@ -17209,13 +17235,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])(itemId));
 		},
 
 		onEditClick: () => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* toggleEditing */])(itemId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])('question-' + itemId + '-content', true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])('question-' + itemId + '-tried', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])('question-' + itemId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])('question-' + itemId + '-tried', true));
 		},
 
 		onProblemSummaryClick: event => {
@@ -17230,11 +17256,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				return;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])(itemId + '-problem'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])(itemId + '-problem'));
 		},
 
 		onRespondClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])('responseForm-' + itemId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])('responseForm-' + itemId, false));
 		},
 
 		onWaypointEnter: () => {
@@ -17329,7 +17355,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["g" /* setCollapsed */])('responseForm-' + ownProps.questionId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["h" /* setCollapsed */])('responseForm-' + ownProps.questionId));
 		},
 
 		onResponseFormSubmit: (e, responseText) => {
@@ -36164,16 +36190,16 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					questionGloss,
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', name: 'ww-problem-id', value: problemId }),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__["a" /* default */], {
+						fieldId: 'question-form',
 						fieldName: 'content',
-						id: 'ww-question-content',
-						label: 'What is your question?',
-						value: content
+						id: 'ww-question-form-content',
+						label: 'What is your question?'
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__["a" /* default */], {
+						fieldId: 'question-form',
 						fieldName: 'tried',
-						id: 'ww-question-tried',
-						label: 'Describe what you have tried.',
-						value: tried
+						id: 'ww-question-form-tried',
+						label: 'Describe what you have tried.'
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
 						className: 'button',
@@ -37175,7 +37201,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onComponentWillMount: function (problemId) {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["e" /* setAppIsLoading */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setAppIsLoading */])(true));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_problems__["a" /* fetchProblem */])(problemId));
 		}
 	};
@@ -37247,7 +37273,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["g" /* setCollapsed */])('questionForm'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["h" /* setCollapsed */])('questionForm'));
 		},
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
@@ -60812,7 +60838,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setTextareaValue */])(key, 'isPending', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setTextareaValue */])(key, 'isPending', true));
 
 			switch (fieldType) {
 				case 'question':

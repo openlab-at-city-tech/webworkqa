@@ -147,10 +147,22 @@ class Endpoint extends \WP_Rest_Controller {
 		if ( $question->exists() ) {
 			$question->set_content( $params['content'] );
 			$question->set_tried( $params['tried'] );
+
 			$retval = $question->save();
+
+			if ( $retval ) {
+				$query = new Query( array(
+					'question_id' => $question->get_id(),
+				) );
+
+				$results = $query->get_for_endpoint();
+				$results = reset( $results );
+			} else {
+				$results = $retval;
+			}
 		}
 
-		$response = rest_ensure_response( $retval );
+		$response = rest_ensure_response( $results );
 
 		if ( $retval ) {
 			$response->set_status( 200 );

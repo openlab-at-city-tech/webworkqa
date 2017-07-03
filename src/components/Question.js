@@ -258,7 +258,6 @@ export default class Question extends Component {
 					  fieldName='content'
 					  id="ww-question-content"
 					  label="My question:"
-					  value={content}
 					/>
 				</div>
 			)
@@ -270,7 +269,6 @@ export default class Question extends Component {
 					  fieldName='tried'
 					  id="ww-question-content"
 					  label="What I've tried:"
-					  value={tried}
 					/>
 				</div>
 			)

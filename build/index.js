@@ -6253,6 +6253,7 @@ function updateQuestion(questionId) {
 		}).then(response => response.json()).then(json => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(questionId, false));
+			dispatch(receiveQuestion(json));
 		});
 	};
 }
@@ -35862,8 +35863,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					fieldId: 'question-' + itemId,
 					fieldName: 'content',
 					id: 'ww-question-content',
-					label: 'My question:',
-					value: content
+					label: 'My question:'
 				})
 			));
 
@@ -35874,8 +35874,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					fieldId: 'question-' + itemId,
 					fieldName: 'tried',
 					id: 'ww-question-content',
-					label: 'What I\'ve tried:',
-					value: tried
+					label: 'What I\'ve tried:'
 				})
 			));
 

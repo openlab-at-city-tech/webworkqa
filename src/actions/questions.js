@@ -292,6 +292,7 @@ export function updateQuestion( questionId ) {
 		.then( json => {
 			dispatch( setTextareaValue( 'question-' + questionId, 'isPending', false ) )
 			dispatch( toggleEditing( questionId, false ) )
+			dispatch( receiveQuestion( json ) )
 		} )
 	}
 }

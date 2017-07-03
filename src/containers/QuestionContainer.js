@@ -68,6 +68,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 		onEditClick: () => {
 			dispatch( toggleEditing( itemId ) )
+			dispatch( setCollapsed( 'question-' + itemId + '-content', true ) )
+			dispatch( setCollapsed( 'question-' + itemId + '-tried', true ) )
 		},
 
 		onProblemSummaryClick: ( event ) => {

@@ -17182,6 +17182,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 		onEditClick: () => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* toggleEditing */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])('question-' + itemId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setCollapsed */])('question-' + itemId + '-tried', true));
 		},
 
 		onProblemSummaryClick: event => {

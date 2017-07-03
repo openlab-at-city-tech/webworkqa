@@ -6206,8 +6206,8 @@ function sendQuestion(problemId, content, tried, problemText) {
 			dispatch(setQuestionPending(false));
 			dispatch(receiveQuestion(json));
 			dispatch(receiveQuestionById(json.questionId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('tried', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-form', 'content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-form', 'tried', ''));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
 
 			// Remove the post_data_key param from the window location.
@@ -9568,7 +9568,7 @@ function fetchProblem(problemId) {
 
 					// Response previews.
 					toCollapse.push({
-						key: 'questionFormField_response-text-' + questionsById[i],
+						key: 'response-' + questionsById[i] + '-response-text-' + questionsById[i],
 						value: true
 					});
 				}
@@ -36654,6 +36654,7 @@ class ResponseForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						onSubmit: e => onResponseFormSubmit(e, responseText)
 					},
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__["a" /* default */], {
+						fieldId: 'response-' + questionId,
 						fieldName: textareaName,
 						id: textareaName,
 						label: pfcLabel

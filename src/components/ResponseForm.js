@@ -43,6 +43,7 @@ export default class ResponseForm extends Component {
 					  onSubmit={ ( e ) => onResponseFormSubmit( e, responseText ) }
 					>
 						<PreviewableFieldContainer
+						  fieldId={'response-' + questionId}
 						  fieldName={textareaName}
 						  id={textareaName}
 						  label={pfcLabel}

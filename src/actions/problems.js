@@ -110,7 +110,7 @@ export function fetchProblem( problemId ) {
 
 					// Response previews.
 					toCollapse.push( {
-						key: 'questionFormField_response-text-' + questionsById[ i ],
+						key: 'response-' + questionsById[ i ] + '-response-text-' + questionsById[ i ],
 						value: true
 					} )
 				}

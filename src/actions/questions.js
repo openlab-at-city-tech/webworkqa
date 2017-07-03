@@ -243,8 +243,8 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			dispatch( setQuestionPending( false ) )
 			dispatch( receiveQuestion( json ) )
 			dispatch( receiveQuestionById( json.questionId ) )
-			dispatch( setTextareaValue( 'content', '' ) )
-			dispatch( setTextareaValue( 'tried', '' ) )
+			dispatch( setTextareaValue( 'question-form', 'content', '' ) )
+			dispatch( setTextareaValue( 'question-form', 'tried', '' ) )
 			dispatch( setCollapsed( 'questionFormField_response-text-' + json.questionId, true ) )
 
 			// Remove the post_data_key param from the window location.

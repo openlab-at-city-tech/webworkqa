@@ -17,6 +17,7 @@ class Query {
 			'course' => null,
 			'section' => null,
 			'question_id' => null,
+			'offset' => 0,
 			'orderby' => 'votes',
 			'order' => 'ASC',
 			'answered' => null,

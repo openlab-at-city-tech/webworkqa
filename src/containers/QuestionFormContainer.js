@@ -5,7 +5,18 @@ import { setCollapsed } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
 	const { collapsed, formData, questionsById } = state
-	const { content, tried, isPending } = formData
+
+	let questionForm = {
+		content: '',
+		tried: '',
+		isPending: false
+	}
+
+	if ( formData.hasOwnProperty( 'question-form' ) ) {
+		questionForm = formData['question-form']
+	}
+
+	const { content, tried, isPending } = questionForm
 
 	const problemText = window.WWData.problem_text
 	const isCollapsed = collapsed.hasOwnProperty( 'questionForm' )

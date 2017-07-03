@@ -37252,7 +37252,18 @@ const ProblemStatsContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_
 
 const mapStateToProps = (state, ownProps) => {
 	const { collapsed, formData, questionsById } = state;
-	const { content, tried, isPending } = formData;
+
+	let questionForm = {
+		content: '',
+		tried: '',
+		isPending: false
+	};
+
+	if (formData.hasOwnProperty('question-form')) {
+		questionForm = formData['question-form'];
+	}
+
+	const { content, tried, isPending } = questionForm;
 
 	const problemText = window.WWData.problem_text;
 	const isCollapsed = collapsed.hasOwnProperty('questionForm');

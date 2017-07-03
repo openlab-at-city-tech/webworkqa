@@ -35795,23 +35795,29 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let contentElementsChildren = [];
 		if (isEditing) {
-			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__["a" /* default */], {
-				fieldId: 'question-' + itemId,
-				fieldName: 'content',
-				id: 'ww-question-content',
-				key: 'content-editable-children-1',
-				label: 'My question:',
-				value: content
-			}));
+			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ key: 'content-editable-children-1', className: 'editable-field' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__["a" /* default */], {
+					fieldId: 'question-' + itemId,
+					fieldName: 'content',
+					id: 'ww-question-content',
+					label: 'My question:',
+					value: content
+				})
+			));
 
-			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__["a" /* default */], {
-				fieldId: 'question-' + itemId,
-				fieldName: 'tried',
-				id: 'ww-question-content',
-				key: 'content-editable-children-2',
-				label: 'What I\'ve tried:',
-				value: tried
-			}));
+			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ key: 'content-editable-children-2', className: 'editable-field' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__["a" /* default */], {
+					fieldId: 'question-' + itemId,
+					fieldName: 'tried',
+					id: 'ww-question-content',
+					label: 'What I\'ve tried:',
+					value: tried
+				})
+			));
 		} else {
 			let triedElements;
 			if (isSingleProblem) {

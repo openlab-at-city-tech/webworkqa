@@ -591,6 +591,28 @@ li.is-answer:before {
 	padding: 0 10px;
 }
 
+/* @todo Abstract editable field styles */
+.editable-field {
+	margin-bottom: 5px;
+}
+
+.editable-field:last-child {
+	margin-bottom: 0;
+}
+
+.editable-field label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 20px 0 15px;
+}
+
+.editable-field textarea {
+	font-size: 1rem;
+	height: 80px;
+	margin-top: 8px;
+	width: 100%;
+}
+
 /* Common for Twenty themes */
 .entry-content #webwork-app li {
 	margin-left: 0;
@@ -610,6 +632,7 @@ li.is-answer:before {
 	font-size: 1.2rem;
 	font-weight: bold;
 	margin: 20px 0 15px;
+	padding-top: 4px;
 }
 
 .ww-question-content-text {

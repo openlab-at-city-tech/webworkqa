@@ -250,26 +250,28 @@ export default class Question extends Component {
 
 		let contentElementsChildren = []
 		if ( isEditing ) {
-			contentElementsChildren.push( 
-				<PreviewableFieldContainer
-				  fieldId={'question-' + itemId}
-				  fieldName='content'
-				  id="ww-question-content"
-				  key="content-editable-children-1"
-				  label="My question:"
-				  value={content}
-				/>
+			contentElementsChildren.push(
+				<div key="content-editable-children-1" className="editable-field">
+					<PreviewableFieldContainer
+					  fieldId={'question-' + itemId}
+					  fieldName='content'
+					  id="ww-question-content"
+					  label="My question:"
+					  value={content}
+					/>
+				</div>
 			)
 
-			contentElementsChildren.push( 
-				<PreviewableFieldContainer
-				  fieldId={'question-' + itemId}
-				  fieldName='tried'
-				  id="ww-question-content"
-				  key="content-editable-children-2"
-				  label="What I've tried:"
-				  value={tried}
-				/>
+			contentElementsChildren.push(
+				<div key="content-editable-children-2" className="editable-field">
+					<PreviewableFieldContainer
+					  fieldId={'question-' + itemId}
+					  fieldName='tried'
+					  id="ww-question-content"
+					  label="What I've tried:"
+					  value={tried}
+					/>
+				</div>
 			)
 
 		} else {

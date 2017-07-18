@@ -604,6 +604,11 @@ li.is-answer:before {
 	color: #000;
 }
 
+.edit-button-links {
+	display: inline-block;
+	margin-left: 16px;
+}
+
 .editable-field {
 	margin-bottom: 5px;
 }

@@ -93,16 +93,25 @@ class Endpoint extends \WP_Rest_Controller {
 		$retval = false;
 
 		$params = $request->get_params();
-		if ( isset( $params['id'] ) && isset( $params['is_answer'] ) ) {
+		if ( isset( $params['id'] ) ) {
 			$response = new \WeBWorK\Server\Response( $params['id'] );
 			if ( $response->exists() ) {
-				$response->set_is_answer( $params['is_answer'] );
+				if ( isset( $params['is_answer'] ) ) {
+					$response->set_is_answer( $params['is_answer'] );
+				}
+
+				if ( isset( $params['content'] ) ) {
+					$response->set_content( $params['content'] );
+				}
+
 				$response->save();
 
-				$q = new \WeBWork\Server\Question\Query( array(
-					'question_id' => $response->get_question_id(),
+				$r = new \WeBWork\Server\Response\Query( array(
+					'response_id__in' => $params['id'],
 				) );
-				$retval = $q->get_for_endpoint();
+
+				$for_endpoint = $r->get_for_endpoint();
+				$retval = $for_endpoint[ $params['id'] ];
 			}
 		}
 

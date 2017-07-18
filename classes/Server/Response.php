@@ -153,6 +153,8 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	}
 
 	public function save() {
+		$is_new = ! $this->exists();
+
 		$saved = $this->p->save();
 
 		if ( $saved ) {
@@ -170,7 +172,9 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			$this->populate();
 		}
 
-		$this->send_notifications();
+		if ( $is_new ) {
+			$this->send_notifications();
+		}
 
 		return (bool) $saved;
 	}

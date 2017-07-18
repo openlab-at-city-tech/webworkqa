@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import EditSaveButton from '../components/EditSaveButton'
 import { setTextareaValue } from '../actions/app'
 import { updateQuestion } from '../actions/questions'
+import { updateResponse } from '../actions/responses'
 
 const mapStateToProps = (state, ownProps) => {
 	const { formData } = state
@@ -27,6 +28,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			switch ( fieldType ) {
 				case 'question' :
 					dispatch( updateQuestion( fieldId ) )
+				break
+
+				case 'response' :
+					dispatch( updateResponse( fieldId ) )
 				break
 			}
 		}

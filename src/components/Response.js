@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Scroll from 'react-scroll'
+import EditSaveButtonContainer from '../containers/EditSaveButtonContainer'
+import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
 import FormattedProblem from './FormattedProblem'
@@ -8,7 +10,13 @@ var moment = require( 'moment' )
 
 export default class Response extends Component {
 	render() {
-		const { isMyQuestion, questionId, response, responseId, userCanPostResponse } = this.props
+		const {
+			isEditing, isMyQuestion,
+			questionId, response, responseId,
+			userCanEdit, userCanPostResponse,
+			onEditClick
+		} = this.props
+
 		if ( ! response ) {
 			return null
 		}
@@ -19,6 +27,38 @@ export default class Response extends Component {
 		const answeredElement = ( isMyQuestion || userIsAdmin ) ? <AnsweredDialogContainer responseId={responseId} /> : ''
 
 		const timestamp = moment( response.postDate ).format( 'MMMM D, YYYY' )
+
+		const editLinkOnclick = function( e ) {
+			e.preventDefault()
+			onEditClick()
+		}
+
+		let editLinkElements = []
+		if ( userCanEdit ) {
+			editLinkElements.push(
+				<span key="editing-sep" className="ww-subtitle-sep">|</span>
+			)
+
+			if ( isEditing ) {
+				editLinkElements.push(
+					<a
+						href="#"
+						onClick={editLinkOnclick}
+						key="edit-link-editing"
+						className="ww-edit-link ww-edit-link-editing"
+					>Editing</a>
+				)
+			} else {
+				editLinkElements.push(
+					<a
+						href="#"
+						onClick={editLinkOnclick}
+						key="edit-link-edit"
+						className="ww-edit-link ww-edit-link-edit"
+					>Edit</a>
+				)
+			}
+		}
 
 		let respondLinkElement
 		if ( userCanPostResponse ) {
@@ -39,6 +79,36 @@ export default class Response extends Component {
 
 		const contentId = 'response-' + responseId
 
+		let contentElements = []
+		if ( isEditing ) {
+			contentElements.push(
+				<div key="content" className="editable-field">
+					<PreviewableFieldContainer
+						fieldId={'response-' + responseId}
+						fieldName='content'
+						key='content'
+						label=''
+					/>
+				</div>
+			)
+
+			contentElements.push(
+				<EditSaveButtonContainer
+					fieldId={responseId}
+					fieldType='response'
+					key="button"
+				/>
+			)
+		} else {
+			contentElements.push(
+				<FormattedProblem
+				  itemId={contentId}
+				  content={content}
+				  key='content'
+				/>
+			)
+		}
+
 		return (
 			<li className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
 				<div className="ww-author-avatar">
@@ -52,12 +122,10 @@ export default class Response extends Component {
 						<span className="ww-subtitle-section">
 							Posted {timestamp}
 						</span>
+						{editLinkElements}
 					</div>
 
-					<FormattedProblem
-					  itemId={contentId}
-					  content={content}
-					/>
+					{contentElements}
 
 					{answeredElement}
 				</div>

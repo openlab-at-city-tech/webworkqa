@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
-import { 
-	receiveFilterOptions, setInitialLoadComplete, setAppIsLoading, 
-	setCollapsedBulk, setTextareaValues 
+import {
+	receiveFilterOptions, setInitialLoadComplete, setAppIsLoading,
+	setCollapsedBulk, setTextareaValues
 } from './app'
 import { receiveQuestions, receiveQuestionsById, resetQuestionIds } from './questions'
 import { receiveResponseIdMap, setResponsesPendingBulk, receiveResponses } from './responses'
@@ -148,6 +148,14 @@ export function fetchProblem( problemId ) {
 					newFormContent.tried = json.questions[ j ].tried
 
 					newFormData[ 'question-' + j ] = newFormContent
+				}
+
+				for ( var k in json.responses ) {
+					newFormContent = Object.assign( {}, defaultFormContent )
+
+					newFormContent.content = json.responses[ k ].content
+
+					newFormData[ 'response-' + k ] = newFormContent
 				}
 
 				newFormData['question-form'] = Object.assign( {}, defaultFormContent )

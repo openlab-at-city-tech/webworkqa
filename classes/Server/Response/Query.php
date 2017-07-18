@@ -14,6 +14,7 @@ class Query {
 		$this->r = array_merge( array(
 			'question_id__in' => null,
 			'orderby' => 'votes',
+			'response_id__in' => null,
 			'is_answer' => null,
 		), $args );
 	}
@@ -85,6 +86,10 @@ class Query {
 			);
 		}
 
+		if ( null !== $this->r['response_id__in'] ) {
+			$args['post__in'] = wp_parse_id_list( $this->r['response_id__in'] );
+		}
+
 		$response_query = new \WP_Query( $args );
 		$_responses = $response_query->posts;
 
@@ -104,6 +109,7 @@ class Query {
 			$response_id = $r->get_id();
 			$formatted[ $response_id ] = array(
 				'authorAvatar' => $r->get_author_avatar(),
+				'authorId' => $r->get_author_id(),
 				'authorName' => $r->get_author_name(),
 				'authorUserType' => $r->get_author_type_label(),
 				'content' => $r->get_content(),

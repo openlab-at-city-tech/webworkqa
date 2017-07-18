@@ -8640,6 +8640,7 @@ module.exports = ReactElement;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["e"] = sendResponse;
 /* harmony export (immutable) */ __webpack_exports__["f"] = clickAnswered;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateResponse;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(15);
@@ -8649,7 +8650,7 @@ module.exports = ReactElement;
 
 
 const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
-/* harmony export (immutable) */ __webpack_exports__["g"] = RECEIVE_RESPONSE;
+/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVE_RESPONSE;
 
 const receiveResponse = response => {
 	return {
@@ -8659,7 +8660,7 @@ const receiveResponse = response => {
 };
 
 const RECEIVE_RESPONSES = 'RECEIVE_RESPONSES';
-/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVE_RESPONSES;
+/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_RESPONSES;
 
 const receiveResponses = responses => {
 	return {
@@ -8671,7 +8672,7 @@ const receiveResponses = responses => {
 
 
 const RECEIVE_RESPONSE_ID_MAP = 'RECEIVE_RESPONSE_ID_MAP';
-/* harmony export (immutable) */ __webpack_exports__["k"] = RECEIVE_RESPONSE_ID_MAP;
+/* harmony export (immutable) */ __webpack_exports__["l"] = RECEIVE_RESPONSE_ID_MAP;
 
 const receiveResponseIdMap = responseIdMap => {
 	return {
@@ -8683,7 +8684,7 @@ const receiveResponseIdMap = responseIdMap => {
 
 
 const RECEIVE_RESPONSE_ID_FOR_MAP = 'RECEIVE_RESPONSE_ID_FOR_MAP';
-/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_RESPONSE_ID_FOR_MAP;
+/* harmony export (immutable) */ __webpack_exports__["k"] = RECEIVE_RESPONSE_ID_FOR_MAP;
 
 const receiveResponseIdForMap = (responseId, questionId) => {
 	return {
@@ -8723,7 +8724,7 @@ function sendResponseAnswered(responseId, isAnswered) {
 }
 
 const SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED';
-/* harmony export (immutable) */ __webpack_exports__["i"] = SET_RESPONSE_ANSWERED;
+/* harmony export (immutable) */ __webpack_exports__["j"] = SET_RESPONSE_ANSWERED;
 
 const setResponseAnswered = (responseId, isAnswered) => {
 	return {
@@ -8736,7 +8737,7 @@ const setResponseAnswered = (responseId, isAnswered) => {
 };
 
 const SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["l"] = SET_RESPONSE_PENDING;
+/* harmony export (immutable) */ __webpack_exports__["m"] = SET_RESPONSE_PENDING;
 
 const setResponsePending = (questionId, isPending) => {
 	return {
@@ -8751,7 +8752,7 @@ const setResponsePending = (questionId, isPending) => {
 
 
 const SET_RESPONSES_PENDING_BULK = 'SET_RESPONSES_PENDING_BULK';
-/* harmony export (immutable) */ __webpack_exports__["m"] = SET_RESPONSES_PENDING_BULK;
+/* harmony export (immutable) */ __webpack_exports__["n"] = SET_RESPONSES_PENDING_BULK;
 
 const setResponsesPendingBulk = pending => {
 	return {
@@ -8794,6 +8795,33 @@ function clickAnswered(responseId, isAnswered) {
 	return dispatch => {
 		dispatch(sendResponseAnswered(responseId, isAnswered));
 		dispatch(setResponseAnswered(responseId, isAnswered));
+	};
+}
+
+function updateResponse(responseId) {
+	return (dispatch, getState) => {
+		const { formData } = getState();
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
+
+		let endpoint = rest_api_endpoint + 'responses/' + responseId;
+
+		const responseData = formData['response-' + responseId];
+
+		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				content: responseData.content
+			})
+		}).then(requestResponse => requestResponse.json()).then(json => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(responseId, false));
+			dispatch(receiveResponse(json));
+		});
 	};
 }
 
@@ -9606,6 +9634,14 @@ function fetchProblem(problemId) {
 					newFormContent.tried = json.questions[j].tried;
 
 					newFormData['question-' + j] = newFormContent;
+				}
+
+				for (var k in json.responses) {
+					newFormContent = Object.assign({}, defaultFormContent);
+
+					newFormContent.content = json.responses[k].content;
+
+					newFormData['response-' + k] = newFormContent;
 				}
 
 				newFormData['question-form'] = Object.assign({}, defaultFormContent);
@@ -36519,9 +36555,13 @@ class QuestionSortDropdown extends __WEBPACK_IMPORTED_MODULE_0_react__["Componen
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_scroll__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_scroll__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_ScoreDialogContainer__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_AnsweredDialogContainer__ = __webpack_require__(392);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormattedProblem__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_EditSaveButtonContainer__ = __webpack_require__(394);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_PreviewableFieldContainer__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_ScoreDialogContainer__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_AnsweredDialogContainer__ = __webpack_require__(392);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__FormattedProblem__ = __webpack_require__(85);
+
+
 
 
 
@@ -36532,7 +36572,13 @@ var moment = __webpack_require__(0);
 
 class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	render() {
-		const { isMyQuestion, questionId, response, responseId, userCanPostResponse } = this.props;
+		const {
+			isEditing, isMyQuestion,
+			questionId, response, responseId,
+			userCanEdit, userCanPostResponse,
+			onEditClick
+		} = this.props;
+
 		if (!response) {
 			return null;
 		}
@@ -36540,9 +36586,47 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response;
 		const userIsAdmin = window.WWData.user_is_admin;
 
-		const answeredElement = isMyQuestion || userIsAdmin ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_AnsweredDialogContainer__["a" /* default */], { responseId: responseId }) : '';
+		const answeredElement = isMyQuestion || userIsAdmin ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_AnsweredDialogContainer__["a" /* default */], { responseId: responseId }) : '';
 
 		const timestamp = moment(response.postDate).format('MMMM D, YYYY');
+
+		const editLinkOnclick = function (e) {
+			e.preventDefault();
+			onEditClick();
+		};
+
+		let editLinkElements = [];
+		if (userCanEdit) {
+			editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'span',
+				{ key: 'editing-sep', className: 'ww-subtitle-sep' },
+				'|'
+			));
+
+			if (isEditing) {
+				editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{
+						href: '#',
+						onClick: editLinkOnclick,
+						key: 'edit-link-editing',
+						className: 'ww-edit-link ww-edit-link-editing'
+					},
+					'Editing'
+				));
+			} else {
+				editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{
+						href: '#',
+						onClick: editLinkOnclick,
+						key: 'edit-link-edit',
+						className: 'ww-edit-link ww-edit-link-edit'
+					},
+					'Edit'
+				));
+			}
+		}
 
 		let respondLinkElement;
 		if (userCanPostResponse) {
@@ -36564,6 +36648,32 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		const contentId = 'response-' + responseId;
+
+		let contentElements = [];
+		if (isEditing) {
+			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ key: 'content', className: 'editable-field' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_PreviewableFieldContainer__["a" /* default */], {
+					fieldId: 'response-' + responseId,
+					fieldName: 'content',
+					key: 'content',
+					label: ''
+				})
+			));
+
+			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_EditSaveButtonContainer__["a" /* default */], {
+				fieldId: responseId,
+				fieldType: 'response',
+				key: 'button'
+			}));
+		} else {
+			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__FormattedProblem__["a" /* default */], {
+				itemId: contentId,
+				content: content,
+				key: 'content'
+			}));
+		}
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
@@ -36594,19 +36704,17 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						{ className: 'ww-subtitle-section' },
 						'Posted ',
 						timestamp
-					)
+					),
+					editLinkElements
 				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__FormattedProblem__["a" /* default */], {
-					itemId: contentId,
-					content: content
-				}),
+				contentElements,
 				answeredElement
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'item-metadata' },
 				respondLinkElement,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_ScoreDialogContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_ScoreDialogContainer__["a" /* default */], {
 					itemId: responseId,
 					itemType: 'response'
 				})
@@ -37187,6 +37295,8 @@ const AppContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_red
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_EditSaveButton__ = __webpack_require__(373);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_app__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_questions__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_responses__ = __webpack_require__(62);
+
 
 
 
@@ -37216,6 +37326,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			switch (fieldType) {
 				case 'question':
 					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["g" /* updateQuestion */])(fieldId));
+					break;
+
+				case 'response':
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_responses__["g" /* updateResponse */])(fieldId));
 					break;
 			}
 		}
@@ -37452,23 +37566,45 @@ const QuestionListContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Response__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_app__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Response__ = __webpack_require__(385);
+
 
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { responses } = state;
+	const { editing, responses } = state;
 	const { responseId } = ownProps;
 
 	const response = responses.hasOwnProperty(responseId) ? responses[responseId] : null;
 
+	const isEditing = editing.hasOwnProperty(responseId);
+
+	let userCanEdit = false;
+	if (null !== response) {
+		userCanEdit = window.WWData.user_is_admin || response.authorId == window.WWData.user_id;
+	}
+
 	return {
+		isEditing,
 		response,
+		userCanEdit,
 		userCanPostResponse: window.WWData.user_can_post_response > 0
 	};
 };
 
-const ResponseContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps)(__WEBPACK_IMPORTED_MODULE_1__components_Response__["a" /* default */]);
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const { responseId } = ownProps;
+
+	return {
+		onEditClick: () => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["i" /* toggleEditing */])(responseId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["h" /* setCollapsed */])('response-' + responseId + '-content', true));
+		}
+	};
+};
+
+const ResponseContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_2__components_Response__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (ResponseContainer);
 
@@ -37992,14 +38128,14 @@ function questionsById(state = [], action) {
 
 function responseFormPending(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["l" /* SET_RESPONSE_PENDING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["m" /* SET_RESPONSE_PENDING */]:
 			const { questionId, isPending } = action.payload;
 
 			return Object.assign({}, state, {
 				[questionId]: isPending
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["m" /* SET_RESPONSES_PENDING_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["n" /* SET_RESPONSES_PENDING_BULK */]:
 			return action.payload;
 
 		default:
@@ -38018,7 +38154,7 @@ function responseFormPending(state = {}, action) {
 
 function responseIdMap(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["j" /* RECEIVE_RESPONSE_ID_FOR_MAP */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["k" /* RECEIVE_RESPONSE_ID_FOR_MAP */]:
 			const { questionId, responseId } = action.payload;
 
 			let questionResponseIds = [];
@@ -38034,7 +38170,7 @@ function responseIdMap(state = {}, action) {
 				[questionId]: questionResponseIds
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["k" /* RECEIVE_RESPONSE_ID_MAP */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["l" /* RECEIVE_RESPONSE_ID_MAP */]:
 			return action.payload;
 
 		default:
@@ -38053,15 +38189,15 @@ function responseIdMap(state = {}, action) {
 
 function responses(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["g" /* RECEIVE_RESPONSE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["h" /* RECEIVE_RESPONSE */]:
 			return Object.assign({}, state, {
 				[action.payload.responseId]: action.payload
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["h" /* RECEIVE_RESPONSES */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["i" /* RECEIVE_RESPONSES */]:
 			return action.payload;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["i" /* SET_RESPONSE_ANSWERED */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["j" /* SET_RESPONSE_ANSWERED */]:
 			const { responseId, isAnswered } = action.payload;
 
 			const newResponse = Object.assign({}, state[responseId], {

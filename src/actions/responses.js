@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { setCollapsed, setTextareaValue } from './app'
+import { setCollapsed, setTextareaValue, toggleEditing } from './app'
 import { receiveQuestion } from './questions'
 
 export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE'
@@ -130,5 +130,34 @@ export function clickAnswered( responseId, isAnswered ) {
 	return ( dispatch ) => {
 		dispatch( sendResponseAnswered( responseId, isAnswered ) )
 		dispatch( setResponseAnswered( responseId, isAnswered ) )
+	}
+}
+
+export function updateResponse( responseId ) {
+	return ( dispatch, getState ) => {
+		const { formData } = getState()
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData
+
+		let endpoint = rest_api_endpoint + 'responses/' + responseId
+
+		const responseData = formData[ 'response-' + responseId ]
+
+		return fetch( endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				content: responseData.content
+			})
+		} )
+		.then( requestResponse => requestResponse.json() )
+		.then( json => {
+			dispatch( setTextareaValue( 'response-' + responseId, 'isPending', false ) )
+			dispatch( toggleEditing( responseId, false ) )
+			dispatch( receiveResponse( json ) )
+		} )
 	}
 }

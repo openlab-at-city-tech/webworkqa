@@ -35820,7 +35820,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-editing',
 						className: 'ww-edit-link ww-edit-link-editing'
 					},
-					'Editing'
+					'Editing',
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			} else {
 				editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -35831,7 +35832,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-edit',
 						className: 'ww-edit-link ww-edit-link-edit'
 					},
-					'Edit'
+					'Edit',
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			}
 		}
@@ -36615,7 +36617,8 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-editing',
 						className: 'ww-edit-link ww-edit-link-editing'
 					},
-					'Editing'
+					'Editing',
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			} else {
 				editLinkElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -36626,7 +36629,8 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-edit',
 						className: 'ww-edit-link ww-edit-link-edit'
 					},
-					'Edit'
+					'Edit',
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			}
 		}

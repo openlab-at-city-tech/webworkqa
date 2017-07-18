@@ -46,7 +46,10 @@ export default class Response extends Component {
 						onClick={editLinkOnclick}
 						key="edit-link-editing"
 						className="ww-edit-link ww-edit-link-editing"
-					>Editing</a>
+					>
+						Editing
+						<i className="fa fa-pencil" aria-hidden="true"></i>
+					</a>
 				)
 			} else {
 				editLinkElements.push(
@@ -55,7 +58,10 @@ export default class Response extends Component {
 						onClick={editLinkOnclick}
 						key="edit-link-edit"
 						className="ww-edit-link ww-edit-link-edit"
-					>Edit</a>
+					>
+						Edit
+						<i className="fa fa-pencil" aria-hidden="true"></i>
+					</a>
 				)
 			}
 		}

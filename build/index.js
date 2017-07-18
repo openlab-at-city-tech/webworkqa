@@ -5458,9 +5458,10 @@ module.exports = function(it, key){
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetchQuestionIndexList;
-/* harmony export (immutable) */ __webpack_exports__["f"] = setScrolledTo;
-/* harmony export (immutable) */ __webpack_exports__["i"] = sendQuestion;
-/* harmony export (immutable) */ __webpack_exports__["g"] = updateQuestion;
+/* harmony export (immutable) */ __webpack_exports__["g"] = setScrolledTo;
+/* harmony export (immutable) */ __webpack_exports__["j"] = sendQuestion;
+/* harmony export (immutable) */ __webpack_exports__["h"] = updateQuestion;
+/* harmony export (immutable) */ __webpack_exports__["f"] = deleteQuestion;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(15);
@@ -5586,7 +5587,7 @@ function standardizeFiltersForEndpoint(filters) {
 }
 
 const RECEIVE_QUESTION_IDS = 'RECEIVE_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["l"] = RECEIVE_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_QUESTION_IDS;
 
 const receiveQuestionIds = questionIds => {
 	return {
@@ -5596,7 +5597,7 @@ const receiveQuestionIds = questionIds => {
 };
 
 const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
-/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_QUESTION;
+/* harmony export (immutable) */ __webpack_exports__["p"] = RECEIVE_QUESTION;
 
 const receiveQuestion = question => {
 	return {
@@ -5608,7 +5609,7 @@ const receiveQuestion = question => {
 
 
 const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["o"] = RECEIVE_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["q"] = RECEIVE_QUESTIONS;
 
 const receiveQuestions = questions => {
 	return {
@@ -5620,7 +5621,7 @@ const receiveQuestions = questions => {
 
 
 const RESET_QUESTIONS = 'RESET_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["p"] = RESET_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["r"] = RESET_QUESTIONS;
 
 const resetQuestions = () => {
 	return {
@@ -5632,7 +5633,7 @@ const resetQuestions = () => {
 
 
 const RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_QUESTION_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["l"] = RECEIVE_QUESTION_BY_ID;
 
 const receiveQuestionById = questionId => {
 	return {
@@ -5644,7 +5645,7 @@ const receiveQuestionById = questionId => {
 };
 
 const RECEIVE_QUESTIONS_BY_ID = 'RECEIVE_QUESTIONS_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["k"] = RECEIVE_QUESTIONS_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_QUESTIONS_BY_ID;
 
 const receiveQuestionsById = questionsById => {
 	return {
@@ -5656,7 +5657,7 @@ const receiveQuestionsById = questionsById => {
 
 
 const RESET_QUESTION_IDS = 'RESET_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["m"] = RESET_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["o"] = RESET_QUESTION_IDS;
 
 const resetQuestionIds = () => {
 	return {
@@ -5667,8 +5668,22 @@ const resetQuestionIds = () => {
 /* harmony export (immutable) */ __webpack_exports__["b"] = resetQuestionIds;
 
 
+const REMOVE_QUESTION = 'REMOVE_QUESTION';
+/* harmony export (immutable) */ __webpack_exports__["k"] = REMOVE_QUESTION;
+
+const removeQuestion = questionId => {
+	return {
+		type: REMOVE_QUESTION,
+		payload: {
+			questionId
+		}
+	};
+};
+/* unused harmony export removeQuestion */
+
+
 const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["q"] = SET_QUESTION_PENDING;
+/* harmony export (immutable) */ __webpack_exports__["s"] = SET_QUESTION_PENDING;
 
 const setQuestionPending = isPending => {
 	return {
@@ -5678,7 +5693,7 @@ const setQuestionPending = isPending => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["h"] = setQuestionPending;
+/* harmony export (immutable) */ __webpack_exports__["i"] = setQuestionPending;
 
 
 function setScrolledTo(itemId) {
@@ -5776,6 +5791,24 @@ function updateQuestion(questionId) {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(questionId, false));
 			dispatch(receiveQuestion(json));
+		});
+	};
+}
+
+function deleteQuestion(questionId) {
+	return (dispatch, getState) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const endpoint = rest_api_endpoint + 'questions/' + questionId;
+
+		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
+			method: 'DELETE',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		}).then(response => response.json()).then(json => {
+			dispatch(removeQuestion(questionId));
 		});
 	};
 }
@@ -17317,6 +17350,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])(itemId));
 		},
 
+		onDeleteClick: () => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["f" /* deleteQuestion */])(itemId));
+		},
+
 		onEditClick: () => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* toggleEditing */])(itemId));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])('question-' + itemId + '-content', true));
@@ -17343,7 +17380,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onWaypointEnter: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["f" /* setScrolledTo */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["g" /* setScrolledTo */])(itemId));
 		}
 	};
 };
@@ -35756,7 +35793,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
-			onAccordionClick, onEditClick, onEditSaveClick,
+			onAccordionClick, onDeleteClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter
 		} = this.props;
 
@@ -35840,6 +35877,11 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const editLinkOnclick = function (e) {
 			e.preventDefault();
 			onEditClick();
+		};
+
+		const deleteLinkOnclick = function (e) {
+			e.preventDefault();
+			onDeleteClick();
 		};
 
 		let editLinkElements = [];
@@ -36000,6 +36042,26 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				fieldType: 'question',
 				key: 'content-elements-children-3'
 			}));
+
+			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'edit-button-links', key: 'links' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{ href: '#', onClick: editLinkOnclick },
+					'Cancel'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'span',
+					{ key: 'editing-sep', className: 'ww-subtitle-sep' },
+					'|'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{ href: '#', onClick: deleteLinkOnclick },
+					'Delete'
+				)
+			));
 		} else {
 			let triedElements;
 			if (isSingleProblem) {
@@ -37401,7 +37463,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 			switch (fieldType) {
 				case 'question':
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["g" /* updateQuestion */])(fieldId));
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["h" /* updateQuestion */])(fieldId));
 					break;
 
 				case 'response':
@@ -37565,8 +37627,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
 			e.preventDefault();
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["h" /* setQuestionPending */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["i" /* sendQuestion */])(ownProps.problemId, content, tried, problemText));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["i" /* setQuestionPending */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["j" /* sendQuestion */])(ownProps.problemId, content, tried, problemText));
 		}
 	};
 };
@@ -37677,8 +37739,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onDeleteClick: () => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_responses__["f" /* deleteResponse */])(responseId));
-			//			dispatch( toggleEditing( responseId ) )
-			//			dispatch( setCollapsed( 'response-' + responseId + '-content', true ) )
 		},
 
 		onEditClick: () => {
@@ -38012,7 +38072,7 @@ function formData(state = {}, action) {
 			const { values } = action.payload;
 			return Object.assign({}, state, values);
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["q" /* SET_QUESTION_PENDING */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["s" /* SET_QUESTION_PENDING */]:
 			return Object.assign({}, state, {
 				isPending: action.payload.isPending
 			});
@@ -38157,15 +38217,20 @@ function problems(state = {}, action) {
 
 function questions(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RECEIVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["p" /* RECEIVE_QUESTION */]:
 			return Object.assign({}, state, {
 				[action.payload.questionId]: action.payload
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["o" /* RECEIVE_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["q" /* RECEIVE_QUESTIONS */]:
 			return Object.assign({}, state, action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["p" /* RESET_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* REMOVE_QUESTION */]:
+			let newQuestions = Object.assign({}, state);
+			delete newQuestions[action.payload.questionId];
+			return newQuestions;
+
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["r" /* RESET_QUESTIONS */]:
 			return {};
 
 		default:
@@ -38184,17 +38249,28 @@ function questions(state = {}, action) {
 
 function questionsById(state = [], action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["j" /* RECEIVE_QUESTION_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* RECEIVE_QUESTION_BY_ID */]:
 			let newState = state;
 			newState.push(action.payload.questionId);
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* RECEIVE_QUESTIONS_BY_ID */]:
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* RECEIVE_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RECEIVE_QUESTIONS_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RECEIVE_QUESTION_IDS */]:
 			return state.concat(action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RESET_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["o" /* RESET_QUESTION_IDS */]:
 			return [];
+
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* REMOVE_QUESTION */]:
+			let newQuestionIds = state.slice(0);
+
+			const key = newQuestionIds.indexOf(action.payload.questionId);
+
+			if (key !== -1) {
+				newQuestionIds.splice(key, 1);
+			}
+
+			return newQuestionIds;
 
 		default:
 			return state;
@@ -38234,6 +38310,8 @@ function responseFormPending(state = {}, action) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = responseIdMap;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_responses__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_questions__ = __webpack_require__(21);
+
 
 
 function responseIdMap(state = {}, action) {
@@ -38266,6 +38344,11 @@ function responseIdMap(state = {}, action) {
 			}
 
 			return newQuestionResponseIds;
+
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["k" /* REMOVE_QUESTION */]:
+			let newQuestions = Object.assign({}, state);
+			delete newQuestions[action.payload.questionId];
+			return newQuestions;
 
 		default:
 			return state;

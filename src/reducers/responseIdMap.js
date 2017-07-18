@@ -1,4 +1,5 @@
 import { RECEIVE_RESPONSE_ID_FOR_MAP, RECEIVE_RESPONSE_ID_MAP, REMOVE_RESPONSE } from '../actions/responses'
+import { REMOVE_QUESTION } from '../actions/questions'
 
 export function responseIdMap( state = {}, action ) {
 	switch ( action.type ) {
@@ -30,6 +31,11 @@ export function responseIdMap( state = {}, action ) {
 			}
 
 			return newQuestionResponseIds
+
+		case REMOVE_QUESTION :
+			let newQuestions = Object.assign( {}, state )
+			delete( newQuestions[ action.payload.questionId ] )
+			return newQuestions
 
 		default :
 			return state

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Question from '../components/Question'
 import { setCollapsed, toggleEditing } from '../actions/app'
-import { setScrolledTo } from '../actions/questions'
+import { deleteQuestion, setScrolledTo } from '../actions/questions'
 import { getCurrentView } from '../util/webwork-url-parser'
 
 const mapStateToProps = (state, ownProps) => {
@@ -67,6 +67,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
 			dispatch( setCollapsed( itemId ) )
+		},
+
+		onDeleteClick: () => {
+			dispatch( deleteQuestion( itemId ) )
 		},
 
 		onEditClick: () => {

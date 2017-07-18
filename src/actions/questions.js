@@ -184,6 +184,16 @@ export const resetQuestionIds = () => {
 	}
 }
 
+export const REMOVE_QUESTION = 'REMOVE_QUESTION'
+export const removeQuestion = (questionId) => {
+	return {
+		type: REMOVE_QUESTION,
+		payload: {
+			questionId
+		}
+	}
+}
+
 export const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING'
 export const setQuestionPending = ( isPending ) => {
 	return {
@@ -293,6 +303,26 @@ export function updateQuestion( questionId ) {
 			dispatch( setTextareaValue( 'question-' + questionId, 'isPending', false ) )
 			dispatch( toggleEditing( questionId, false ) )
 			dispatch( receiveQuestion( json ) )
+		} )
+	}
+}
+
+export function deleteQuestion( questionId ) {
+	return ( dispatch, getState ) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'questions/' + questionId
+
+		return fetch( endpoint, {
+			method: 'DELETE',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		} )
+		.then( response => response.json() )
+		.then( json => {
+			dispatch( removeQuestion( questionId ) )
 		} )
 	}
 }

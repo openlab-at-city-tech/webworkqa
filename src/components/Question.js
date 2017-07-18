@@ -48,7 +48,7 @@ export default class Question extends Component {
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
-			onAccordionClick, onEditClick, onEditSaveClick,
+			onAccordionClick, onDeleteClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter
 		} = this.props
 
@@ -125,6 +125,11 @@ export default class Question extends Component {
 		const editLinkOnclick = function( e ) {
 			e.preventDefault()
 			onEditClick()
+		}
+
+		const deleteLinkOnclick = function( e ) {
+			e.preventDefault()
+			onDeleteClick()
 		}
 
 		let editLinkElements = []
@@ -285,6 +290,14 @@ export default class Question extends Component {
 					fieldType='question'
 					key="content-elements-children-3"
 				/>
+			)
+
+			contentElementsChildren.push(
+				<div className='edit-button-links' key='links'>
+					<a href='#' onClick={editLinkOnclick}>Cancel</a>
+					<span key="editing-sep" className="ww-subtitle-sep">|</span>
+					<a href='#' onClick={deleteLinkOnclick}>Delete</a>
+				</div>
 			)
 		} else {
 			let triedElements

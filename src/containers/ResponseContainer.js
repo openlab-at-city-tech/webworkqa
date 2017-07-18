@@ -30,8 +30,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onDeleteClick: () => {
 			dispatch( deleteResponse( responseId ) )
-//			dispatch( toggleEditing( responseId ) )
-//			dispatch( setCollapsed( 'response-' + responseId + '-content', true ) )
 		},
 
 		onEditClick: () => {

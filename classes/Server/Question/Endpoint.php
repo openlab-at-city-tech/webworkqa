@@ -37,6 +37,13 @@ class Endpoint extends \WP_Rest_Controller {
 				'permission_callback' => array( $this, 'update_item_permissions_check' ),
 				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::EDITABLE ),
 			),
+
+			array(
+				'methods'         => \WP_REST_Server::DELETABLE,
+				'callback'        => array( $this, 'delete_item' ),
+				'permission_callback' => array( $this, 'delete_item_permissions_check' ),
+				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::DELETABLE ),
+			),
 		) );
 	}
 
@@ -173,6 +180,22 @@ class Endpoint extends \WP_Rest_Controller {
 		return $response;
 	}
 
+	public function delete_item( $request ) {
+		$params = $request->get_params();
+		$question = new \WeBWorK\Server\Question( $params['id'] );
+		$retval = $question->delete();
+
+		$response = rest_ensure_response( '' );
+
+		if ( $retval ) {
+			$response->set_status( 200 );
+		} else {
+			$response->set_status( 500 );
+		}
+
+		return $response;
+	}
+
 	public function get_items( $request ) {
 		$params = $request->get_params();
 		$keys = array(
@@ -222,6 +245,11 @@ class Endpoint extends \WP_Rest_Controller {
 	public function update_item_permissions_check( $request ) {
 		$params = $request->get_params();
 		return current_user_can( 'edit_post', $params['id'] );
+	}
+
+	public function delete_item_permissions_check( $request ) {
+		$params = $request->get_params();
+		return current_user_can( 'delete_post', $params['id'] );
 	}
 
 	// @todo here and Response

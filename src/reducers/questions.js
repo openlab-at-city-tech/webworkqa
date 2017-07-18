@@ -1,4 +1,4 @@
-import { RECEIVE_QUESTION, RECEIVE_QUESTIONS, RESET_QUESTIONS } from '../actions/questions'
+import { RECEIVE_QUESTION, RECEIVE_QUESTIONS, REMOVE_QUESTION, RESET_QUESTIONS } from '../actions/questions'
 
 export function questions( state = {}, action ) {
 	switch ( action.type ) {
@@ -9,6 +9,11 @@ export function questions( state = {}, action ) {
 
 		case RECEIVE_QUESTIONS :
 			return Object.assign( {}, state, action.payload )
+
+		case REMOVE_QUESTION :
+			let newQuestions = Object.assign( {}, state )
+			delete( newQuestions[ action.payload.questionId ] )
+			return newQuestions
 
 		case RESET_QUESTIONS :
 			return {}

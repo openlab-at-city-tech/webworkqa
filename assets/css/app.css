@@ -606,6 +606,7 @@ li.is-answer:before {
 
 .edit-button-links {
 	display: inline-block;
+	font-size: 1.25rem;
 	margin-left: 16px;
 }
 

@@ -38,7 +38,7 @@ export const receiveResponseIdForMap = (responseId, questionId) => {
 }
 
 function sendResponseAnswered( responseId, isAnswered ) {
-	return ( dispatch ) => {
+	return ( dispatch, getState ) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
 		const endpoint = rest_api_endpoint + 'responses/' + responseId
 
@@ -55,11 +55,14 @@ function sendResponseAnswered( responseId, isAnswered ) {
 		} )
 		.then( response => response.json() )
 		.then( json => {
-			for ( var i in json ) {
-				if ( json.hasOwnProperty( i ) ) {
-					dispatch( receiveQuestion( json[ i ] ) )
-				}
-			}
+			const { questionId } = json
+			const state = getState()
+
+			const newQuestion = Object.assign( {}, state.questions[ questionId ], {
+				hasAnswer: isAnswered
+			} )
+
+			dispatch( receiveQuestion( newQuestion ) )
 		} );
 	}
 }

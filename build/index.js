@@ -8699,7 +8699,7 @@ const receiveResponseIdForMap = (responseId, questionId) => {
 
 
 function sendResponseAnswered(responseId, isAnswered) {
-	return dispatch => {
+	return (dispatch, getState) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
 		const endpoint = rest_api_endpoint + 'responses/' + responseId;
 
@@ -8714,11 +8714,14 @@ function sendResponseAnswered(responseId, isAnswered) {
 				is_answer: isAnswered
 			})
 		}).then(response => response.json()).then(json => {
-			for (var i in json) {
-				if (json.hasOwnProperty(i)) {
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["e" /* receiveQuestion */])(json[i]));
-				}
-			}
+			const { questionId } = json;
+			const state = getState();
+
+			const newQuestion = Object.assign({}, state.questions[questionId], {
+				hasAnswer: isAnswered
+			});
+
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["e" /* receiveQuestion */])(newQuestion));
 		});
 	};
 }

@@ -109,8 +109,13 @@ export default class Response extends Component {
 			)
 		}
 
+		let liClassName = isAnswer ? 'ww-response is-answer' : 'ww-response'
+		if ( isEditing ) {
+			liClassName += ' is-editing'
+		}
+
 		return (
-			<li className={isAnswer ? 'ww-response is-answer' : 'ww-response'}>
+			<li className={liClassName}>
 				<div className="ww-author-avatar">
 					<img src={authorAvatar} />
 					<div className="response-user-type">{authorUserType}</div>

@@ -587,6 +587,10 @@ li.is-answer:before {
 	text-transform: uppercase;
 }
 
+.is-editing .ww-subtitle {
+	margin-bottom: 10px;
+}
+
 .ww-subtitle-sep {
 	padding: 0 10px;
 }

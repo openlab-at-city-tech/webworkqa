@@ -36678,9 +36678,14 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			}));
 		}
 
+		let liClassName = isAnswer ? 'ww-response is-answer' : 'ww-response';
+		if (isEditing) {
+			liClassName += ' is-editing';
+		}
+
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
-			{ className: isAnswer ? 'ww-response is-answer' : 'ww-response' },
+			{ className: liClassName },
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'ww-author-avatar' },

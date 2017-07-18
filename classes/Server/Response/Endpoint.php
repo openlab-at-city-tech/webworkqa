@@ -73,12 +73,13 @@ class Endpoint extends \WP_Rest_Controller {
 		$response->set_client_name( $params['client_name'] );
 
 		if ( $response->save() ) {
-			$retval = array(
-				'responseId' => $response->get_id(),
-				'content' => $response->get_content(),
-				'authorAvatar' => $response->get_author_avatar(),
-				'authorName' => $response->get_author_name(),
-			);
+			$response_id = $response->get_id();
+			$r = new \WeBWork\Server\Response\Query( array(
+				'response_id__in' => $response_id,
+			) );
+
+			$for_endpoint = $r->get_for_endpoint();
+			$retval = $for_endpoint[ $response_id ];
 
 			$r = rest_ensure_response( $retval );
 			$r->set_status( 201 );

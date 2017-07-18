@@ -1,4 +1,4 @@
-import { RECEIVE_RESPONSE_ID_FOR_MAP, RECEIVE_RESPONSE_ID_MAP } from '../actions/responses'
+import { RECEIVE_RESPONSE_ID_FOR_MAP, RECEIVE_RESPONSE_ID_MAP, REMOVE_RESPONSE } from '../actions/responses'
 
 export function responseIdMap( state = {}, action ) {
 	switch ( action.type ) {
@@ -20,6 +20,16 @@ export function responseIdMap( state = {}, action ) {
 
 		case RECEIVE_RESPONSE_ID_MAP :
 			return action.payload
+
+		case REMOVE_RESPONSE :
+			let newQuestionResponseIds = state[ action.payload.questionId ].slice(0)
+			const key = newQuestionResponseIds.indexOf( action.payload.responseId )
+
+			if ( key !== -1 ) {
+				newQuestionResponseIds.splice( key, 1 )
+			}
+
+			return newQuestionResponseIds
 
 		default :
 			return state

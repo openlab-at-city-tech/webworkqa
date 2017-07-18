@@ -37,6 +37,17 @@ export const receiveResponseIdForMap = (responseId, questionId) => {
 	}
 }
 
+export const REMOVE_RESPONSE = 'REMOVE_RESPONSE'
+export const removeResponse = (responseId, questionId) => {
+	return {
+		type: REMOVE_RESPONSE,
+		payload: {
+			responseId,
+			questionId
+		}
+	}
+}
+
 function sendResponseAnswered( responseId, isAnswered ) {
 	return ( dispatch, getState ) => {
 		const { rest_api_endpoint, rest_api_nonce } = window.WWData
@@ -125,6 +136,30 @@ export function sendResponse( questionId, value ) {
 /			dispatch( setCollapsed( 'questionFormField_response-text-' + questionId, true ) )
 			// todo - handle errors
 
+		} )
+	}
+}
+
+export function deleteResponse( responseId ) {
+	return ( dispatch, getState ) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'responses/' + responseId
+
+		return fetch( endpoint, {
+			method: 'DELETE',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		} )
+		.then( response => response.json() )
+		.then( json => {
+			const state = getState()
+
+			const questionId = state.responses[ responseId ].questionId
+
+			dispatch( removeResponse( responseId, questionId ) )
 		} )
 	}
 }

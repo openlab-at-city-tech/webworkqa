@@ -14,7 +14,7 @@ export default class Response extends Component {
 			isEditing, isMyQuestion,
 			questionId, response, responseId,
 			userCanEdit, userCanPostResponse,
-			onEditClick
+			onDeleteClick, onEditClick
 		} = this.props
 
 		if ( ! response ) {
@@ -31,6 +31,11 @@ export default class Response extends Component {
 		const editLinkOnclick = function( e ) {
 			e.preventDefault()
 			onEditClick()
+		}
+
+		const deleteLinkOnclick = function( e ) {
+			e.preventDefault()
+			onDeleteClick()
 		}
 
 		let editLinkElements = []
@@ -104,6 +109,14 @@ export default class Response extends Component {
 					fieldType='response'
 					key="button"
 				/>
+			)
+
+			contentElements.push(
+				<div className='edit-button-links' key='links'>
+					<a href='#' onClick={editLinkOnclick}>Cancel</a>
+					<span key="editing-sep" className="ww-subtitle-sep">|</span>
+					<a href='#' onClick={deleteLinkOnclick}>Delete</a>
+				</div>
 			)
 		} else {
 			contentElements.push(

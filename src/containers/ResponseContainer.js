@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { setCollapsed, toggleEditing } from '../actions/app'
+import { deleteResponse } from '../actions/responses'
 import Response from '../components/Response'
 
 const mapStateToProps = (state, ownProps) => {
@@ -27,6 +28,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	const { responseId } = ownProps
 
 	return {
+		onDeleteClick: () => {
+			dispatch( deleteResponse( responseId ) )
+//			dispatch( toggleEditing( responseId ) )
+//			dispatch( setCollapsed( 'response-' + responseId + '-content', true ) )
+		},
+
 		onEditClick: () => {
 			dispatch( toggleEditing( responseId ) )
 			dispatch( setCollapsed( 'response-' + responseId + '-content', true ) )

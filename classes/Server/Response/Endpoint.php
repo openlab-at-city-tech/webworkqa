@@ -31,6 +31,12 @@ class Endpoint extends \WP_Rest_Controller {
 				'permission_callback' => array( $this, 'update_item_permissions_check' ),
 				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::EDITABLE ),
 			),
+			array(
+				'methods'         => \WP_REST_Server::DELETABLE,
+				'callback'        => array( $this, 'delete_item' ),
+				'permission_callback' => array( $this, 'delete_item_permissions_check' ),
+				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::DELETABLE ),
+			),
 		) );
 	}
 
@@ -127,6 +133,10 @@ class Endpoint extends \WP_Rest_Controller {
 	}
 
 	public function update_item_permissions_check( $request ) {
+		return $this->existing_item_permissions_check( $request );
+	}
+
+	protected function existing_item_permissions_check( $request ) {
 		if ( ! is_user_logged_in() ) {
 			return false;
 		}
@@ -158,6 +168,30 @@ class Endpoint extends \WP_Rest_Controller {
 		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
 
 		return $user_is_admin || $question->post_author == get_current_user_id();
+	}
+
+	public function delete_item( $request ) {
+		$retval = false;
+
+		$params = $request->get_params();
+		if ( isset( $params['id'] ) ) {
+			$r = new \WeBWorK\Server\Response( $params['id'] );
+			$retval = $r->delete();
+		}
+
+		$request_response = rest_ensure_response( $retval );
+
+		if ( $retval ) {
+			$request_response->set_status( 200 );
+		} else {
+			$request_response->set_status( 500 );
+		}
+
+		return $request_response;
+	}
+
+	public function delete_item_permissions_check( $request ) {
+		return $this->existing_item_permissions_check( $request );
 	}
 
 	public function get_item_schema() {

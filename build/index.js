@@ -35881,7 +35881,9 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		const deleteLinkOnclick = function (e) {
 			e.preventDefault();
-			onDeleteClick();
+			if (window.confirm('Are you sure you want to delete this question and all its responses?')) {
+				onDeleteClick();
+			}
 		};
 
 		let editLinkElements = [];
@@ -36058,8 +36060,13 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
-					{ href: '#', onClick: deleteLinkOnclick },
-					'Delete'
+					{ href: '#', className: 'delete-link', onClick: deleteLinkOnclick },
+					'Delete',
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ 'aria-hidden': 'true', className: 'delete-notice' },
+						'Delete question and all responses.'
+					)
 				)
 			));
 		} else {

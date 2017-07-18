@@ -608,6 +608,23 @@ li.is-answer:before {
 	display: inline-block;
 	font-size: 1.25rem;
 	margin-left: 16px;
+	position: relative;
+}
+
+.delete-notice {
+	background-color: #f00;
+	bottom: -40px;
+	color: #fff;
+	display: none;
+	padding: 5px 10px;
+	font-size: 1rem;
+	right: -250px;
+	position: absolute;
+	white-space: nowrap;
+}
+
+.delete-link:hover .delete-notice {
+	display: block;
 }
 
 .editable-field {

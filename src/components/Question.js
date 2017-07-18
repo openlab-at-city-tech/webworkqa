@@ -129,7 +129,9 @@ export default class Question extends Component {
 
 		const deleteLinkOnclick = function( e ) {
 			e.preventDefault()
-			onDeleteClick()
+			if ( window.confirm( 'Are you sure you want to delete this question and all its responses?' ) ) {
+				onDeleteClick()
+			}
 		}
 
 		let editLinkElements = []
@@ -296,7 +298,12 @@ export default class Question extends Component {
 				<div className='edit-button-links' key='links'>
 					<a href='#' onClick={editLinkOnclick}>Cancel</a>
 					<span key="editing-sep" className="ww-subtitle-sep">|</span>
-					<a href='#' onClick={deleteLinkOnclick}>Delete</a>
+					<a href='#' className="delete-link" onClick={deleteLinkOnclick}>
+						Delete
+						<div aria-hidden="true" className="delete-notice">
+							Delete question and all responses.
+						</div>
+					</a>
 				</div>
 			)
 		} else {

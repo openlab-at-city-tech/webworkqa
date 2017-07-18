@@ -11,7 +11,12 @@ const mapStateToProps = (state, ownProps) => {
 
 	const collapsedIndex = 'responseForm-' + ownProps.questionId
 	const isCollapsed = collapsed.hasOwnProperty( collapsedIndex )
-	const responseText = formData.hasOwnProperty( 'response-text-' + questionId ) ? formData[ 'response-text-' + questionId ] : ''
+	const responseData = formData.hasOwnProperty( 'response-' + questionId ) ? formData[ 'response-' + questionId ] : ''
+
+	let responseText = ''
+	if ( 'undefined' !== typeof responseData && responseData.hasOwnProperty( 'content' ) ) {
+		responseText = responseData.content
+	}
 
 	return {
 		isCollapsed,

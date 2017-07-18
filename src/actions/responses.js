@@ -118,7 +118,7 @@ export function sendResponse( questionId, value ) {
 			dispatch( receiveResponse( json ) )
 			dispatch( receiveResponseIdForMap( json.responseId, questionId ) )
 			dispatch( setResponsePending( questionId, false ) )
-			dispatch( setTextareaValue( 'response-text-' + questionId, '' ) )
+			dispatch( setTextareaValue( 'response-' + questionId, 'content', '' ) )
 /			dispatch( setCollapsed( 'questionFormField_response-text-' + questionId, true ) )
 			// todo - handle errors
 

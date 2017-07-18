@@ -5,7 +5,7 @@ export default class ResponseForm extends Component {
 	render() {
 		const {
 			isCollapsed, isPending, questionId, responseText,
-			onAccordionClick, onResponseFormSubmit, onTextareaChange
+			onAccordionClick, onResponseFormSubmit
 		} = this.props
 
 		const textareaName = 'response-text-' + questionId
@@ -44,7 +44,7 @@ export default class ResponseForm extends Component {
 					>
 						<PreviewableFieldContainer
 						  fieldId={'response-' + questionId}
-						  fieldName={textareaName}
+						  fieldName='content'
 						  id={textareaName}
 						  label={pfcLabel}
 						/>

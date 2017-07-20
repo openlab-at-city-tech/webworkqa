@@ -120,19 +120,21 @@ export default class Question extends Component {
 			}
 		}
 
-		let responseCount
-		if ( 1 == question.responseCount ) {
-			responseCount = '1 Reply'
+		const responseCount = responseIds.length
+
+		let responseCountText
+		if ( 1 == responseCount ) {
+			responseCountText = '1 Reply'
 		} else {
-			responseCount = question.responseCount + ' Replies'
+			responseCountText = responseCount + ' Replies'
 		}
 
 		let responseCountElements = []
-		if ( ! isSingleProblem ) {
+		if ( ! isSingleProblem || isCollapsed ) {
 			responseCountElements.push( <span key="response-sep" className="ww-subtitle-sep">|</span> )
 			responseCountElements.push(
 				<span key="response-value" className="ww-subtitle-section">
-					{responseCount}
+					{responseCountText}
 				</span>
 			)
 		}

@@ -35942,15 +35942,17 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			}
 		}
 
-		let responseCount;
-		if (1 == question.responseCount) {
-			responseCount = '1 Reply';
+		const responseCount = responseIds.length;
+
+		let responseCountText;
+		if (1 == responseCount) {
+			responseCountText = '1 Reply';
 		} else {
-			responseCount = question.responseCount + ' Replies';
+			responseCountText = responseCount + ' Replies';
 		}
 
 		let responseCountElements = [];
-		if (!isSingleProblem) {
+		if (!isSingleProblem || isCollapsed) {
 			responseCountElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				{ key: 'response-sep', className: 'ww-subtitle-sep' },
@@ -35959,7 +35961,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			responseCountElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				{ key: 'response-value', className: 'ww-subtitle-section' },
-				responseCount
+				responseCountText
 			));
 		}
 

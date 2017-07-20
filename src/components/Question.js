@@ -44,7 +44,7 @@ export default class Question extends Component {
 
 	render() {
 		const {
-			isCurrentQuestion,
+			feedback, isCurrentQuestion,
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
@@ -104,6 +104,21 @@ export default class Question extends Component {
 		)
 
 		const timestamp = moment( question.postDate ).format( 'MMMM D, YYYY' )
+
+		let feedbackElements = []
+		let thisFeedback
+		if ( feedback ) {
+			for ( var feedbackType in feedback ) {
+				feedbackElements.push(
+					<div
+						key={feedbackType}
+						className={'item-feedback item-feedback-' + feedbackType}
+					>
+						{feedback[ feedbackType ]}
+					</div>
+				)
+			}
+		}
 
 		let responseCount
 		if ( 1 == question.responseCount ) {

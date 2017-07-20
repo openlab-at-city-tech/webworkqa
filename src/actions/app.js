@@ -146,3 +146,11 @@ export const setTextareaValues = ( values ) => {
 		}
 	}
 }
+
+export const ADD_FEEDBACK_MESSAGE = 'ADD_FEEDBACK_MESSAGE'
+export const addFeedbackMessage = ( payload ) => {
+	return {
+		type: ADD_FEEDBACK_MESSAGE,
+		payload
+	}
+}

@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import {
+	addFeedbackMessage,
 	receiveFilterOptions, setAppIsLoading, setInitialLoadComplete,
 	setCollapsed, setCollapsedBulk, setTextareaValue, setTextareaValues,
 	toggleEditing
@@ -256,6 +257,12 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			dispatch( setTextareaValue( 'question-form', 'content', '' ) )
 			dispatch( setTextareaValue( 'question-form', 'tried', '' ) )
 			dispatch( setCollapsed( 'questionFormField_response-text-' + json.questionId, true ) )
+
+			dispatch( addFeedbackMessage( {
+				itemId: json.questionId,
+				type: 'success',
+				text: 'Thanks for your question. It has been posted, and you will receive an email notification when your question receives a response.'
+			} ) )
 
 			// Remove the post_data_key param from the window location.
 			if ( false !== window.location.search.indexOf( 'post_data_key' ) ) {

@@ -5160,14 +5160,14 @@ module.exports = ReactDOMComponentTree;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = processFilterChange;
 /* unused harmony export rebuildHash */
-/* harmony export (immutable) */ __webpack_exports__["j"] = processOrderbyChange;
+/* harmony export (immutable) */ __webpack_exports__["k"] = processOrderbyChange;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__problems__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__questions__ = __webpack_require__(20);
 
 
 
 const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
-/* harmony export (immutable) */ __webpack_exports__["m"] = SET_INITIAL_LOAD_COMPLETE;
+/* harmony export (immutable) */ __webpack_exports__["n"] = SET_INITIAL_LOAD_COMPLETE;
 
 const setInitialLoadComplete = isInitialLoadComplete => {
 	return {
@@ -5179,7 +5179,7 @@ const setInitialLoadComplete = isInitialLoadComplete => {
 
 
 const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
-/* harmony export (immutable) */ __webpack_exports__["u"] = SET_APP_IS_LOADING;
+/* harmony export (immutable) */ __webpack_exports__["w"] = SET_APP_IS_LOADING;
 
 const setAppIsLoading = appIsLoading => {
 	return {
@@ -5193,7 +5193,7 @@ const setAppIsLoading = appIsLoading => {
 
 
 const TOGGLE_EDITING = 'TOGGLE_EDITING';
-/* harmony export (immutable) */ __webpack_exports__["q"] = TOGGLE_EDITING;
+/* harmony export (immutable) */ __webpack_exports__["s"] = TOGGLE_EDITING;
 
 const toggleEditing = (itemId, value) => {
 	return {
@@ -5208,7 +5208,7 @@ const toggleEditing = (itemId, value) => {
 
 
 const SET_COLLAPSED = 'SET_COLLAPSED';
-/* harmony export (immutable) */ __webpack_exports__["s"] = SET_COLLAPSED;
+/* harmony export (immutable) */ __webpack_exports__["u"] = SET_COLLAPSED;
 
 const setCollapsed = (itemId, value = null) => {
 	return {
@@ -5223,7 +5223,7 @@ const setCollapsed = (itemId, value = null) => {
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
-/* harmony export (immutable) */ __webpack_exports__["t"] = SET_COLLAPSED_BULK;
+/* harmony export (immutable) */ __webpack_exports__["v"] = SET_COLLAPSED_BULK;
 
 const setCollapsedBulk = (c = []) => {
 	return {
@@ -5251,7 +5251,7 @@ function rebuildHash() {
 }
 
 const RESET_CURRENT_FILTERS = 'RESET_CURRENT_FILTERS';
-/* harmony export (immutable) */ __webpack_exports__["r"] = RESET_CURRENT_FILTERS;
+/* harmony export (immutable) */ __webpack_exports__["t"] = RESET_CURRENT_FILTERS;
 
 const resetCurrentFilters = () => {
 	return {
@@ -5263,7 +5263,7 @@ const resetCurrentFilters = () => {
 
 
 const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE';
-/* harmony export (immutable) */ __webpack_exports__["k"] = SET_FILTER_TOGGLE;
+/* harmony export (immutable) */ __webpack_exports__["l"] = SET_FILTER_TOGGLE;
 
 const setFilterToggle = (slug, value) => {
 	// Don't tell the Redux gods about this.
@@ -5300,7 +5300,7 @@ function processOrderbyChange(orderby, problemId) {
 }
 
 const SET_SORT_ORDERBY = 'SET_SORT_ORDERBY';
-/* harmony export (immutable) */ __webpack_exports__["l"] = SET_SORT_ORDERBY;
+/* harmony export (immutable) */ __webpack_exports__["m"] = SET_SORT_ORDERBY;
 
 const setSortOrderby = orderby => {
 	const order = 'DESC';
@@ -5317,7 +5317,7 @@ const setSortOrderby = orderby => {
 
 
 const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS';
-/* harmony export (immutable) */ __webpack_exports__["p"] = RECEIVE_FILTER_OPTIONS;
+/* harmony export (immutable) */ __webpack_exports__["q"] = RECEIVE_FILTER_OPTIONS;
 
 const receiveFilterOptions = filterOptions => {
 	return {
@@ -5329,7 +5329,7 @@ const receiveFilterOptions = filterOptions => {
 
 
 const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE';
-/* harmony export (immutable) */ __webpack_exports__["n"] = SET_TEXTAREA_VALUE;
+/* harmony export (immutable) */ __webpack_exports__["o"] = SET_TEXTAREA_VALUE;
 
 const setTextareaValue = (fieldId, fieldName, value) => {
 	return {
@@ -5345,7 +5345,7 @@ const setTextareaValue = (fieldId, fieldName, value) => {
 
 
 const SET_TEXTAREA_VALUES = 'SET_TEXTAREA_VALUES';
-/* harmony export (immutable) */ __webpack_exports__["o"] = SET_TEXTAREA_VALUES;
+/* harmony export (immutable) */ __webpack_exports__["p"] = SET_TEXTAREA_VALUES;
 
 const setTextareaValues = values => {
 	return {
@@ -5356,6 +5356,18 @@ const setTextareaValues = values => {
 	};
 };
 /* harmony export (immutable) */ __webpack_exports__["d"] = setTextareaValues;
+
+
+const ADD_FEEDBACK_MESSAGE = 'ADD_FEEDBACK_MESSAGE';
+/* harmony export (immutable) */ __webpack_exports__["r"] = ADD_FEEDBACK_MESSAGE;
+
+const addFeedbackMessage = payload => {
+	return {
+		type: ADD_FEEDBACK_MESSAGE,
+		payload
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["j"] = addFeedbackMessage;
 
 
 /***/ }),
@@ -5737,6 +5749,12 @@ function sendQuestion(problemId, content, tried, problemText) {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-form', 'content', ''));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-form', 'tried', ''));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
+
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* addFeedbackMessage */])({
+				itemId: json.questionId,
+				type: 'success',
+				text: 'Thanks for your question. It has been posted, and you will receive an email notification when your question receives a response.'
+			}));
 
 			// Remove the post_data_key param from the window location.
 			if (false !== window.location.search.indexOf('post_data_key')) {
@@ -17345,7 +17363,7 @@ const EditSaveButtonContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, editing, formData, initialLoadComplete,
+		collapsed, editing, feedback, formData, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state;
 
@@ -17380,6 +17398,7 @@ const mapStateToProps = (state, ownProps) => {
 	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id;
 
 	return {
+		feedback: feedback.hasOwnProperty(itemId) ? feedback[itemId] : {},
 		initialLoadComplete,
 		isCollapsed,
 		isEditing,
@@ -17479,7 +17498,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		const { value } = change;
 		const { problemId } = ownProps;
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["j" /* processOrderbyChange */])(value, problemId));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["k" /* processOrderbyChange */])(value, problemId));
 	};
 
 	return {
@@ -35844,7 +35863,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 	render() {
 		const {
-			isCurrentQuestion,
+			feedback, isCurrentQuestion,
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
@@ -35907,6 +35926,21 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		);
 
 		const timestamp = moment(question.postDate).format('MMMM D, YYYY');
+
+		let feedbackElements = [];
+		let thisFeedback;
+		if (feedback) {
+			for (var feedbackType in feedback) {
+				feedbackElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{
+						key: feedbackType,
+						className: 'item-feedback item-feedback-' + feedbackType
+					},
+					feedback[feedbackType]
+				));
+			}
+		}
 
 		let responseCount;
 		if (1 == question.responseCount) {
@@ -37873,7 +37907,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"])(__WEBPA
 
 function appIsLoading(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* SET_APP_IS_LOADING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["w" /* SET_APP_IS_LOADING */]:
 			const { appIsLoading } = action.payload;
 			return appIsLoading;
 
@@ -37895,7 +37929,7 @@ function collapsed(state = {}, action) {
 	let newState;
 
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_COLLAPSED */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* SET_COLLAPSED */]:
 			const { itemId, value } = action.payload;
 
 			let doCollapse;
@@ -37915,7 +37949,7 @@ function collapsed(state = {}, action) {
 			delete newState[itemId];
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_COLLAPSED_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* SET_COLLAPSED_BULK */]:
 			newState = Object.assign({}, state);
 			const items = action.payload;
 
@@ -37975,14 +38009,14 @@ function currentFilters(state = initialState, action) {
 
 			return state;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["k" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			return Object.assign({}, state, {
 				[slug]: value
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* SET_SORT_ORDERBY */]:
 			const { orderby, order } = action.payload;
 
 			return Object.assign({}, state, {
@@ -37990,7 +38024,7 @@ function currentFilters(state = initialState, action) {
 				order
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* RESET_CURRENT_FILTERS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* RESET_CURRENT_FILTERS */]:
 			return {};
 
 		default:
@@ -38009,7 +38043,7 @@ function currentFilters(state = initialState, action) {
 
 function editing(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* TOGGLE_EDITING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* TOGGLE_EDITING */]:
 			const { itemId, value } = action.payload;
 
 			let updateValue = value;
@@ -38043,7 +38077,7 @@ function editing(state = {}, action) {
 
 function filterOptions(state = window.WWData.filter_options, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* RECEIVE_FILTER_OPTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* RECEIVE_FILTER_OPTIONS */]:
 			return action.payload;
 
 		default:
@@ -38064,7 +38098,7 @@ function filterOptions(state = window.WWData.filter_options, action) {
 
 function formData(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["n" /* SET_TEXTAREA_VALUE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["o" /* SET_TEXTAREA_VALUE */]:
 			const { fieldId, fieldName, value } = action.payload;
 
 			let newField = Object.assign({}, state[fieldId]);
@@ -38075,7 +38109,7 @@ function formData(state = {}, action) {
 
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["o" /* SET_TEXTAREA_VALUES */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* SET_TEXTAREA_VALUES */]:
 			const { values } = action.payload;
 			return Object.assign({}, state, values);
 
@@ -38099,18 +38133,20 @@ function formData(state = {}, action) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__collapsed__ = __webpack_require__(405);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__currentFilters__ = __webpack_require__(406);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__editing__ = __webpack_require__(407);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__filterOptions__ = __webpack_require__(408);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__formData__ = __webpack_require__(409);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__initialLoadComplete__ = __webpack_require__(411);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__problems__ = __webpack_require__(412);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__questions__ = __webpack_require__(413);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__questionsById__ = __webpack_require__(414);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__responseFormPending__ = __webpack_require__(415);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__responseIdMap__ = __webpack_require__(416);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__responses__ = __webpack_require__(417);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__routing__ = __webpack_require__(418);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__scores__ = __webpack_require__(419);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__votes__ = __webpack_require__(420);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__feedback__ = __webpack_require__(781);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filterOptions__ = __webpack_require__(408);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__formData__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__initialLoadComplete__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__problems__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__questions__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__questionsById__ = __webpack_require__(414);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__responseFormPending__ = __webpack_require__(415);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__responseIdMap__ = __webpack_require__(416);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__responses__ = __webpack_require__(417);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__routing__ = __webpack_require__(418);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__scores__ = __webpack_require__(419);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__votes__ = __webpack_require__(420);
+
 
 
 
@@ -38158,19 +38194,20 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 	collapsed: __WEBPACK_IMPORTED_MODULE_2__collapsed__["a" /* collapsed */],
 	currentFilters: __WEBPACK_IMPORTED_MODULE_3__currentFilters__["a" /* currentFilters */],
 	editing: __WEBPACK_IMPORTED_MODULE_4__editing__["a" /* editing */],
-	filterOptions: __WEBPACK_IMPORTED_MODULE_5__filterOptions__["a" /* filterOptions */],
-	formData: __WEBPACK_IMPORTED_MODULE_6__formData__["a" /* formData */],
-	initialLoadComplete: __WEBPACK_IMPORTED_MODULE_7__initialLoadComplete__["a" /* initialLoadComplete */],
-	problems: __WEBPACK_IMPORTED_MODULE_8__problems__["a" /* problems */],
+	feedback: __WEBPACK_IMPORTED_MODULE_5__feedback__["a" /* feedback */],
+	filterOptions: __WEBPACK_IMPORTED_MODULE_6__filterOptions__["a" /* filterOptions */],
+	formData: __WEBPACK_IMPORTED_MODULE_7__formData__["a" /* formData */],
+	initialLoadComplete: __WEBPACK_IMPORTED_MODULE_8__initialLoadComplete__["a" /* initialLoadComplete */],
+	problems: __WEBPACK_IMPORTED_MODULE_9__problems__["a" /* problems */],
 	queryString,
-	questions: __WEBPACK_IMPORTED_MODULE_9__questions__["a" /* questions */],
-	questionsById: __WEBPACK_IMPORTED_MODULE_10__questionsById__["a" /* questionsById */],
-	responseFormPending: __WEBPACK_IMPORTED_MODULE_11__responseFormPending__["a" /* responseFormPending */],
-	responseIdMap: __WEBPACK_IMPORTED_MODULE_12__responseIdMap__["a" /* responseIdMap */],
-	responses: __WEBPACK_IMPORTED_MODULE_13__responses__["a" /* responses */],
-	routing: __WEBPACK_IMPORTED_MODULE_14__routing__["a" /* routing */],
-	scores: __WEBPACK_IMPORTED_MODULE_15__scores__["a" /* scores */],
-	votes: __WEBPACK_IMPORTED_MODULE_16__votes__["a" /* votes */]
+	questions: __WEBPACK_IMPORTED_MODULE_10__questions__["a" /* questions */],
+	questionsById: __WEBPACK_IMPORTED_MODULE_11__questionsById__["a" /* questionsById */],
+	responseFormPending: __WEBPACK_IMPORTED_MODULE_12__responseFormPending__["a" /* responseFormPending */],
+	responseIdMap: __WEBPACK_IMPORTED_MODULE_13__responseIdMap__["a" /* responseIdMap */],
+	responses: __WEBPACK_IMPORTED_MODULE_14__responses__["a" /* responses */],
+	routing: __WEBPACK_IMPORTED_MODULE_15__routing__["a" /* routing */],
+	scores: __WEBPACK_IMPORTED_MODULE_16__scores__["a" /* scores */],
+	votes: __WEBPACK_IMPORTED_MODULE_17__votes__["a" /* votes */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (rootReducer);
@@ -38186,7 +38223,7 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 
 function initialLoadComplete(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* SET_INITIAL_LOAD_COMPLETE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["n" /* SET_INITIAL_LOAD_COMPLETE */]:
 			return action.payload;
 
 		default:
@@ -38431,7 +38468,7 @@ function routing(state = initialState, action) {
 
 		// Here is our code to set the location state when the user chooses
 		// a different option in the menu
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["k" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["d" /* buildHashFromFilter */])(slug, value, state);
@@ -38445,7 +38482,7 @@ function routing(state = initialState, action) {
 				locationBeforeTransitions: newLocation
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* SET_SORT_ORDERBY */]:
 			const { order, orderby } = action.payload;
 
 			let locationClone = Object.assign({}, state);
@@ -61193,6 +61230,37 @@ function symbolObservablePonyfill(root) {
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
+
+/***/ }),
+/* 781 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = feedback;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_app__ = __webpack_require__(15);
+
+
+function feedback(state = {}, action) {
+	switch (action.type) {
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* ADD_FEEDBACK_MESSAGE */]:
+			const { itemId, type, text } = action.payload;
+
+			let itemFeedbacks = {};
+			if (state.hasOwnProperty(itemId)) {
+				itemFeedbacks = Object.assign({}, state[itemId]);
+			}
+
+			// Only one message per type?
+			itemFeedbacks[type] = text;
+
+			return Object.assign({}, state, {
+				[itemId]: itemFeedbacks
+			});
+
+		default:
+			return state;
+	}
+}
 
 /***/ })
 /******/ ]);

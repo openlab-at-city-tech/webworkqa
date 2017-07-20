@@ -6,7 +6,7 @@ import { getCurrentView } from '../util/webwork-url-parser'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, editing, formData, initialLoadComplete,
+		collapsed, editing, feedback, formData, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state
 
@@ -44,6 +44,7 @@ const mapStateToProps = (state, ownProps) => {
 	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id
 
 	return {
+		feedback: feedback.hasOwnProperty( itemId ) ? feedback[ itemId ] : {},
 		initialLoadComplete,
 		isCollapsed,
 		isEditing,

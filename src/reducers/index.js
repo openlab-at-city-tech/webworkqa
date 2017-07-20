@@ -4,6 +4,7 @@ import { appIsLoading } from './appIsLoading'
 import { collapsed } from './collapsed'
 import { currentFilters } from './currentFilters'
 import { editing } from './editing'
+import { feedback } from './feedback'
 import { filterOptions } from './filterOptions'
 import { formData } from './formData'
 import { initialLoadComplete } from './initialLoadComplete'
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
 	collapsed,
 	currentFilters,
 	editing,
+	feedback,
 	filterOptions,
 	formData,
 	initialLoadComplete,

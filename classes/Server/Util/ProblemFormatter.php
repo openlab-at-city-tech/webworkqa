@@ -382,4 +382,8 @@ class ProblemFormatter {
 
 		return $text;
 	}
+
+	public function convert_linebreaks( $text ) {
+		return str_replace( "\n", '<br />', $text );
+	}
 }

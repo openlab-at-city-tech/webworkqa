@@ -212,7 +212,7 @@ export default class Question extends Component {
 			const courseDataString = courseData.join( ' | ' )
 
 			questionCourseElement = (
-				<div className="question-course-data">
+				<div className="question-course-data hide-when-closed">
 					{courseDataString}
 				</div>
 			)
@@ -228,7 +228,7 @@ export default class Question extends Component {
 		let respondLinkElement
 		if ( isSingleProblem && userCanPostResponse ) {
 			respondLinkElement = (
-				<div className="respond-link">
+				<div className="respond-link hide-when-closed">
 					<a
 					  href="#"
 					  onClick={ e => {
@@ -385,9 +385,7 @@ export default class Question extends Component {
 					{orderedElements}
 				</div>
 
-				<div className="hide-when-closed">
-					{questionMetadataElement}
-				</div>
+				{questionMetadataElement}
 			</div>
 		)
 

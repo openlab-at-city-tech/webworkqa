@@ -3,6 +3,7 @@ import Scroll, { Element } from 'react-scroll'
 import Waypoint from 'react-waypoint'
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
+import SubscriptionDialogContainer from '../containers/SubscriptionDialogContainer'
 import ResponseList from './ResponseList'
 import ResponseFormContainer from '../containers/ResponseFormContainer'
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
@@ -452,6 +453,10 @@ export default class Question extends Component {
 				</div>
 
 				{responsesElement}
+
+				<SubscriptionDialogContainer
+					itemId={itemId}
+				/>
 			</li>
 		);
 	}

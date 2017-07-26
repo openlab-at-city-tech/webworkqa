@@ -386,4 +386,44 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 		$email->send();
 	}
+
+	public function set_subscription( $user_id, $status ) {
+		$tax_slug = 'user_' . $user_id;
+		$item_id = $this->get_id();
+
+		$subscribed = wp_get_object_terms( $item_id, 'webwork_subscribed_by' );
+
+		$is_subscribed = false;
+		foreach ( $subscribed as $sub ) {
+			if ( $tax_slug === $sub->slug ) {
+				$is_subscribed = true;
+				break;
+			}
+		}
+
+		if ( ( $status && $is_subscribed ) || ( ! $status && ! $is_subscribed ) ) {
+			return false;
+		}
+
+		$term = get_term_by( 'slug', $tax_slug, 'webwork_subscribed_by' );
+		if ( ! $term || is_wp_error( $term ) ) {
+			$created = wp_insert_term( $tax_slug, 'webwork_subscribed_by', array(
+				'slug' => $tax_slug,
+			) );
+
+			if ( is_wp_error( $term ) ) {
+				return false;
+			}
+
+			$term = get_term( $created['term_id'], 'webwork_subscribed_by' );
+		}
+
+		if ( $status ) {
+			$retval = wp_set_object_terms( $item_id, array( $term->term_id ), 'webwork_subscribed_by', true );
+		} else {
+			$retval = wp_remove_object_terms( $item_id, array( $term->term_id ), 'webwork_subscribed_by' );
+		}
+
+		return ! is_wp_error( $retval );
+	}
 }

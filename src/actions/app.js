@@ -1,6 +1,27 @@
 import { fetchProblem } from './problems'
 import { fetchQuestionIndexList } from './questions'
 
+export const fetchAppData = () => {
+	return ( dispatch ) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'app-config/'
+
+		return fetch( endpoint, {
+			method: 'GET',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		} )
+		.then( response => response.json() )
+		.then( json => {
+			dispatch( setSubscriptions( json.subscriptions ) )
+		} )
+	}
+
+}
+
 export const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE'
 export const setInitialLoadComplete = ( isInitialLoadComplete ) => {
 	return {
@@ -152,5 +173,76 @@ export const addFeedbackMessage = ( payload ) => {
 	return {
 		type: ADD_FEEDBACK_MESSAGE,
 		payload
+	}
+}
+
+export const toggleSubscription = ( itemId ) => {
+	return ( dispatch, getState ) => {
+		const state = getState()
+
+		const isSubscribed = state.subscriptions.hasOwnProperty( itemId )
+
+		dispatch( setSubscription( itemId, ! isSubscribed ) )
+
+		if ( isSubscribed ) {
+			dispatch( deleteSubscription( itemId ) )
+		} else {
+			dispatch( sendSubscription( itemId ) )
+
+		}
+	}
+}
+
+export const SET_SUBSCRIPTION = 'SET_SUBSCRIPTION'
+export const setSubscription = ( itemId, value ) => {
+	return {
+		type: SET_SUBSCRIPTION,
+		payload: {
+			itemId,
+			value
+		}
+	}
+}
+
+export const SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS'
+export const setSubscriptions = ( values ) => {
+	return {
+		type: SET_SUBSCRIPTIONS,
+		payload: values
+	}
+}
+
+export const sendSubscription = ( itemId ) => {
+	return ( dispatch, getState ) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'subscriptions/'
+
+		return fetch( endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				itemId
+			})
+		} )
+	}
+}
+
+export const deleteSubscription = ( itemId ) => {
+	return ( dispatch, getState ) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const endpoint = rest_api_endpoint + 'subscriptions/' + itemId + '/'
+
+		return fetch( endpoint, {
+			method: 'DELETE',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		} )
 	}
 }

@@ -6,6 +6,11 @@ import QuestionIndexContainer from '../containers/QuestionIndexContainer'
 import SidebarContainer from '../containers/SidebarContainer'
 
 export default class App extends Component {
+	componentWillMount() {
+		// Initial app data setup.
+		this.props.onInit()
+	}
+
 	render() {
 		const { route_base } = window.WWData
 		const { appIsLoading, initialLoadComplete, routing } = this.props
@@ -15,9 +20,9 @@ export default class App extends Component {
 
 		let rootElement = ''
 		if ( problemId ) {
-			rootElement = <ProblemContainer problemId={problemId} /> 
+			rootElement = <ProblemContainer problemId={problemId} />
 		} else {
-			rootElement = <QuestionIndexContainer /> 
+			rootElement = <QuestionIndexContainer />
 		}
 
 		const wrapperClassName = appIsLoading && ! initialLoadComplete ? 'app-loading' : ''
@@ -30,7 +35,7 @@ export default class App extends Component {
 
 				<div className="app-content">
 					<div className="ww-main">
-						{rootElement}	
+						{rootElement}
 					</div>
 
 					<SidebarContainer />

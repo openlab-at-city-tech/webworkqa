@@ -419,6 +419,10 @@ h3.ww-collapsible-section-header {
 	margin: 20px 0 0 0;
 }
 
+.subscription-dialog {
+
+}
+
 .ww-question,
 .ww-response {
 	overflow: visible;
@@ -434,6 +438,7 @@ ul.question-list > li {
 	border: 2px solid #0044af;
 	border-radius: 0 0 4px 4px;
 	border-top: none;
+	position: relative;
 }
 
 .ww-question {
@@ -772,6 +777,31 @@ li.is-answer:before {
 
 .score-icon {
 	font-size: 20px;
+}
+
+.subscription-dialog {
+	background-color: transparent;
+	bottom: 28px;
+	cursor: pointer;
+	font-size: 1.25rem;
+	position: absolute;
+	right: 20px;
+}
+
+.subscription-dialog i:before {
+	font-family: 'FontAwesome';
+	font-style: normal;
+}
+
+.subscription-dialog.subscribed i:before,
+.subscription-dialog.unsubscribed:hover i:before{
+	color: #0044af;
+	content: "\f0f3"; /* bell */
+}
+
+.subscription-dialog.unsubscribed i:before,
+.subscription-dialog.subscribed:hover i:before{
+	content: "\f0a2"; /* bell-o */
 }
 
 .problem-library-id {

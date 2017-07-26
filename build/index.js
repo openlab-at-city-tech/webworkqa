@@ -4928,16 +4928,36 @@ $exports.store = store;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = processFilterChange;
+/* harmony export (immutable) */ __webpack_exports__["b"] = processFilterChange;
 /* unused harmony export rebuildHash */
-/* harmony export (immutable) */ __webpack_exports__["k"] = processOrderbyChange;
+/* harmony export (immutable) */ __webpack_exports__["m"] = processOrderbyChange;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__problems__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__questions__ = __webpack_require__(20);
 
 
 
+const fetchAppData = () => {
+	return dispatch => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const endpoint = rest_api_endpoint + 'app-config/';
+
+		return fetch(endpoint, {
+			method: 'GET',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		}).then(response => response.json()).then(json => {
+			dispatch(setSubscriptions(json.subscriptions));
+		});
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = fetchAppData;
+
+
 const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
-/* harmony export (immutable) */ __webpack_exports__["n"] = SET_INITIAL_LOAD_COMPLETE;
+/* harmony export (immutable) */ __webpack_exports__["r"] = SET_INITIAL_LOAD_COMPLETE;
 
 const setInitialLoadComplete = isInitialLoadComplete => {
 	return {
@@ -4945,11 +4965,11 @@ const setInitialLoadComplete = isInitialLoadComplete => {
 		payload: isInitialLoadComplete
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = setInitialLoadComplete;
+/* harmony export (immutable) */ __webpack_exports__["c"] = setInitialLoadComplete;
 
 
 const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
-/* harmony export (immutable) */ __webpack_exports__["w"] = SET_APP_IS_LOADING;
+/* harmony export (immutable) */ __webpack_exports__["A"] = SET_APP_IS_LOADING;
 
 const setAppIsLoading = appIsLoading => {
 	return {
@@ -4959,11 +4979,11 @@ const setAppIsLoading = appIsLoading => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = setAppIsLoading;
+/* harmony export (immutable) */ __webpack_exports__["g"] = setAppIsLoading;
 
 
 const TOGGLE_EDITING = 'TOGGLE_EDITING';
-/* harmony export (immutable) */ __webpack_exports__["s"] = TOGGLE_EDITING;
+/* harmony export (immutable) */ __webpack_exports__["w"] = TOGGLE_EDITING;
 
 const toggleEditing = (itemId, value) => {
 	return {
@@ -4974,11 +4994,11 @@ const toggleEditing = (itemId, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["i"] = toggleEditing;
+/* harmony export (immutable) */ __webpack_exports__["j"] = toggleEditing;
 
 
 const SET_COLLAPSED = 'SET_COLLAPSED';
-/* harmony export (immutable) */ __webpack_exports__["u"] = SET_COLLAPSED;
+/* harmony export (immutable) */ __webpack_exports__["y"] = SET_COLLAPSED;
 
 const setCollapsed = (itemId, value = null) => {
 	return {
@@ -4989,11 +5009,11 @@ const setCollapsed = (itemId, value = null) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["h"] = setCollapsed;
+/* harmony export (immutable) */ __webpack_exports__["i"] = setCollapsed;
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
-/* harmony export (immutable) */ __webpack_exports__["v"] = SET_COLLAPSED_BULK;
+/* harmony export (immutable) */ __webpack_exports__["z"] = SET_COLLAPSED_BULK;
 
 const setCollapsedBulk = (c = []) => {
 	return {
@@ -5001,7 +5021,7 @@ const setCollapsedBulk = (c = []) => {
 		payload: c
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = setCollapsedBulk;
+/* harmony export (immutable) */ __webpack_exports__["d"] = setCollapsedBulk;
 
 
 function processFilterChange(slug, value) {
@@ -5021,7 +5041,7 @@ function rebuildHash() {
 }
 
 const RESET_CURRENT_FILTERS = 'RESET_CURRENT_FILTERS';
-/* harmony export (immutable) */ __webpack_exports__["t"] = RESET_CURRENT_FILTERS;
+/* harmony export (immutable) */ __webpack_exports__["x"] = RESET_CURRENT_FILTERS;
 
 const resetCurrentFilters = () => {
 	return {
@@ -5033,7 +5053,7 @@ const resetCurrentFilters = () => {
 
 
 const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE';
-/* harmony export (immutable) */ __webpack_exports__["l"] = SET_FILTER_TOGGLE;
+/* harmony export (immutable) */ __webpack_exports__["p"] = SET_FILTER_TOGGLE;
 
 const setFilterToggle = (slug, value) => {
 	// Don't tell the Redux gods about this.
@@ -5070,7 +5090,7 @@ function processOrderbyChange(orderby, problemId) {
 }
 
 const SET_SORT_ORDERBY = 'SET_SORT_ORDERBY';
-/* harmony export (immutable) */ __webpack_exports__["m"] = SET_SORT_ORDERBY;
+/* harmony export (immutable) */ __webpack_exports__["q"] = SET_SORT_ORDERBY;
 
 const setSortOrderby = orderby => {
 	const order = 'DESC';
@@ -5087,7 +5107,7 @@ const setSortOrderby = orderby => {
 
 
 const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS';
-/* harmony export (immutable) */ __webpack_exports__["q"] = RECEIVE_FILTER_OPTIONS;
+/* harmony export (immutable) */ __webpack_exports__["u"] = RECEIVE_FILTER_OPTIONS;
 
 const receiveFilterOptions = filterOptions => {
 	return {
@@ -5095,11 +5115,11 @@ const receiveFilterOptions = filterOptions => {
 		payload: filterOptions
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = receiveFilterOptions;
+/* harmony export (immutable) */ __webpack_exports__["f"] = receiveFilterOptions;
 
 
 const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE';
-/* harmony export (immutable) */ __webpack_exports__["o"] = SET_TEXTAREA_VALUE;
+/* harmony export (immutable) */ __webpack_exports__["s"] = SET_TEXTAREA_VALUE;
 
 const setTextareaValue = (fieldId, fieldName, value) => {
 	return {
@@ -5111,11 +5131,11 @@ const setTextareaValue = (fieldId, fieldName, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["g"] = setTextareaValue;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setTextareaValue;
 
 
 const SET_TEXTAREA_VALUES = 'SET_TEXTAREA_VALUES';
-/* harmony export (immutable) */ __webpack_exports__["p"] = SET_TEXTAREA_VALUES;
+/* harmony export (immutable) */ __webpack_exports__["t"] = SET_TEXTAREA_VALUES;
 
 const setTextareaValues = values => {
 	return {
@@ -5125,11 +5145,11 @@ const setTextareaValues = values => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = setTextareaValues;
+/* harmony export (immutable) */ __webpack_exports__["e"] = setTextareaValues;
 
 
 const ADD_FEEDBACK_MESSAGE = 'ADD_FEEDBACK_MESSAGE';
-/* harmony export (immutable) */ __webpack_exports__["r"] = ADD_FEEDBACK_MESSAGE;
+/* harmony export (immutable) */ __webpack_exports__["v"] = ADD_FEEDBACK_MESSAGE;
 
 const addFeedbackMessage = payload => {
 	return {
@@ -5137,7 +5157,91 @@ const addFeedbackMessage = payload => {
 		payload
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["j"] = addFeedbackMessage;
+/* harmony export (immutable) */ __webpack_exports__["k"] = addFeedbackMessage;
+
+
+const toggleSubscription = itemId => {
+	return (dispatch, getState) => {
+		const state = getState();
+
+		const isSubscribed = state.subscriptions.hasOwnProperty(itemId);
+
+		dispatch(setSubscription(itemId, !isSubscribed));
+
+		if (isSubscribed) {
+			dispatch(deleteSubscription(itemId));
+		} else {
+			dispatch(sendSubscription(itemId));
+		}
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["l"] = toggleSubscription;
+
+
+const SET_SUBSCRIPTION = 'SET_SUBSCRIPTION';
+/* harmony export (immutable) */ __webpack_exports__["n"] = SET_SUBSCRIPTION;
+
+const setSubscription = (itemId, value) => {
+	return {
+		type: SET_SUBSCRIPTION,
+		payload: {
+			itemId,
+			value
+		}
+	};
+};
+/* unused harmony export setSubscription */
+
+
+const SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS';
+/* harmony export (immutable) */ __webpack_exports__["o"] = SET_SUBSCRIPTIONS;
+
+const setSubscriptions = values => {
+	return {
+		type: SET_SUBSCRIPTIONS,
+		payload: values
+	};
+};
+/* unused harmony export setSubscriptions */
+
+
+const sendSubscription = itemId => {
+	return (dispatch, getState) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const endpoint = rest_api_endpoint + 'subscriptions/';
+
+		return fetch(endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				itemId
+			})
+		});
+	};
+};
+/* unused harmony export sendSubscription */
+
+
+const deleteSubscription = itemId => {
+	return (dispatch, getState) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const endpoint = rest_api_endpoint + 'subscriptions/' + itemId + '/';
+
+		return fetch(endpoint, {
+			method: 'DELETE',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		});
+	};
+};
+/* unused harmony export deleteSubscription */
 
 
 /***/ }),
@@ -5485,7 +5589,7 @@ function fetchQuestionIndexList(append) {
 		if (!append) {
 			dispatch(resetQuestionIds());
 			dispatch(resetQuestions());
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setInitialLoadComplete */])(false));
 			filters.offset = 0;
 		} else {
 			filters.offset = questionsById.length;
@@ -5510,7 +5614,7 @@ function fetchQuestionIndexList(append) {
 			endpoint += '?' + qs;
 		}
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setAppIsLoading */])(true));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setAppIsLoading */])(true));
 
 		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
 			credentials: 'same-origin',
@@ -5534,7 +5638,7 @@ function fetchQuestionIndexList(append) {
 
 				scores[thisQuestionId] = json.questions[thisQuestionId].voteCount;
 			}
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setCollapsedBulk */])(toCollapse));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__scores__["a" /* setScoresBulk */])(scores));
 
 			const defaultFormContent = {
@@ -5554,10 +5658,10 @@ function fetchQuestionIndexList(append) {
 				newFormData['question-' + j] = newFormContent;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setTextareaValues */])(newFormData));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValues */])(newFormData));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setAppIsLoading */])(false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setInitialLoadComplete */])(true));
 		});
 	};
 }
@@ -5746,11 +5850,11 @@ function sendQuestion(problemId, content, tried, problemText) {
 			dispatch(setQuestionPending(false));
 			dispatch(receiveQuestion(json));
 			dispatch(receiveQuestionById(json.questionId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-form', 'content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-form', 'tried', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-form', 'content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-form', 'tried', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* addFeedbackMessage */])({
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["k" /* addFeedbackMessage */])({
 				itemId: json.questionId,
 				type: 'success',
 				text: 'Thanks for your question. It has been posted, and you will receive an email notification when your question receives a response.'
@@ -5797,8 +5901,8 @@ function updateQuestion(questionId) {
 				tried: questionData.tried
 			})
 		}).then(response => response.json()).then(json => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(questionId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* toggleEditing */])(questionId, false));
 			dispatch(receiveQuestion(json));
 		});
 	};
@@ -7875,8 +7979,8 @@ function sendResponse(questionId, value) {
 			dispatch(receiveResponse(json));
 			dispatch(receiveResponseIdForMap(json.responseId, questionId));
 			dispatch(setResponsePending(questionId, false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('response-' + questionId, 'content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('response-' + json.responseId, 'content', value)) / dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setCollapsed */])('questionFormField_response-text-' + questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + questionId, 'content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + json.responseId, 'content', value)) / dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setCollapsed */])('questionFormField_response-text-' + questionId, true));
 			// todo - handle errors
 		});
 	};
@@ -7931,8 +8035,8 @@ function updateResponse(responseId) {
 				content: responseData.content
 			})
 		}).then(requestResponse => requestResponse.json()).then(json => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(responseId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* toggleEditing */])(responseId, false));
 			dispatch(receiveResponse(json));
 		});
 	};
@@ -9631,7 +9735,7 @@ function fetchProblem(problemId) {
 	return (dispatch, getState) => {
 		// Reset a bunch of stuff.
 		// Could work around this with a better-structured state (store all data per-problem)
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(false));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setInitialLoadComplete */])(false));
 		dispatch(receiveProblems({}));
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["b" /* resetQuestionIds */])());
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["a" /* receiveResponseIdMap */])({}));
@@ -9704,7 +9808,7 @@ function fetchProblem(problemId) {
 					value: true
 				});
 
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setCollapsedBulk */])(toCollapse));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
 
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["a" /* receiveResponseIdMap */])(responseIdMap));
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["c" /* receiveResponses */])(responses));
@@ -9739,13 +9843,13 @@ function fetchProblem(problemId) {
 
 				newFormData['question-form'] = Object.assign({}, defaultFormContent);
 
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setTextareaValues */])(newFormData));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValues */])(newFormData));
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* receiveFilterOptions */])(filterOptions));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* receiveFilterOptions */])(filterOptions));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["b" /* setInitialLoadComplete */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setInitialLoadComplete */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setAppIsLoading */])(false));
 		});
 	};
 }
@@ -11742,11 +11846,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onPreviewToggleClick: () => {
 			const collapsedKey = ownProps.fieldId + '-' + ownProps.fieldName;
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])(collapsedKey));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])(collapsedKey));
 		},
 
 		onTextareaChange: event => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setTextareaValue */])(ownProps.fieldId, ownProps.fieldName, event.target.value));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setTextareaValue */])(ownProps.fieldId, ownProps.fieldName, event.target.value));
 		}
 	};
 };
@@ -17325,7 +17429,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setTextareaValue */])(key, 'isPending', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setTextareaValue */])(key, 'isPending', true));
 
 			switch (fieldType) {
 				case 'question':
@@ -17421,7 +17525,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])(itemId));
 		},
 
 		onDeleteClick: () => {
@@ -17429,9 +17533,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onEditClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* toggleEditing */])(itemId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])('question-' + itemId + '-content', true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])('question-' + itemId + '-tried', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* toggleEditing */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])('question-' + itemId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])('question-' + itemId + '-tried', true));
 		},
 
 		onProblemSummaryClick: event => {
@@ -17446,11 +17550,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				return;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])(itemId + '-problem'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])(itemId + '-problem'));
 		},
 
 		onRespondClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setCollapsed */])('responseForm-' + itemId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])('responseForm-' + itemId, false));
 		},
 
 		onWaypointEnter: () => {
@@ -17498,7 +17602,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		const { value } = change;
 		const { problemId } = ownProps;
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["k" /* processOrderbyChange */])(value, problemId));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["m" /* processOrderbyChange */])(value, problemId));
 	};
 
 	return {
@@ -17550,7 +17654,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["h" /* setCollapsed */])('responseForm-' + ownProps.questionId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["i" /* setCollapsed */])('responseForm-' + ownProps.questionId));
 		},
 
 		onResponseFormSubmit: (e, responseText) => {
@@ -35398,6 +35502,11 @@ class AnsweredDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
 
 
 class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	componentWillMount() {
+		// Initial app data setup.
+		this.props.onInit();
+	}
+
 	render() {
 		const { route_base } = window.WWData;
 		const { appIsLoading, initialLoadComplete, routing } = this.props;
@@ -35831,11 +35940,13 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_waypoint__ = __webpack_require__(759);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_waypoint___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_waypoint__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_ScoreDialogContainer__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ResponseList__ = __webpack_require__(388);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_ResponseFormContainer__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__FormattedProblem__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__containers_EditSaveButtonContainer__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_SubscriptionDialogContainer__ = __webpack_require__(783);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ResponseList__ = __webpack_require__(388);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__containers_ResponseFormContainer__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__containers_PreviewableFieldContainer__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__FormattedProblem__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__containers_EditSaveButtonContainer__ = __webpack_require__(164);
+
 
 
 
@@ -36107,13 +36218,13 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		const contentId = 'content-' + itemId;
-		const formattedContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__FormattedProblem__["a" /* default */], {
+		const formattedContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
 			itemId: contentId,
 			content: content
 		});
 
 		const triedId = 'tried-' + itemId;
-		const formattedTried = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__FormattedProblem__["a" /* default */], {
+		const formattedTried = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
 			itemId: triedId,
 			content: tried
 		});
@@ -36130,7 +36241,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content-editable-children-1', className: 'editable-field' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__containers_PreviewableFieldContainer__["a" /* default */], {
 					fieldId: 'question-' + itemId,
 					fieldName: 'content',
 					id: 'ww-question-content',
@@ -36141,7 +36252,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content-editable-children-2', className: 'editable-field' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_PreviewableFieldContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__containers_PreviewableFieldContainer__["a" /* default */], {
 					fieldId: 'question-' + itemId,
 					fieldName: 'tried',
 					id: 'ww-question-content',
@@ -36149,7 +36260,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				})
 			));
 
-			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__containers_EditSaveButtonContainer__["a" /* default */], {
+			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__containers_EditSaveButtonContainer__["a" /* default */], {
 				fieldId: itemId,
 				fieldType: 'question',
 				key: 'content-elements-children-3'
@@ -36242,7 +36353,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				{
 					className: 'ww-my-problem-content'
 				},
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__FormattedProblem__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
 					itemId: questionId,
 					content: problemText
 				})
@@ -36269,7 +36380,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			responsesElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ResponseList__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__ResponseList__["a" /* default */], {
 					isMyQuestion: isMyQuestion,
 					questionId: itemId,
 					responseIds: responseIds,
@@ -36334,7 +36445,10 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					)
 				)
 			),
-			responsesElement
+			responsesElement,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_SubscriptionDialogContainer__["a" /* default */], {
+				itemId: itemId
+			})
 		);
 	}
 
@@ -37519,6 +37633,8 @@ const AnsweredDialogContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_App__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_app__ = __webpack_require__(12);
+
 
 
 
@@ -37532,7 +37648,15 @@ const mapStateToProps = (state, ownProps) => {
 	};
 };
 
-const AppContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps)(__WEBPACK_IMPORTED_MODULE_1__components_App__["a" /* default */]);
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		onInit: () => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["a" /* fetchAppData */])());
+		}
+	};
+};
+
+const AppContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__components_App__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (AppContainer);
 
@@ -37597,7 +37721,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onComponentWillMount: function (problemId) {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["f" /* setAppIsLoading */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setAppIsLoading */])(true));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_problems__["a" /* fetchProblem */])(problemId));
 		}
 	};
@@ -37680,7 +37804,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["h" /* setCollapsed */])('questionForm'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["i" /* setCollapsed */])('questionForm'));
 		},
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
@@ -37800,8 +37924,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onEditClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["i" /* toggleEditing */])(responseId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["h" /* setCollapsed */])('response-' + responseId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["j" /* toggleEditing */])(responseId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["i" /* setCollapsed */])('response-' + responseId + '-content', true));
 		}
 	};
 };
@@ -37875,7 +37999,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				value = selected.value;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["a" /* processFilterChange */])(slug, value));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["b" /* processFilterChange */])(slug, value));
 
 			// For the theme to know when to collapse the menu.
 			const event = new Event('webworkFilterChange');
@@ -37924,7 +38048,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"])(__WEBPA
 
 function appIsLoading(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["w" /* SET_APP_IS_LOADING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["A" /* SET_APP_IS_LOADING */]:
 			const { appIsLoading } = action.payload;
 			return appIsLoading;
 
@@ -37946,7 +38070,7 @@ function collapsed(state = {}, action) {
 	let newState;
 
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* SET_COLLAPSED */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["y" /* SET_COLLAPSED */]:
 			const { itemId, value } = action.payload;
 
 			let doCollapse;
@@ -37966,7 +38090,7 @@ function collapsed(state = {}, action) {
 			delete newState[itemId];
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* SET_COLLAPSED_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["z" /* SET_COLLAPSED_BULK */]:
 			newState = Object.assign({}, state);
 			const items = action.payload;
 
@@ -38026,14 +38150,14 @@ function currentFilters(state = initialState, action) {
 
 			return state;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			return Object.assign({}, state, {
 				[slug]: value
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* SET_SORT_ORDERBY */]:
 			const { orderby, order } = action.payload;
 
 			return Object.assign({}, state, {
@@ -38041,7 +38165,7 @@ function currentFilters(state = initialState, action) {
 				order
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* RESET_CURRENT_FILTERS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["x" /* RESET_CURRENT_FILTERS */]:
 			return {};
 
 		default:
@@ -38060,7 +38184,7 @@ function currentFilters(state = initialState, action) {
 
 function editing(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* TOGGLE_EDITING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["w" /* TOGGLE_EDITING */]:
 			const { itemId, value } = action.payload;
 
 			let updateValue = value;
@@ -38094,7 +38218,7 @@ function editing(state = {}, action) {
 
 function feedback(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* ADD_FEEDBACK_MESSAGE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* ADD_FEEDBACK_MESSAGE */]:
 			const { itemId, type, text } = action.payload;
 
 			let itemFeedbacks = {};
@@ -38125,7 +38249,7 @@ function feedback(state = {}, action) {
 
 function filterOptions(state = window.WWData.filter_options, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* RECEIVE_FILTER_OPTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* RECEIVE_FILTER_OPTIONS */]:
 			return action.payload;
 
 		default:
@@ -38146,7 +38270,7 @@ function filterOptions(state = window.WWData.filter_options, action) {
 
 function formData(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["o" /* SET_TEXTAREA_VALUE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_TEXTAREA_VALUE */]:
 			const { fieldId, fieldName, value } = action.payload;
 
 			let newField = Object.assign({}, state[fieldId]);
@@ -38157,7 +38281,7 @@ function formData(state = {}, action) {
 
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* SET_TEXTAREA_VALUES */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_TEXTAREA_VALUES */]:
 			const { values } = action.payload;
 			return Object.assign({}, state, values);
 
@@ -38193,7 +38317,9 @@ function formData(state = {}, action) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__responses__ = __webpack_require__(418);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__routing__ = __webpack_require__(419);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__scores__ = __webpack_require__(420);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__votes__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__subscriptions__ = __webpack_require__(784);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__votes__ = __webpack_require__(421);
+
 
 
 
@@ -38255,7 +38381,8 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 	responses: __WEBPACK_IMPORTED_MODULE_14__responses__["a" /* responses */],
 	routing: __WEBPACK_IMPORTED_MODULE_15__routing__["a" /* routing */],
 	scores: __WEBPACK_IMPORTED_MODULE_16__scores__["a" /* scores */],
-	votes: __WEBPACK_IMPORTED_MODULE_17__votes__["a" /* votes */]
+	subscriptions: __WEBPACK_IMPORTED_MODULE_17__subscriptions__["a" /* subscriptions */],
+	votes: __WEBPACK_IMPORTED_MODULE_18__votes__["a" /* votes */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (rootReducer);
@@ -38271,7 +38398,7 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 
 function initialLoadComplete(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["n" /* SET_INITIAL_LOAD_COMPLETE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* SET_INITIAL_LOAD_COMPLETE */]:
 			return action.payload;
 
 		default:
@@ -38518,7 +38645,7 @@ function routing(state = initialState, action) {
 
 		// Here is our code to set the location state when the user chooses
 		// a different option in the menu
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["l" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["d" /* buildHashFromFilter */])(slug, value, state);
@@ -38532,7 +38659,7 @@ function routing(state = initialState, action) {
 				locationBeforeTransitions: newLocation
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["m" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* SET_SORT_ORDERBY */]:
 			const { order, orderby } = action.payload;
 
 			let locationClone = Object.assign({}, state);
@@ -61280,6 +61407,111 @@ function symbolObservablePonyfill(root) {
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
+
+/***/ }),
+/* 782 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	render() {
+		const { isSubscribed, onClick } = this.props;
+
+		let iconClass = 'subscription-dialog ';
+		let screenReaderText = '';
+		if (isSubscribed) {
+			iconClass += 'subscribed';
+			screenReaderText = 'Click to unsubscribe';
+		} else {
+			iconClass += 'unsubscribed';
+			screenReaderText = 'Click to subscribe';
+		}
+
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'button',
+			{ className: iconClass, onClick: onClick },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'span',
+				{ className: 'screen-reader-text' },
+				screenReaderText
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa' })
+		);
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = SubscriptionDialog;
+
+
+/***/ }),
+/* 783 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SubscriptionDialog__ = __webpack_require__(782);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_app__ = __webpack_require__(12);
+
+
+
+
+const mapStateToProps = (state, ownProps) => {
+	const { itemId } = ownProps;
+	const { subscriptions } = state;
+
+	return {
+		isSubscribed: subscriptions.hasOwnProperty(itemId)
+	};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const { itemId } = ownProps;
+
+	return {
+		onClick: () => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["l" /* toggleSubscription */])(itemId));
+		}
+	};
+};
+
+const SubscriptionDialogContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__components_SubscriptionDialog__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (SubscriptionDialogContainer);
+
+/***/ }),
+/* 784 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = subscriptions;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_app__ = __webpack_require__(12);
+
+
+function subscriptions(state = {}, action) {
+	switch (action.type) {
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["n" /* SET_SUBSCRIPTION */]:
+			const { itemId, value } = action.payload;
+			let newSubs = Object.assign({}, state);
+
+			if (value) {
+				newSubs[itemId] = 1;
+			} else {
+				delete newSubs[itemId];
+			}
+
+			return newSubs;
+
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["o" /* SET_SUBSCRIPTIONS */]:
+			return action.payload;
+
+		default:
+			return state;
+	}
+}
 
 /***/ })
 /******/ ]);

@@ -24,6 +24,9 @@ class Server {
 		// temp
 		$this->check_table();
 
+		$app_endpoint = new Server\App\Endpoint();
+		add_action( 'rest_api_init', array( $app_endpoint, 'register_routes' ) );
+
 		$problems_endpoint = new Server\Problem\Endpoint();
 		add_action( 'rest_api_init', array( $problems_endpoint, 'register_routes' ) );
 
@@ -35,6 +38,9 @@ class Server {
 
 		$votes_endpoint = new Server\Vote\Endpoint();
 		add_action( 'rest_api_init', array( $votes_endpoint, 'register_routes' ) );
+
+		$subscriptions_endpoint = new Server\Subscription\Endpoint();
+		add_action( 'rest_api_init', array( $subscriptions_endpoint, 'register_routes' ) );
 
 		add_action( 'template_redirect', array( $this, 'catch_post' ) );
 	}

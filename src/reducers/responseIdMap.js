@@ -30,7 +30,9 @@ export function responseIdMap( state = {}, action ) {
 				newQuestionResponseIds.splice( key, 1 )
 			}
 
-			return newQuestionResponseIds
+			return Object.assign( {}, state, {
+				[ action.payload.questionId ]: newQuestionResponseIds
+			} )
 
 		case REMOVE_QUESTION :
 			let newQuestions = Object.assign( {}, state )

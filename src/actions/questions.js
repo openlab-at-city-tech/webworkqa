@@ -2,7 +2,8 @@ import fetch from 'isomorphic-fetch'
 import {
 	addFeedbackMessage,
 	receiveFilterOptions, setAppIsLoading, setInitialLoadComplete,
-	setCollapsed, setCollapsedBulk, setTextareaValue, setTextareaValues,
+	setCollapsed, setCollapsedBulk, setSubscription,
+	setTextareaValue, setTextareaValues,
 	toggleEditing
 } from './app'
 import { setScoresBulk } from './scores'
@@ -257,6 +258,7 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			dispatch( setTextareaValue( 'question-form', 'content', '' ) )
 			dispatch( setTextareaValue( 'question-form', 'tried', '' ) )
 			dispatch( setCollapsed( 'questionFormField_response-text-' + json.questionId, true ) )
+			dispatch( setSubscription( json.questionId, true ) )
 
 			dispatch( addFeedbackMessage( {
 				itemId: json.questionId,

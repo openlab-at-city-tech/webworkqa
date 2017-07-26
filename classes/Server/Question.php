@@ -286,6 +286,10 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			// Refresh vote count.
 			$this->get_vote_count( true );
 
+			if ( $is_new ) {
+				$this->set_subscription( $this->get_author_id(), true );
+			}
+
 			$this->populate();
 		}
 

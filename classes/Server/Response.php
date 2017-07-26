@@ -207,20 +207,15 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	 * @todo Abstract when there are more notification types to send.
 	 */
 	protected function send_notifications() {
-		$this->send_notification_to_question_author();
-
+		$this->send_notification_to_subscribers();
 		$this->send_notification_to_instructor();
 	}
 
 	/**
-	 * Send an email notification to the author of the parent question.
+	 * Send an email notification to question subscribers.
 	 */
-	protected function send_notification_to_question_author() {
-		$question_author_id = $this->question->get_author_id();
-		$question_author = new \WP_User( $question_author_id );
-		if ( ! $question_author->exists() ) {
-			return;
-		}
+	protected function send_notification_to_subscribers() {
+		$subscribers = $this->question->get_subscribers();
 
 		$response_author_id = $this->get_author_id();
 		$response_author = new \WP_User( $response_author_id );
@@ -228,27 +223,26 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			return;
 		}
 
-		// Don't send authors an email about their own replies.
-		if ( $response_author_id === $question_author_id ) {
-			return;
+		foreach ( $subscribers as $subscriber_id ) {
+			$subscriber = new \WP_User( $subscriber_id );
+
+			$email = new Util\Email();
+			$email->set_client_name( $this->get_client_name() );
+			$email->set_recipient( $subscriber->user_email );
+			$email->set_subject( sprintf( __( '%1$s has replied to a question', 'webwork' ), $response_author->display_name ) );
+
+			$message = sprintf(
+				__( '%1$s has replied to a question you are subscribed to on %2$s.
+
+	To read and reply, visit %3$s.', 'webwork' ),
+				$response_author->display_name,
+				$this->get_client_name(),
+				$this->question->get_url( $this->get_client_url() )
+			);
+			$email->set_message( $message );
+
+			$email->send();
 		}
-
-		$email = new Util\Email();
-		$email->set_client_name( $this->get_client_name() );
-		$email->set_recipient( $question_author->user_email );
-		$email->set_subject( sprintf( __( '%1$s has replied to your question', 'webwork' ), $response_author->display_name ) );
-
-		$message = sprintf(
-			__( '%1$s has replied to your question on %2$s.
-
-To read and reply, visit %3$s.', 'webwork' ),
-			$response_author->display_name,
-			$this->get_client_name(),
-			$this->question->get_url( $this->get_client_url() )
-		);
-		$email->set_message( $message );
-
-		$email->send();
 	}
 
 	/**

@@ -426,4 +426,15 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 		return ! is_wp_error( $retval );
 	}
+
+	public function get_subscribers() {
+		$terms = wp_get_object_terms( $this->get_id(), 'webwork_subscribed_by' );
+
+		$user_ids = array();
+		foreach ( $terms as $term ) {
+			$user_ids[] = intval( substr( $term->slug, 5 ) );
+		}
+
+		return $user_ids;
+	}
 }

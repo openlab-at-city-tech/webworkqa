@@ -120,6 +120,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		}
 
 		$tried = $this->pf->strip_illegal_markup( $tried );
+		$content = $this->pf->convert_linebreaks( $content );
 
 		return $tried;
 	}

@@ -36282,11 +36282,11 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
-					{ href: '#', className: 'delete-link', onClick: deleteLinkOnclick },
+					{ href: '#', className: 'delete-link hover-notice-parent', onClick: deleteLinkOnclick },
 					'Delete',
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
-						{ 'aria-hidden': 'true', className: 'delete-notice' },
+						{ 'aria-hidden': 'true', className: 'hover-notice delete-notice' },
 						'Delete question and all responses.'
 					)
 				)
@@ -61422,14 +61422,14 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 	render() {
 		const { isSubscribed, onClick } = this.props;
 
-		let iconClass = 'subscription-dialog ';
+		let iconClass = 'hover-notice-parent subscription-dialog ';
 		let screenReaderText = '';
 		if (isSubscribed) {
 			iconClass += 'subscribed';
-			screenReaderText = 'Click to unsubscribe';
+			screenReaderText = 'End email notifications.';
 		} else {
 			iconClass += 'unsubscribed';
-			screenReaderText = 'Click to subscribe';
+			screenReaderText = 'Get email notifications.';
 		}
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -61440,7 +61440,12 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 				{ className: 'screen-reader-text' },
 				screenReaderText
 			),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa' })
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa' }),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ 'aria-hidden': 'true', className: 'hover-notice subscription-notice' },
+				screenReaderText
+			)
 		);
 	}
 }

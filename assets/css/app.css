@@ -619,20 +619,30 @@ li.is-answer:before {
 	position: relative;
 }
 
-.delete-notice {
-	background-color: #f00;
-	bottom: -40px;
-	color: #fff;
+.hover-notice {
+	background-color: #fff;
+	border: 1px solid #aaa;
 	display: none;
-	padding: 5px 10px;
 	font-size: 1rem;
-	right: -250px;
+	padding: 5px 10px;
 	position: absolute;
 	white-space: nowrap;
 }
 
-.delete-link:hover .delete-notice {
+.hover-notice-parent:hover .hover-notice {
 	display: block;
+}
+
+.subscription-notice {
+	bottom: -40px;
+	left: 110%;
+}
+
+.delete-notice {
+	background-color: #f00;
+	bottom: -40px;
+	color: #fff;
+	right: -250px;
 }
 
 .editable-field {
@@ -799,9 +809,16 @@ li.is-answer:before {
 	content: "\f0f3"; /* bell */
 }
 
-.subscription-dialog.unsubscribed i:before,
-.subscription-dialog.subscribed:hover i:before{
+.subscription-dialog.unsubscribed i:before {
 	content: "\f0a2"; /* bell-o */
+}
+
+.subscription-dialog.subscribed:hover {
+	right: 18px;
+}
+
+.subscription-dialog.subscribed:hover i:before{
+	content: "\f1f6"; /* bell-slash */
 }
 
 .problem-library-id {

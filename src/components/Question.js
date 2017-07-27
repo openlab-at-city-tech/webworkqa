@@ -316,9 +316,9 @@ export default class Question extends Component {
 				<div className='edit-button-links' key='links'>
 					<a href='#' onClick={editLinkOnclick}>Cancel</a>
 					<span key="editing-sep" className="ww-subtitle-sep">|</span>
-					<a href='#' className="delete-link" onClick={deleteLinkOnclick}>
+					<a href='#' className="delete-link hover-notice-parent" onClick={deleteLinkOnclick}>
 						Delete
-						<div aria-hidden="true" className="delete-notice">
+						<div aria-hidden="true" className="hover-notice delete-notice">
 							Delete question and all responses.
 						</div>
 					</a>

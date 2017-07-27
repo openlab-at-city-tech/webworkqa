@@ -414,7 +414,7 @@ export default class Question extends Component {
 		}
 
 		let subscriptionElement
-		if ( isSingleProblem ) {
+		if ( isSingleProblem && ! isCollapsed ) {
 			subscriptionElement = (
 				<SubscriptionDialogContainer
 					itemId={itemId}

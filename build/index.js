@@ -36401,7 +36401,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		let subscriptionElement;
-		if (isSingleProblem) {
+		if (isSingleProblem && !isCollapsed) {
 			subscriptionElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_SubscriptionDialogContainer__["a" /* default */], {
 				itemId: itemId
 			});

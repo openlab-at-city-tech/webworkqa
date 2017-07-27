@@ -18,10 +18,13 @@ export default class FormattedProblem extends Component {
 		}
 
 		const texRegExp = /\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_((?:OPEN)|(?:CLOSE))\}\}\}/gm
-		let markup = ''
+		let markup = content
 		let toQueue = []
 
-		markup = content.replace( texRegExp, function( delim, mode, openOrClose ) {
+		markup = markup.replace( '&lt;', '<' )
+		markup = markup.replace( '&gt;', '>' )
+
+		markup = markup.replace( texRegExp, function( delim, mode, openOrClose ) {
 			if ( 'CLOSE' == openOrClose ) {
 				return '</script>'
 			}

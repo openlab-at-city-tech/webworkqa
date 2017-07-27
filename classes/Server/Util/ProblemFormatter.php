@@ -19,6 +19,7 @@ class ProblemFormatter {
 		),
 		'b' => array(),
 		'em' => array(),
+		'br' => array(),
 		'i' => array(),
 		'strong' => array(),
 	);
@@ -384,6 +385,6 @@ class ProblemFormatter {
 	}
 
 	public function convert_linebreaks( $text ) {
-		return str_replace( "\n", '<br />', $text );
+		return preg_replace( '/\r\n?|\n/', '<br />', $text );
 	}
 }

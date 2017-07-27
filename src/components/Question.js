@@ -413,6 +413,15 @@ export default class Question extends Component {
 			)
 		}
 
+		let subscriptionElement
+		if ( isSingleProblem ) {
+			subscriptionElement = (
+				<SubscriptionDialogContainer
+					itemId={itemId}
+				/>
+			)
+		}
+
 		return (
 			<li
 			  className={this.getClassName( isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion )}
@@ -454,9 +463,7 @@ export default class Question extends Component {
 
 				{responsesElement}
 
-				<SubscriptionDialogContainer
-					itemId={itemId}
-				/>
+				{subscriptionElement}
 			</li>
 		);
 	}

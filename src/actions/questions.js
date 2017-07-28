@@ -257,7 +257,7 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			dispatch( receiveQuestionById( json.questionId ) )
 			dispatch( setTextareaValue( 'question-form', 'content', '' ) )
 			dispatch( setTextareaValue( 'question-form', 'tried', '' ) )
-			dispatch( setCollapsed( 'questionFormField_response-text-' + json.questionId, true ) )
+			dispatch( setCollapsed( 'response-' + json.questionId + '-content', true ) )
 			dispatch( setSubscription( json.questionId, true ) )
 
 			dispatch( addFeedbackMessage( {

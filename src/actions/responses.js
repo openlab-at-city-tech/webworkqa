@@ -134,7 +134,6 @@ export function sendResponse( questionId, value ) {
 			dispatch( setResponsePending( questionId, false ) )
 			dispatch( setTextareaValue( 'response-' + questionId, 'content', '' ) )
 			dispatch( setTextareaValue( 'response-' + json.responseId, 'content', value ) )
-/			dispatch( setCollapsed( 'questionFormField_response-text-' + questionId, true ) )
 			// todo - handle errors
 
 		} )

@@ -4978,7 +4978,7 @@ const toggleEditing = (itemId, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["j"] = toggleEditing;
+/* harmony export (immutable) */ __webpack_exports__["i"] = toggleEditing;
 
 
 const SET_COLLAPSED = 'SET_COLLAPSED';
@@ -4993,7 +4993,7 @@ const setCollapsed = (itemId, value = null) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["i"] = setCollapsed;
+/* harmony export (immutable) */ __webpack_exports__["j"] = setCollapsed;
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
@@ -5852,7 +5852,7 @@ function sendQuestion(problemId, content, tried, problemText) {
 			dispatch(receiveQuestionById(json.questionId));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-form', 'content', ''));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-form', 'tried', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setCollapsed */])('questionFormField_response-text-' + json.questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* setCollapsed */])('response-' + json.questionId + '-content', true));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["k" /* setSubscription */])(json.questionId, true));
 
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["l" /* addFeedbackMessage */])({
@@ -5903,7 +5903,7 @@ function updateQuestion(questionId) {
 			})
 		}).then(response => response.json()).then(json => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* toggleEditing */])(questionId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(questionId, false));
 			dispatch(receiveQuestion(json));
 		});
 	};
@@ -7981,7 +7981,7 @@ function sendResponse(questionId, value) {
 			dispatch(receiveResponseIdForMap(json.responseId, questionId));
 			dispatch(setResponsePending(questionId, false));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + questionId, 'content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + json.responseId, 'content', value)) / dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setCollapsed */])('questionFormField_response-text-' + questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + json.responseId, 'content', value));
 			// todo - handle errors
 		});
 	};
@@ -8037,7 +8037,7 @@ function updateResponse(responseId) {
 			})
 		}).then(requestResponse => requestResponse.json()).then(json => {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* toggleEditing */])(responseId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(responseId, false));
 			dispatch(receiveResponse(json));
 		});
 	};
@@ -11850,7 +11850,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onPreviewToggleClick: () => {
 			const collapsedKey = ownProps.fieldId + '-' + ownProps.fieldName;
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])(collapsedKey));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])(collapsedKey));
 		},
 
 		onTextareaChange: event => {
@@ -17529,7 +17529,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])(itemId));
 		},
 
 		onDeleteClick: () => {
@@ -17537,9 +17537,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onEditClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* toggleEditing */])(itemId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])('question-' + itemId + '-content', true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])('question-' + itemId + '-tried', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* toggleEditing */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])('question-' + itemId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])('question-' + itemId + '-tried', true));
 		},
 
 		onProblemSummaryClick: event => {
@@ -17554,11 +17554,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				return;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])(itemId + '-problem'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])(itemId + '-problem'));
 		},
 
 		onRespondClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setCollapsed */])('responseForm-' + itemId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])('responseForm-' + itemId, false));
 		},
 
 		onWaypointEnter: () => {
@@ -17658,7 +17658,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["i" /* setCollapsed */])('responseForm-' + ownProps.questionId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["j" /* setCollapsed */])('responseForm-' + ownProps.questionId));
 		},
 
 		onResponseFormSubmit: (e, responseText) => {
@@ -37856,7 +37856,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["i" /* setCollapsed */])('questionForm'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["j" /* setCollapsed */])('questionForm'));
 		},
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
@@ -37976,8 +37976,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onEditClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["j" /* toggleEditing */])(responseId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["i" /* setCollapsed */])('response-' + responseId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["i" /* toggleEditing */])(responseId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["j" /* setCollapsed */])('response-' + responseId + '-content', true));
 		}
 	};
 };

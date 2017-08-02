@@ -168,7 +168,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$user_is_admin = current_user_can( 'edit_others_posts' );
 		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
 
-		return $user_is_admin || $question->post_author == get_current_user_id();
+		return $user_is_admin || $response->get_author_id() == get_current_user_id();
 	}
 
 	public function delete_item( $request ) {

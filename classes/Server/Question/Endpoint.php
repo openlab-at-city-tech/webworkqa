@@ -244,12 +244,22 @@ class Endpoint extends \WP_Rest_Controller {
 
 	public function update_item_permissions_check( $request ) {
 		$params = $request->get_params();
-		return current_user_can( 'edit_post', $params['id'] );
+		$post = get_post( $params['id'] );
+
+		$user_is_admin = current_user_can( 'edit_others_posts' );
+		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+
+		return $user_is_admin || $post->post_author == get_current_user_id();
 	}
 
 	public function delete_item_permissions_check( $request ) {
 		$params = $request->get_params();
-		return current_user_can( 'delete_post', $params['id'] );
+		$post = get_post( $params['id'] );
+
+		$user_is_admin = current_user_can( 'edit_others_posts' );
+		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+
+		return $user_is_admin || $post->post_author == get_current_user_id();
 	}
 
 	// @todo here and Response

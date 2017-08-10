@@ -11799,6 +11799,9 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 		// Line break substitution must skip <script> tags.
 		markup = markup.replace(/(?!<script[^>]*?>)(?:\r\n|\r|\n)(?![^<]*?<\/script>)/g, '<br />');
 
+		// But don't allow many breaks in a row :(
+		markup = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["a" /* collapseLinebreaks */])(markup);
+
 		if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
 			for (var i = 0; i <= toQueue.length; i++) {
 				window.MathJax.Hub.Queue(["Update", window.MathJax.Hub, toQueue[i]]);
@@ -61553,6 +61556,7 @@ function symbolObservablePonyfill(root) {
 "use strict";
 /* unused harmony export convertLinebreaks */
 /* unused harmony export convertLinebreaksAsString */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return collapseLinebreaks; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
@@ -61572,6 +61576,10 @@ const convertLinebreaks = text => {
 
 const convertLinebreaksAsString = text => {
 	return text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+};
+
+const collapseLinebreaks = text => {
+	return text.replace(/((<br \/>)+)/, '<br />');
 };
 
 

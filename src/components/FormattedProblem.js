@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { convertLinebreaksAsString } from '../util/webwork-text-formatter.js'
+import { collapseLinebreaks } from '../util/webwork-text-formatter.js'
 
 export default class FormattedProblem extends Component {
 	componentDidMount() {
@@ -51,6 +51,9 @@ export default class FormattedProblem extends Component {
 
 		// Line break substitution must skip <script> tags.
 		markup = markup.replace( /(?!<script[^>]*?>)(?:\r\n|\r|\n)(?![^<]*?<\/script>)/g, '<br />' )
+
+		// But don't allow many breaks in a row :(
+		markup = collapseLinebreaks( markup )
 
 		if ( window.hasOwnProperty( 'MathJax' ) && window.MathJax.hasOwnProperty( 'Hub' ) ) {
 			for ( var i = 0; i <= toQueue.length; i++ ) {

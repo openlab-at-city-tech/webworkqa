@@ -17,4 +17,8 @@ const convertLinebreaksAsString = ( text ) => {
 	return text.replace( /(?:\r\n|\r|\n)/g, '<br />' )
 }
 
-export { convertLinebreaks, convertLinebreaksAsString }
+const collapseLinebreaks = ( text ) => {
+	return text.replace( /((<br \/>)+)/, '<br />' )
+}
+
+export { convertLinebreaks, convertLinebreaksAsString, collapseLinebreaks }

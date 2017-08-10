@@ -61579,7 +61579,7 @@ const convertLinebreaksAsString = text => {
 };
 
 const collapseLinebreaks = text => {
-	return text.replace(/((<br \/>)+)/, '<br />');
+	return text.replace(/((<br \/>){3,})/, '<br /><br />');
 };
 
 

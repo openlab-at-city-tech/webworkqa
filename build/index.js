@@ -11792,6 +11792,8 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			return '<script type="' + typeAttr + '" id="' + cssId + '">';
 		});
 
+		markup = markup.replace('{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.</div>');
+
 		if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
 			for (var i = 0; i <= toQueue.length; i++) {
 				window.MathJax.Hub.Queue(["Update", window.MathJax.Hub, toQueue[i]]);

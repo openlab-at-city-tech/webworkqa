@@ -257,6 +257,15 @@ ul.question-list > a {
 	padding: 40px;
 }
 
+.geogebra-placeholder {
+	border: 1px solid #aaa;
+	font-size: .9rem;
+	line-height: 1.5rem;
+	margin: .5rem;
+	padding: 8px;
+	text-align: center;
+}
+
 .ww-question-problem-summary {
 	margin: 16px;
 	padding: 8px 16px;

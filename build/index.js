@@ -11796,7 +11796,8 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 
 		markup = markup.replace('{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.</div>');
 
-		markup = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["a" /* convertLinebreaksAsString */])(markup);
+		// Line break substitution must skip <script> tags.
+		markup = markup.replace(/(?!<script[^>]*?>)(?:\r\n|\r|\n)(?![^<]*?<\/script>)/g, '<br />');
 
 		if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
 			for (var i = 0; i <= toQueue.length; i++) {
@@ -61551,7 +61552,7 @@ function symbolObservablePonyfill(root) {
 
 "use strict";
 /* unused harmony export convertLinebreaks */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return convertLinebreaksAsString; });
+/* unused harmony export convertLinebreaksAsString */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 

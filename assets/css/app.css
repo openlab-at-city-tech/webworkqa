@@ -459,6 +459,11 @@ ul.question-list > li.question-unanswered {
 	border-color: #000;
 }
 
+.ww-question-list > ul > li.question-in-progress,
+ul.question-list > li.question-in-progress {
+	border-color: #476faf;
+}
+
 .ww-response {
 	padding-top: 10px;
 	position: relative;

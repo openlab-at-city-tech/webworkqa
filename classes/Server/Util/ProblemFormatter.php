@@ -56,6 +56,7 @@ class ProblemFormatter {
 		$text = $this->strip_inputs( $text );
 		$text = $this->swap_latex_escape_characters( $text );
 		$text = $this->convert_delims( $text );
+		$text = $this->remove_geogebra( $text );
 		$text = str_replace( '<span class="MathJax_Preview">[math]</span>', '', $text );
 
 		$text = trim( $text );
@@ -89,7 +90,6 @@ class ProblemFormatter {
 
 		return $text;
 	}
-
 
 	public function strip_illegal_markup( $text, $allowed_html_set = 'normal' ) {
 		$text = $this->remove_script_tags( $text, 'all' );
@@ -145,6 +145,11 @@ class ProblemFormatter {
 
 	public function remove_style_tags( $text ) {
 		$text = preg_replace( '|<style[^>]+>[^<]+</style>|s', '', $text );
+		return $text;
+	}
+
+	public function remove_geogebra( $text ) {
+		$text = preg_replace( '/<article class="geogebraweb".*?<\/article>/s', '{{{GEOGEBRA_PROBLEM}}}', $text );
 		return $text;
 	}
 

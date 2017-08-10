@@ -11744,6 +11744,8 @@ module.exports = exports['default'];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__ = __webpack_require__(785);
+
 
 
 
@@ -11793,6 +11795,8 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 		});
 
 		markup = markup.replace('{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.</div>');
+
+		markup = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["a" /* convertLinebreaksAsString */])(markup);
 
 		if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
 			for (var i = 0; i <= toQueue.length; i++) {
@@ -61539,6 +61543,36 @@ function symbolObservablePonyfill(root) {
   }
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
+
+
+/***/ }),
+/* 785 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export convertLinebreaks */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return convertLinebreaksAsString; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+const convertLinebreaks = text => {
+	let chunkKey = 0;
+	return text.split("\n").map(function (item) {
+		chunkKey++;
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'span',
+			{ key: 'chunk-' + chunkKey },
+			item,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null)
+		);
+	});
+};
+
+const convertLinebreaksAsString = text => {
+	return text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+};
+
 
 
 /***/ })

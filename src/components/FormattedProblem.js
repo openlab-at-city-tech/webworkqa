@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { convertLinebreaksAsString } from '../util/webwork-text-formatter.js'
 
 export default class FormattedProblem extends Component {
 	componentDidMount() {
@@ -47,6 +48,8 @@ export default class FormattedProblem extends Component {
 		} )
 
 		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.</div>' )
+
+		markup = convertLinebreaksAsString( markup )
 
 		if ( window.hasOwnProperty( 'MathJax' ) && window.MathJax.hasOwnProperty( 'Hub' ) ) {
 			for ( var i = 0; i <= toQueue.length; i++ ) {

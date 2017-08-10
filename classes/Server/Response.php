@@ -102,7 +102,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		}
 
 		$content = $this->pf->strip_illegal_markup( $content );
-		$content = $this->pf->convert_linebreaks( $content );
+		//$content = $this->pf->convert_linebreaks( $content );
 
 		return $content;
 	}

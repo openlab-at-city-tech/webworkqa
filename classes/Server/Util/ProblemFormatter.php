@@ -53,6 +53,7 @@ class ProblemFormatter {
 	public function clean_problem_from_webwork( $text, $data = array() ) {
 		$text = $this->remove_script_tags( $text );
 		$text = $this->remove_style_tags( $text );
+		$text = $this->remove_linebreaks_from_tags( $text );
 		$text = $this->strip_inputs( $text );
 		$text = $this->swap_latex_escape_characters( $text );
 		$text = $this->convert_delims( $text );
@@ -146,6 +147,10 @@ class ProblemFormatter {
 	public function remove_style_tags( $text ) {
 		$text = preg_replace( '|<style[^>]+>[^<]+</style>|s', '', $text );
 		return $text;
+	}
+
+	public function remove_linebreaks_from_tags( $text ) {
+		return preg_replace( '/<((?:a|img|p|br|b) [^>\n\r]*?)(?:\r\n|\r|\n)+([^>\n\r]*?)>/i', '<\1 \2 \3>', $text );
 	}
 
 	public function remove_geogebra( $text ) {

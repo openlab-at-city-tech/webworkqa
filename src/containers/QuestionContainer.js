@@ -58,7 +58,8 @@ const mapStateToProps = (state, ownProps) => {
 		responseIds,
 		responses,
 		userCanEdit,
-		userCanPostResponse: window.WWData.user_can_post_response > 0
+		userCanPostResponse: window.WWData.user_can_post_response > 0,
+		userCanSubscribe: window.WWData.user_can_post_response > 0
 	}
 }
 

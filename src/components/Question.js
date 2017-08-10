@@ -50,7 +50,8 @@ export default class Question extends Component {
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
 			onAccordionClick, onDeleteClick, onEditClick, onEditSaveClick,
-			onProblemSummaryClick, onRespondClick, onWaypointEnter
+			onProblemSummaryClick, onRespondClick, onWaypointEnter,
+			userCanSubscribe
 		} = this.props
 
 		const {
@@ -425,7 +426,7 @@ export default class Question extends Component {
 		}
 
 		let subscriptionElement
-		if ( isSingleProblem && ! isCollapsed ) {
+		if ( userCanSubscribe && isSingleProblem && ! isCollapsed ) {
 			subscriptionElement = (
 				<SubscriptionDialogContainer
 					itemId={itemId}

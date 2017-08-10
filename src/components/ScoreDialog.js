@@ -46,13 +46,18 @@ export default class ScoreDialog extends React.Component {
 
 		let voteElement
 
+		const voteButtonIsDisabled = ! userCanVote || ! isSingleProblem
+
 		const srElement = <span className="screen-reader-text">{voteText}</span>
 		voteElement = (
 			<button
-				disabled={! userCanVote}
+				disabled={voteButtonIsDisabled}
 				onClick={ (e) => {
 					e.preventDefault()
-					onVoteClick( itemId, ( vote === 'up' ) ? '' : 'up' )
+
+					if ( ! voteButtonIsDisabled ) {
+						onVoteClick( itemId, ( vote === 'up' ) ? '' : 'up' )
+					}
 				} }
 			>
 			{iconElement}

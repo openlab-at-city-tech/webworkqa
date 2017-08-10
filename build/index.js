@@ -37397,6 +37397,8 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 
 		let voteElement;
 
+		const voteButtonIsDisabled = !userCanVote || !isSingleProblem;
+
 		const srElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'span',
 			{ className: 'screen-reader-text' },
@@ -37405,10 +37407,13 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 		voteElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'button',
 			{
-				disabled: !userCanVote,
+				disabled: voteButtonIsDisabled,
 				onClick: e => {
 					e.preventDefault();
-					onVoteClick(itemId, vote === 'up' ? '' : 'up');
+
+					if (!voteButtonIsDisabled) {
+						onVoteClick(itemId, vote === 'up' ? '' : 'up');
+					}
 				}
 			},
 			iconElement,

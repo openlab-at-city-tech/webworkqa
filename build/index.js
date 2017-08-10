@@ -5858,7 +5858,7 @@ function sendQuestion(problemId, content, tried, problemText) {
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["l" /* addFeedbackMessage */])({
 				itemId: json.questionId,
 				type: 'success',
-				text: 'Thanks for your question. It has been posted, and you will receive an email notification when your question receives a response.'
+				text: 'Your question has been posted!\nYou will receive an email notification when your question receives a response.'
 			}));
 
 			// Remove the post_data_key param from the window location.
@@ -35978,7 +35978,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		if (initialLoadComplete && userCanPostResponse) {
-			const responseScrollElementName = 'response-form-' + itemId;
+			const responseScrollElementName = 'question-' + itemId;
 			__WEBPACK_IMPORTED_MODULE_1_react_scroll___default.a.scroller.scrollTo(responseScrollElementName, {
 				duration: 1000,
 				offset: -80, // for toolbar
@@ -36067,13 +36067,24 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		let thisFeedback;
 		if (feedback) {
 			for (var feedbackType in feedback) {
+				let chunkKey = 0;
+				thisFeedback = feedback[feedbackType].split("\n").map(function (item) {
+					chunkKey++;
+					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'span',
+						{ key: 'chunk-' + chunkKey },
+						item,
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null)
+					);
+				});
+
 				feedbackElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
 					{
 						key: feedbackType,
 						className: 'item-feedback item-feedback-' + feedbackType
 					},
-					feedback[feedbackType]
+					thisFeedback
 				));
 			}
 		}
@@ -36443,6 +36454,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						)
 					)
 				),
+				feedbackElements,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
 					{ className: 'ww-question-wrapper' },

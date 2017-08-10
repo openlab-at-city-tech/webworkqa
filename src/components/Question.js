@@ -24,7 +24,7 @@ export default class Question extends Component {
 		}
 
 		if ( initialLoadComplete && userCanPostResponse ) {
-			const responseScrollElementName = 'response-form-' + itemId
+			const responseScrollElementName = 'question-' + itemId
 			Scroll.scroller.scrollTo( responseScrollElementName, {
 				duration: 1000,
 				offset: -80, // for toolbar
@@ -110,12 +110,23 @@ export default class Question extends Component {
 		let thisFeedback
 		if ( feedback ) {
 			for ( var feedbackType in feedback ) {
+				let chunkKey = 0
+				thisFeedback = feedback[feedbackType].split( "\n" ).map( function(item) {
+					chunkKey++
+					return (
+						<span key={'chunk-' + chunkKey}>
+							{item}
+							<br/>
+						</span>
+					)
+				} )
+
 				feedbackElements.push(
 					<div
 						key={feedbackType}
 						className={'item-feedback item-feedback-' + feedbackType}
 					>
-						{feedback[ feedbackType ]}
+						{thisFeedback}
 					</div>
 				)
 			}
@@ -449,6 +460,8 @@ export default class Question extends Component {
 						</a>
 
 					</div>
+
+					{feedbackElements}
 
 					<div className="ww-question-wrapper">
 						<div className="ww-author-avatar">

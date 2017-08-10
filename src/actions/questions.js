@@ -263,7 +263,7 @@ export function sendQuestion( problemId, content, tried, problemText ) {
 			dispatch( addFeedbackMessage( {
 				itemId: json.questionId,
 				type: 'success',
-				text: 'Thanks for your question. It has been posted, and you will receive an email notification when your question receives a response.'
+				text: 'Your question has been posted!\nYou will receive an email notification when your question receives a response.'
 			} ) )
 
 			// Remove the post_data_key param from the window location.

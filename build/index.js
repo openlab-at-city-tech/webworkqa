@@ -4541,10 +4541,10 @@ return hooks;
 /***/ (function(module, exports, __webpack_require__) {
 
 var global    = __webpack_require__(6)
-  , core      = __webpack_require__(41)
+  , core      = __webpack_require__(42)
   , hide      = __webpack_require__(23)
   , redefine  = __webpack_require__(24)
-  , ctx       = __webpack_require__(42)
+  , ctx       = __webpack_require__(43)
   , PROTOTYPE = 'prototype';
 
 var $export = function(type, name, source){
@@ -5970,7 +5970,7 @@ var global    = __webpack_require__(6)
   , $toString = Function[TO_STRING]
   , TPL       = ('' + $toString).split(TO_STRING);
 
-__webpack_require__(41).inspectSource = function(it){
+__webpack_require__(42).inspectSource = function(it){
   return $toString.call(it);
 };
 
@@ -6605,7 +6605,7 @@ module.exports = emptyFunction;
 // 4 -> Array#every
 // 5 -> Array#find
 // 6 -> Array#findIndex
-var ctx      = __webpack_require__(42)
+var ctx      = __webpack_require__(43)
   , IObject  = __webpack_require__(78)
   , toObject = __webpack_require__(19)
   , toLength = __webpack_require__(17)
@@ -6649,7 +6649,7 @@ module.exports = function(TYPE, $create){
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(1)
-  , core    = __webpack_require__(41)
+  , core    = __webpack_require__(42)
   , fails   = __webpack_require__(7);
 module.exports = function(KEY, exec){
   var fn  = (core.Object || {})[KEY] || Object[KEY]
@@ -6967,13 +6967,247 @@ module.exports = ReactCurrentOwner;
 
 /***/ }),
 /* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["e"] = sendResponse;
+/* harmony export (immutable) */ __webpack_exports__["f"] = deleteResponse;
+/* harmony export (immutable) */ __webpack_exports__["g"] = clickAnswered;
+/* harmony export (immutable) */ __webpack_exports__["h"] = updateResponse;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__questions__ = __webpack_require__(20);
+
+
+
+
+const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
+/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_RESPONSE;
+
+const receiveResponse = response => {
+	return {
+		type: RECEIVE_RESPONSE,
+		payload: response
+	};
+};
+
+const RECEIVE_RESPONSES = 'RECEIVE_RESPONSES';
+/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_RESPONSES;
+
+const receiveResponses = responses => {
+	return {
+		type: RECEIVE_RESPONSES,
+		payload: responses
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = receiveResponses;
+
+
+const RECEIVE_RESPONSE_ID_MAP = 'RECEIVE_RESPONSE_ID_MAP';
+/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_RESPONSE_ID_MAP;
+
+const receiveResponseIdMap = responseIdMap => {
+	return {
+		type: RECEIVE_RESPONSE_ID_MAP,
+		payload: responseIdMap
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = receiveResponseIdMap;
+
+
+const RECEIVE_RESPONSE_ID_FOR_MAP = 'RECEIVE_RESPONSE_ID_FOR_MAP';
+/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_RESPONSE_ID_FOR_MAP;
+
+const receiveResponseIdForMap = (responseId, questionId) => {
+	return {
+		type: RECEIVE_RESPONSE_ID_FOR_MAP,
+		payload: {
+			responseId,
+			questionId
+		}
+	};
+};
+/* unused harmony export receiveResponseIdForMap */
+
+
+const REMOVE_RESPONSE = 'REMOVE_RESPONSE';
+/* harmony export (immutable) */ __webpack_exports__["k"] = REMOVE_RESPONSE;
+
+const removeResponse = (responseId, questionId) => {
+	return {
+		type: REMOVE_RESPONSE,
+		payload: {
+			responseId,
+			questionId
+		}
+	};
+};
+/* unused harmony export removeResponse */
+
+
+function sendResponseAnswered(responseId, isAnswered) {
+	return (dispatch, getState) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const endpoint = rest_api_endpoint + 'responses/' + responseId;
+
+		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				is_answer: isAnswered
+			})
+		}).then(response => response.json()).then(json => {
+			const { questionId } = json;
+			const state = getState();
+
+			const newQuestion = Object.assign({}, state.questions[questionId], {
+				hasAnswer: isAnswered
+			});
+
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["e" /* receiveQuestion */])(newQuestion));
+		});
+	};
+}
+
+const SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED';
+/* harmony export (immutable) */ __webpack_exports__["l"] = SET_RESPONSE_ANSWERED;
+
+const setResponseAnswered = (responseId, isAnswered) => {
+	return {
+		type: SET_RESPONSE_ANSWERED,
+		payload: {
+			responseId,
+			isAnswered
+		}
+	};
+};
+
+const SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING';
+/* harmony export (immutable) */ __webpack_exports__["o"] = SET_RESPONSE_PENDING;
+
+const setResponsePending = (questionId, isPending) => {
+	return {
+		type: SET_RESPONSE_PENDING,
+		payload: {
+			questionId,
+			isPending
+		}
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["d"] = setResponsePending;
+
+
+const SET_RESPONSES_PENDING_BULK = 'SET_RESPONSES_PENDING_BULK';
+/* harmony export (immutable) */ __webpack_exports__["p"] = SET_RESPONSES_PENDING_BULK;
+
+const setResponsesPendingBulk = pending => {
+	return {
+		type: SET_RESPONSES_PENDING_BULK,
+		payload: pending
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = setResponsesPendingBulk;
+
+
+function sendResponse(questionId, value) {
+	return dispatch => {
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const endpoint = rest_api_endpoint + 'responses/';
+
+		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				client_url: page_base,
+				client_name: client_name,
+				question_id: questionId,
+				value: value
+			})
+		}).then(response => response.json()).then(json => {
+			dispatch(receiveResponse(json));
+			dispatch(receiveResponseIdForMap(json.responseId, questionId));
+			dispatch(setResponsePending(questionId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + questionId, 'content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + json.responseId, 'content', value));
+			// todo - handle errors
+		});
+	};
+}
+
+function deleteResponse(responseId) {
+	return (dispatch, getState) => {
+		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const endpoint = rest_api_endpoint + 'responses/' + responseId;
+
+		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
+			method: 'DELETE',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			}
+		}).then(response => response.json()).then(json => {
+			const state = getState();
+
+			const questionId = state.responses[responseId].questionId;
+
+			dispatch(removeResponse(responseId, questionId));
+		});
+	};
+}
+
+function clickAnswered(responseId, isAnswered) {
+	return dispatch => {
+		dispatch(sendResponseAnswered(responseId, isAnswered));
+		dispatch(setResponseAnswered(responseId, isAnswered));
+	};
+}
+
+function updateResponse(responseId) {
+	return (dispatch, getState) => {
+		const { formData } = getState();
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
+
+		let endpoint = rest_api_endpoint + 'responses/' + responseId;
+
+		const responseData = formData['response-' + responseId];
+
+		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
+			method: 'POST',
+			credentials: 'same-origin',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-WP-Nonce': rest_api_nonce
+			},
+			body: JSON.stringify({
+				content: responseData.content
+			})
+		}).then(requestResponse => requestResponse.json()).then(json => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(responseId, false));
+			dispatch(receiveResponse(json));
+		});
+	};
+}
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports) {
 
 var core = module.exports = {version: '2.4.0'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
@@ -6998,7 +7232,7 @@ module.exports = function(fn, that, length){
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Map     = __webpack_require__(194)
@@ -7054,7 +7288,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7066,7 +7300,7 @@ if(__webpack_require__(13)){
     , $export             = __webpack_require__(1)
     , $typed              = __webpack_require__(97)
     , $buffer             = __webpack_require__(136)
-    , ctx                 = __webpack_require__(42)
+    , ctx                 = __webpack_require__(43)
     , anInstance          = __webpack_require__(52)
     , propertyDesc        = __webpack_require__(48)
     , hide                = __webpack_require__(23)
@@ -7539,7 +7773,7 @@ if(__webpack_require__(13)){
 } else module.exports = function(){ /* empty */ };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7807,240 +8041,6 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
     var warningCondition = false;
      true ? warning(warningCondition, "This synthetic event is reused for performance reasons. If you're seeing this, " + "you're %s `%s` on a released/nullified synthetic event. %s. " + 'If you must keep the original synthetic event around, use event.persist(). ' + 'See https://fb.me/react-event-pooling for more information.', action, propName, result) : void 0;
   }
-}
-
-/***/ }),
-/* 46 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["e"] = sendResponse;
-/* harmony export (immutable) */ __webpack_exports__["f"] = deleteResponse;
-/* harmony export (immutable) */ __webpack_exports__["g"] = clickAnswered;
-/* harmony export (immutable) */ __webpack_exports__["h"] = updateResponse;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__questions__ = __webpack_require__(20);
-
-
-
-
-const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
-/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_RESPONSE;
-
-const receiveResponse = response => {
-	return {
-		type: RECEIVE_RESPONSE,
-		payload: response
-	};
-};
-
-const RECEIVE_RESPONSES = 'RECEIVE_RESPONSES';
-/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_RESPONSES;
-
-const receiveResponses = responses => {
-	return {
-		type: RECEIVE_RESPONSES,
-		payload: responses
-	};
-};
-/* harmony export (immutable) */ __webpack_exports__["c"] = receiveResponses;
-
-
-const RECEIVE_RESPONSE_ID_MAP = 'RECEIVE_RESPONSE_ID_MAP';
-/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_RESPONSE_ID_MAP;
-
-const receiveResponseIdMap = responseIdMap => {
-	return {
-		type: RECEIVE_RESPONSE_ID_MAP,
-		payload: responseIdMap
-	};
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = receiveResponseIdMap;
-
-
-const RECEIVE_RESPONSE_ID_FOR_MAP = 'RECEIVE_RESPONSE_ID_FOR_MAP';
-/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_RESPONSE_ID_FOR_MAP;
-
-const receiveResponseIdForMap = (responseId, questionId) => {
-	return {
-		type: RECEIVE_RESPONSE_ID_FOR_MAP,
-		payload: {
-			responseId,
-			questionId
-		}
-	};
-};
-/* unused harmony export receiveResponseIdForMap */
-
-
-const REMOVE_RESPONSE = 'REMOVE_RESPONSE';
-/* harmony export (immutable) */ __webpack_exports__["k"] = REMOVE_RESPONSE;
-
-const removeResponse = (responseId, questionId) => {
-	return {
-		type: REMOVE_RESPONSE,
-		payload: {
-			responseId,
-			questionId
-		}
-	};
-};
-/* unused harmony export removeResponse */
-
-
-function sendResponseAnswered(responseId, isAnswered) {
-	return (dispatch, getState) => {
-		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
-		const endpoint = rest_api_endpoint + 'responses/' + responseId;
-
-		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
-			method: 'POST',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': rest_api_nonce
-			},
-			body: JSON.stringify({
-				is_answer: isAnswered
-			})
-		}).then(response => response.json()).then(json => {
-			const { questionId } = json;
-			const state = getState();
-
-			const newQuestion = Object.assign({}, state.questions[questionId], {
-				hasAnswer: isAnswered
-			});
-
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["e" /* receiveQuestion */])(newQuestion));
-		});
-	};
-}
-
-const SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED';
-/* harmony export (immutable) */ __webpack_exports__["l"] = SET_RESPONSE_ANSWERED;
-
-const setResponseAnswered = (responseId, isAnswered) => {
-	return {
-		type: SET_RESPONSE_ANSWERED,
-		payload: {
-			responseId,
-			isAnswered
-		}
-	};
-};
-
-const SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["o"] = SET_RESPONSE_PENDING;
-
-const setResponsePending = (questionId, isPending) => {
-	return {
-		type: SET_RESPONSE_PENDING,
-		payload: {
-			questionId,
-			isPending
-		}
-	};
-};
-/* harmony export (immutable) */ __webpack_exports__["d"] = setResponsePending;
-
-
-const SET_RESPONSES_PENDING_BULK = 'SET_RESPONSES_PENDING_BULK';
-/* harmony export (immutable) */ __webpack_exports__["p"] = SET_RESPONSES_PENDING_BULK;
-
-const setResponsesPendingBulk = pending => {
-	return {
-		type: SET_RESPONSES_PENDING_BULK,
-		payload: pending
-	};
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = setResponsesPendingBulk;
-
-
-function sendResponse(questionId, value) {
-	return dispatch => {
-		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
-		const endpoint = rest_api_endpoint + 'responses/';
-
-		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
-			method: 'POST',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': rest_api_nonce
-			},
-			body: JSON.stringify({
-				client_url: page_base,
-				client_name: client_name,
-				question_id: questionId,
-				value: value
-			})
-		}).then(response => response.json()).then(json => {
-			dispatch(receiveResponse(json));
-			dispatch(receiveResponseIdForMap(json.responseId, questionId));
-			dispatch(setResponsePending(questionId, false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + questionId, 'content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + json.responseId, 'content', value));
-			// todo - handle errors
-		});
-	};
-}
-
-function deleteResponse(responseId) {
-	return (dispatch, getState) => {
-		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
-		const endpoint = rest_api_endpoint + 'responses/' + responseId;
-
-		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
-			method: 'DELETE',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': rest_api_nonce
-			}
-		}).then(response => response.json()).then(json => {
-			const state = getState();
-
-			const questionId = state.responses[responseId].questionId;
-
-			dispatch(removeResponse(responseId, questionId));
-		});
-	};
-}
-
-function clickAnswered(responseId, isAnswered) {
-	return dispatch => {
-		dispatch(sendResponseAnswered(responseId, isAnswered));
-		dispatch(setResponseAnswered(responseId, isAnswered));
-	};
-}
-
-function updateResponse(responseId) {
-	return (dispatch, getState) => {
-		const { formData } = getState();
-		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
-
-		let endpoint = rest_api_endpoint + 'responses/' + responseId;
-
-		const responseData = formData['response-' + responseId];
-
-		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
-			method: 'POST',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': rest_api_nonce
-			},
-			body: JSON.stringify({
-				content: responseData.content
-			})
-		}).then(requestResponse => requestResponse.json()).then(json => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(responseId, false));
-			dispatch(receiveResponse(json));
-		});
-	};
 }
 
 /***/ }),
@@ -9039,7 +9039,7 @@ module.exports = function(key){
 /* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx         = __webpack_require__(42)
+var ctx         = __webpack_require__(43)
   , call        = __webpack_require__(180)
   , isArrayIter = __webpack_require__(121)
   , anObject    = __webpack_require__(5)
@@ -9677,7 +9677,7 @@ module.exports = __webpack_require__(666);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__questions__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__responses__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__scores__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__votes__ = __webpack_require__(113);
 
@@ -10440,7 +10440,7 @@ module.exports = ReactInstanceMap;
 
 
 
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 var getEventTarget = __webpack_require__(154);
 
@@ -14517,7 +14517,7 @@ module.exports = {
   set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
     function(test, buggy, set){
       try {
-        set = __webpack_require__(42)(Function.call, __webpack_require__(28).f(Object.prototype, '__proto__').set, 2);
+        set = __webpack_require__(43)(Function.call, __webpack_require__(28).f(Object.prototype, '__proto__').set, 2);
         set(test, []);
         buggy = !(test instanceof Array);
       } catch(e){ buggy = true; }
@@ -14618,7 +14618,7 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx                = __webpack_require__(42)
+var ctx                = __webpack_require__(43)
   , invoke             = __webpack_require__(91)
   , html               = __webpack_require__(119)
   , cel                = __webpack_require__(116)
@@ -14978,7 +14978,7 @@ exports[DATA_VIEW] = $DataView;
 /***/ (function(module, exports, __webpack_require__) {
 
 var global         = __webpack_require__(6)
-  , core           = __webpack_require__(41)
+  , core           = __webpack_require__(42)
   , LIBRARY        = __webpack_require__(53)
   , wksExt         = __webpack_require__(193)
   , defineProperty = __webpack_require__(14).f;
@@ -14994,7 +14994,7 @@ module.exports = function(name){
 var classof   = __webpack_require__(77)
   , ITERATOR  = __webpack_require__(12)('iterator')
   , Iterators = __webpack_require__(65);
-module.exports = __webpack_require__(41).getIteratorMethod = function(it){
+module.exports = __webpack_require__(42).getIteratorMethod = function(it){
   if(it != undefined)return it[ITERATOR]
     || it['@@iterator']
     || Iterators[classof(it)];
@@ -17417,7 +17417,7 @@ function warning(message) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_EditSaveButton__ = __webpack_require__(374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_app__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_questions__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_responses__ = __webpack_require__(41);
 
 
 
@@ -17637,7 +17637,7 @@ const QuestionSortDropdownContainer = __webpack_require__.i(__WEBPACK_IMPORTED_M
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ResponseForm__ = __webpack_require__(387);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_app__ = __webpack_require__(11);
 
 
@@ -17897,7 +17897,7 @@ module.exports = Function.bind || function bind(that /*, args... */){
 var dP          = __webpack_require__(14).f
   , create      = __webpack_require__(54)
   , redefineAll = __webpack_require__(57)
-  , ctx         = __webpack_require__(42)
+  , ctx         = __webpack_require__(43)
   , anInstance  = __webpack_require__(52)
   , defined     = __webpack_require__(33)
   , forOf       = __webpack_require__(64)
@@ -37679,7 +37679,7 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_AnsweredDialog__ = __webpack_require__(372);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(41);
 
 
 
@@ -37968,7 +37968,7 @@ const QuestionListContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_app__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Response__ = __webpack_require__(386);
 
 
@@ -38407,6 +38407,15 @@ function formData(state = {}, action) {
 				isPending: action.payload.isPending
 			});
 
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["p" /* RECEIVE_QUESTION */]:
+			const newQuestion = {
+				content: action.payload.content,
+				tried: action.payload.tried
+			};
+			return Object.assign({}, state, {
+				['question-' + action.payload.questionId]: newQuestion
+			});
+
 		default:
 			return state;
 	}
@@ -38549,7 +38558,7 @@ function problems(state = {}, action) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = questions;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_questions__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_responses__ = __webpack_require__(41);
 
 
 
@@ -38629,7 +38638,7 @@ function questionsById(state = [], action) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = responseFormPending;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_responses__ = __webpack_require__(41);
 
 
 function responseFormPending(state = {}, action) {
@@ -38655,7 +38664,7 @@ function responseFormPending(state = {}, action) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = responseIdMap;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_responses__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_questions__ = __webpack_require__(20);
 
 
@@ -38709,7 +38718,7 @@ function responseIdMap(state = {}, action) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = responses;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_responses__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_responses__ = __webpack_require__(41);
 
 
 function responses(state = {}, action) {
@@ -39235,7 +39244,7 @@ function normalizeEventOptions(eventOptions) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(441);
-module.exports = __webpack_require__(41).RegExp.escape;
+module.exports = __webpack_require__(42).RegExp.escape;
 
 /***/ }),
 /* 433 */
@@ -39495,7 +39504,7 @@ $export($export.P + $export.F * !STRICT, 'Array', {
 
 "use strict";
 
-var ctx            = __webpack_require__(42)
+var ctx            = __webpack_require__(43)
   , $export        = __webpack_require__(1)
   , toObject       = __webpack_require__(19)
   , call           = __webpack_require__(180)
@@ -40731,7 +40740,7 @@ $export($export.G + $export.F * (parseInt != $parseInt), {parseInt: $parseInt});
 
 var LIBRARY            = __webpack_require__(53)
   , global             = __webpack_require__(6)
-  , ctx                = __webpack_require__(42)
+  , ctx                = __webpack_require__(43)
   , classof            = __webpack_require__(77)
   , $export            = __webpack_require__(1)
   , isObject           = __webpack_require__(9)
@@ -40960,7 +40969,7 @@ if(!USE_NATIVE){
 $export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
 __webpack_require__(66)($Promise, PROMISE);
 __webpack_require__(58)(PROMISE);
-Wrapper = __webpack_require__(41)[PROMISE];
+Wrapper = __webpack_require__(42)[PROMISE];
 
 // statics
 $export($export.S + $export.F * !USE_NATIVE, PROMISE, {
@@ -42204,7 +42213,7 @@ $export($export.G + $export.W + $export.F * !__webpack_require__(97).ABV, {
 /* 564 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Float32', 4, function(init){
+__webpack_require__(45)('Float32', 4, function(init){
   return function Float32Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42214,7 +42223,7 @@ __webpack_require__(44)('Float32', 4, function(init){
 /* 565 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Float64', 8, function(init){
+__webpack_require__(45)('Float64', 8, function(init){
   return function Float64Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42224,7 +42233,7 @@ __webpack_require__(44)('Float64', 8, function(init){
 /* 566 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Int16', 2, function(init){
+__webpack_require__(45)('Int16', 2, function(init){
   return function Int16Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42234,7 +42243,7 @@ __webpack_require__(44)('Int16', 2, function(init){
 /* 567 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Int32', 4, function(init){
+__webpack_require__(45)('Int32', 4, function(init){
   return function Int32Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42244,7 +42253,7 @@ __webpack_require__(44)('Int32', 4, function(init){
 /* 568 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Int8', 1, function(init){
+__webpack_require__(45)('Int8', 1, function(init){
   return function Int8Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42254,7 +42263,7 @@ __webpack_require__(44)('Int8', 1, function(init){
 /* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Uint16', 2, function(init){
+__webpack_require__(45)('Uint16', 2, function(init){
   return function Uint16Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42264,7 +42273,7 @@ __webpack_require__(44)('Uint16', 2, function(init){
 /* 570 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Uint32', 4, function(init){
+__webpack_require__(45)('Uint32', 4, function(init){
   return function Uint32Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42274,7 +42283,7 @@ __webpack_require__(44)('Uint32', 4, function(init){
 /* 571 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Uint8', 1, function(init){
+__webpack_require__(45)('Uint8', 1, function(init){
   return function Uint8Array(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42284,7 +42293,7 @@ __webpack_require__(44)('Uint8', 1, function(init){
 /* 572 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44)('Uint8', 1, function(init){
+__webpack_require__(45)('Uint8', 1, function(init){
   return function Uint8ClampedArray(data, byteOffset, length){
     return init(this, data, byteOffset, length);
   };
@@ -42585,7 +42594,7 @@ $export($export.S, 'Object', {
 // https://github.com/zenparsing/es-observable
 var $export     = __webpack_require__(1)
   , global      = __webpack_require__(6)
-  , core        = __webpack_require__(41)
+  , core        = __webpack_require__(42)
   , microtask   = __webpack_require__(127)()
   , OBSERVABLE  = __webpack_require__(12)('observable')
   , aFunction   = __webpack_require__(22)
@@ -42785,7 +42794,7 @@ __webpack_require__(58)('Observable');
 /* 590 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata                  = __webpack_require__(43)
+var metadata                  = __webpack_require__(44)
   , anObject                  = __webpack_require__(5)
   , toMetaKey                 = metadata.key
   , ordinaryDefineOwnMetadata = metadata.set;
@@ -42798,7 +42807,7 @@ metadata.exp({defineMetadata: function defineMetadata(metadataKey, metadataValue
 /* 591 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(43)
+var metadata               = __webpack_require__(44)
   , anObject               = __webpack_require__(5)
   , toMetaKey              = metadata.key
   , getOrCreateMetadataMap = metadata.map
@@ -42820,7 +42829,7 @@ metadata.exp({deleteMetadata: function deleteMetadata(metadataKey, target /*, ta
 
 var Set                     = __webpack_require__(196)
   , from                    = __webpack_require__(172)
-  , metadata                = __webpack_require__(43)
+  , metadata                = __webpack_require__(44)
   , anObject                = __webpack_require__(5)
   , getPrototypeOf          = __webpack_require__(29)
   , ordinaryOwnMetadataKeys = metadata.keys
@@ -42842,7 +42851,7 @@ metadata.exp({getMetadataKeys: function getMetadataKeys(target /*, targetKey */)
 /* 593 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(43)
+var metadata               = __webpack_require__(44)
   , anObject               = __webpack_require__(5)
   , getPrototypeOf         = __webpack_require__(29)
   , ordinaryHasOwnMetadata = metadata.has
@@ -42864,7 +42873,7 @@ metadata.exp({getMetadata: function getMetadata(metadataKey, target /*, targetKe
 /* 594 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata                = __webpack_require__(43)
+var metadata                = __webpack_require__(44)
   , anObject                = __webpack_require__(5)
   , ordinaryOwnMetadataKeys = metadata.keys
   , toMetaKey               = metadata.key;
@@ -42877,7 +42886,7 @@ metadata.exp({getOwnMetadataKeys: function getOwnMetadataKeys(target /*, targetK
 /* 595 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(43)
+var metadata               = __webpack_require__(44)
   , anObject               = __webpack_require__(5)
   , ordinaryGetOwnMetadata = metadata.get
   , toMetaKey              = metadata.key;
@@ -42891,7 +42900,7 @@ metadata.exp({getOwnMetadata: function getOwnMetadata(metadataKey, target /*, ta
 /* 596 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(43)
+var metadata               = __webpack_require__(44)
   , anObject               = __webpack_require__(5)
   , getPrototypeOf         = __webpack_require__(29)
   , ordinaryHasOwnMetadata = metadata.has
@@ -42912,7 +42921,7 @@ metadata.exp({hasMetadata: function hasMetadata(metadataKey, target /*, targetKe
 /* 597 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata               = __webpack_require__(43)
+var metadata               = __webpack_require__(44)
   , anObject               = __webpack_require__(5)
   , ordinaryHasOwnMetadata = metadata.has
   , toMetaKey              = metadata.key;
@@ -42926,7 +42935,7 @@ metadata.exp({hasOwnMetadata: function hasOwnMetadata(metadataKey, target /*, ta
 /* 598 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var metadata                  = __webpack_require__(43)
+var metadata                  = __webpack_require__(44)
   , anObject                  = __webpack_require__(5)
   , aFunction                 = __webpack_require__(22)
   , toMetaKey                 = metadata.key
@@ -43324,7 +43333,7 @@ __webpack_require__(589);
 __webpack_require__(611);
 __webpack_require__(610);
 __webpack_require__(609);
-module.exports = __webpack_require__(41);
+module.exports = __webpack_require__(42);
 
 /***/ }),
 /* 613 */
@@ -46183,7 +46192,7 @@ var EventPropagators = __webpack_require__(81);
 var ExecutionEnvironment = __webpack_require__(18);
 var ReactDOMComponentTree = __webpack_require__(15);
 var ReactUpdates = __webpack_require__(39);
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 var inputValueTracking = __webpack_require__(344);
 var getEventTarget = __webpack_require__(154);
@@ -53138,7 +53147,7 @@ var EventPropagators = __webpack_require__(81);
 var ExecutionEnvironment = __webpack_require__(18);
 var ReactDOMComponentTree = __webpack_require__(15);
 var ReactInputSelection = __webpack_require__(335);
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 var getActiveElement = __webpack_require__(201);
 var isTextInputElement = __webpack_require__(346);
@@ -53335,7 +53344,7 @@ var EventPropagators = __webpack_require__(81);
 var ReactDOMComponentTree = __webpack_require__(15);
 var SyntheticAnimationEvent = __webpack_require__(702);
 var SyntheticClipboardEvent = __webpack_require__(703);
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 var SyntheticFocusEvent = __webpack_require__(706);
 var SyntheticKeyboardEvent = __webpack_require__(708);
 var SyntheticMouseEvent = __webpack_require__(104);
@@ -53558,7 +53567,7 @@ module.exports = SimpleEventPlugin;
 
 
 
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 /**
  * @interface Event
@@ -53602,7 +53611,7 @@ module.exports = SyntheticAnimationEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 /**
  * @interface Event
@@ -53645,7 +53654,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 /**
  * @interface Event
@@ -53768,7 +53777,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 /**
  * @interface Event
@@ -53949,7 +53958,7 @@ module.exports = SyntheticTouchEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(45);
+var SyntheticEvent = __webpack_require__(46);
 
 /**
  * @interface Event

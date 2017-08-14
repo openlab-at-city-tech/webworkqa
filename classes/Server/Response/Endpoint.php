@@ -134,7 +134,36 @@ class Endpoint extends \WP_Rest_Controller {
 	}
 
 	public function update_item_permissions_check( $request ) {
-		return $this->existing_item_permissions_check( $request );
+		if ( ! is_user_logged_in() ) {
+			return false;
+		}
+
+		$params = $request->get_params();
+		if ( ! isset( $params['id'] ) ) {
+			return false;
+		}
+
+		$response_id = $params['id'];
+		$response = new \WeBWorK\Server\Response( $response_id );
+
+		if ( ! $response->exists() ) {
+			return false;
+		}
+
+		if ( current_user_can( 'edit_others_posts' ) ) {
+			return true;
+		}
+
+		// 'is_answer' is only accessible by question author.
+		if ( isset( $params['is_answer'] ) ) {
+			$question_id = $response->get_question_id();
+			$question = get_post( $question_id );
+			return $question && get_current_user_id() == $question->post_author;
+		} else {
+			return get_current_user_id() == $response->get_author_id();
+		}
+
+		return false;
 	}
 
 	protected function existing_item_permissions_check( $request ) {

@@ -1,4 +1,5 @@
 import { RECEIVE_QUESTION, RECEIVE_QUESTIONS, REMOVE_QUESTION, RESET_QUESTIONS } from '../actions/questions'
+import { RECEIVE_RESPONSE_ID_FOR_MAP } from '../actions/responses'
 
 export function questions( state = {}, action ) {
 	switch ( action.type ) {
@@ -17,6 +18,14 @@ export function questions( state = {}, action ) {
 
 		case RESET_QUESTIONS :
 			return {}
+
+		case RECEIVE_RESPONSE_ID_FOR_MAP :
+			let newQuestion = Object.assign( {}, state[ action.payload.questionId ] )
+			newQuestion.responseCount++
+
+			return Object.assign( {}, state, {
+				[ action.payload.questionId ]: newQuestion
+			} )
 
 		default :
 			return state

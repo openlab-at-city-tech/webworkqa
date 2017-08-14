@@ -36099,7 +36099,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			}
 		}
 
-		const responseCount = responseIds.length;
+		const responseCount = question.responseCount;
 
 		let responseCountText;
 		if (1 == responseCount) {
@@ -38549,6 +38549,8 @@ function problems(state = {}, action) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = questions;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_questions__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_responses__ = __webpack_require__(46);
+
 
 
 function questions(state = {}, action) {
@@ -38568,6 +38570,14 @@ function questions(state = {}, action) {
 
 		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["r" /* RESET_QUESTIONS */]:
 			return {};
+
+		case __WEBPACK_IMPORTED_MODULE_1__actions_responses__["m" /* RECEIVE_RESPONSE_ID_FOR_MAP */]:
+			let newQuestion = Object.assign({}, state[action.payload.questionId]);
+			newQuestion.responseCount++;
+
+			return Object.assign({}, state, {
+				[action.payload.questionId]: newQuestion
+			});
 
 		default:
 			return state;

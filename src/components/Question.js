@@ -133,7 +133,7 @@ export default class Question extends Component {
 			}
 		}
 
-		const responseCount = responseIds.length
+		const responseCount = question.responseCount
 
 		let responseCountText
 		if ( 1 == responseCount ) {

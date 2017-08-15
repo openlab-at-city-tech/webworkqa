@@ -109,7 +109,7 @@ class Endpoint extends \WP_Rest_Controller {
 
 		// todo find a better way to do this
 		$scores = array();
-		foreach ( $questions_by_id as $qid ) {
+		foreach ( $response_ids as $qid ) {
 			$vq = new \WeBWork\Server\Vote\Query( array(
 				'item_id' => $qid,
 				'user_id__not_in' => array( get_current_user_id() ),

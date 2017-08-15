@@ -150,11 +150,13 @@ class Endpoint extends \WP_Rest_Controller {
 			return false;
 		}
 
-		if ( current_user_can( 'edit_others_posts' ) ) {
+		$user_is_admin = current_user_can( 'edit_others_posts' );
+		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+		if ( $user_is_admin ) {
 			return true;
 		}
 
-		// 'is_answer' is only accessible by question author.
+		// 'is_answer' is only accessible by question author or faculty member.
 		if ( isset( $params['is_answer'] ) ) {
 			$question_id = $response->get_question_id();
 			$question = get_post( $question_id );

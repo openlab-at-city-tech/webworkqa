@@ -29,6 +29,8 @@ class Client {
 		$route_base = get_option( 'home' );
 		$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
 
+		$server_site_id = apply_filters( 'webwork_server_site_id', 1 );
+
 		// @todo Centralize this logic.
 		$main_site_url = apply_filters( 'webwork_server_site_base', get_option( 'home' ) );
 		$rest_api_endpoint = set_url_scheme( trailingslashit( $main_site_url ) . 'wp-json/webwork/v1/' );
@@ -37,22 +39,30 @@ class Client {
 		$post_data = null;
 		$ww_problem_text = '';
 		if ( ! empty( $_GET['post_data_key'] ) ) {
-			$post_data = get_blog_option( 1, $_GET['post_data_key'] );
+			$post_data = get_blog_option( $server_site_id, $_GET['post_data_key'] );
 			//$ww_problem_text = base64_decode( $post_data['pg_object'] );
 		}
 
 		// @todo This is awful.
-		$clients = get_blog_option( 1, 'webwork_clients' );
+		$clients = get_blog_option( $server_site_id, 'webwork_clients' );
 		$remote_course_url = array_search( get_current_blog_id(), $clients );
 
 		$user_is_admin = current_user_can( 'edit_others_posts' );
 		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
 
 		// @todo Truly awful.
-		switch_to_blog( 1 );
+		$switched = false;
+		if ( get_current_blog_id() !== $server_site_id ) {
+			switch_to_blog( $server_site_id );
+			$switched = true;
+		}
+
 		$q = new \WeBWorK\Server\Question\Query();
 		$filter_options = $q->get_all_filter_options();
-		restore_current_blog();
+
+		if ( $switched ) {
+			restore_current_blog();
+		}
 
 		wp_localize_script( 'webwork-app', 'WWData', array(
 			'client_name' => get_option( 'blogname' ),

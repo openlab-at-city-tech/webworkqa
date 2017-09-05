@@ -24,6 +24,7 @@ export default class FormattedProblem extends Component {
 
 		markup = markup.replace( '&lt;', '<' )
 		markup = markup.replace( '&gt;', '>' )
+		markup = markup.replace( '&amp;', '&' )
 
 		markup = markup.replace( texRegExp, function( delim, mode, openOrClose ) {
 			if ( 'CLOSE' == openOrClose ) {

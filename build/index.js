@@ -11771,6 +11771,7 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 
 		markup = markup.replace('&lt;', '<');
 		markup = markup.replace('&gt;', '>');
+		markup = markup.replace('&amp;', '&');
 
 		markup = markup.replace(texRegExp, function (delim, mode, openOrClose) {
 			if ('CLOSE' == openOrClose) {

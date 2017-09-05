@@ -11769,9 +11769,11 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 		let markup = content;
 		let toQueue = [];
 
-		markup = markup.replace('&lt;', '<');
-		markup = markup.replace('&gt;', '>');
-		markup = markup.replace('&amp;', '&');
+		const replacements = [{ 'search': '&lt;', 'replace': '<' }, { 'search': '&gt;', 'replace': '>' }, { 'search': '&amp;', 'replace': '&' }];
+
+		for (let i in replacements) {
+			markup = markup.replace(new RegExp(replacements[i].search.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1"), 'g'), replacements[i].replace);
+		}
 
 		markup = markup.replace(texRegExp, function (delim, mode, openOrClose) {
 			if ('CLOSE' == openOrClose) {

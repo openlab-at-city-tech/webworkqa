@@ -3,10 +3,11 @@ import Select from 'react-select'
 
 export default class SidebarFilter extends Component {
 	render() {
-		const { slug } = this.props
+		const { slug, name } = this.props
 
 		const contentContainerId = slug + '-content'
 		const filterContent = this.getFilterContent()
+		const filterId = 'filter-' + slug
 
 		return (
 			<li>
@@ -14,6 +15,10 @@ export default class SidebarFilter extends Component {
 					id={contentContainerId}
 					className="filter-content"
 				>
+					<label htmlFor={filterId} className="screen-reader-text">
+						{name}	
+					</label>
+					
 					{filterContent}
 				</div>
 			</li>
@@ -66,6 +71,7 @@ export default class SidebarFilter extends Component {
 		return (
 			<Select
 				autoBlur={true}
+				id={filterName}
 				name={filterName}
 				value={value}
 				onChange={onFilterChange}

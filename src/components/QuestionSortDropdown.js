@@ -13,8 +13,14 @@ export default class QuestionSortDropdown extends Component {
 
 		return (
 			<div className='question-sort'>
+				<label
+					className='screen-reader-text'
+				  htmlFor='question-sort'
+				>Sort results by</label>
+
 				<Select
 				  autoBlur={true}
+				  id='question-sort'
 				  name='question-sort'
 				  value={orderby}
 				  onChange={onSortChange}

@@ -762,6 +762,11 @@ li.is-answer:before {
 	color: #000;
 }
 
+.ww-score.cannot-vote.has-no-votes,
+.ww-score.cannot-vote.has-no-votes button:disabled {
+	color: #4e4e4e;
+}
+
 .ww-score.can-vote.has-votes,
 .ww-score.can-vote.has-votes button:disabled i {
 	content: "\f164"; /* fa-thumbs-up */

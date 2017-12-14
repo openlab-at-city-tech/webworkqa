@@ -37714,8 +37714,17 @@ class QuestionSortDropdown extends __WEBPACK_IMPORTED_MODULE_0_react__["Componen
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: 'question-sort' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'label',
+				{
+					className: 'screen-reader-text',
+					htmlFor: 'question-sort'
+				},
+				'Sort results by'
+			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_select__["a" /* default */], {
 				autoBlur: true,
+				id: 'question-sort',
 				name: 'question-sort',
 				value: orderby,
 				onChange: onSortChange,

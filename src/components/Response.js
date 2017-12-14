@@ -133,10 +133,12 @@ export default class Response extends Component {
 			liClassName += ' is-editing'
 		}
 
+		const avatarAltText = 'Avatar of ' + authorName
+
 		return (
 			<li className={liClassName}>
 				<div className="ww-author-avatar">
-					<img src={authorAvatar} />
+					<img src={authorAvatar} alt={avatarAltText} />
 					<div className="response-user-type">{authorUserType}</div>
 				</div>
 

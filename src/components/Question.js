@@ -434,6 +434,8 @@ export default class Question extends Component {
 			)
 		}
 
+		const avatarAltText = 'Avatar of ' + authorName
+
 		return (
 			<li
 			  className={this.getClassName( isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion )}
@@ -466,7 +468,7 @@ export default class Question extends Component {
 
 					<div className="ww-question-wrapper">
 						<div className="ww-author-avatar">
-							<img src={authorAvatar} />
+							<img src={authorAvatar} alt={avatarAltText} />
 						</div>
 
 						<div>

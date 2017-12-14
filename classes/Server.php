@@ -67,9 +67,9 @@ class Server {
 	 */
 	public function catch_post() {
 		// @todo
-                if ( empty( $_GET['webwork'] ) || '1' != $_GET['webwork'] ) {
-                        return;
-                }
+		if ( empty( $_GET['webwork'] ) || '1' != $_GET['webwork'] ) {
+			return;
+		}
 
 		/**
 		 * Logic:

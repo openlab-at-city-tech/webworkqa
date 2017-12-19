@@ -451,6 +451,10 @@ To read and reply, visit %3$s.', 'webwork' ),
 	}
 
 	public function fetch_external_assets_for_text( $text ) {
+		if ( empty( $text ) ) {
+			return $text;
+		}
+
 		$d = new \DOMDocument();
 		$d->loadHTML( $text );
 
@@ -475,6 +479,9 @@ To read and reply, visit %3$s.', 'webwork' ),
 				}
 
 				$tmp = download_url( $src );
+				if ( is_wp_error( $tmp ) ) {
+					continue;
+				}
 
 				$file_array = array(
 					'tmp_name' => $tmp,
@@ -488,7 +495,7 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 				$sideload = wp_handle_sideload( $file_array, $overrides );
 
-				if ( ! is_wp_error( $sideload ) ) {
+				if ( ! is_wp_error( $sideload ) && ! empty( $sideload['url'] ) ) {
 					$fetched[ $src ] = $sideload['url'];
 				}
 			}

@@ -300,7 +300,7 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		wp_mkdir_p( $upload_dir['path'] );
 
 		$src = 'https://teleogistic.net/files/2016/09/output.gif';
-		$text = sprintf( 'Foo bar <img src="%s" /> foo bar', $src );
+		$text = sprintf( 'Foo bar <a href="%s"><img src="%s" /></a> foo bar', $src, $src );
 		$q->set_problem_text( $text );
 
 		$q->fetch_external_assets();

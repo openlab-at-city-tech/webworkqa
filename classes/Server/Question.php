@@ -499,6 +499,20 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 			$new_url = $fetched[ $src ];
 			$img->setAttribute( 'src', $new_url );
+
+			// If the parent node is a link pointing to the image URL, change that too.
+			if ( ! empty( $img->parentNode->tagName ) ) {
+				if ( 'a' !== $img->parentNode->tagName ) {
+					continue;
+				}
+
+				$href = $img->parentNode->getAttribute( 'href' );
+				if ( $href !== $src ) {
+					continue;
+				}
+
+				$img->parentNode->setAttribute( 'href', $new_url );
+			}
 		}
 
 		return $d->saveHTML();

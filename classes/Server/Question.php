@@ -442,4 +442,65 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 		return $user_ids;
 	}
+
+	/**
+	 * Parse question content for external items (like images), pull them to WP, and change internal refs.
+	 */
+	public function fetch_external_assets() {
+		$this->set_problem_text( $this->fetch_external_assets_for_text( $this->get_problem_text() ) );
+	}
+
+	public function fetch_external_assets_for_text( $text ) {
+		$d = new \DOMDocument();
+		$d->loadHTML( $text );
+
+		$imgs = $d->getElementsByTagName( 'img' );
+		$fetched = array();
+		foreach ( $imgs as $img ) {
+			$src = $img->getAttribute( 'src' );
+			if ( ! $src ) {
+				continue;
+			}
+
+			$src_domain  = parse_url( $src, PHP_URL_HOST );
+			$home_domain = parse_url( home_url(), PHP_URL_HOST );
+			if ( $src_domain === $home_domain ) {
+				continue;
+			}
+
+			// Only fetch if we haven't already done it.
+			if ( ! isset( $fetched[ $src ] ) ) {
+				if ( ! function_exists( 'download_url' ) ) {
+					require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				}
+
+				$tmp = download_url( $src );
+
+				$file_array = array(
+					'tmp_name' => $tmp,
+					'name' => basename( $src ),
+				);
+
+				$overrides = array(
+					'test_form' => false,
+					'test_size' => false,
+				);
+
+				$sideload = wp_handle_sideload( $file_array, $overrides );
+
+				if ( ! is_wp_error( $sideload ) ) {
+					$fetched[ $src ] = $sideload['url'];
+				}
+			}
+
+			if ( ! isset( $fetched[ $src ] ) ) {
+				continue;
+			}
+
+			$new_url = $fetched[ $src ];
+			$img->setAttribute( 'src', $new_url );
+		}
+
+		return $d->saveHTML();
+	}
 }

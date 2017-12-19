@@ -287,4 +287,48 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$expected = 'http://' . WP_TESTS_DOMAIN . '/#/problem/foo-bar/question-' . $q->get_id();
 		$this->assertSame( $expected, $q->get_url( 'http://' . WP_TESTS_DOMAIN ) );
 	}
+
+	public function test_fetch_external_assets_for_text() {
+		$q = self::factory()->question->create_and_get( array(
+			'problem_id' => 15,
+		) );
+
+		$upload_dir = wp_upload_dir();
+
+		// just in case
+		$this->deleteDir( $upload_dir['path'] );
+		wp_mkdir_p( $upload_dir['path'] );
+
+		$src = 'https://teleogistic.net/files/2016/09/output.gif';
+		$text = sprintf( 'Foo bar <img src="%s" /> foo bar', $src );
+		$q->set_problem_text( $text );
+
+		$q->fetch_external_assets();
+
+		$expected_url = str_replace( 'https://teleogistic.net/files/2016/09', $upload_dir['url'], $src );
+		$this->assertContains( $expected_url, $q->get_problem_text() );
+		$this->assertNotContains( $src, $q->get_problem_text() );
+		$this->assertFileExists( $upload_dir['path'] . '/' . basename( $src ) );
+	}
+
+	public static function deleteDir( $dir_path ) {
+		if ( ! is_dir( $dir_path ) ) {
+			throw new InvalidArgumentException( "$dir_path must be a directory" );
+		}
+
+		if ( substr( $dir_path, strlen( $dir_path ) - 1, 1 ) !== '/' ) {
+			$dir_path .= '/';
+		}
+
+		$files = glob( $dir_path . '*', GLOB_MARK );
+		foreach ( $files as $file ) {
+			if ( is_dir( $file ) ) {
+				self::deleteDir( $file );
+			} else {
+				unlink( $file );
+			}
+		}
+
+		rmdir( $dir_path );
+	}
 }

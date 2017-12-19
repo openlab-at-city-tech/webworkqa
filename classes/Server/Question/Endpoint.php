@@ -118,6 +118,9 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_client_url( $params['client_url'] );
 		$question->set_client_name( $params['client_name'] );
 
+		// Parse for external images and try to pull them in.
+		$question->fetch_external_assets();
+
 		if ( $question->save() ) {
 			$query = new Query( array(
 				'question_id' => $question->get_id(),

@@ -28,13 +28,24 @@
 	}
 
 	document.addEventListener('DOMContentLoaded', function(event){
+		var qs = document.location.search;
+		var isLogin = -1 !== document.body.className.indexOf( 'login' );
+
 		// Setter
-		var hash = document.location.hash;
-		if ( -1 !== hash.indexOf( ':problemId=' ) ) {
-			var matches = hash.match(/:problemId=([^\:]+)/);
+		if ( isLogin && -1 !== qs.indexOf( 'redirect_to' ) ) {
+			var matches = qs.match(/redirect_to=([^\&]+)/);
 			var problemId
 			if ( matches.length ) {
-				problemId = matches[1];
+				var parts = matches[1].split( '%3A' );
+				parts.forEach(function(part){
+					if ( 0 === part.indexOf( 'problemId' ) ) {
+						var decoded = decodeURIComponent( part );
+						var problemIdMatches = decoded.match( /problemId=([^\:]+)/ )
+						if ( problemIdMatches.length ) {
+							problemId = problemIdMatches[1]
+						}
+					}
+				})
 			}
 
 			if ( problemId ) {

@@ -21,6 +21,9 @@ class Server {
 		$this->schema = new Server\Schema();
 		$this->schema->init();
 
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_redirector_script' ) );
+		add_action( 'login_enqueue_scripts', array( $this, 'enqueue_redirector_script' ) );
+
 		// temp
 		$this->check_table();
 
@@ -318,5 +321,9 @@ class Server {
 
 	public function get_client_site_base() {
 		return set_url_scheme( apply_filters( 'webwork_client_site_base', get_option( 'home' ) ) );
+	}
+
+	public function enqueue_redirector_script() {
+		wp_enqueue_script( 'webwork-redirector' );
 	}
 }

@@ -93,6 +93,8 @@ class Loader {
 		);
 		//wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );
 
+		wp_register_script( 'webwork-redirector', WEBWORK_PLUGIN_URL . 'assets/js/webwork-redirector.js' );
+
 		// Styles.
 		wp_register_style( 'webwork-form-css', WEBWORK_PLUGIN_URL . 'assets/css/webwork-form.css' );
 	}

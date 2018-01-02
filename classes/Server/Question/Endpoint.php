@@ -84,7 +84,7 @@ class Endpoint extends \WP_Rest_Controller {
 			}
 
 			if ( isset( $problem_data['remote_problem_url'] ) ) {
-				$remote_class_url = $problem_data['remote_problem_url'];
+				$remote_problem_url = $problem_data['remote_problem_url'];
 			}
 
 			// Don't ever keep this data around.

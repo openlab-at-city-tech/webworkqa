@@ -9,6 +9,7 @@ namespace WeBWorK;
  */
 class Server {
 	protected $post_data;
+	protected $remote_problem_url;
 	protected $remote_class_url;
 	protected $webwork_user;
 

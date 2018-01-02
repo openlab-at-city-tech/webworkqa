@@ -17,6 +17,8 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $section;
 	protected $problem_text;
 	protected $client_url;
+	protected $remote_class_url;
+	protected $remote_problem_url;
 
 	protected $author_id;
 	protected $content;
@@ -92,6 +94,14 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function set_client_name( $client_name ) {
 		$this->client_name = $client_name;
+	}
+
+	public function set_remote_class_url( $remote_class_url ) {
+		$this->remote_class_url = $remote_class_url;
+	}
+
+	public function set_remote_problem_url( $remote_problem_url ) {
+		$this->remote_problem_url = $remote_problem_url;
 	}
 
 	public function get_id() {
@@ -171,6 +181,14 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function get_client_name() {
 		return $this->client_name;
+	}
+
+	public function get_remote_class_url() {
+		return $this->remote_class_url;
+	}
+
+	public function get_remote_problem_url() {
+		return $this->remote_problem_url;
 	}
 
 	/**
@@ -285,6 +303,9 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			$problem_text = $this->pf->swap_latex_escape_characters( $problem_text );
 			update_post_meta( $this->get_id(), 'webwork_problem_text', $problem_text );
 
+			update_post_meta( $this->get_id(), 'webwork_remote_class_url', $this->get_remote_class_url() );
+			update_post_meta( $this->get_id(), 'webwork_remote_problem_url', $this->get_remote_problem_url() );
+
 			// Refresh vote count.
 			$this->get_vote_count( true );
 
@@ -347,6 +368,12 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$problem_text = get_post_meta( $this->get_id(), 'webwork_problem_text', true );
 			$this->set_problem_text( $problem_text );
+
+			$remote_class_url = get_post_meta( $this->get_id(), 'webwork_remote_class_url', true );
+			$this->set_remote_class_url( $remote_class_url );
+
+			$remote_problem_url = get_post_meta( $this->get_id(), 'webwork_remote_problem_url', true );
+			$this->set_remote_problem_url( $remote_problem_url );
 		}
 	}
 

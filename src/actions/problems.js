@@ -54,9 +54,10 @@ export function fetchProblem( problemId ) {
 		dispatch( resetQuestionIds() )
 		dispatch( receiveResponseIdMap( {} ) )
 
-		const { rest_api_endpoint, rest_api_nonce } = window.WWData
+		const { page_base, rest_api_endpoint, rest_api_nonce } = window.WWData
 
 		let endpoint = rest_api_endpoint + 'problems/?problem_id=' + problemId
+
 		const { currentFilters, queryString } = getState()
 		const { post_data_key } = queryString
 
@@ -65,6 +66,7 @@ export function fetchProblem( problemId ) {
 		}
 
 		endpoint += '&orderby=' + currentFilters.orderby
+		endpoint += '&client_url=' + page_base
 
 		return fetch( endpoint,
 		{

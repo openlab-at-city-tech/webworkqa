@@ -257,6 +257,11 @@ ul.question-list > a {
 	padding: 40px;
 }
 
+.formatted-problem .question-swapped {
+	font-size: .8rem;
+	font-style: italic;
+}
+
 .geogebra-placeholder {
 	border: 1px solid #aaa;
 	font-size: .9rem;

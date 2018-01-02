@@ -12,7 +12,7 @@ export default class FormattedProblem extends Component {
 	}
 
 	render() {
-		const { isVisible, itemId, content } = this.props
+		const { isVisible, itemId, content, contentSwappedUrl } = this.props
 
 		if ( ! content ) {
 			return ( <span></span> )
@@ -64,6 +64,10 @@ export default class FormattedProblem extends Component {
 
 		// But don't allow many breaks in a row :(
 		markup = collapseLinebreaks( markup )
+
+		if ( contentSwappedUrl ) {
+			markup += '<div class="question-swapped">The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="' + contentSwappedUrl + '">another question in this thread</a>.</div>';
+		}
 
 		if ( window.hasOwnProperty( 'MathJax' ) && window.MathJax.hasOwnProperty( 'Hub' ) ) {
 			for ( var i = 0; i <= toQueue.length; i++ ) {

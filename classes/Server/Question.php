@@ -16,6 +16,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $course;
 	protected $section;
 	protected $problem_text;
+	protected $client_url;
 
 	protected $author_id;
 	protected $content;
@@ -441,6 +442,29 @@ To read and reply, visit %3$s.', 'webwork' ),
 		}
 
 		return $user_ids;
+	}
+
+	public function has_external_assets() {
+		$d = new \DOMDocument();
+		$d->loadHTML( $this->get_problem_text() );
+
+		$imgs = $d->getElementsByTagName( 'img' );
+		$has_external_assets = false;
+		foreach ( $imgs as $img ) {
+			$src = $img->getAttribute( 'src' );
+			if ( ! $src ) {
+				continue;
+			}
+
+			$src_domain  = parse_url( $src, PHP_URL_HOST );
+			$home_domain = parse_url( home_url(), PHP_URL_HOST );
+			if ( $src_domain !== $home_domain ) {
+				$has_external_assets = true;
+				break;
+			}
+		}
+
+		return $has_external_assets;
 	}
 
 	/**

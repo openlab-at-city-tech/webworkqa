@@ -29,6 +29,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$params = $request->get_params();
 
 		$problem_id = $params['problem_id'];
+		$client_url = isset( $params['client_url'] ) ? $params['client_url'] : '';
 
 		$post_data = array();
 		if ( isset( $params['post_data_key'] ) ) {
@@ -42,6 +43,7 @@ class Endpoint extends \WP_Rest_Controller {
 		) );
 		$questions = $question_query->get_for_endpoint();
 
+		$the_question = null;
 		if ( ! $questions && $post_data ) {
 			// Fake a problem from post data.
 			$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -54,6 +56,7 @@ class Endpoint extends \WP_Rest_Controller {
 				'problemId' => $problem_id,
 				'libraryId' => $problem_id,
 				'content' => $text,
+				'contentSwappedUrl' => '',
 				'problemSet' => $post_data['problem_set'],
 			);
 		} else {
@@ -72,10 +75,12 @@ class Endpoint extends \WP_Rest_Controller {
 			}
 
 			if ( $my_question && ! empty( $my_question['problemText'] ) ) {
+				$the_question = $my_question;
 				$problem = array(
 					'problemId' => $problem_id,
 					'libraryId' => $problem_id,
 					'content' => $my_question['problemText'],
+					'contentSwappedUrl' => '',
 					'problemSet' => $my_question['problemSet'],
 				);
 			} elseif ( ! empty( $questions ) ) {
@@ -85,10 +90,31 @@ class Endpoint extends \WP_Rest_Controller {
 					'problemId' => $problem_id,
 					'libraryId' => $problem_id,
 					'content' => $the_question['problemText'],
+					'contentSwappedUrl' => '',
 					'problemSet' => $the_question['problemSet'],
 				);
 			} else {
 				$problem = null;
+			}
+		}
+
+		/*
+		 * If the 'primary' question contains external assets, see if it's possible
+		 * to swap with a question that does *not*.
+		 */
+		if ( $the_question ) {
+			$swap_text = $swap_url = null;
+			$the_question_o = new \WeBWoRK\Server\Question( $the_question['questionId'] );
+			if ( $the_question_o->has_external_assets() ) {
+				foreach ( $questions as $question ) {
+					$question_o = new \WeBWoRK\Server\Question( $question['questionId'] );
+					if ( ! $question_o->has_external_assets() ) {
+						$swap_url = $question_o->get_url( $client_url );
+						$swap_text = $question_o->get_problem_text();
+						$problem['content'] = $swap_text;
+						$problem['contentSwappedUrl'] = $swap_url;
+					}
+				}
 			}
 		}
 

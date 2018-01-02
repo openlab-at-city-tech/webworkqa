@@ -11,7 +11,7 @@ export default class ProblemSummary extends Component {
 			)
 		}
 
-		const { content, libraryId, maths } = problem
+		const { content, contentSwappedUrl, libraryId, maths } = problem
 		const nbsp = '\u00a0'
 
 		const itemId = problemId.split( '/' ).join( '-' )
@@ -21,6 +21,7 @@ export default class ProblemSummary extends Component {
 				<FormattedProblem
 				  itemId={itemId}
 				  content={content}
+					contentSwappedUrl={contentSwappedUrl}
 				  maths={maths}
 				/>
 

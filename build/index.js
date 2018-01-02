@@ -9733,9 +9733,10 @@ function fetchProblem(problemId) {
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["b" /* resetQuestionIds */])());
 		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["a" /* receiveResponseIdMap */])({}));
 
-		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const { page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
 
 		let endpoint = rest_api_endpoint + 'problems/?problem_id=' + problemId;
+
 		const { currentFilters, queryString } = getState();
 		const { post_data_key } = queryString;
 
@@ -9744,6 +9745,7 @@ function fetchProblem(problemId) {
 		}
 
 		endpoint += '&orderby=' + currentFilters.orderby;
+		endpoint += '&client_url=' + page_base;
 
 		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
 			credentials: 'same-origin',
@@ -10484,7 +10486,7 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 	}
 
 	render() {
-		const { isVisible, itemId, content } = this.props;
+		const { isVisible, itemId, content, contentSwappedUrl } = this.props;
 
 		if (!content) {
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', null);
@@ -10529,6 +10531,10 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 
 		// But don't allow many breaks in a row :(
 		markup = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["a" /* collapseLinebreaks */])(markup);
+
+		if (contentSwappedUrl) {
+			markup += '<div class="question-swapped">The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="' + contentSwappedUrl + '">another question in this thread</a>.</div>';
+		}
 
 		if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
 			for (var i = 0; i <= toQueue.length; i++) {
@@ -36724,7 +36730,7 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'ww-problem-summary' });
 		}
 
-		const { content, libraryId, maths } = problem;
+		const { content, contentSwappedUrl, libraryId, maths } = problem;
 		const nbsp = '\u00a0';
 
 		const itemId = problemId.split('/').join('-');
@@ -36735,6 +36741,7 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__FormattedProblem__["a" /* default */], {
 				itemId: itemId,
 				content: content,
+				contentSwappedUrl: contentSwappedUrl,
 				maths: maths
 			}),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

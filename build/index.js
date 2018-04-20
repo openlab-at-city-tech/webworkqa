@@ -37372,6 +37372,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__ = __webpack_require__(772);
+
 
 
 
@@ -37382,29 +37384,6 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			problemId, problemText, problemHasQuestions, tried,
 			onAccordionClick, onTextareaChange, onQuestionFormSubmit
 		} = this.props;
-
-		let frame;
-
-		const onUploadClick = function () {
-			if (frame) {
-				frame.open();
-				return;
-			}
-			frame = wp.media({
-				title: 'Select or Upload Media Of Your Chosen Persuasion',
-				button: {
-					text: 'Use this media'
-				},
-				multiple: false // Set to true to allow multiple files to be selected
-			});
-
-			frame.on('router:render:browse', function (routerView) {
-				routerView.unset('browse');
-			}, frame);
-
-			frame.open();
-			console.log('congrats');
-		};
 
 		let formClassName = 'question-form';
 		if (isPending) {
@@ -37492,25 +37471,9 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						type: 'submit',
 						value: isPending ? 'Submitting...' : 'Submit'
 					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'a',
-						{
-							className: 'question-form-upload-button',
-							href: '#',
-							id: 'insert-media-button',
-							onClick: function (e) {
-								e.preventDefault();
-								onUploadClick();
-							},
-							value: 'Upload'
-						},
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-upload' }),
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-							'span',
-							{ className: 'screen-reader-text' },
-							'Upload'
-						)
-					)
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__["a" /* default */], {
+						itemId: '0'
+					})
 				)
 			)
 		);
@@ -62645,6 +62608,122 @@ function symbolObservablePonyfill(root) {
   }
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
+
+
+/***/ }),
+/* 772 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Uploader__ = __webpack_require__(773);
+
+
+
+const mapStateToProps = (state, ownProps) => {
+	const { collapsed, formData, questionsById } = state;
+	return {};
+	/*
+ return {
+ 	content,
+ 	isCollapsed,
+ 	isPending,
+ 	problemHasQuestions,
+ 	problemText,
+ 	tried
+ }
+ */
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	let frame;
+	return {
+		onUploadClick: () => {
+			if (frame) {
+				frame.open();
+				return;
+			}
+			frame = wp.media({
+				title: 'Attach Files',
+				button: {
+					text: 'Attach'
+				},
+				multiple: true
+			});
+
+			frame.on('router:render:browse', function (routerView) {
+				routerView.set({
+					upload: {
+						text: 'Upload Files',
+						priority: 20
+					},
+					browse: {
+						text: 'My Uploaded Files',
+						priority: 40
+					}
+				});
+			}, frame);
+
+			frame.open();
+			console.log('congrats');
+		},
+
+		onAccordionClick: () => {
+			dispatch(setCollapsed('questionForm'));
+		},
+
+		onQuestionFormSubmit: (e, content, tried, problemText) => {
+			e.preventDefault();
+			dispatch(setQuestionPending(true));
+			dispatch(sendQuestion(ownProps.problemId, content, tried, problemText));
+		}
+	};
+};
+
+const UploaderContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__components_Uploader__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (UploaderContainer);
+
+/***/ }),
+/* 773 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class Uploader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	render() {
+		const { onUploadClick } = this.props;
+
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			"div",
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				"a",
+				{
+					className: "question-form-upload-button",
+					href: "#",
+					id: "insert-media-button",
+					onClick: function (e) {
+						e.preventDefault();
+						onUploadClick();
+					},
+					value: "Upload"
+				},
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "fa fa-upload" }),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					"span",
+					{ className: "screen-reader-text" },
+					"Upload"
+				)
+			)
+		);
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Uploader;
 
 
 /***/ })

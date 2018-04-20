@@ -6,8 +6,31 @@ export default class QuestionForm extends Component {
 		const {
 			content, isCollapsed, isPending,
 			problemId, problemText, problemHasQuestions, tried,
-			onAccordionClick, onTextareaChange, onQuestionFormSubmit,
+			onAccordionClick, onTextareaChange, onQuestionFormSubmit
 		} = this.props
+
+		let frame
+
+		const onUploadClick = function() {
+			if ( frame ) {
+				frame.open()
+				return
+			}
+			frame = wp.media({
+				title: 'Select or Upload Media Of Your Chosen Persuasion',
+				button: {
+					text: 'Use this media'
+				},
+				multiple: false  // Set to true to allow multiple files to be selected
+			});
+
+			frame.on( 'router:render:browse', function( routerView ) {
+				routerView.unset( 'browse' )
+			}, frame )
+
+			frame.open()
+			console.log('congrats')
+		}
 
 		let formClassName = 'question-form'
 		if ( isPending ) {
@@ -90,6 +113,17 @@ export default class QuestionForm extends Component {
 						  type="submit"
 						  value={isPending ? 'Submitting...' : 'Submit'}
 						/>
+
+						<a
+							className="question-form-upload-button"
+							href="#"
+							id="insert-media-button"
+							onClick={function(e){
+								e.preventDefault()
+								onUploadClick()
+							}}
+							value="Upload"
+						><i className="fa fa-upload"></i><span className="screen-reader-text">Upload</span></a>
 					</div>
 				</form>
 			</div>

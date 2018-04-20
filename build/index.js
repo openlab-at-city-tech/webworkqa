@@ -37383,6 +37383,29 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			onAccordionClick, onTextareaChange, onQuestionFormSubmit
 		} = this.props;
 
+		let frame;
+
+		const onUploadClick = function () {
+			if (frame) {
+				frame.open();
+				return;
+			}
+			frame = wp.media({
+				title: 'Select or Upload Media Of Your Chosen Persuasion',
+				button: {
+					text: 'Use this media'
+				},
+				multiple: false // Set to true to allow multiple files to be selected
+			});
+
+			frame.on('router:render:browse', function (routerView) {
+				routerView.unset('browse');
+			}, frame);
+
+			frame.open();
+			console.log('congrats');
+		};
+
 		let formClassName = 'question-form';
 		if (isPending) {
 			formClassName += ' form-pending';
@@ -37468,7 +37491,26 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						disabled: isPending,
 						type: 'submit',
 						value: isPending ? 'Submitting...' : 'Submit'
-					})
+					}),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'a',
+						{
+							className: 'question-form-upload-button',
+							href: '#',
+							id: 'insert-media-button',
+							onClick: function (e) {
+								e.preventDefault();
+								onUploadClick();
+							},
+							value: 'Upload'
+						},
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-upload' }),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'span',
+							{ className: 'screen-reader-text' },
+							'Upload'
+						)
+					)
 				)
 			)
 		);

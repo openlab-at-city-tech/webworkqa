@@ -435,6 +435,10 @@ h3.ww-collapsible-section-header {
 	width: 100%;
 }
 
+.question-form-upload-button {
+	background: transparent;
+}
+
 .ww-ask-question-form {
 	margin: 16px 0 60px;
 	position: relative;

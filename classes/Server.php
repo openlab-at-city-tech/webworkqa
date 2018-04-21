@@ -47,6 +47,11 @@ class Server {
 		add_action( 'rest_api_init', array( $subscriptions_endpoint, 'register_routes' ) );
 
 		add_action( 'template_redirect', array( $this, 'catch_post' ) );
+
+		// Mods to default WP behavior to account for uploads.
+		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
+		add_filter( 'ajax_query_attachments_args', array( $this, 'filter_uploads_query_args' ) );
+//		add_action( 'wp_prepare_attachment_for_js', array( $this
 	}
 
 	private function check_table() {
@@ -326,5 +331,38 @@ class Server {
 
 	public function enqueue_redirector_script() {
 		wp_enqueue_script( 'webwork-redirector' );
+	}
+
+	/**
+	 * Give users the 'edit_post' and 'upload_files' cap, when appropriate
+	 *
+	 * @param array $caps The mapped caps
+	 * @param string $cap The cap being mapped
+	 * @param int $user_id The user id in question
+	 * @param $args
+	 * @return array $caps
+	 */
+	public static function map_meta_cap( $caps, $cap, $user_id, $args ) {
+		if ( 'upload_files' !== $cap ) {
+			return $caps;
+		}
+
+		$maybe_user = new \WP_User( $user_id );
+		if ( ! is_a( $maybe_user, 'WP_User' ) || empty( $maybe_user->ID ) ) {
+			return $caps;
+		}
+
+		// @todo Better filtering?
+		return array( 'exist' );
+	}
+
+	public function filter_uploads_query_args( $query ) {
+		if ( current_user_can( 'edit_posts' ) ) {
+			return $query;
+		}
+
+		$query['author'] = get_current_user_id();
+
+		return $query;
 	}
 }

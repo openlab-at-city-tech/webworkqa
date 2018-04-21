@@ -9827,7 +9827,6 @@ function fetchProblem(problemId) {
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__votes__["a" /* setVotesBulk */])(votes));
 
 				const defaultFormContent = {
-					attachments: {},
 					isPending: false,
 					content: '',
 					tried: ''
@@ -9837,6 +9836,7 @@ function fetchProblem(problemId) {
 				let newFormContent;
 				for (var j in json.questions) {
 					newFormContent = Object.assign({}, defaultFormContent);
+					newFormContent.attachments = {};
 
 					newFormContent.content = json.questions[j].content;
 					newFormContent.tried = json.questions[j].tried;
@@ -9846,6 +9846,7 @@ function fetchProblem(problemId) {
 
 				for (var k in json.responses) {
 					newFormContent = Object.assign({}, defaultFormContent);
+					newFormContent.attachments = {};
 
 					newFormContent.content = json.responses[k].content;
 
@@ -9853,6 +9854,7 @@ function fetchProblem(problemId) {
 				}
 
 				newFormData['question-form'] = Object.assign({}, defaultFormContent);
+				newFormData['question-form'].attachments = {};
 
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValues */])(newFormData));
 			}
@@ -39063,7 +39065,10 @@ const mapStateToProps = (state, ownProps) => {
 
 /*
  * @todo
- * - For new items, generate dummy item on server. Pass back dummy ID, and ensure it's sent when generating item. Then, copy over the attachments.
+ * - The WP uploader sends items to the *current* site, but WW config allows the site to be a different one in the network (and this is how my default environment and openlabdev are configured, though not the production site). Either (a) disable and untangle this feature, (b) find a way to make the WP uploader point to the webwork_server_site_id(), or (c) move the items to the correct place after upload.
+ * - Render `attachments` from store on front end during edit/display
+ * - During edit/create, send attachment IDs along with other formData. After submitting, switch post parent.
+ * - Send attachment IDs along with question
  * - For existing items, use the existing question/reply ID.
  * - Insert images?
  */
@@ -39116,7 +39121,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				uploaderView.uploader.success = function (attData) {
 					// get the attachment ID and add to the store
 					// from the store, build attachment list
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["o" /* addAttachment */])(ownProps.formId, attData));
+					//	dispatch( addAttachment( ownProps.formId, attData ) )
 				};
 			});
 
@@ -39386,31 +39391,27 @@ function filterOptions(state = window.WWData.filter_options, action) {
 
 
 function formData(state = {}, action) {
-	let newField, newState;
-
 	switch (action.type) {
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* ADD_ATTACHMENT */]:
 			const { formId, attData } = action.payload;
 
 			const attId = attData.id;
 
-			console.log(formId);
-			newField = Object.assign({}, state[formId]);
-			console.log(newField);
-			newField.attachments[attId] = attData;
+			let newFieldForAttachment = Object.assign({}, state[formId]);
+			newFieldForAttachment.attachments[attId] = attData;
 
-			newState = Object.assign({}, state);
-			newState[formId] = newField;
+			let newStateForAttachment = Object.assign({}, state);
+			newStateForAttachment[formId] = newFieldForAttachment;
 
-			return newState;
+			return newStateForAttachment;
 
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* SET_TEXTAREA_VALUE */]:
 			const { fieldId, fieldName, value } = action.payload;
 
-			newField = Object.assign({}, state[fieldId]);
+			let newField = Object.assign({}, state[fieldId]);
 			newField[fieldName] = value;
 
-			newState = Object.assign({}, state);
+			let newState = Object.assign({}, state);
 			newState[fieldId] = newField;
 
 			return newState;

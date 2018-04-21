@@ -2,31 +2,27 @@ import { SET_TEXTAREA_VALUE, SET_TEXTAREA_VALUES, ADD_ATTACHMENT } from '../acti
 import { RECEIVE_QUESTION, SET_QUESTION_PENDING } from '../actions/questions'
 
 export function formData( state = {}, action ) {
-	let newField, newState
-
 	switch ( action.type ) {
 		case ADD_ATTACHMENT :
 			const { formId, attData } = action.payload
 
 			const attId = attData.id
 
-			console.log(formId)
-			newField = Object.assign( {}, state[ formId ] )
-			console.log(newField)
-			newField.attachments[ attId ] = attData
+			let newFieldForAttachment = Object.assign( {}, state[ formId ] )
+			newFieldForAttachment.attachments[ attId ] = attData
 
-			newState = Object.assign( {}, state )
-			newState[ formId ] = newField
+			let newStateForAttachment = Object.assign( {}, state )
+			newStateForAttachment[ formId ] = newFieldForAttachment
 
-			return newState
+			return newStateForAttachment
 
 		case SET_TEXTAREA_VALUE :
 			const { fieldId, fieldName, value } = action.payload
 
-			newField = Object.assign( {}, state[ fieldId ] )
+			let newField = Object.assign( {}, state[ fieldId ] )
 			newField[ fieldName ] = value
 
-			newState = Object.assign( {}, state )
+			let newState = Object.assign( {}, state )
 			newState[ fieldId ] = newField
 
 			return newState

@@ -136,7 +136,6 @@ export function fetchProblem( problemId ) {
 				dispatch( setVotesBulk( votes ) )
 
 				const defaultFormContent = {
-					attachments: {},
 					isPending: false,
 					content: '',
 					tried: ''
@@ -146,6 +145,7 @@ export function fetchProblem( problemId ) {
 				let newFormContent
 				for ( var j in json.questions ) {
 					newFormContent = Object.assign( {}, defaultFormContent )
+					newFormContent.attachments = {}
 
 					newFormContent.content = json.questions[ j ].content
 					newFormContent.tried = json.questions[ j ].tried
@@ -155,6 +155,7 @@ export function fetchProblem( problemId ) {
 
 				for ( var k in json.responses ) {
 					newFormContent = Object.assign( {}, defaultFormContent )
+					newFormContent.attachments = {}
 
 					newFormContent.content = json.responses[ k ].content
 
@@ -162,6 +163,7 @@ export function fetchProblem( problemId ) {
 				}
 
 				newFormData['question-form'] = Object.assign( {}, defaultFormContent )
+				newFormData['question-form'].attachments = {}
 
 				dispatch( setTextareaValues( newFormData ) )
 			}

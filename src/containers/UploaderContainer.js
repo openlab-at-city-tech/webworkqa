@@ -19,7 +19,10 @@ const mapStateToProps = (state, ownProps) => {
 
 /*
  * @todo
- * - For new items, generate dummy item on server. Pass back dummy ID, and ensure it's sent when generating item. Then, copy over the attachments.
+ * - The WP uploader sends items to the *current* site, but WW config allows the site to be a different one in the network (and this is how my default environment and openlabdev are configured, though not the production site). Either (a) disable and untangle this feature, (b) find a way to make the WP uploader point to the webwork_server_site_id(), or (c) move the items to the correct place after upload.
+ * - Render `attachments` from store on front end during edit/display
+ * - During edit/create, send attachment IDs along with other formData. After submitting, switch post parent.
+ * - Send attachment IDs along with question
  * - For existing items, use the existing question/reply ID.
  * - Insert images?
  */
@@ -72,7 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				uploaderView.uploader.success = function( attData ) {
 					// get the attachment ID and add to the store
 					// from the store, build attachment list
-					dispatch( addAttachment( ownProps.formId, attData ) )
+				//	dispatch( addAttachment( ownProps.formId, attData ) )
 				}
 			})
 

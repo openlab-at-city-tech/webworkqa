@@ -246,3 +246,15 @@ export const deleteSubscription = ( itemId ) => {
 		} )
 	}
 }
+
+export const ADD_ATTACHMENT = 'ADD_ATTACHMENT'
+export const addAttachment = ( formId, attData ) => {
+	return {
+		type: ADD_ATTACHMENT,
+		payload: {
+				formId,
+				attData
+		}
+	}
+}
+

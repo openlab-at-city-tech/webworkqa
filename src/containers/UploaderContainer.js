@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import Uploader from '../components/Uploader'
+import { addAttachment } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
 	const { collapsed, formData, questionsById } = state
@@ -31,12 +32,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				frame.open()
 				return
 			}
+
 			frame = wp.media({
 				title: 'Attach Files',
 				button: {
 					text: 'Attach'
 				},
-				multiple: true
+				multiple: true,
 			});
 
 			// Rename tabs.
@@ -53,28 +55,29 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				});
 			}, frame )
 
+			// Get selected content when Attach is clicked, and process.
+			frame.views.ready = function() {
+				var toolbarView = frame.views.get('.media-frame-toolbar')[0]
+				toolbarView.controller.on('select',function() {
+					var selected = frame.state().get('selection')
+					selected.map( function( attData ) {
+						dispatch( addAttachment( ownProps.formId, attData ) )
+					} )
+				})
+			}
+
 			// Upload success callback.
 			var uploaderView = frame.views.get('.media-frame-uploader')[0]
 			uploaderView.on('ready', function() {
-				uploaderView.uploader.success = function( foo ) {
+				uploaderView.uploader.success = function( attData ) {
 					// get the attachment ID and add to the store
 					// from the store, build attachment list
-					console.log( foo )
+					dispatch( addAttachment( ownProps.formId, attData ) )
 				}
 			})
 
 			frame.open()
 		},
-
-		onAccordionClick: () => {
-			dispatch( setCollapsed( 'questionForm' ) )
-		},
-
-		onQuestionFormSubmit: ( e, content, tried, problemText ) => {
-			e.preventDefault()
-			dispatch( setQuestionPending( true ) )
-			dispatch( sendQuestion( ownProps.problemId, content, tried, problemText ) )
-		}
 	}
 }
 

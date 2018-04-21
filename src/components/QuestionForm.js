@@ -93,7 +93,9 @@ export default class QuestionForm extends Component {
 						/>
 
 						<UploaderContainer
+							formId='question-form'
 							itemId="0"
+							itemType='question'
 						/>
 					</div>
 				</form>

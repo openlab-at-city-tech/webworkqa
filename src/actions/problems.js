@@ -136,6 +136,7 @@ export function fetchProblem( problemId ) {
 				dispatch( setVotesBulk( votes ) )
 
 				const defaultFormContent = {
+					attachments: {},
 					isPending: false,
 					content: '',
 					tried: ''

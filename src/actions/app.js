@@ -248,11 +248,22 @@ export const deleteSubscription = ( itemId ) => {
 }
 
 export const ADD_ATTACHMENT = 'ADD_ATTACHMENT'
-export const addAttachment = ( formId, attData ) => {
+export const addAttachment = ( attData ) => {
 	return {
 		type: ADD_ATTACHMENT,
 		payload: {
+				attData
+		}
+	}
+}
+
+export const ADD_ATTACHMENT_TO_ITEM = 'ADD_ATTACHMENT_TO_ITEM'
+export const addAttachmentToItem = ( formId, fieldName, attData ) => {
+	return {
+		type: ADD_ATTACHMENT_TO_ITEM,
+		payload: {
 				formId,
+				fieldName,
 				attData
 		}
 	}

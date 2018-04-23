@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { appIsLoading } from './appIsLoading'
+import { attachments } from './attachments'
 import { collapsed } from './collapsed'
 import { currentFilters } from './currentFilters'
 import { editing } from './editing'
@@ -44,6 +45,7 @@ const queryString = function() {
 
 const rootReducer = combineReducers({
 	appIsLoading,
+	attachments,
 	collapsed,
 	currentFilters,
 	editing,

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
-import UploaderContainer from '../containers/UploaderContainer'
 
 export default class QuestionForm extends Component {
 	render() {
@@ -90,12 +89,6 @@ export default class QuestionForm extends Component {
 						  disabled={isPending}
 						  type="submit"
 						  value={isPending ? 'Submitting...' : 'Submit'}
-						/>
-
-						<UploaderContainer
-							formId='question-form'
-							itemId="0"
-							itemType='question'
 						/>
 					</div>
 				</form>

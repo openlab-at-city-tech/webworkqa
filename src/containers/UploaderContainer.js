@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import Uploader from '../components/Uploader'
-import { addAttachment } from '../actions/app'
+import { addAttachment, addAttachmentToItem } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
-	const { formData, questions, responses } = state
+	const { attachments, formData, questions, responses } = state
 
 
 	return {}
@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				toolbarView.controller.on('select',function() {
 					var selected = frame.state().get('selection')
 					selected.map( function( attData ) {
-						dispatch( addAttachment( ownProps.formId, attData ) )
+						dispatch( addAttachmentToItem( ownProps.formId, ownProps.fieldName, attData ) )
 					} )
 				})
 			}
@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			var uploaderView = frame.views.get('.media-frame-uploader')[0]
 			uploaderView.on('ready', function() {
 				uploaderView.uploader.success = function( attData ) {
-					// get the attachment ID and add to the store
+					dispatch( addAttachment( attData ) )
 					// from the store, build attachment list
 				//	dispatch( addAttachment( ownProps.formId, attData ) )
 				}

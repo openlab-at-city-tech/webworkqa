@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormattedProblem from './FormattedProblem'
+import UploaderContainer from '../containers/UploaderContainer'
 
 export default class PreviewableField extends Component {
 	componentDidUpdate() {
@@ -11,7 +12,7 @@ export default class PreviewableField extends Component {
 
 	render() {
 		const {
-			id, fieldName, label, value, isPending, isPreviewVisible,
+			id, fieldId, fieldName, label, value, isPending, isPreviewVisible,
 			onPreviewToggleClick, onTextareaChange
 		} = this.props
 
@@ -52,9 +53,21 @@ export default class PreviewableField extends Component {
 			return openDelim + math + closeDelim
 		} )
 
+		let uploadButton
+		if ( ! isPreviewVisible ) {
+			uploadButton = (
+				<UploaderContainer
+					fieldName={fieldName}
+					formId={fieldId}
+				/>
+			)
+		}
+
 		return (
 			<div className={contentSectionClass}>
 				<label htmlFor={id}>{label}</label>
+
+				{uploadButton}
 
 				<button
 				  className="preview-toggle"

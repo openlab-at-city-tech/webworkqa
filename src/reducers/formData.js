@@ -1,15 +1,24 @@
-import { SET_TEXTAREA_VALUE, SET_TEXTAREA_VALUES, ADD_ATTACHMENT } from '../actions/app'
+import { SET_TEXTAREA_VALUE, SET_TEXTAREA_VALUES, ADD_ATTACHMENT_TO_ITEM } from '../actions/app'
 import { RECEIVE_QUESTION, SET_QUESTION_PENDING } from '../actions/questions'
 
 export function formData( state = {}, action ) {
 	switch ( action.type ) {
-		case ADD_ATTACHMENT :
+		case ADD_ATTACHMENT_TO_ITEM :
 			const { formId, attData } = action.payload
+			const attFieldName = action.payload.fieldName
 
 			const attId = attData.id
 
 			let newFieldForAttachment = Object.assign( {}, state[ formId ] )
-			newFieldForAttachment.attachments[ attId ] = attData
+			let fieldValue = newFieldForAttachment[ attFieldName ]
+			const shortcode = '[attachment id="' + attId + '"]'
+
+			if ( fieldValue.length > 0 ) {
+				fieldValue += "\n\n"
+			}
+
+			fieldValue += shortcode + "\n\n"
+			newFieldForAttachment[ attFieldName ] = fieldValue
 
 			let newStateForAttachment = Object.assign( {}, state )
 			newStateForAttachment[ formId ] = newFieldForAttachment

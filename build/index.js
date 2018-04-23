@@ -4869,7 +4869,7 @@ module.exports = function(it){
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["b"] = processFilterChange;
 /* unused harmony export rebuildHash */
-/* harmony export (immutable) */ __webpack_exports__["n"] = processOrderbyChange;
+/* harmony export (immutable) */ __webpack_exports__["p"] = processOrderbyChange;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__problems__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__questions__ = __webpack_require__(20);
 
@@ -4896,7 +4896,7 @@ const fetchAppData = () => {
 
 
 const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
-/* harmony export (immutable) */ __webpack_exports__["t"] = SET_INITIAL_LOAD_COMPLETE;
+/* harmony export (immutable) */ __webpack_exports__["u"] = SET_INITIAL_LOAD_COMPLETE;
 
 const setInitialLoadComplete = isInitialLoadComplete => {
 	return {
@@ -4908,7 +4908,7 @@ const setInitialLoadComplete = isInitialLoadComplete => {
 
 
 const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
-/* harmony export (immutable) */ __webpack_exports__["D"] = SET_APP_IS_LOADING;
+/* harmony export (immutable) */ __webpack_exports__["F"] = SET_APP_IS_LOADING;
 
 const setAppIsLoading = appIsLoading => {
 	return {
@@ -4922,7 +4922,7 @@ const setAppIsLoading = appIsLoading => {
 
 
 const TOGGLE_EDITING = 'TOGGLE_EDITING';
-/* harmony export (immutable) */ __webpack_exports__["z"] = TOGGLE_EDITING;
+/* harmony export (immutable) */ __webpack_exports__["A"] = TOGGLE_EDITING;
 
 const toggleEditing = (itemId, value) => {
 	return {
@@ -4937,7 +4937,7 @@ const toggleEditing = (itemId, value) => {
 
 
 const SET_COLLAPSED = 'SET_COLLAPSED';
-/* harmony export (immutable) */ __webpack_exports__["B"] = SET_COLLAPSED;
+/* harmony export (immutable) */ __webpack_exports__["C"] = SET_COLLAPSED;
 
 const setCollapsed = (itemId, value = null) => {
 	return {
@@ -4952,7 +4952,7 @@ const setCollapsed = (itemId, value = null) => {
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
-/* harmony export (immutable) */ __webpack_exports__["C"] = SET_COLLAPSED_BULK;
+/* harmony export (immutable) */ __webpack_exports__["D"] = SET_COLLAPSED_BULK;
 
 const setCollapsedBulk = (c = []) => {
 	return {
@@ -4980,7 +4980,7 @@ function rebuildHash() {
 }
 
 const RESET_CURRENT_FILTERS = 'RESET_CURRENT_FILTERS';
-/* harmony export (immutable) */ __webpack_exports__["A"] = RESET_CURRENT_FILTERS;
+/* harmony export (immutable) */ __webpack_exports__["B"] = RESET_CURRENT_FILTERS;
 
 const resetCurrentFilters = () => {
 	return {
@@ -4992,7 +4992,7 @@ const resetCurrentFilters = () => {
 
 
 const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE';
-/* harmony export (immutable) */ __webpack_exports__["r"] = SET_FILTER_TOGGLE;
+/* harmony export (immutable) */ __webpack_exports__["s"] = SET_FILTER_TOGGLE;
 
 const setFilterToggle = (slug, value) => {
 	// Don't tell the Redux gods about this.
@@ -5029,7 +5029,7 @@ function processOrderbyChange(orderby, problemId) {
 }
 
 const SET_SORT_ORDERBY = 'SET_SORT_ORDERBY';
-/* harmony export (immutable) */ __webpack_exports__["s"] = SET_SORT_ORDERBY;
+/* harmony export (immutable) */ __webpack_exports__["t"] = SET_SORT_ORDERBY;
 
 const setSortOrderby = orderby => {
 	const order = 'DESC';
@@ -5046,7 +5046,7 @@ const setSortOrderby = orderby => {
 
 
 const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS';
-/* harmony export (immutable) */ __webpack_exports__["x"] = RECEIVE_FILTER_OPTIONS;
+/* harmony export (immutable) */ __webpack_exports__["y"] = RECEIVE_FILTER_OPTIONS;
 
 const receiveFilterOptions = filterOptions => {
 	return {
@@ -5058,7 +5058,7 @@ const receiveFilterOptions = filterOptions => {
 
 
 const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE';
-/* harmony export (immutable) */ __webpack_exports__["v"] = SET_TEXTAREA_VALUE;
+/* harmony export (immutable) */ __webpack_exports__["w"] = SET_TEXTAREA_VALUE;
 
 const setTextareaValue = (fieldId, fieldName, value) => {
 	return {
@@ -5074,7 +5074,7 @@ const setTextareaValue = (fieldId, fieldName, value) => {
 
 
 const SET_TEXTAREA_VALUES = 'SET_TEXTAREA_VALUES';
-/* harmony export (immutable) */ __webpack_exports__["w"] = SET_TEXTAREA_VALUES;
+/* harmony export (immutable) */ __webpack_exports__["x"] = SET_TEXTAREA_VALUES;
 
 const setTextareaValues = values => {
 	return {
@@ -5088,7 +5088,7 @@ const setTextareaValues = values => {
 
 
 const ADD_FEEDBACK_MESSAGE = 'ADD_FEEDBACK_MESSAGE';
-/* harmony export (immutable) */ __webpack_exports__["y"] = ADD_FEEDBACK_MESSAGE;
+/* harmony export (immutable) */ __webpack_exports__["z"] = ADD_FEEDBACK_MESSAGE;
 
 const addFeedbackMessage = payload => {
 	return {
@@ -5118,7 +5118,7 @@ const toggleSubscription = itemId => {
 
 
 const SET_SUBSCRIPTION = 'SET_SUBSCRIPTION';
-/* harmony export (immutable) */ __webpack_exports__["p"] = SET_SUBSCRIPTION;
+/* harmony export (immutable) */ __webpack_exports__["q"] = SET_SUBSCRIPTION;
 
 const setSubscription = (itemId, value) => {
 	return {
@@ -5133,7 +5133,7 @@ const setSubscription = (itemId, value) => {
 
 
 const SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS';
-/* harmony export (immutable) */ __webpack_exports__["q"] = SET_SUBSCRIPTIONS;
+/* harmony export (immutable) */ __webpack_exports__["r"] = SET_SUBSCRIPTIONS;
 
 const setSubscriptions = values => {
 	return {
@@ -5184,18 +5184,33 @@ const deleteSubscription = itemId => {
 
 
 const ADD_ATTACHMENT = 'ADD_ATTACHMENT';
-/* harmony export (immutable) */ __webpack_exports__["u"] = ADD_ATTACHMENT;
+/* harmony export (immutable) */ __webpack_exports__["E"] = ADD_ATTACHMENT;
 
-const addAttachment = (formId, attData) => {
+const addAttachment = attData => {
 	return {
 		type: ADD_ATTACHMENT,
 		payload: {
-			formId,
 			attData
 		}
 	};
 };
 /* harmony export (immutable) */ __webpack_exports__["o"] = addAttachment;
+
+
+const ADD_ATTACHMENT_TO_ITEM = 'ADD_ATTACHMENT_TO_ITEM';
+/* harmony export (immutable) */ __webpack_exports__["v"] = ADD_ATTACHMENT_TO_ITEM;
+
+const addAttachmentToItem = (formId, fieldName, attData) => {
+	return {
+		type: ADD_ATTACHMENT_TO_ITEM,
+		payload: {
+			formId,
+			fieldName,
+			attData
+		}
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["n"] = addAttachmentToItem;
 
 
 /***/ }),
@@ -16359,7 +16374,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		const { value } = change;
 		const { problemId } = ownProps;
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["n" /* processOrderbyChange */])(value, problemId));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["p" /* processOrderbyChange */])(value, problemId));
 	};
 
 	return {
@@ -36450,6 +36465,8 @@ class EditSaveButton extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormattedProblem__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__ = __webpack_require__(406);
+
 
 
 
@@ -36463,7 +36480,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 
 	render() {
 		const {
-			id, fieldName, label, value, isPending, isPreviewVisible,
+			id, fieldId, fieldName, label, value, isPending, isPreviewVisible,
 			onPreviewToggleClick, onTextareaChange
 		} = this.props;
 
@@ -36504,6 +36521,14 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			return openDelim + math + closeDelim;
 		});
 
+		let uploadButton;
+		if (!isPreviewVisible) {
+			uploadButton = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__["a" /* default */], {
+				fieldName: fieldName,
+				formId: fieldId
+			});
+		}
+
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: contentSectionClass },
@@ -36512,6 +36537,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 				{ htmlFor: id },
 				label
 			),
+			uploadButton,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'button',
 				{
@@ -37399,8 +37425,6 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__ = __webpack_require__(406);
-
 
 
 
@@ -37497,11 +37521,6 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						disabled: isPending,
 						type: 'submit',
 						value: isPending ? 'Submitting...' : 'Submit'
-					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__["a" /* default */], {
-						formId: 'question-form',
-						itemId: '0',
-						itemType: 'question'
 					})
 				)
 			)
@@ -39058,7 +39077,7 @@ const SubscriptionDialogContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MOD
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { formData, questions, responses } = state;
+	const { attachments, formData, questions, responses } = state;
 
 	return {};
 	/*
@@ -39120,7 +39139,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				toolbarView.controller.on('select', function () {
 					var selected = frame.state().get('selection');
 					selected.map(function (attData) {
-						dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["o" /* addAttachment */])(ownProps.formId, attData));
+						dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["n" /* addAttachmentToItem */])(ownProps.formId, ownProps.fieldName, attData));
 					});
 				});
 			};
@@ -39129,7 +39148,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			var uploaderView = frame.views.get('.media-frame-uploader')[0];
 			uploaderView.on('ready', function () {
 				uploaderView.uploader.success = function (attData) {
-					// get the attachment ID and add to the store
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["o" /* addAttachment */])(attData));
 					// from the store, build attachment list
 					//	dispatch( addAttachment( ownProps.formId, attData ) )
 				};
@@ -39180,7 +39199,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"])(__WEBPA
 
 function appIsLoading(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["D" /* SET_APP_IS_LOADING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["F" /* SET_APP_IS_LOADING */]:
 			const { appIsLoading } = action.payload;
 			return appIsLoading;
 
@@ -39202,7 +39221,7 @@ function collapsed(state = {}, action) {
 	let newState;
 
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["B" /* SET_COLLAPSED */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["C" /* SET_COLLAPSED */]:
 			const { itemId, value } = action.payload;
 
 			let doCollapse;
@@ -39222,7 +39241,7 @@ function collapsed(state = {}, action) {
 			delete newState[itemId];
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["C" /* SET_COLLAPSED_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["D" /* SET_COLLAPSED_BULK */]:
 			newState = Object.assign({}, state);
 			const items = action.payload;
 
@@ -39282,14 +39301,14 @@ function currentFilters(state = initialState, action) {
 
 			return state;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			return Object.assign({}, state, {
 				[slug]: value
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_SORT_ORDERBY */]:
 			const { orderby, order } = action.payload;
 
 			return Object.assign({}, state, {
@@ -39297,7 +39316,7 @@ function currentFilters(state = initialState, action) {
 				order
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["A" /* RESET_CURRENT_FILTERS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["B" /* RESET_CURRENT_FILTERS */]:
 			return {};
 
 		default:
@@ -39316,7 +39335,7 @@ function currentFilters(state = initialState, action) {
 
 function editing(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["z" /* TOGGLE_EDITING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["A" /* TOGGLE_EDITING */]:
 			const { itemId, value } = action.payload;
 
 			let updateValue = value;
@@ -39350,7 +39369,7 @@ function editing(state = {}, action) {
 
 function feedback(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["y" /* ADD_FEEDBACK_MESSAGE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["z" /* ADD_FEEDBACK_MESSAGE */]:
 			const { itemId, type, text } = action.payload;
 
 			let itemFeedbacks = {};
@@ -39381,7 +39400,7 @@ function feedback(state = {}, action) {
 
 function filterOptions(state = window.WWData.filter_options, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["x" /* RECEIVE_FILTER_OPTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["y" /* RECEIVE_FILTER_OPTIONS */]:
 			return action.payload;
 
 		default:
@@ -39402,20 +39421,29 @@ function filterOptions(state = window.WWData.filter_options, action) {
 
 function formData(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* ADD_ATTACHMENT */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* ADD_ATTACHMENT_TO_ITEM */]:
 			const { formId, attData } = action.payload;
+			const attFieldName = action.payload.fieldName;
 
 			const attId = attData.id;
 
 			let newFieldForAttachment = Object.assign({}, state[formId]);
-			newFieldForAttachment.attachments[attId] = attData;
+			let fieldValue = newFieldForAttachment[attFieldName];
+			const shortcode = '[attachment id="' + attId + '"]';
+
+			if (fieldValue.length > 0) {
+				fieldValue += "\n\n";
+			}
+
+			fieldValue += shortcode + "\n\n";
+			newFieldForAttachment[attFieldName] = fieldValue;
 
 			let newStateForAttachment = Object.assign({}, state);
 			newStateForAttachment[formId] = newFieldForAttachment;
 
 			return newStateForAttachment;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* SET_TEXTAREA_VALUE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["w" /* SET_TEXTAREA_VALUE */]:
 			const { fieldId, fieldName, value } = action.payload;
 
 			let newField = Object.assign({}, state[fieldId]);
@@ -39426,7 +39454,7 @@ function formData(state = {}, action) {
 
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["w" /* SET_TEXTAREA_VALUES */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["x" /* SET_TEXTAREA_VALUES */]:
 			const { values } = action.payload;
 			return Object.assign({}, state, values);
 
@@ -39457,23 +39485,25 @@ function formData(state = {}, action) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appIsLoading__ = __webpack_require__(408);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__collapsed__ = __webpack_require__(409);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__currentFilters__ = __webpack_require__(410);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__editing__ = __webpack_require__(411);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__feedback__ = __webpack_require__(412);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filterOptions__ = __webpack_require__(413);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__formData__ = __webpack_require__(414);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__initialLoadComplete__ = __webpack_require__(416);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__problems__ = __webpack_require__(417);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__questions__ = __webpack_require__(418);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__questionsById__ = __webpack_require__(419);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__responseFormPending__ = __webpack_require__(420);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__responseIdMap__ = __webpack_require__(421);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__responses__ = __webpack_require__(422);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__routing__ = __webpack_require__(423);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__scores__ = __webpack_require__(424);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__subscriptions__ = __webpack_require__(425);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__votes__ = __webpack_require__(426);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__attachments__ = __webpack_require__(774);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__collapsed__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__currentFilters__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__editing__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__feedback__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filterOptions__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__formData__ = __webpack_require__(414);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__initialLoadComplete__ = __webpack_require__(416);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__problems__ = __webpack_require__(417);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__questions__ = __webpack_require__(418);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__questionsById__ = __webpack_require__(419);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__responseFormPending__ = __webpack_require__(420);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__responseIdMap__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__responses__ = __webpack_require__(422);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__routing__ = __webpack_require__(423);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__scores__ = __webpack_require__(424);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__subscriptions__ = __webpack_require__(425);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__votes__ = __webpack_require__(426);
+
 
 
 
@@ -39520,24 +39550,25 @@ const queryString = function () {
 
 const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"])({
 	appIsLoading: __WEBPACK_IMPORTED_MODULE_1__appIsLoading__["a" /* appIsLoading */],
-	collapsed: __WEBPACK_IMPORTED_MODULE_2__collapsed__["a" /* collapsed */],
-	currentFilters: __WEBPACK_IMPORTED_MODULE_3__currentFilters__["a" /* currentFilters */],
-	editing: __WEBPACK_IMPORTED_MODULE_4__editing__["a" /* editing */],
-	feedback: __WEBPACK_IMPORTED_MODULE_5__feedback__["a" /* feedback */],
-	filterOptions: __WEBPACK_IMPORTED_MODULE_6__filterOptions__["a" /* filterOptions */],
-	formData: __WEBPACK_IMPORTED_MODULE_7__formData__["a" /* formData */],
-	initialLoadComplete: __WEBPACK_IMPORTED_MODULE_8__initialLoadComplete__["a" /* initialLoadComplete */],
-	problems: __WEBPACK_IMPORTED_MODULE_9__problems__["a" /* problems */],
+	attachments: __WEBPACK_IMPORTED_MODULE_2__attachments__["a" /* attachments */],
+	collapsed: __WEBPACK_IMPORTED_MODULE_3__collapsed__["a" /* collapsed */],
+	currentFilters: __WEBPACK_IMPORTED_MODULE_4__currentFilters__["a" /* currentFilters */],
+	editing: __WEBPACK_IMPORTED_MODULE_5__editing__["a" /* editing */],
+	feedback: __WEBPACK_IMPORTED_MODULE_6__feedback__["a" /* feedback */],
+	filterOptions: __WEBPACK_IMPORTED_MODULE_7__filterOptions__["a" /* filterOptions */],
+	formData: __WEBPACK_IMPORTED_MODULE_8__formData__["a" /* formData */],
+	initialLoadComplete: __WEBPACK_IMPORTED_MODULE_9__initialLoadComplete__["a" /* initialLoadComplete */],
+	problems: __WEBPACK_IMPORTED_MODULE_10__problems__["a" /* problems */],
 	queryString,
-	questions: __WEBPACK_IMPORTED_MODULE_10__questions__["a" /* questions */],
-	questionsById: __WEBPACK_IMPORTED_MODULE_11__questionsById__["a" /* questionsById */],
-	responseFormPending: __WEBPACK_IMPORTED_MODULE_12__responseFormPending__["a" /* responseFormPending */],
-	responseIdMap: __WEBPACK_IMPORTED_MODULE_13__responseIdMap__["a" /* responseIdMap */],
-	responses: __WEBPACK_IMPORTED_MODULE_14__responses__["a" /* responses */],
-	routing: __WEBPACK_IMPORTED_MODULE_15__routing__["a" /* routing */],
-	scores: __WEBPACK_IMPORTED_MODULE_16__scores__["a" /* scores */],
-	subscriptions: __WEBPACK_IMPORTED_MODULE_17__subscriptions__["a" /* subscriptions */],
-	votes: __WEBPACK_IMPORTED_MODULE_18__votes__["a" /* votes */]
+	questions: __WEBPACK_IMPORTED_MODULE_11__questions__["a" /* questions */],
+	questionsById: __WEBPACK_IMPORTED_MODULE_12__questionsById__["a" /* questionsById */],
+	responseFormPending: __WEBPACK_IMPORTED_MODULE_13__responseFormPending__["a" /* responseFormPending */],
+	responseIdMap: __WEBPACK_IMPORTED_MODULE_14__responseIdMap__["a" /* responseIdMap */],
+	responses: __WEBPACK_IMPORTED_MODULE_15__responses__["a" /* responses */],
+	routing: __WEBPACK_IMPORTED_MODULE_16__routing__["a" /* routing */],
+	scores: __WEBPACK_IMPORTED_MODULE_17__scores__["a" /* scores */],
+	subscriptions: __WEBPACK_IMPORTED_MODULE_18__subscriptions__["a" /* subscriptions */],
+	votes: __WEBPACK_IMPORTED_MODULE_19__votes__["a" /* votes */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (rootReducer);
@@ -39553,7 +39584,7 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 
 function initialLoadComplete(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_INITIAL_LOAD_COMPLETE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* SET_INITIAL_LOAD_COMPLETE */]:
 			return action.payload;
 
 		default:
@@ -39810,7 +39841,7 @@ function routing(state = initialState, action) {
 
 		// Here is our code to set the location state when the user chooses
 		// a different option in the menu
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["d" /* buildHashFromFilter */])(slug, value, state);
@@ -39824,7 +39855,7 @@ function routing(state = initialState, action) {
 				locationBeforeTransitions: newLocation
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_SORT_ORDERBY */]:
 			const { order, orderby } = action.payload;
 
 			let locationClone = Object.assign({}, state);
@@ -39887,7 +39918,7 @@ function scores(state = {}, action) {
 
 function subscriptions(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["p" /* SET_SUBSCRIPTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* SET_SUBSCRIPTION */]:
 			const { itemId, value } = action.payload;
 			let newSubs = Object.assign({}, state);
 
@@ -39899,7 +39930,7 @@ function subscriptions(state = {}, action) {
 
 			return newSubs;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* SET_SUBSCRIPTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* SET_SUBSCRIPTIONS */]:
 			return action.payload;
 
 		default:
@@ -62793,6 +62824,46 @@ function symbolObservablePonyfill(root) {
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
+
+/***/ }),
+/* 774 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = attachments;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_app__ = __webpack_require__(10);
+
+
+function attachments(state = {}, action) {
+	switch (action.type) {
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["E" /* ADD_ATTACHMENT */]:
+			const { attData } = action.payload;
+
+			let attDataForState = {
+				id: attData.id,
+				caption: attData.attributes.caption,
+				filename: attData.attributes.filename,
+				urlFull: attData.attributes.sizes.full.url,
+				title: attData.attributes.title
+			};
+
+			if (attData.attributes.sizes.hasOwnProperty('large')) {
+				attDataForState.urlLarge = attData.attributes.sizes.large.url;
+			}
+
+			if (attData.attributes.sizes.hasOwnProperty('medium')) {
+				attDataForState.urlMedium = attData.attributes.sizes.medium.url;
+			}
+
+			let newState = Object.assign({}, state);
+			newState[attData.id] = attDataForState;
+
+			return newState;
+
+		default:
+			return state;
+	}
+}
 
 /***/ })
 /******/ ]);

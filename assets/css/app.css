@@ -379,6 +379,10 @@ h3.ww-collapsible-section-header {
 	position: relative;
 }
 
+.ww-response.is-editing .ww-question-form-section {
+	padding-top: 20px;
+}
+
 .edit-action-buttons {
 	position: absolute;
 	right: 0;

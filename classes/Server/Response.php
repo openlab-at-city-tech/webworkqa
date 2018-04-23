@@ -153,6 +153,15 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->p->get_vote_count( $force_query );
 	}
 
+	/**
+	 * Get attachment IDs for this item.
+	 *
+	 * @return array
+	 */
+	public function get_attachment_ids() {
+		return $this->pf->get_attachment_ids( $this->get_content() );
+	}
+
 	public function save() {
 		$is_new = ! $this->exists();
 

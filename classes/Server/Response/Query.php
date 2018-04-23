@@ -9,6 +9,7 @@ namespace WeBWorK\Server\Response;
  */
 class Query {
 	protected $r;
+	protected $results = null;
 
 	public function __construct( $args ) {
 		$this->r = array_merge( array(
@@ -27,6 +28,10 @@ class Query {
 	 * @return array|int
 	 */
 	public function get() {
+		if ( isset( $this->results ) && is_array( $this->results ) ) {
+			return $this->results;
+		}
+
 		$args = array(
 			'post_type' => 'webwork_response',
 			'update_post_term_cache' => false,
@@ -98,7 +103,8 @@ class Query {
 			$responses[ $_response->ID ] = new \WeBWorK\Server\Response( $_response->ID );
 		}
 
-		return $responses;
+		$this->results = $responses;
+		return $this->results;
 	}
 
 	public function get_for_endpoint() {

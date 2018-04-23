@@ -11,7 +11,7 @@ var moment = require( 'moment' )
 export default class Response extends Component {
 	render() {
 		const {
-			isEditing, isMyQuestion,
+			attachments, isEditing, isMyQuestion,
 			questionId, response, responseId,
 			userCanEdit, userCanPostResponse,
 			onDeleteClick, onEditClick
@@ -121,6 +121,7 @@ export default class Response extends Component {
 		} else {
 			contentElements.push(
 				<FormattedProblem
+					attachments={attachments}
 				  itemId={contentId}
 				  content={content}
 				  key='content'

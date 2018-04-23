@@ -2,9 +2,10 @@ import { connect } from 'react-redux'
 import { setCollapsed, toggleEditing } from '../actions/app'
 import { deleteResponse } from '../actions/responses'
 import Response from '../components/Response'
+import { attachmentShortcodeRegExp } from '../util/webwork-text-formatter'
 
 const mapStateToProps = (state, ownProps) => {
-	const { editing, responses } = state
+	const { attachments, editing, responses } = state
 	const { responseId } = ownProps
 
 	const response = responses.hasOwnProperty( responseId ) ? responses[ responseId ] : null
@@ -16,7 +17,18 @@ const mapStateToProps = (state, ownProps) => {
 		userCanEdit = window.WWData.user_is_admin || response.authorId == window.WWData.user_id
 	}
 
+	let atts = {}
+	if ( null !== response ) {
+		response.content.replace( attachmentShortcodeRegExp(), function( a, attId ) {
+			if ( ! atts.hasOwnProperty( attId ) ) {
+				atts[ attId ] = attachments[ attId ]
+			}
+			return a
+		} )
+	}
+
 	return {
+		attachments: atts,
 		isEditing,
 		response,
 		userCanEdit,

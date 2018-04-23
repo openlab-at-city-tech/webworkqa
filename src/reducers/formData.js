@@ -10,7 +10,7 @@ export function formData( state = {}, action ) {
 			const attId = attData.id
 
 			let newFieldForAttachment = Object.assign( {}, state[ formId ] )
-			let fieldValue = newFieldForAttachment[ attFieldName ]
+			let fieldValue = newFieldForAttachment.hasOwnProperty( 'attFieldName' ) ? newFieldForAttachment[ attFieldName ] : ''
 			const shortcode = '[attachment id="' + attId + '"]'
 
 			if ( fieldValue.length > 0 ) {

@@ -139,6 +139,11 @@ class Endpoint extends \WP_Rest_Controller {
 			$response_ids[] = $response['responseId'];
 		}
 
+		foreach ( $response_query->get() as $response ) {
+			$r_att_ids = $response->get_attachment_ids();
+			$attachment_ids = array_merge( $r_att_ids, $attachment_ids );
+		}
+
 		// todo find a better way to do this
 		$scores = array();
 		foreach ( $response_ids as $qid ) {

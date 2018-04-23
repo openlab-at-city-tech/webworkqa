@@ -37980,7 +37980,7 @@ var moment = __webpack_require__(0);
 class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	render() {
 		const {
-			isEditing, isMyQuestion,
+			attachments, isEditing, isMyQuestion,
 			questionId, response, responseId,
 			userCanEdit, userCanPostResponse,
 			onDeleteClick, onEditClick
@@ -38103,6 +38103,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			));
 		} else {
 			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__FormattedProblem__["a" /* default */], {
+				attachments: attachments,
 				itemId: contentId,
 				content: content,
 				key: 'content'
@@ -39050,13 +39051,15 @@ const QuestionListContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions_app__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Response__ = __webpack_require__(389);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_webwork_text_formatter__ = __webpack_require__(112);
+
 
 
 
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { editing, responses } = state;
+	const { attachments, editing, responses } = state;
 	const { responseId } = ownProps;
 
 	const response = responses.hasOwnProperty(responseId) ? responses[responseId] : null;
@@ -39068,7 +39071,18 @@ const mapStateToProps = (state, ownProps) => {
 		userCanEdit = window.WWData.user_is_admin || response.authorId == window.WWData.user_id;
 	}
 
+	let atts = {};
+	if (null !== response) {
+		response.content.replace(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__util_webwork_text_formatter__["a" /* attachmentShortcodeRegExp */])(), function (a, attId) {
+			if (!atts.hasOwnProperty(attId)) {
+				atts[attId] = attachments[attId];
+			}
+			return a;
+		});
+	}
+
 	return {
+		attachments: atts,
 		isEditing,
 		response,
 		userCanEdit,
@@ -39617,7 +39631,7 @@ function formData(state = {}, action) {
 			const attId = attData.id;
 
 			let newFieldForAttachment = Object.assign({}, state[formId]);
-			let fieldValue = newFieldForAttachment[attFieldName];
+			let fieldValue = newFieldForAttachment.hasOwnProperty('attFieldName') ? newFieldForAttachment[attFieldName] : '';
 			const shortcode = '[attachment id="' + attId + '"]';
 
 			if (fieldValue.length > 0) {

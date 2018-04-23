@@ -247,7 +247,17 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$questions = $q->get_for_endpoint();
 
+		$attachments = $attachment_ids = array();
+		foreach ( $q->get() as $question ) {
+			$q_att_ids = $question->get_attachment_ids();
+			$attachment_ids = array_merge( $q_att_ids, $attachment_ids );
+		}
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$attachments = $pf->get_attachment_data( $attachment_ids );
+
 		$retval = array(
+			'attachments' => $attachments,
 			'questionIds' => array_keys( $questions ),
 			'questions' => $questions,
 		);

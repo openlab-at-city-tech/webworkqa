@@ -5715,6 +5715,7 @@ function fetchQuestionIndexList(append) {
 				'X-WP-Nonce': rest_api_nonce
 			}
 		}).then(response => response.json()).then(json => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* receiveAttachments */])(json.attachments));
 			dispatch(receiveQuestions(json.questions));
 			dispatch(receiveQuestionIds(json.questionIds));
 

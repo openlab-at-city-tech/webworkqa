@@ -1,7 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import {
 	addFeedbackMessage,
-	receiveFilterOptions, setAppIsLoading, setInitialLoadComplete,
+	receiveAttachments, receiveFilterOptions,
+	setAppIsLoading, setInitialLoadComplete,
 	setCollapsed, setCollapsedBulk, setSubscription,
 	setTextareaValue, setTextareaValues,
 	toggleEditing
@@ -58,6 +59,7 @@ export function fetchQuestionIndexList( append ) {
 		} )
 		.then( response => response.json() )
 		.then( json => {
+			dispatch( receiveAttachments( json.attachments ) )
 			dispatch( receiveQuestions( json.questions ) )
 			dispatch( receiveQuestionIds( json.questionIds ) )
 

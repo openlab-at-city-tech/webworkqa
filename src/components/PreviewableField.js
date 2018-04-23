@@ -53,12 +53,13 @@ export default class PreviewableField extends Component {
 			return openDelim + math + closeDelim
 		} )
 
-		let uploadButton
+		let uploadElements = []
 		if ( ! isPreviewVisible ) {
-			uploadButton = (
+			uploadElements.push(
 				<UploaderContainer
 					fieldName={fieldName}
 					formId={fieldId}
+					key='upload-button'
 				/>
 			)
 		}
@@ -67,17 +68,19 @@ export default class PreviewableField extends Component {
 			<div className={contentSectionClass}>
 				<label htmlFor={id}>{label}</label>
 
-				{uploadButton}
+				<div className="edit-action-buttons">
+					{uploadElements}
 
-				<button
-				  className="preview-toggle"
-				  onClick={e => {
-				    onPreviewToggleClick()
-				  }}
-				  type="button"
-				>
-				  {isPreviewVisible ? 'Edit' : 'Preview'}
-				</button>
+					<button
+						className="preview-toggle"
+						onClick={e => {
+							onPreviewToggleClick()
+						}}
+						type="button"
+					>
+						{isPreviewVisible ? 'Edit' : 'Preview'}
+					</button>
+				</div>
 
 				<textarea
 				  id={id}

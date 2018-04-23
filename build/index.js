@@ -36669,12 +36669,13 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			return openDelim + math + closeDelim;
 		});
 
-		let uploadButton;
+		let uploadElements = [];
 		if (!isPreviewVisible) {
-			uploadButton = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__["a" /* default */], {
+			uploadElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__["a" /* default */], {
 				fieldName: fieldName,
-				formId: fieldId
-			});
+				formId: fieldId,
+				key: 'upload-button'
+			}));
 		}
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -36685,17 +36686,21 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 				{ htmlFor: id },
 				label
 			),
-			uploadButton,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'button',
-				{
-					className: 'preview-toggle',
-					onClick: e => {
-						onPreviewToggleClick();
+				'div',
+				{ className: 'edit-action-buttons' },
+				uploadElements,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'button',
+					{
+						className: 'preview-toggle',
+						onClick: e => {
+							onPreviewToggleClick();
+						},
+						type: 'button'
 					},
-					type: 'button'
-				},
-				isPreviewVisible ? 'Edit' : 'Preview'
+					isPreviewVisible ? 'Edit' : 'Preview'
+				)
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
 				id: id,
@@ -38729,27 +38734,17 @@ class Uploader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const { onUploadClick } = this.props;
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			"div",
-			null,
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				"a",
-				{
-					className: "question-form-upload-button",
-					href: "#",
-					id: "insert-media-button",
-					onClick: function (e) {
-						e.preventDefault();
-						onUploadClick();
-					},
-					value: "Upload"
-				},
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "fa fa-upload" }),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"span",
-					{ className: "screen-reader-text" },
-					"Upload"
-				)
-			)
+			"button",
+			{
+				className: "question-form-upload-button",
+				id: "insert-media-button",
+				onClick: function (e) {
+					e.preventDefault();
+					onUploadClick();
+				}
+			},
+			"Add Files ",
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "fa fa-upload" })
 		);
 	}
 }

@@ -5,18 +5,15 @@ export default class Uploader extends Component {
 		const { onUploadClick } = this.props
 
 		return (
-			<div>
-				<a
+			<button
 					className="question-form-upload-button"
-					href="#"
 					id="insert-media-button"
 					onClick={function(e){
 						e.preventDefault()
 						onUploadClick()
 					}}
-					value="Upload"
-				><i className="fa fa-upload"></i><span className="screen-reader-text">Upload</span></a>
-			</div>
+				>Add Files <i className="fa fa-upload"></i>
+			</button>
 		)
 	}
 }

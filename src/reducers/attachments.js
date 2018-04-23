@@ -5,20 +5,22 @@ export function attachments( state = {}, action ) {
 		case ADD_ATTACHMENT :
 			const { attData } = action.payload
 
-			let attDataForState = {
+			let urlThumb = attData.attributes.sizes.full.url
+			if ( attData.attributes.width > 800 ) {
+				if ( attData.attributes.sizes.hasOwnProperty( 'large' ) && attData.attributes.sizes.large.width <= 800 ) {
+					urlThumb = attData.attributes.sizes.large.url
+				} else if ( attData.attributes.sizes.hasOwnProperty( 'medium' ) ) {
+					urlThumb = attData.attributes.sizes.medium.url
+				}
+			}
+
+			const attDataForState = {
 				id: attData.id,
 				caption: attData.attributes.caption,
 				filename: attData.attributes.filename,
 				urlFull: attData.attributes.sizes.full.url,
-				title: attData.attributes.title
-			}
-
-			if ( attData.attributes.sizes.hasOwnProperty( 'large' ) ) {
-				attDataForState.urlLarge = attData.attributes.sizes.large.url
-			}
-
-			if ( attData.attributes.sizes.hasOwnProperty( 'medium' ) ) {
-				attDataForState.urlMedium = attData.attributes.sizes.medium.url
+				urlThumb,
+				title: attData.attributes.title,
 			}
 
 			let newState = Object.assign( {}, state )

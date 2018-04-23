@@ -422,19 +422,22 @@ class ProblemFormatter {
 				'filename' => $raw_att_data['filename'],
 				'urlFull' => $raw_att_data['sizes']['full']['url'],
 				'title' => $raw_att_data['title'],
+				'width' => $raw_att_data['width'],
 			);
 
-			if ( isset( $raw_att_data['sizes']['medium'] ) ) {
-				$att_data['urlMedium'] = $raw_att_data['sizes']['medium']['url'];
+			$url_thumb = $raw_att_data['sizes']['full']['url'];
+			if ( $raw_att_data['width'] > 800 ) {
+				if ( isset( $raw_att_data['sizes']['large'] ) && $raw_att_data['sizes']['large'] <= 800 ) {
+					$url_thumb = $raw_att_data['sizes']['large']['url'];
+				} elseif ( isset( $raw_att_data['sizes']['medium'] ) ) {
+					$url_thumb = $raw_att_data['sizes']['medium']['url'];
+				}
 			}
 
-			if ( isset( $raw_att_data['sizes']['large'] ) ) {
-				$att_data['urlLarge'] = $raw_att_data['sizes']['large']['url'];
-			}
+			$att_data['urlThumb'] = $url_thumb;
 
 			$data[ $id ] = $att_data;
 		}
-		_b( $att_data );
 
 		return $data;
 	}

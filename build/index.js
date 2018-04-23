@@ -12850,14 +12850,7 @@ const attachmentShortcodeRegExp = () => {
 };
 
 const attachmentMarkup = attData => {
-	let imgUrl = attData.urlFull;
-	if (attData.hasOwnProperty('urlLarge')) {
-		imgUrl = attData.urlLarge;
-	} else if (attData.hasOwnProperty('urlMedium')) {
-		imgUrl = attData.urlMedium;
-	}
-
-	return '<a href="' + attData.urlFull + '"><img class="webwork-embedded-attachment" alt="' + attData.title + '" src="' + imgUrl + '" /></a>';
+	return '<a href="' + attData.urlFull + '"><img class="webwork-embedded-attachment" alt="' + attData.title + '" src="' + attData.urlThumb + '" /></a>';
 };
 
 
@@ -39383,21 +39376,23 @@ function attachments(state = {}, action) {
 		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["F" /* ADD_ATTACHMENT */]:
 			const { attData } = action.payload;
 
-			let attDataForState = {
+			let urlThumb = attData.attributes.sizes.full.url;
+			if (attData.attributes.width > 800) {
+				if (attData.attributes.sizes.hasOwnProperty('large') && attData.attributes.sizes.large.width <= 800) {
+					urlThumb = attData.attributes.sizes.large.url;
+				} else if (attData.attributes.sizes.hasOwnProperty('medium')) {
+					urlThumb = attData.attributes.sizes.medium.url;
+				}
+			}
+
+			const attDataForState = {
 				id: attData.id,
 				caption: attData.attributes.caption,
 				filename: attData.attributes.filename,
 				urlFull: attData.attributes.sizes.full.url,
+				urlThumb,
 				title: attData.attributes.title
 			};
-
-			if (attData.attributes.sizes.hasOwnProperty('large')) {
-				attDataForState.urlLarge = attData.attributes.sizes.large.url;
-			}
-
-			if (attData.attributes.sizes.hasOwnProperty('medium')) {
-				attDataForState.urlMedium = attData.attributes.sizes.medium.url;
-			}
 
 			let newState = Object.assign({}, state);
 			newState[attData.id] = attDataForState;
@@ -39632,7 +39627,7 @@ function formData(state = {}, action) {
 			const attId = attData.id;
 
 			let newFieldForAttachment = Object.assign({}, state[formId]);
-			let fieldValue = newFieldForAttachment.hasOwnProperty('attFieldName') ? newFieldForAttachment[attFieldName] : '';
+			let fieldValue = newFieldForAttachment.hasOwnProperty(attFieldName) ? newFieldForAttachment[attFieldName] : '';
 			const shortcode = '[attachment id="' + attId + '"]';
 
 			if (fieldValue.length > 0) {

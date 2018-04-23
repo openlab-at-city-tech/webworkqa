@@ -27,14 +27,7 @@ const attachmentShortcodeRegExp = () => {
 }
 
 const attachmentMarkup = (attData) => {
-	let imgUrl = attData.urlFull
-	if ( attData.hasOwnProperty( 'urlLarge' ) ) {
-		imgUrl = attData.urlLarge
-	} else if ( attData.hasOwnProperty( 'urlMedium' ) ) {
-		imgUrl = attData.urlMedium
-	}
-
-	return '<a href="' + attData.urlFull + '"><img class="webwork-embedded-attachment" alt="' + attData.title + '" src="' + imgUrl + '" /></a>'
+	return '<a href="' + attData.urlFull + '"><img class="webwork-embedded-attachment" alt="' + attData.title + '" src="' + attData.urlThumb + '" /></a>'
 }
 
 export {

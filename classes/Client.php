@@ -25,7 +25,17 @@ class Client {
 
 		$deps = array();
 		if ( is_user_logged_in() ) {
+			$plupload_settings_filter = function( $params ) {
+				$extensions = array( 'jpg', 'jpeg', 'jpe', 'png', 'gif' );
+				$params['filters']['mime_types'][0]['extensions'] = implode( ',', $extensions );
+				return $params;
+			};
+
+			add_filter( 'plupload_default_settings', $plupload_settings_filter );
+
 			wp_enqueue_media();
+
+			remove_filter( 'plupload_default_settings', $plupload_settings_filter );
 		}
 
 		wp_enqueue_script( 'webwork-scaffold', plugins_url() . '/webwork/assets/js/webwork-scaffold.js', array( 'jquery' ) );

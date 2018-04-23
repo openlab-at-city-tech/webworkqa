@@ -5885,15 +5885,23 @@ function setScrolledTo(itemId) {
 	};
 }
 
-function sendQuestion(problemId, content, tried, problemText) {
+function sendQuestion(problemId) {
 	return (dispatch, getState) => {
 		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
 		let endpoint = rest_api_endpoint + 'questions/';
 
-		const { queryString } = getState();
+		const { queryString, formData } = getState();
 		const { post_data_key } = queryString;
+
 		if (post_data_key) {
 			endpoint += '?post_data_key=' + post_data_key;
+		}
+
+		const questionForm = formData['question-form'];
+
+		let attachmentIds = [];
+		for (let attachmentId in questionForm.attachments) {
+			attachmentIds.push(attachmentId);
 		}
 
 		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
@@ -5907,9 +5915,10 @@ function sendQuestion(problemId, content, tried, problemText) {
 				problem_id: problemId,
 				client_name: client_name,
 				client_url: page_base,
-				content,
-				problem_text: problemText,
-				tried
+				content: questionForm.content,
+				problem_text: window.WWData.problem_text,
+				tried: questionForm.tried,
+				attachments: attachmentIds
 			})
 		}).then(response => response.json()).then(json => {
 			dispatch(setQuestionPending(false));
@@ -38797,7 +38806,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
 			e.preventDefault();
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["i" /* setQuestionPending */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["j" /* sendQuestion */])(ownProps.problemId, content, tried, problemText));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["j" /* sendQuestion */])(ownProps.problemId));
 		}
 	};
 };
@@ -39049,7 +39058,8 @@ const SubscriptionDialogContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MOD
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { collapsed, formData, questionsById } = state;
+	const { formData, questions, responses } = state;
+
 	return {};
 	/*
  return {

@@ -3,7 +3,9 @@ import Uploader from '../components/Uploader'
 import { addAttachment } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
-	const { collapsed, formData, questionsById } = state
+	const { formData, questions, responses } = state
+
+
 	return {}
 	/*
 	return {

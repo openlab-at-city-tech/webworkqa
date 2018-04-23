@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		onQuestionFormSubmit: ( e, content, tried, problemText ) => {
 			e.preventDefault()
 			dispatch( setQuestionPending( true ) )
-			dispatch( sendQuestion( ownProps.problemId, content, tried, problemText ) )
+			dispatch( sendQuestion( ownProps.problemId ) )
 		}
 	}
 }

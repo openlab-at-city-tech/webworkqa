@@ -66,12 +66,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				toolbarView.controller.on('select',function() {
 					var selected = frame.state().get('selection')
 					selected.map( function( attData ) {
+						// Redundant for attachments of saved posts, but needed for non-upload inserts.
+						dispatch( addAttachment( attData ) )
 						dispatch( addAttachmentToItem( ownProps.formId, ownProps.fieldName, attData ) )
 					} )
 				})
 			}
 
-			// On successful upload, add new attachment to the `attachments` store. 
+			// On successful upload, add new attachment to the `attachments` store.
 			var uploaderView = frame.views.get('.media-frame-uploader')[0]
 			uploaderView.on('ready', function() {
 				uploaderView.uploader.success = function( attData ) {

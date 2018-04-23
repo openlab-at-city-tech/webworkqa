@@ -12,7 +12,7 @@ export default class PreviewableField extends Component {
 
 	render() {
 		const {
-			id, fieldId, fieldName, label, value, isPending, isPreviewVisible,
+			attachments, id, fieldId, fieldName, label, value, isPending, isPreviewVisible,
 			onPreviewToggleClick, onTextareaChange
 		} = this.props
 
@@ -94,6 +94,7 @@ export default class PreviewableField extends Component {
 				  id={previewId}
 				>
 					<FormattedProblem
+						attachments={attachments}
 					  itemId={id}
 					  isVisible={isPreviewVisible}
 					  content={previewContent}

@@ -19,7 +19,6 @@ export const fetchAppData = () => {
 			dispatch( setSubscriptions( json.subscriptions ) )
 		} )
 	}
-
 }
 
 export const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE'

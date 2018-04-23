@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import PreviewableField from '../components/PreviewableField'
 import { setCollapsed, setTextareaValue } from '../actions/app'
+import { attachmentShortcodeRegExp } from '../util/webwork-text-formatter'
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { attachments, collapsed, formData } = state
@@ -10,13 +11,21 @@ const mapStateToProps = ( state, ownProps ) => {
 	let isPending = false
 	if ( formData.hasOwnProperty( fieldId ) ) {
 		value = formData[ fieldId ][ fieldName ]
-		isPending = formData[ fieldId ].isPending 
+		isPending = formData[ fieldId ].isPending
 	}
 
 	const isPreviewVisible = ! collapsed.hasOwnProperty( fieldId + '-' + fieldName )
 
+	let atts = {}
+	value.replace( attachmentShortcodeRegExp(), function( a, attId ) {
+		if ( ! atts.hasOwnProperty( attId ) ) {
+			atts[ attId ] = attachments[ attId ]
+		}
+		return a
+	} )
+
 	return {
-		attachments,
+		attachments: atts,
 		isPending,
 		isPreviewVisible,
 		value

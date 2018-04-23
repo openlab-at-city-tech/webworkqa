@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { collapseLinebreaks } from '../util/webwork-text-formatter.js'
+import { collapseLinebreaks, attachmentShortcodeRegExp, attachmentMarkup } from '../util/webwork-text-formatter.js'
+import { AttachmentContainer } from '../containers/AttachmentContainer'
 
 export default class FormattedProblem extends Component {
 	componentDidMount() {
@@ -12,7 +13,7 @@ export default class FormattedProblem extends Component {
 	}
 
 	render() {
-		const { isVisible, itemId, content, contentSwappedUrl } = this.props
+		const { attachments, isVisible, itemId, content, contentSwappedUrl } = this.props
 
 		if ( ! content ) {
 			return ( <span></span> )
@@ -64,6 +65,14 @@ export default class FormattedProblem extends Component {
 
 		// But don't allow many breaks in a row :(
 		markup = collapseLinebreaks( markup )
+
+		markup = markup.replace( attachmentShortcodeRegExp(), function( a, attId ) {
+			if ( ! attachments.hasOwnProperty( attId ) ) {
+				return a
+			}
+
+			return attachmentMarkup( attachments[ attId ] )
+		} )
 
 		if ( contentSwappedUrl ) {
 			markup += '<div class="question-swapped">The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="' + contentSwappedUrl + '">another question in this thread</a>.</div>';

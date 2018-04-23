@@ -9,6 +9,7 @@ namespace WeBWorK\Server\Question;
  */
 class Query {
 	protected $r;
+	protected $results;
 
 	public function __construct( $args = array() ) {
 		$this->r = array_merge( array(
@@ -34,6 +35,10 @@ class Query {
 	 * @return array|int
 	 */
 	public function get() {
+		if ( isset( $this->results ) && is_array( $this->results ) ) {
+			return $this->results;
+		}
+
 		$args = array(
 			'post_type' => 'webwork_question',
 			'update_post_term_cache' => false,
@@ -147,7 +152,8 @@ class Query {
 			$questions[ $_question->ID ] = new \WeBWorK\Server\Question( $_question->ID );
 		}
 
-		return $questions;
+		$this->results = $questions;
+		return $this->results;
 	}
 
 	public function get_for_endpoint() {

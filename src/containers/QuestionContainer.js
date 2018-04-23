@@ -3,10 +3,11 @@ import Question from '../components/Question'
 import { setCollapsed, toggleEditing } from '../actions/app'
 import { deleteQuestion, setScrolledTo } from '../actions/questions'
 import { getCurrentView } from '../util/webwork-url-parser'
+import { attachmentShortcodeRegExp } from '../util/webwork-text-formatter'
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, editing, feedback, formData, initialLoadComplete,
+		attachments, collapsed, editing, feedback, formData, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state
 
@@ -43,7 +44,22 @@ const mapStateToProps = (state, ownProps) => {
 
 	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id
 
+	let atts = {}, textAtts
+	const texts = [
+		question.content,
+		question.tried
+	]
+	for ( let i in texts ) {
+		texts[i].replace( attachmentShortcodeRegExp(), function( a, attId ) {
+			if ( ! atts.hasOwnProperty( attId ) ) {
+				atts[ attId ] = attachments[ attId ]
+			}
+			return a
+		} )
+	}
+
 	return {
+		attachments: atts,
 		feedback: feedback.hasOwnProperty( itemId ) ? feedback[ itemId ] : {},
 		initialLoadComplete,
 		isCollapsed,

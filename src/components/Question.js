@@ -45,7 +45,7 @@ export default class Question extends Component {
 
 	render() {
 		const {
-			feedback, isCurrentQuestion,
+			attachments, feedback, isCurrentQuestion,
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
@@ -273,6 +273,7 @@ export default class Question extends Component {
 		const contentId = 'content-' + itemId
 		const formattedContent =
 			<FormattedProblem
+			  attachments={attachments}
 			  itemId={contentId}
 			  content={content}
 			/>
@@ -280,6 +281,7 @@ export default class Question extends Component {
 		const triedId = 'tried-' + itemId
 		const formattedTried = (
 			<FormattedProblem
+			  attachments={attachments}
 			  itemId={triedId}
 			  content={tried}
 			/>

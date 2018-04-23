@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import {
-	receiveFilterOptions, setInitialLoadComplete, setAppIsLoading,
+	receiveAttachments, receiveFilterOptions,
+	setInitialLoadComplete, setAppIsLoading,
 	setCollapsedBulk, setTextareaValues
 } from './app'
 import { receiveQuestions, receiveQuestionsById, resetQuestionIds } from './questions'
@@ -79,7 +80,7 @@ export function fetchProblem( problemId ) {
 		.then( response => response.json() )
 		.then( json => {
 			const {
-				problems, questions, questionsById,
+				attachments, problems, questions, questionsById,
 				responseIdMap, responses, scores, votes,
 				filterOptions
 			} = json
@@ -90,8 +91,8 @@ export function fetchProblem( problemId ) {
 				let vote = 0;
 
 				dispatch( receiveProblems( problems ) )
-
 				dispatch( receiveQuestions( questions ) )
+				dispatch( receiveAttachments( attachments ) )
 
 				// Set "pending" status for response forms.
 				let pending = {}

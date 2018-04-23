@@ -60,7 +60,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				});
 			}, frame )
 
-			// Get selected content when Attach is clicked, and process.
+			// When insert button is clicked, insert shortcode into content.
 			frame.views.ready = function() {
 				var toolbarView = frame.views.get('.media-frame-toolbar')[0]
 				toolbarView.controller.on('select',function() {
@@ -71,13 +71,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				})
 			}
 
-			// Upload success callback.
+			// On successful upload, add new attachment to the `attachments` store. 
 			var uploaderView = frame.views.get('.media-frame-uploader')[0]
 			uploaderView.on('ready', function() {
 				uploaderView.uploader.success = function( attData ) {
 					dispatch( addAttachment( attData ) )
-					// from the store, build attachment list
-				//	dispatch( addAttachment( ownProps.formId, attData ) )
 				}
 			})
 

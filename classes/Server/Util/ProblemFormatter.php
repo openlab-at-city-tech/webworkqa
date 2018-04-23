@@ -7,6 +7,7 @@ namespace WeBWorK\Server\Util;
  */
 class ProblemFormatter {
 	protected $mathjax_delim_regex = '|(<script type="math/tex([^"]*)">)(.*?)(</script>)|s';
+	protected $attachment_shortcode_regex = '|\[attachment id="([^"]+)"\]|';
 
 	/**
 	 * Default allowed tags for content.
@@ -396,5 +397,45 @@ class ProblemFormatter {
 
 	public function convert_linebreaks( $text ) {
 		return preg_replace( '/\r\n?|\n/', '<br />', $text );
+	}
+
+	public function get_attachment_ids( $text ) {
+		$attachment_ids = array();
+		if ( preg_match_all( $this->attachment_shortcode_regex, $text, $matches ) ) {
+			foreach ( $matches[1] as $match ) {
+				$attachment_ids[ $match ] = 1;
+			}
+		}
+
+		return array_keys( $attachment_ids );
+	}
+
+	public function get_attachment_data( $ids ) {
+		$data = array();
+		foreach ( $ids as $id ) {
+			$raw_att_data = wp_prepare_attachment_for_js( $id );
+
+			// See reducers/attachments.js
+			$att_data = array(
+				'id' => $id,
+				'caption' => $raw_att_data['caption'],
+				'filename' => $raw_att_data['filename'],
+				'urlFull' => $raw_att_data['sizes']['full']['url'],
+				'title' => $raw_att_data['title'],
+			);
+
+			if ( isset( $raw_att_data['sizes']['medium'] ) ) {
+				$att_data['urlMedium'] = $raw_att_data['sizes']['medium']['url'];
+			}
+
+			if ( isset( $raw_att_data['sizes']['large'] ) ) {
+				$att_data['urlLarge'] = $raw_att_data['sizes']['large']['url'];
+			}
+
+			$data[ $id ] = $att_data;
+		}
+		_b( $att_data );
+
+		return $data;
 	}
 }

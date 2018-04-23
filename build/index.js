@@ -4869,7 +4869,7 @@ module.exports = function(it){
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["b"] = processFilterChange;
 /* unused harmony export rebuildHash */
-/* harmony export (immutable) */ __webpack_exports__["p"] = processOrderbyChange;
+/* harmony export (immutable) */ __webpack_exports__["q"] = processOrderbyChange;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__problems__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__questions__ = __webpack_require__(20);
 
@@ -4896,7 +4896,7 @@ const fetchAppData = () => {
 
 
 const SET_INITIAL_LOAD_COMPLETE = 'SET_INITAL_LOAD_COMPLETE';
-/* harmony export (immutable) */ __webpack_exports__["u"] = SET_INITIAL_LOAD_COMPLETE;
+/* harmony export (immutable) */ __webpack_exports__["v"] = SET_INITIAL_LOAD_COMPLETE;
 
 const setInitialLoadComplete = isInitialLoadComplete => {
 	return {
@@ -4908,7 +4908,7 @@ const setInitialLoadComplete = isInitialLoadComplete => {
 
 
 const SET_APP_IS_LOADING = 'SET_APP_IS_LOADING';
-/* harmony export (immutable) */ __webpack_exports__["F"] = SET_APP_IS_LOADING;
+/* harmony export (immutable) */ __webpack_exports__["H"] = SET_APP_IS_LOADING;
 
 const setAppIsLoading = appIsLoading => {
 	return {
@@ -4918,11 +4918,11 @@ const setAppIsLoading = appIsLoading => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["g"] = setAppIsLoading;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setAppIsLoading;
 
 
 const TOGGLE_EDITING = 'TOGGLE_EDITING';
-/* harmony export (immutable) */ __webpack_exports__["A"] = TOGGLE_EDITING;
+/* harmony export (immutable) */ __webpack_exports__["B"] = TOGGLE_EDITING;
 
 const toggleEditing = (itemId, value) => {
 	return {
@@ -4933,11 +4933,11 @@ const toggleEditing = (itemId, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["i"] = toggleEditing;
+/* harmony export (immutable) */ __webpack_exports__["j"] = toggleEditing;
 
 
 const SET_COLLAPSED = 'SET_COLLAPSED';
-/* harmony export (immutable) */ __webpack_exports__["C"] = SET_COLLAPSED;
+/* harmony export (immutable) */ __webpack_exports__["D"] = SET_COLLAPSED;
 
 const setCollapsed = (itemId, value = null) => {
 	return {
@@ -4948,11 +4948,11 @@ const setCollapsed = (itemId, value = null) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["j"] = setCollapsed;
+/* harmony export (immutable) */ __webpack_exports__["k"] = setCollapsed;
 
 
 const SET_COLLAPSED_BULK = 'SET_COLLAPSED_BULK';
-/* harmony export (immutable) */ __webpack_exports__["D"] = SET_COLLAPSED_BULK;
+/* harmony export (immutable) */ __webpack_exports__["E"] = SET_COLLAPSED_BULK;
 
 const setCollapsedBulk = (c = []) => {
 	return {
@@ -4960,7 +4960,7 @@ const setCollapsedBulk = (c = []) => {
 		payload: c
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = setCollapsedBulk;
+/* harmony export (immutable) */ __webpack_exports__["e"] = setCollapsedBulk;
 
 
 function processFilterChange(slug, value) {
@@ -4980,7 +4980,7 @@ function rebuildHash() {
 }
 
 const RESET_CURRENT_FILTERS = 'RESET_CURRENT_FILTERS';
-/* harmony export (immutable) */ __webpack_exports__["B"] = RESET_CURRENT_FILTERS;
+/* harmony export (immutable) */ __webpack_exports__["C"] = RESET_CURRENT_FILTERS;
 
 const resetCurrentFilters = () => {
 	return {
@@ -4992,7 +4992,7 @@ const resetCurrentFilters = () => {
 
 
 const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE';
-/* harmony export (immutable) */ __webpack_exports__["s"] = SET_FILTER_TOGGLE;
+/* harmony export (immutable) */ __webpack_exports__["t"] = SET_FILTER_TOGGLE;
 
 const setFilterToggle = (slug, value) => {
 	// Don't tell the Redux gods about this.
@@ -5029,7 +5029,7 @@ function processOrderbyChange(orderby, problemId) {
 }
 
 const SET_SORT_ORDERBY = 'SET_SORT_ORDERBY';
-/* harmony export (immutable) */ __webpack_exports__["t"] = SET_SORT_ORDERBY;
+/* harmony export (immutable) */ __webpack_exports__["u"] = SET_SORT_ORDERBY;
 
 const setSortOrderby = orderby => {
 	const order = 'DESC';
@@ -5046,7 +5046,7 @@ const setSortOrderby = orderby => {
 
 
 const RECEIVE_FILTER_OPTIONS = 'RECEIVE_FILTER_OPTIONS';
-/* harmony export (immutable) */ __webpack_exports__["y"] = RECEIVE_FILTER_OPTIONS;
+/* harmony export (immutable) */ __webpack_exports__["z"] = RECEIVE_FILTER_OPTIONS;
 
 const receiveFilterOptions = filterOptions => {
 	return {
@@ -5054,11 +5054,11 @@ const receiveFilterOptions = filterOptions => {
 		payload: filterOptions
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = receiveFilterOptions;
+/* harmony export (immutable) */ __webpack_exports__["g"] = receiveFilterOptions;
 
 
 const SET_TEXTAREA_VALUE = 'SET_TEXTAREA_VALUE';
-/* harmony export (immutable) */ __webpack_exports__["w"] = SET_TEXTAREA_VALUE;
+/* harmony export (immutable) */ __webpack_exports__["x"] = SET_TEXTAREA_VALUE;
 
 const setTextareaValue = (fieldId, fieldName, value) => {
 	return {
@@ -5070,11 +5070,11 @@ const setTextareaValue = (fieldId, fieldName, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["h"] = setTextareaValue;
+/* harmony export (immutable) */ __webpack_exports__["i"] = setTextareaValue;
 
 
 const SET_TEXTAREA_VALUES = 'SET_TEXTAREA_VALUES';
-/* harmony export (immutable) */ __webpack_exports__["x"] = SET_TEXTAREA_VALUES;
+/* harmony export (immutable) */ __webpack_exports__["y"] = SET_TEXTAREA_VALUES;
 
 const setTextareaValues = values => {
 	return {
@@ -5084,11 +5084,11 @@ const setTextareaValues = values => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = setTextareaValues;
+/* harmony export (immutable) */ __webpack_exports__["f"] = setTextareaValues;
 
 
 const ADD_FEEDBACK_MESSAGE = 'ADD_FEEDBACK_MESSAGE';
-/* harmony export (immutable) */ __webpack_exports__["z"] = ADD_FEEDBACK_MESSAGE;
+/* harmony export (immutable) */ __webpack_exports__["A"] = ADD_FEEDBACK_MESSAGE;
 
 const addFeedbackMessage = payload => {
 	return {
@@ -5096,7 +5096,7 @@ const addFeedbackMessage = payload => {
 		payload
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["l"] = addFeedbackMessage;
+/* harmony export (immutable) */ __webpack_exports__["m"] = addFeedbackMessage;
 
 
 const toggleSubscription = itemId => {
@@ -5114,11 +5114,11 @@ const toggleSubscription = itemId => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["m"] = toggleSubscription;
+/* harmony export (immutable) */ __webpack_exports__["n"] = toggleSubscription;
 
 
 const SET_SUBSCRIPTION = 'SET_SUBSCRIPTION';
-/* harmony export (immutable) */ __webpack_exports__["q"] = SET_SUBSCRIPTION;
+/* harmony export (immutable) */ __webpack_exports__["r"] = SET_SUBSCRIPTION;
 
 const setSubscription = (itemId, value) => {
 	return {
@@ -5129,11 +5129,11 @@ const setSubscription = (itemId, value) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["k"] = setSubscription;
+/* harmony export (immutable) */ __webpack_exports__["l"] = setSubscription;
 
 
 const SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS';
-/* harmony export (immutable) */ __webpack_exports__["r"] = SET_SUBSCRIPTIONS;
+/* harmony export (immutable) */ __webpack_exports__["s"] = SET_SUBSCRIPTIONS;
 
 const setSubscriptions = values => {
 	return {
@@ -5184,7 +5184,7 @@ const deleteSubscription = itemId => {
 
 
 const ADD_ATTACHMENT = 'ADD_ATTACHMENT';
-/* harmony export (immutable) */ __webpack_exports__["E"] = ADD_ATTACHMENT;
+/* harmony export (immutable) */ __webpack_exports__["F"] = ADD_ATTACHMENT;
 
 const addAttachment = attData => {
 	return {
@@ -5194,11 +5194,11 @@ const addAttachment = attData => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["o"] = addAttachment;
+/* harmony export (immutable) */ __webpack_exports__["p"] = addAttachment;
 
 
 const ADD_ATTACHMENT_TO_ITEM = 'ADD_ATTACHMENT_TO_ITEM';
-/* harmony export (immutable) */ __webpack_exports__["v"] = ADD_ATTACHMENT_TO_ITEM;
+/* harmony export (immutable) */ __webpack_exports__["w"] = ADD_ATTACHMENT_TO_ITEM;
 
 const addAttachmentToItem = (formId, fieldName, attData) => {
 	return {
@@ -5210,7 +5210,19 @@ const addAttachmentToItem = (formId, fieldName, attData) => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["n"] = addAttachmentToItem;
+/* harmony export (immutable) */ __webpack_exports__["o"] = addAttachmentToItem;
+
+
+const RECEIVE_ATTACHMENTS = 'RECEIVE_ATTACHMENTS';
+/* harmony export (immutable) */ __webpack_exports__["G"] = RECEIVE_ATTACHMENTS;
+
+const receiveAttachments = attachments => {
+	return {
+		type: RECEIVE_ATTACHMENTS,
+		payload: attachments
+	};
+};
+/* harmony export (immutable) */ __webpack_exports__["d"] = receiveAttachments;
 
 
 /***/ }),
@@ -5694,7 +5706,7 @@ function fetchQuestionIndexList(append) {
 			endpoint += '?' + qs;
 		}
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setAppIsLoading */])(true));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setAppIsLoading */])(true));
 
 		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
 			credentials: 'same-origin',
@@ -5718,7 +5730,7 @@ function fetchQuestionIndexList(append) {
 
 				scores[thisQuestionId] = json.questions[thisQuestionId].voteCount;
 			}
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setCollapsedBulk */])(toCollapse));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__scores__["a" /* setScoresBulk */])(scores));
 
 			const defaultFormContent = {
@@ -5738,9 +5750,9 @@ function fetchQuestionIndexList(append) {
 				newFormData['question-' + j] = newFormContent;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValues */])(newFormData));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValues */])(newFormData));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setAppIsLoading */])(false));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setInitialLoadComplete */])(true));
 		});
 	};
@@ -5939,12 +5951,12 @@ function sendQuestion(problemId) {
 			dispatch(setQuestionPending(false));
 			dispatch(receiveQuestion(json));
 			dispatch(receiveQuestionById(json.questionId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-form', 'content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-form', 'tried', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* setCollapsed */])('response-' + json.questionId + '-content', true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["k" /* setSubscription */])(json.questionId, true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setTextareaValue */])('question-form', 'content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setTextareaValue */])('question-form', 'tried', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["k" /* setCollapsed */])('response-' + json.questionId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["l" /* setSubscription */])(json.questionId, true));
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["l" /* addFeedbackMessage */])({
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["m" /* addFeedbackMessage */])({
 				itemId: json.questionId,
 				type: 'success',
 				text: 'Your question has been posted!\nYou will receive an email notification when your question receives a response.'
@@ -5991,8 +6003,8 @@ function updateQuestion(questionId) {
 				tried: questionData.tried
 			})
 		}).then(response => response.json()).then(json => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(questionId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setTextareaValue */])('question-' + questionId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* toggleEditing */])(questionId, false));
 			dispatch(receiveQuestion(json));
 		});
 	};
@@ -7215,8 +7227,8 @@ function sendResponse(questionId, value) {
 			dispatch(receiveResponse(json));
 			dispatch(receiveResponseIdForMap(json.responseId, questionId));
 			dispatch(setResponsePending(questionId, false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + questionId, 'content', ''));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + json.responseId, 'content', value));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setTextareaValue */])('response-' + questionId, 'content', ''));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setTextareaValue */])('response-' + json.responseId, 'content', value));
 			// todo - handle errors
 		});
 	};
@@ -7271,8 +7283,8 @@ function updateResponse(responseId) {
 				content: responseData.content
 			})
 		}).then(requestResponse => requestResponse.json()).then(json => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* toggleEditing */])(responseId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setTextareaValue */])('response-' + responseId, 'isPending', false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["j" /* toggleEditing */])(responseId, false));
 			dispatch(receiveResponse(json));
 		});
 	};
@@ -9794,7 +9806,7 @@ function fetchProblem(problemId) {
 			}
 		}).then(response => response.json()).then(json => {
 			const {
-				problems, questions, questionsById,
+				attachments, problems, questions, questionsById,
 				responseIdMap, responses, scores, votes,
 				filterOptions
 			} = json;
@@ -9805,8 +9817,8 @@ function fetchProblem(problemId) {
 				let vote = 0;
 
 				dispatch(receiveProblems(problems));
-
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["c" /* receiveQuestions */])(questions));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* receiveAttachments */])(attachments));
 
 				// Set "pending" status for response forms.
 				let pending = {};
@@ -9842,7 +9854,7 @@ function fetchProblem(problemId) {
 					value: true
 				});
 
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["d" /* setCollapsedBulk */])(toCollapse));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setCollapsedBulk */])(toCollapse));
 
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["a" /* receiveResponseIdMap */])(responseIdMap));
 				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__responses__["c" /* receiveResponses */])(responses));
@@ -9880,13 +9892,13 @@ function fetchProblem(problemId) {
 				newFormData['question-form'] = Object.assign({}, defaultFormContent);
 				newFormData['question-form'].attachments = {};
 
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["e" /* setTextareaValues */])(newFormData));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* setTextareaValues */])(newFormData));
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["f" /* receiveFilterOptions */])(filterOptions));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* receiveFilterOptions */])(filterOptions));
 
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["c" /* setInitialLoadComplete */])(true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["g" /* setAppIsLoading */])(false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["h" /* setAppIsLoading */])(false));
 		});
 	};
 }
@@ -10514,6 +10526,8 @@ exports.default = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__ = __webpack_require__(427);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_AttachmentContainer__ = __webpack_require__(775);
+
 
 
 
@@ -10528,7 +10542,7 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 	}
 
 	render() {
-		const { isVisible, itemId, content, contentSwappedUrl } = this.props;
+		const { attachments, isVisible, itemId, content, contentSwappedUrl } = this.props;
 
 		if (!content) {
 			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', null);
@@ -10572,7 +10586,15 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 		markup = markup.replace(/(?!<script[^>]*?>)(?:\r\n|\r|\n)(?![^<]*?<\/script>)/g, '<br />');
 
 		// But don't allow many breaks in a row :(
-		markup = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["a" /* collapseLinebreaks */])(markup);
+		markup = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["b" /* collapseLinebreaks */])(markup);
+
+		markup = markup.replace(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["a" /* attachmentShortcodeRegExp */])(), function (a, attId) {
+			if (!attachments.hasOwnProperty(attId)) {
+				return a;
+			}
+
+			return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__["c" /* attachmentMarkup */])(attachments[attId]);
+		});
 
 		if (contentSwappedUrl) {
 			markup += '<div class="question-swapped">The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="' + contentSwappedUrl + '">another question in this thread</a>.</div>';
@@ -10613,7 +10635,7 @@ FormattedProblem.defaultProps = {
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { collapsed, formData } = state;
+	const { attachments, collapsed, formData } = state;
 	const { fieldId, fieldName } = ownProps;
 
 	let value = '';
@@ -10626,6 +10648,7 @@ const mapStateToProps = (state, ownProps) => {
 	const isPreviewVisible = !collapsed.hasOwnProperty(fieldId + '-' + fieldName);
 
 	return {
+		attachments,
 		isPending,
 		isPreviewVisible,
 		value
@@ -10636,11 +10659,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onPreviewToggleClick: () => {
 			const collapsedKey = ownProps.fieldId + '-' + ownProps.fieldName;
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])(collapsedKey));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["k" /* setCollapsed */])(collapsedKey));
 		},
 
 		onTextareaChange: event => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setTextareaValue */])(ownProps.fieldId, ownProps.fieldName, event.target.value));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setTextareaValue */])(ownProps.fieldId, ownProps.fieldName, event.target.value));
 		}
 	};
 };
@@ -16200,7 +16223,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setTextareaValue */])(key, 'isPending', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* setTextareaValue */])(key, 'isPending', true));
 
 			switch (fieldType) {
 				case 'question':
@@ -16230,6 +16253,8 @@ const EditSaveButtonContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_app__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions_questions__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_webwork_url_parser__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_webwork_text_formatter__ = __webpack_require__(427);
+
 
 
 
@@ -16238,7 +16263,7 @@ const EditSaveButtonContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_
 
 const mapStateToProps = (state, ownProps) => {
 	const {
-		collapsed, editing, feedback, formData, initialLoadComplete,
+		attachments, collapsed, editing, feedback, formData, initialLoadComplete,
 		questions, responseIdMap, responses, routing
 	} = state;
 
@@ -16272,7 +16297,20 @@ const mapStateToProps = (state, ownProps) => {
 
 	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id;
 
+	let atts = {},
+	    textAtts;
+	const texts = [question.content, question.tried];
+	for (let i in texts) {
+		texts[i].replace(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__util_webwork_text_formatter__["a" /* attachmentShortcodeRegExp */])(), function (a, attId) {
+			if (!atts.hasOwnProperty(attId)) {
+				atts[attId] = attachments[attId];
+			}
+			return a;
+		});
+	}
+
 	return {
+		attachments: atts,
 		feedback: feedback.hasOwnProperty(itemId) ? feedback[itemId] : {},
 		initialLoadComplete,
 		isCollapsed,
@@ -16297,7 +16335,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["k" /* setCollapsed */])(itemId));
 		},
 
 		onDeleteClick: () => {
@@ -16305,9 +16343,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onEditClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["i" /* toggleEditing */])(itemId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])('question-' + itemId + '-content', true));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])('question-' + itemId + '-tried', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* toggleEditing */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["k" /* setCollapsed */])('question-' + itemId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["k" /* setCollapsed */])('question-' + itemId + '-tried', true));
 		},
 
 		onProblemSummaryClick: event => {
@@ -16322,11 +16360,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				return;
 			}
 
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])(itemId + '-problem'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["k" /* setCollapsed */])(itemId + '-problem'));
 		},
 
 		onRespondClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["j" /* setCollapsed */])('responseForm-' + itemId, false));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["k" /* setCollapsed */])('responseForm-' + itemId, false));
 		},
 
 		onWaypointEnter: () => {
@@ -16374,7 +16412,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		const { value } = change;
 		const { problemId } = ownProps;
 
-		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["p" /* processOrderbyChange */])(value, problemId));
+		dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_app__["q" /* processOrderbyChange */])(value, problemId));
 	};
 
 	return {
@@ -16426,7 +16464,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["j" /* setCollapsed */])('responseForm-' + ownProps.questionId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["k" /* setCollapsed */])('responseForm-' + ownProps.questionId));
 		},
 
 		onResponseFormSubmit: (e, responseText) => {
@@ -36883,7 +36921,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 	render() {
 		const {
-			feedback, isCurrentQuestion,
+			attachments, feedback, isCurrentQuestion,
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
 			itemId, question, questionLink, questionStatus,
 			responseIds, responses, userCanEdit, userCanPostResponse,
@@ -37121,12 +37159,14 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		const contentId = 'content-' + itemId;
 		const formattedContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
+			attachments: attachments,
 			itemId: contentId,
 			content: content
 		});
 
 		const triedId = 'tried-' + itemId;
 		const formattedTried = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
+			attachments: attachments,
 			itemId: triedId,
 			content: tried
 		});
@@ -38736,7 +38776,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onComponentWillMount: function (problemId) {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["g" /* setAppIsLoading */])(true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["h" /* setAppIsLoading */])(true));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_problems__["a" /* fetchProblem */])(problemId));
 		}
 	};
@@ -38819,7 +38859,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		onAccordionClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["j" /* setCollapsed */])('questionForm'));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_app__["k" /* setCollapsed */])('questionForm'));
 		},
 
 		onQuestionFormSubmit: (e, content, tried, problemText) => {
@@ -38939,8 +38979,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onEditClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["i" /* toggleEditing */])(responseId));
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["j" /* setCollapsed */])('response-' + responseId + '-content', true));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["j" /* toggleEditing */])(responseId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions_app__["k" /* setCollapsed */])('response-' + responseId + '-content', true));
 		}
 	};
 };
@@ -39054,7 +39094,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		onClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["m" /* toggleSubscription */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["n" /* toggleSubscription */])(itemId));
 		}
 	};
 };
@@ -39133,24 +39173,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				});
 			}, frame);
 
-			// Get selected content when Attach is clicked, and process.
+			// When insert button is clicked, insert shortcode into content.
 			frame.views.ready = function () {
 				var toolbarView = frame.views.get('.media-frame-toolbar')[0];
 				toolbarView.controller.on('select', function () {
 					var selected = frame.state().get('selection');
 					selected.map(function (attData) {
-						dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["n" /* addAttachmentToItem */])(ownProps.formId, ownProps.fieldName, attData));
+						dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["o" /* addAttachmentToItem */])(ownProps.formId, ownProps.fieldName, attData));
 					});
 				});
 			};
 
-			// Upload success callback.
+			// On successful upload, add new attachment to the `attachments` store. 
 			var uploaderView = frame.views.get('.media-frame-uploader')[0];
 			uploaderView.on('ready', function () {
 				uploaderView.uploader.success = function (attData) {
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["o" /* addAttachment */])(attData));
-					// from the store, build attachment list
-					//	dispatch( addAttachment( ownProps.formId, attData ) )
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_app__["p" /* addAttachment */])(attData));
 				};
 			});
 
@@ -39199,7 +39237,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"])(__WEBPA
 
 function appIsLoading(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["F" /* SET_APP_IS_LOADING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["H" /* SET_APP_IS_LOADING */]:
 			const { appIsLoading } = action.payload;
 			return appIsLoading;
 
@@ -39221,7 +39259,7 @@ function collapsed(state = {}, action) {
 	let newState;
 
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["C" /* SET_COLLAPSED */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["D" /* SET_COLLAPSED */]:
 			const { itemId, value } = action.payload;
 
 			let doCollapse;
@@ -39241,7 +39279,7 @@ function collapsed(state = {}, action) {
 			delete newState[itemId];
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["D" /* SET_COLLAPSED_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["E" /* SET_COLLAPSED_BULK */]:
 			newState = Object.assign({}, state);
 			const items = action.payload;
 
@@ -39301,14 +39339,14 @@ function currentFilters(state = initialState, action) {
 
 			return state;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			return Object.assign({}, state, {
 				[slug]: value
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* SET_SORT_ORDERBY */]:
 			const { orderby, order } = action.payload;
 
 			return Object.assign({}, state, {
@@ -39316,7 +39354,7 @@ function currentFilters(state = initialState, action) {
 				order
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["B" /* RESET_CURRENT_FILTERS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["C" /* RESET_CURRENT_FILTERS */]:
 			return {};
 
 		default:
@@ -39335,7 +39373,7 @@ function currentFilters(state = initialState, action) {
 
 function editing(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["A" /* TOGGLE_EDITING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["B" /* TOGGLE_EDITING */]:
 			const { itemId, value } = action.payload;
 
 			let updateValue = value;
@@ -39369,7 +39407,7 @@ function editing(state = {}, action) {
 
 function feedback(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["z" /* ADD_FEEDBACK_MESSAGE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["A" /* ADD_FEEDBACK_MESSAGE */]:
 			const { itemId, type, text } = action.payload;
 
 			let itemFeedbacks = {};
@@ -39400,7 +39438,7 @@ function feedback(state = {}, action) {
 
 function filterOptions(state = window.WWData.filter_options, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["y" /* RECEIVE_FILTER_OPTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["z" /* RECEIVE_FILTER_OPTIONS */]:
 			return action.payload;
 
 		default:
@@ -39421,7 +39459,7 @@ function filterOptions(state = window.WWData.filter_options, action) {
 
 function formData(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* ADD_ATTACHMENT_TO_ITEM */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["w" /* ADD_ATTACHMENT_TO_ITEM */]:
 			const { formId, attData } = action.payload;
 			const attFieldName = action.payload.fieldName;
 
@@ -39443,7 +39481,7 @@ function formData(state = {}, action) {
 
 			return newStateForAttachment;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["w" /* SET_TEXTAREA_VALUE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["x" /* SET_TEXTAREA_VALUE */]:
 			const { fieldId, fieldName, value } = action.payload;
 
 			let newField = Object.assign({}, state[fieldId]);
@@ -39454,7 +39492,7 @@ function formData(state = {}, action) {
 
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["x" /* SET_TEXTAREA_VALUES */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["y" /* SET_TEXTAREA_VALUES */]:
 			const { values } = action.payload;
 			return Object.assign({}, state, values);
 
@@ -39584,7 +39622,7 @@ const rootReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c
 
 function initialLoadComplete(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* SET_INITIAL_LOAD_COMPLETE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["v" /* SET_INITIAL_LOAD_COMPLETE */]:
 			return action.payload;
 
 		default:
@@ -39841,7 +39879,7 @@ function routing(state = initialState, action) {
 
 		// Here is our code to set the location state when the user chooses
 		// a different option in the menu
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_FILTER_TOGGLE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_FILTER_TOGGLE */]:
 			const { slug, value } = action.payload;
 
 			newHash = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["d" /* buildHashFromFilter */])(slug, value, state);
@@ -39855,7 +39893,7 @@ function routing(state = initialState, action) {
 				locationBeforeTransitions: newLocation
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["t" /* SET_SORT_ORDERBY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["u" /* SET_SORT_ORDERBY */]:
 			const { order, orderby } = action.payload;
 
 			let locationClone = Object.assign({}, state);
@@ -39918,7 +39956,7 @@ function scores(state = {}, action) {
 
 function subscriptions(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["q" /* SET_SUBSCRIPTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* SET_SUBSCRIPTION */]:
 			const { itemId, value } = action.payload;
 			let newSubs = Object.assign({}, state);
 
@@ -39930,7 +39968,7 @@ function subscriptions(state = {}, action) {
 
 			return newSubs;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["r" /* SET_SUBSCRIPTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["s" /* SET_SUBSCRIPTIONS */]:
 			return action.payload;
 
 		default:
@@ -39975,9 +40013,13 @@ function votes(state = {}, action) {
 "use strict";
 /* unused harmony export convertLinebreaks */
 /* unused harmony export convertLinebreaksAsString */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return collapseLinebreaks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return collapseLinebreaks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return attachmentShortcodeRegExp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return attachmentMarkup; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_AttachmentContainer__ = __webpack_require__(775);
+
 
 
 const convertLinebreaks = text => {
@@ -39999,6 +40041,22 @@ const convertLinebreaksAsString = text => {
 
 const collapseLinebreaks = text => {
 	return text.replace(/((<br \/>){3,})/, '<br /><br />');
+};
+
+const attachmentShortcodeRegExp = () => {
+	return (/\[attachment id="([^"]+)"\]/gm
+	);
+};
+
+const attachmentMarkup = attData => {
+	let imgUrl = attData.urlFull;
+	if (attData.hasOwnProperty('urlLarge')) {
+		imgUrl = attData.urlLarge;
+	} else if (attData.hasOwnProperty('urlMedium')) {
+		imgUrl = attData.urlMedium;
+	}
+
+	return '<a href="' + attData.urlFull + '"><img class="webwork-embedded-attachment" alt="' + attData.title + '" src="' + imgUrl + '" /></a>';
 };
 
 
@@ -62836,7 +62894,7 @@ function symbolObservablePonyfill(root) {
 
 function attachments(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["E" /* ADD_ATTACHMENT */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["F" /* ADD_ATTACHMENT */]:
 			const { attData } = action.payload;
 
 			let attDataForState = {
@@ -62860,10 +62918,58 @@ function attachments(state = {}, action) {
 
 			return newState;
 
+		case __WEBPACK_IMPORTED_MODULE_0__actions_app__["G" /* RECEIVE_ATTACHMENTS */]:
+			return Object.assign({}, state, action.payload);
+
 		default:
 			return state;
 	}
 }
+
+/***/ }),
+/* 775 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Attachment__ = __webpack_require__(776);
+
+
+
+const mapStateToProps = (state, ownProps) => {
+	const { attachments } = state;
+	const { attId } = ownProps;
+
+	console.log(attId);
+
+	return {};
+};
+
+const AttachmentContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps)(__WEBPACK_IMPORTED_MODULE_1__components_Attachment__["a" /* default */]);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (AttachmentContainer);
+
+/***/ }),
+/* 776 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+class Attachment extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	render() {
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			null,
+			'This is an attachment.'
+		);
+	}
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Attachment;
+
 
 /***/ })
 /******/ ]);

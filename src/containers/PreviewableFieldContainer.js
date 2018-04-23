@@ -3,7 +3,7 @@ import PreviewableField from '../components/PreviewableField'
 import { setCollapsed, setTextareaValue } from '../actions/app'
 
 const mapStateToProps = ( state, ownProps ) => {
-	const { collapsed, formData } = state
+	const { attachments, collapsed, formData } = state
 	const { fieldId, fieldName } = ownProps
 
 	let value = ''
@@ -16,6 +16,7 @@ const mapStateToProps = ( state, ownProps ) => {
 	const isPreviewVisible = ! collapsed.hasOwnProperty( fieldId + '-' + fieldName )
 
 	return {
+		attachments,
 		isPending,
 		isPreviewVisible,
 		value

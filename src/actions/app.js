@@ -269,3 +269,10 @@ export const addAttachmentToItem = ( formId, fieldName, attData ) => {
 	}
 }
 
+export const RECEIVE_ATTACHMENTS = 'RECEIVE_ATTACHMENTS'
+export const receiveAttachments = (attachments) => {
+	return {
+		type: RECEIVE_ATTACHMENTS,
+		payload: attachments
+	}
+}

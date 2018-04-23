@@ -1,4 +1,4 @@
-import { ADD_ATTACHMENT } from '../actions/app'
+import { ADD_ATTACHMENT, RECEIVE_ATTACHMENTS } from '../actions/app'
 
 export function attachments( state = {}, action ) {
 	switch ( action.type ) {
@@ -25,6 +25,9 @@ export function attachments( state = {}, action ) {
 			newState[ attData.id ] = attDataForState
 
 			return newState
+
+		case RECEIVE_ATTACHMENTS :
+			return Object.assign( {}, state, action.payload )
 
 		default :
 			return state

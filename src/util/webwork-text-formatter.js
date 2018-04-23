@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AttachmentContainer from '../containers/AttachmentContainer'
 
 const convertLinebreaks = ( text ) => {
 	let chunkKey = 0
@@ -21,4 +22,25 @@ const collapseLinebreaks = ( text ) => {
 	return text.replace( /((<br \/>){3,})/, '<br /><br />' )
 }
 
-export { convertLinebreaks, convertLinebreaksAsString, collapseLinebreaks }
+const attachmentShortcodeRegExp = () => {
+	return /\[attachment id="([^"]+)"\]/gm
+}
+
+const attachmentMarkup = (attData) => {
+	let imgUrl = attData.urlFull
+	if ( attData.hasOwnProperty( 'urlLarge' ) ) {
+		imgUrl = attData.urlLarge
+	} else if ( attData.hasOwnProperty( 'urlMedium' ) ) {
+		imgUrl = attData.urlMedium
+	}
+
+	return '<a href="' + attData.urlFull + '"><img class="webwork-embedded-attachment" alt="' + attData.title + '" src="' + imgUrl + '" /></a>'
+}
+
+export {
+	convertLinebreaks,
+	convertLinebreaksAsString,
+	collapseLinebreaks,
+	attachmentShortcodeRegExp,
+	attachmentMarkup
+}

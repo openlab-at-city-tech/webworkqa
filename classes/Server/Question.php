@@ -277,6 +277,17 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		return $email;
 	}
 
+	/**
+	 * Get attachment IDs for this item.
+	 *
+	 * @return array
+	 */
+	public function get_attachment_ids() {
+		$content_ids = $this->pf->get_attachment_ids( $this->get_content() );
+		$tried_ids = $this->pf->get_attachment_ids( $this->get_tried() );
+		return array_unique( array_merge( $content_ids, $tried_ids ) );
+	}
+
 	public function save() {
 		$is_new = ! $this->exists();
 

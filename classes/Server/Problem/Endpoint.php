@@ -43,6 +43,12 @@ class Endpoint extends \WP_Rest_Controller {
 		) );
 		$questions = $question_query->get_for_endpoint();
 
+		$attachment_ids = array();
+		foreach ( $question_query->get() as $question ) {
+			$q_att_ids = $question->get_attachment_ids();
+			$attachment_ids = array_merge( $q_att_ids, $attachment_ids );
+		}
+
 		$the_question = null;
 		if ( ! $questions && $post_data ) {
 			// Fake a problem from post data.
@@ -172,7 +178,11 @@ class Endpoint extends \WP_Rest_Controller {
 			$problems[ $problem_id ] = $problem;
 		}
 
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$attachments = $pf->get_attachment_data( $attachment_ids );
+
 		$data = array(
+			'attachments' => $attachments,
 			'filterOptions' => $question_query->get_all_filter_options(),
 			'problems' => $problems,
 			'questions' => $questions,

@@ -19,16 +19,6 @@ const mapStateToProps = (state, ownProps) => {
 	*/
 }
 
-/*
- * @todo
- * - The WP uploader sends items to the *current* site, but WW config allows the site to be a different one in the network (and this is how my default environment and openlabdev are configured, though not the production site). Either (a) disable and untangle this feature, (b) find a way to make the WP uploader point to the webwork_server_site_id(), or (c) move the items to the correct place after upload.
- * - Render `attachments` from store on front end during edit/display
- * - During edit/create, send attachment IDs along with other formData. After submitting, switch post parent.
- * - Send attachment IDs along with question
- * - For existing items, use the existing question/reply ID.
- * - Insert images?
- */
-
 const mapDispatchToProps = (dispatch, ownProps) => {
 	let frame
 	return {
@@ -41,7 +31,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			frame = wp.media({
 				title: 'Attach Files',
 				button: {
-					text: 'Attach'
+					close: false,
+					reset: false,
+					text: 'Insert'
 				},
 				multiple: true,
 			});
@@ -60,16 +52,43 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				});
 			}, frame )
 
-			// When insert button is clicked, insert shortcode into content.
 			frame.views.ready = function() {
-				var toolbarView = frame.views.get('.media-frame-toolbar')[0]
+				const toolbarView = frame.views.get('.media-frame-toolbar')[0]
+				const sidebar = frame.views.get('.media-frame-content')[0].sidebar
+				const modal = frame.modal
+				const library = frame.library
+
 				toolbarView.controller.on('select',function() {
 					var selected = frame.state().get('selection')
-					selected.map( function( attData ) {
-						// Redundant for attachments of saved posts, but needed for non-upload inserts.
-						dispatch( addAttachment( attData ) )
-						dispatch( addAttachmentToItem( ownProps.formId, ownProps.fieldName, attData ) )
-					} )
+
+					// Set up alt tag protection.
+					let hasAltText = true
+					selected.each(function(item){
+						if ( ! hasAltText ) {
+							return
+						}
+
+						hasAltText = 0 !== item.attributes.alt.length
+					})
+
+					if ( hasAltText ) {
+						// When insert button is clicked, insert shortcode into content.
+						selected.map( function( attData ) {
+							// Redundant for attachments of saved posts, but needed for non-upload inserts.
+							dispatch( addAttachment( attData ) )
+							dispatch( addAttachmentToItem( ownProps.formId, ownProps.fieldName, attData ) )
+						} )
+
+						toolbarView.$el.find('.alt-tag-warning').remove()
+						sidebar.$el.find('label.setting[data-setting="alt"]').removeClass('has-error')
+
+						modal.close()
+						frame.reset()
+					} else {
+						const warning = '<p id="alt-tag-warning" class="alt-tag-warning">You must supply alt text before inserting this image.</p>'
+						toolbarView.$el.find('.media-toolbar-primary').append(warning)
+						sidebar.$el.find('label.setting[data-setting="alt"]').addClass('has-error')
+					}
 				})
 			}
 

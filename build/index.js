@@ -38628,11 +38628,13 @@ class QuestionSortDropdown extends __WEBPACK_IMPORTED_MODULE_0_react__["Componen
 				'label',
 				{
 					className: 'screen-reader-text',
-					htmlFor: 'question-sort'
+					htmlFor: 'question-sort',
+					id: 'question-sort-label'
 				},
 				'Sort results by'
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_select__["a" /* default */], {
+				'aria-labelledby': 'question-sort-label',
 				autoBlur: true,
 				id: 'question-sort',
 				name: 'question-sort',

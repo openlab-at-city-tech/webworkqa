@@ -16,9 +16,11 @@ export default class QuestionSortDropdown extends Component {
 				<label
 					className='screen-reader-text'
 				  htmlFor='question-sort'
+					id='question-sort-label'
 				>Sort results by</label>
 
 				<Select
+					aria-labelledby='question-sort-label'
 				  autoBlur={true}
 				  id='question-sort'
 				  name='question-sort'

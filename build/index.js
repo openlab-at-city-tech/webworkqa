@@ -39274,6 +39274,7 @@ class SidebarFilter extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const contentContainerId = slug + '-content';
 		const filterContent = this.getFilterContent();
 		const filterId = 'filter-' + slug;
+		const labelId = filterId + '-label';
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
@@ -39286,7 +39287,11 @@ class SidebarFilter extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				},
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'label',
-					{ htmlFor: filterId, className: 'screen-reader-text' },
+					{
+						id: labelId,
+						htmlFor: filterId,
+						className: 'screen-reader-text'
+					},
 					name
 				),
 				filterContent
@@ -39337,9 +39342,11 @@ class SidebarFilter extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		const filterName = 'filter-' + slug;
+		const labelId = filterName + '-label';
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_select__["a" /* default */], {
 			autoBlur: true,
+			'aria-labelledby': labelId,
 			id: filterName,
 			name: filterName,
 			value: value,

@@ -8,6 +8,7 @@ export default class SidebarFilter extends Component {
 		const contentContainerId = slug + '-content'
 		const filterContent = this.getFilterContent()
 		const filterId = 'filter-' + slug
+		const labelId = filterId + '-label'
 
 		return (
 			<li>
@@ -15,9 +16,11 @@ export default class SidebarFilter extends Component {
 					id={contentContainerId}
 					className="filter-content"
 				>
-					<label htmlFor={filterId} className="screen-reader-text">
-						{name}	
-					</label>
+					<label 
+					  id={labelId}
+						htmlFor={filterId} 
+						className="screen-reader-text"
+					>{name}</label>
 					
 					{filterContent}
 				</div>
@@ -67,10 +70,12 @@ export default class SidebarFilter extends Component {
 		}
 
 		const filterName = 'filter-' + slug
+		const labelId = filterName + '-label'
 
 		return (
 			<Select
 				autoBlur={true}
+				aria-labelledby={labelId}
 				id={filterName}
 				name={filterName}
 				value={value}

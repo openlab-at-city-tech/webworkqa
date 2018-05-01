@@ -51,6 +51,7 @@ export default class ScoreDialog extends React.Component {
 		const srElement = <span className="screen-reader-text">{voteText}</span>
 		voteElement = (
 			<button
+				aria-label={voteText}
 				disabled={voteButtonIsDisabled}
 				onClick={ (e) => {
 					e.preventDefault()

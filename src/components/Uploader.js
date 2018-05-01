@@ -7,7 +7,6 @@ export default class Uploader extends Component {
 		return (
 			<button
 					className="question-form-upload-button"
-					id="insert-media-button"
 					onClick={function(e){
 						e.preventDefault()
 						onUploadClick()

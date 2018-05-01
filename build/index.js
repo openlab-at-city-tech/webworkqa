@@ -39447,7 +39447,6 @@ class Uploader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			"button",
 			{
 				className: "question-form-upload-button",
-				id: "insert-media-button",
 				onClick: function (e) {
 					e.preventDefault();
 					onUploadClick();

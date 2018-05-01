@@ -37354,13 +37354,24 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			}));
 		}
 
+		const labelId = id + '-label';
+		const pfcLabel = '\u00a0';
+
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: contentSectionClass },
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'label',
-				{ htmlFor: id },
-				label
+				{
+					htmlFor: id,
+					id: labelId
+				},
+				pfcLabel,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'span',
+					{ className: 'screen-reader-text' },
+					label
+				)
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -37379,6 +37390,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 				)
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
+				'aria-labelledby': labelId,
 				id: id,
 				name: id,
 				value: value,
@@ -38917,7 +38929,7 @@ class ResponseForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		// Non-breaking space.
-		const pfcLabel = '\u00a0';
+		const pfcLabel = 'Response text';
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',

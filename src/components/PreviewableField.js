@@ -64,9 +64,15 @@ export default class PreviewableField extends Component {
 			)
 		}
 
+		const labelId = id + '-label'
+		const pfcLabel = '\u00a0'
+
 		return (
 			<div className={contentSectionClass}>
-				<label htmlFor={id}>{label}</label>
+				<label
+					htmlFor={id}
+					id={labelId}
+				>{pfcLabel}<span className='screen-reader-text'>{label}</span></label>
 
 				<div className="edit-action-buttons">
 					{uploadElements}
@@ -83,12 +89,13 @@ export default class PreviewableField extends Component {
 				</div>
 
 				<textarea
+					aria-labelledby={labelId}
 				  id={id}
 				  name={id}
 				  value={value}
 				  disabled={isPending}
 				  onChange={ e => {
-					onTextareaChange( e )
+						onTextareaChange( e )
 				  } }
 				/>
 

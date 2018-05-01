@@ -29,7 +29,7 @@ export default class ResponseForm extends Component {
 		}
 
 		// Non-breaking space.
-		const pfcLabel = '\u00a0'
+		const pfcLabel = 'Response text'
 
 		return (
 			<div className={divClassName}>

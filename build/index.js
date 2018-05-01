@@ -37447,7 +37447,10 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	}
 
 	render() {
-		const { initialLoadComplete, problems, problemId, questionsById, userCanAskQuestion } = this.props;
+		const {
+			appIsLoading, initialLoadComplete,
+			problems, problemId, questionsById, userCanAskQuestion
+		} = this.props;
 
 		const problem = problems[problemId];
 
@@ -37482,7 +37485,10 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						itemType: 'problem',
 						problemId: problemId
 					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_QuestionList__["a" /* default */], { questionsById: questionsById })
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_QuestionList__["a" /* default */], {
+						isLoading: appIsLoading,
+						questionsById: questionsById
+					})
 				)
 			);
 		} else {
@@ -38515,7 +38521,12 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'ul',
-			{ className: 'question-list' },
+			{
+				'aria-atomic': 'false',
+				'aria-busy': isLoading,
+				'aria-live': 'polite',
+				className: 'question-list'
+			},
 			listItems
 		);
 	}
@@ -38536,7 +38547,7 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	render() {
-		const { questionsById } = this.props;
+		const { isLoading, questionsById } = this.props;
 
 		var styles = {
 			ul: {
@@ -38575,7 +38586,12 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'ul',
-				{ style: styles.ul },
+				{
+					'aria-atomic': 'false',
+					'aria-busy': isLoading,
+					'aria-live': 'polite',
+					style: styles.ul
+				},
 				rows
 			)
 		);
@@ -39520,7 +39536,10 @@ const AppContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_red
 
 
 const mapStateToProps = (state, ownProps) => {
-	const { initialLoadComplete, problems, questions, questionsById, responseIdMap, responses } = state;
+	const {
+		appIsLoading, initialLoadComplete,
+		problems, questions, questionsById, responseIdMap, responses
+	} = state;
 
 	// @todo - All of this should be moved out so it doesn't run on every state update
 	const questionCount = questionsById.length;
@@ -39551,6 +39570,7 @@ const mapStateToProps = (state, ownProps) => {
 	const userCanAskQuestion = window.WWData.user_can_ask_question;
 
 	return {
+		appIsLoading,
 		initialLoadComplete,
 		problems,
 		questionCount,

@@ -37,9 +37,12 @@ export default class QuestionList extends Component {
 		}
 
 		return (
-			<ul className="question-list">
-				{listItems}
-			</ul>
+			<ul 
+			  aria-atomic="false"
+				aria-busy={isLoading}
+				aria-live="polite"
+			  className="question-list"
+			>{listItems}</ul>
 		)
 	}
 }

@@ -3,7 +3,7 @@ import QuestionContainer from '../containers/QuestionContainer'
 
 export default class QuestionList extends Component {
 	render() {
-		const { questionsById } = this.props
+		const { isLoading, questionsById } = this.props
 
 		var styles = {
 			ul: {
@@ -35,9 +35,12 @@ export default class QuestionList extends Component {
 				<p className="ww-question-gloss ww-qr-gloss">
 					NOTE: values may be different than those presented in your problem.
 				</p>
-				<ul style={styles.ul}>
-					{rows}
-				</ul>
+				<ul 
+					aria-atomic="false"
+					aria-busy={isLoading}
+					aria-live="polite"
+				  style={styles.ul}
+				>{rows}</ul>
 			</div>
 		);
 	}

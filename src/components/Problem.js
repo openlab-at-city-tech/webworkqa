@@ -28,7 +28,10 @@ export default class Problem extends Component {
 	}
 
 	render() {
-		const { initialLoadComplete ,problems, problemId, questionsById, userCanAskQuestion } = this.props
+		const { 
+			appIsLoading, initialLoadComplete, 
+			problems, problemId, questionsById, userCanAskQuestion 
+		} = this.props
 
 		const problem = problems[problemId]
 
@@ -57,7 +60,10 @@ export default class Problem extends Component {
 						  itemType='problem'
 						  problemId={problemId}
 						/>
-						<QuestionList questionsById={questionsById} />
+						<QuestionList 
+							isLoading={appIsLoading}
+							questionsById={questionsById}
+						/>
 					</div>
 				</div>
 			)

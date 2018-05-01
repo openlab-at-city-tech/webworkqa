@@ -16,7 +16,8 @@ export default class Question extends Component {
 	componentDidMount() {
 		const {
 			isCurrentQuestion, isSingleProblem,
-			itemId, initialLoadComplete, userCanPostResponse
+			itemId, initialLoadComplete, 
+			userCanPostResponse
 		} = this.props
 
 		if ( ! isSingleProblem ) {
@@ -51,7 +52,7 @@ export default class Question extends Component {
 			responseIds, responses, userCanEdit, userCanPostResponse,
 			onAccordionClick, onDeleteClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter,
-			userCanSubscribe
+			responseIsPending, userCanSubscribe
 		} = this.props
 
 		const {
@@ -410,6 +411,7 @@ export default class Question extends Component {
 				<div className={isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open'}>
 					<ResponseList
 					  isMyQuestion={isMyQuestion}
+						isPending={responseIsPending}
 					  questionId={itemId}
 					  responseIds={responseIds}
 					  responses={responses}

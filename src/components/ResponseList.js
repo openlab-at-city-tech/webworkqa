@@ -5,7 +5,7 @@ import { Element } from 'react-scroll'
 
 export default class ResponseList extends Component {
 	render() {
-		const { isMyQuestion, questionId, responseIds } = this.props
+		const { isMyQuestion, isPending, questionId, responseIds } = this.props
 		const responseScrollElementName = 'response-form-' + questionId
 
 		var rows = [];
@@ -34,9 +34,10 @@ export default class ResponseList extends Component {
 
 		return (
 			<div className="ww-response-list">
-				<ul>
-					{rows}
-				</ul>
+				<ul
+					aria-busy={isPending}
+				  aria-live="polite"
+				>{rows}</ul>
 			</div>
 		);
 	}

@@ -16317,7 +16317,7 @@ const EditSaveButtonContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_
 const mapStateToProps = (state, ownProps) => {
 	const {
 		attachments, collapsed, editing, feedback, formData, initialLoadComplete,
-		questions, responseIdMap, responses, routing
+		questions, responseFormPending, responseIdMap, responses, routing
 	} = state;
 
 	const { itemId } = ownProps;
@@ -16337,6 +16337,7 @@ const mapStateToProps = (state, ownProps) => {
 	const isEditing = editing.hasOwnProperty(itemId);
 
 	const isPending = formData.hasOwnProperty('question-' + itemId) && formData['question-' + itemId].isPending;
+	const responseIsPending = responseFormPending.hasOwnProperty(itemId) && responseFormPending[itemId];
 
 	const routeBase = window.WWData.route_base;
 	const questionLink = '/' + routeBase + '#:problemId=' + question.problemId + ':questionId=' + itemId;
@@ -16376,6 +16377,7 @@ const mapStateToProps = (state, ownProps) => {
 		questionLink,
 		questionStatus,
 		responseIds,
+		responseIsPending,
 		responses,
 		userCanEdit,
 		userCanPostResponse: window.WWData.user_can_post_response > 0,
@@ -37688,7 +37690,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	componentDidMount() {
 		const {
 			isCurrentQuestion, isSingleProblem,
-			itemId, initialLoadComplete, userCanPostResponse
+			itemId, initialLoadComplete,
+			userCanPostResponse
 		} = this.props;
 
 		if (!isSingleProblem) {
@@ -37723,7 +37726,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			responseIds, responses, userCanEdit, userCanPostResponse,
 			onAccordionClick, onDeleteClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter,
-			userCanSubscribe
+			responseIsPending, userCanSubscribe
 		} = this.props;
 
 		const {
@@ -38120,6 +38123,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				{ className: isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open' },
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__ResponseList__["a" /* default */], {
 					isMyQuestion: isMyQuestion,
+					isPending: responseIsPending,
 					questionId: itemId,
 					responseIds: responseIds,
 					responses: responses
@@ -38970,7 +38974,7 @@ class ResponseForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 class ResponseList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	render() {
-		const { isMyQuestion, questionId, responseIds } = this.props;
+		const { isMyQuestion, isPending, questionId, responseIds } = this.props;
 		const responseScrollElementName = 'response-form-' + questionId;
 
 		var rows = [];
@@ -39002,7 +39006,10 @@ class ResponseList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			{ className: 'ww-response-list' },
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'ul',
-				null,
+				{
+					'aria-busy': isPending,
+					'aria-live': 'polite'
+				},
 				rows
 			)
 		);

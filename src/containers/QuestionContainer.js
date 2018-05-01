@@ -8,7 +8,7 @@ import { attachmentShortcodeRegExp } from '../util/webwork-text-formatter'
 const mapStateToProps = (state, ownProps) => {
 	const {
 		attachments, collapsed, editing, feedback, formData, initialLoadComplete,
-		questions, responseIdMap, responses, routing
+		questions, responseFormPending, responseIdMap, responses, routing
 	} = state
 
 	const { itemId } = ownProps
@@ -28,6 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 	const isEditing = editing.hasOwnProperty( itemId )
 
 	const isPending = formData.hasOwnProperty( 'question-' + itemId ) && formData[ 'question-' + itemId ].isPending
+	const responseIsPending = responseFormPending.hasOwnProperty( itemId ) && responseFormPending[ itemId ]
 
 	const routeBase = window.WWData.route_base
 	const questionLink = '/'
@@ -72,6 +73,7 @@ const mapStateToProps = (state, ownProps) => {
 		questionLink,
 		questionStatus,
 		responseIds,
+		responseIsPending,
 		responses,
 		userCanEdit,
 		userCanPostResponse: window.WWData.user_can_post_response > 0,

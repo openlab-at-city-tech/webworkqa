@@ -39408,7 +39408,11 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'button',
-			{ className: iconClass, onClick: onClick },
+			{
+				'aria-label': screenReaderText,
+				className: iconClass,
+				onClick: onClick
+			},
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				{ className: 'screen-reader-text' },

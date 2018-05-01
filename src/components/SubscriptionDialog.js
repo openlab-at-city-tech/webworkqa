@@ -15,7 +15,11 @@ export default class SubscriptionDialog extends Component {
 		}
 
 		return (
-			<button className={iconClass} onClick={onClick}>
+			<button 
+				aria-label={screenReaderText}
+				className={iconClass} 
+				onClick={onClick}
+			>
 				<span className="screen-reader-text">{ screenReaderText }</span>
 				<i className="fa"></i>
 				<div aria-hidden="true" className="hover-notice subscription-notice">

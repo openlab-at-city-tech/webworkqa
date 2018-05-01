@@ -37206,7 +37206,10 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
-			{ className: wrapperClassName },
+			{
+				className: wrapperClassName,
+				role: 'application'
+			},
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'app-loading-throbber' },

@@ -28,7 +28,10 @@ export default class App extends Component {
 		const wrapperClassName = appIsLoading && ! initialLoadComplete ? 'app-loading' : ''
 
 		return (
-			<div className={wrapperClassName}>
+			<div
+			  className={wrapperClassName}
+				role='application'
+			>
 				<div className="app-loading-throbber">
 					Loading...
 				</div>

@@ -44,7 +44,7 @@ class Client {
 		$route_base = get_option( 'home' );
 		$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
 
-		$server_site_id = apply_filters( 'webwork_server_site_id', 1 );
+		$server_site_id = apply_filters( 'webwork_server_site_id', get_current_blog_id() );
 
 		// @todo Centralize this logic.
 		$main_site_url = apply_filters( 'webwork_server_site_base', get_option( 'home' ) );

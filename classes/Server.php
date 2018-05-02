@@ -210,8 +210,9 @@ class Server {
 
 		$this->remote_referer_url = $parts['scheme'] . '://' . $parts['host'] . $parts['path'];
 
-		if ( $subpath && $subpath === substr( $parts['path'], -strlen( $subpath ) ) ) {
-			$base = substr( $parts['path'], 0, -strlen( $subpath ) );
+		if ( $subpath && false !== strpos( $parts['path'], $subpath ) ) {
+			$pos = strpos( $parts['path'], $subpath );
+			$base = substr( $parts['path'], 0, $pos );
 		} else {
 			$base = $parts['path'];
 		}

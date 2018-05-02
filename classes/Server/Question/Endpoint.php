@@ -104,8 +104,6 @@ class Endpoint extends \WP_Rest_Controller {
 					$problem_data = array(
 						'problem_id' => $q->get_problem_id(),
 						'problem_set' => $q->get_problem_set(),
-						'course' => $q->get_course(),
-						'section' => $q->get_section(),
 						'problem_text' => $q->get_problem_text(),
 					);
 

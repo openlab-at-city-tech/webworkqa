@@ -42,6 +42,8 @@ export default class ScoreDialog extends React.Component {
 			voteText = 'Join / login to like'
 		}
 
+		const voteElementId = 'vote-element-' + itemId
+
 		const iconElement = <i aria-hidden="true" className={iconClass}></i>
 
 		let voteElement
@@ -68,7 +70,13 @@ export default class ScoreDialog extends React.Component {
 
 		let tooltip
 		if ( ! userCanVote ) {
-			tooltip = <ReactTooltip id='vote-element' type='info' className='login-tooltip'>{voteText}</ReactTooltip>
+			tooltip = (
+				<ReactTooltip 
+					id={voteElementId}
+					type='info' 
+					className='login-tooltip'
+				>{voteText}</ReactTooltip>
+			)
 		}
 
 		return (
@@ -79,7 +87,7 @@ export default class ScoreDialog extends React.Component {
 				</span>
 
 				{/* span wrapper is to allow tooltip on disabled button */}
-				<span data-tip data-for='vote-element'>
+				<span data-tip data-for={voteElementId}>
 					{voteElement}
 				</span>
 				{tooltip}

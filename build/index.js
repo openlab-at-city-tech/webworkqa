@@ -39151,6 +39151,8 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 			voteText = 'Join / login to like';
 		}
 
+		const voteElementId = 'vote-element-' + itemId;
+
 		const iconElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { 'aria-hidden': 'true', className: iconClass });
 
 		let voteElement;
@@ -39187,7 +39189,11 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 		if (!userCanVote) {
 			tooltip = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				__WEBPACK_IMPORTED_MODULE_2_react_tooltip___default.a,
-				{ id: 'vote-element', type: 'info', className: 'login-tooltip' },
+				{
+					id: voteElementId,
+					type: 'info',
+					className: 'login-tooltip'
+				},
 				voteText
 			);
 		}
@@ -39207,7 +39213,7 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
-				{ 'data-tip': true, 'data-for': 'vote-element' },
+				{ 'data-tip': true, 'data-for': voteElementId },
 				voteElement
 			),
 			tooltip

@@ -59,7 +59,7 @@ class Client {
 		}
 
 		// @todo This is awful.
-		$clients = get_blog_option( $server_site_id, 'webwork_clients' );
+		$clients = get_blog_option( $server_site_id, 'webwork_clients', array() );
 		$remote_course_url = array_search( get_current_blog_id(), $clients );
 
 		$user_is_admin = current_user_can( 'edit_others_posts' );

@@ -418,7 +418,7 @@ h3.ww-collapsible-section-header {
 }
 
 .question-course-data {
-	color: #777;
+	color: #555;
 	font-weight: 600;
 	font-size: 0.85rem;
 	line-height: 1.1rem;
@@ -651,7 +651,7 @@ li.is-answer:before {
 }
 
 .ww-subtitle {
-	color: #666;
+	color: #555;
 	font-size: 0.85rem;
 	font-weight: 600;
 	line-height: 1.1rem;

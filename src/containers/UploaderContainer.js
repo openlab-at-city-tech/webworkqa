@@ -54,9 +54,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 			frame.views.ready = function() {
 				const toolbarView = frame.views.get('.media-frame-toolbar')[0]
-				const sidebar = frame.views.get('.media-frame-content')[0].sidebar
 				const modal = frame.modal
 				const library = frame.library
+				let sidebar
 
 				toolbarView.controller.on('select',function() {
 					var selected = frame.state().get('selection')
@@ -88,7 +88,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 						const warning = '<p id="alt-tag-warning" class="alt-tag-warning">You must supply alt text before inserting this image.</p>'
 						toolbarView.$el.find('#alt-tag-warning').remove()
 						toolbarView.$el.find('.media-toolbar-primary').append(warning)
-						console.log(sidebar);
+						sidebar = frame.views.get('.media-frame-content')[0].sidebar
 						sidebar.$el.find('label.setting[data-setting="alt"]').addClass('has-error')
 					}
 				})

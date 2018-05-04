@@ -1041,6 +1041,10 @@ label.setting.has-error input {
 	color: #124964;
 }
 
+.details a.edit-attachment {
+	display: none;
+}
+
 /** Media queries ************************************************************/
 
 /**

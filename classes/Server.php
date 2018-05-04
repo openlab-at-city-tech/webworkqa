@@ -344,13 +344,29 @@ class Server {
 	 * @return array $caps
 	 */
 	public static function map_meta_cap( $caps, $cap, $user_id, $args ) {
-		if ( 'upload_files' !== $cap ) {
+		if ( 'upload_files' !== $cap && 'edit_post' !== $cap ) {
 			return $caps;
 		}
 
 		$maybe_user = new \WP_User( $user_id );
 		if ( ! is_a( $maybe_user, 'WP_User' ) || empty( $maybe_user->ID ) ) {
 			return $caps;
+		}
+
+		$can = false;
+		switch ( $cap ) {
+			case 'upload_files' :
+				$can = true;
+			break;
+
+			case 'edit_post' :
+				$post = get_post( $args[0] );
+				$can = $post && $user_id === $post->post_author;
+			break;
+		}
+
+		if ( $can ) {
+			$caps = array( 'exist' );
 		}
 
 		// @todo Better filtering?

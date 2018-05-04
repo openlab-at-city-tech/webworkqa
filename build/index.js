@@ -40054,7 +40054,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 						frame.reset();
 					} else {
 						const warning = '<p id="alt-tag-warning" class="alt-tag-warning">You must supply alt text before inserting this image.</p>';
+						toolbarView.$el.find('#alt-tag-warning').remove();
 						toolbarView.$el.find('.media-toolbar-primary').append(warning);
+						console.log(sidebar);
 						sidebar.$el.find('label.setting[data-setting="alt"]').addClass('has-error');
 					}
 				});

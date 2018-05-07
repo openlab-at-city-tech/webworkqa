@@ -75,6 +75,7 @@ export default class QuestionForm extends Component {
 						  fieldName="content"
 						  id="ww-question-form-content"
 						  label="What is your question?"
+							labelIsVisible={true}
 						/>
 
 						<PreviewableFieldContainer
@@ -82,6 +83,7 @@ export default class QuestionForm extends Component {
 						  fieldName="tried"
 						  id="ww-question-form-tried"
 						  label="Describe what you have tried."
+							labelIsVisible={true}
 						/>
 
 						<input

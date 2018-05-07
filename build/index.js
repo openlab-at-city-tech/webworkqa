@@ -37307,7 +37307,8 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 
 	render() {
 		const {
-			attachments, id, fieldId, fieldName, label, value, isPending, isPreviewVisible,
+			attachments, id, fieldId, fieldName, label, labelIsVisible,
+			value, isPending, isPreviewVisible,
 			onPreviewToggleClick, onTextareaChange
 		} = this.props;
 
@@ -37360,6 +37361,25 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 		const labelId = id + '-label';
 		const pfcLabel = '\u00a0';
 
+		let buttonContent;
+		if (isPreviewVisible) {
+			buttonContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'span',
+				null,
+				'Edit ',
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil' })
+			);
+		} else {
+			buttonContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'span',
+				null,
+				'Preview ',
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-eye' })
+			);
+		}
+
+		const labelClass = labelIsVisible ? '' : 'screen-reader-text';
+
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: contentSectionClass },
@@ -37372,7 +37392,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 				pfcLabel,
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'span',
-					{ className: 'screen-reader-text' },
+					{ className: labelClass },
 					label
 				)
 			),
@@ -37389,7 +37409,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 						},
 						type: 'button'
 					},
-					isPreviewVisible ? 'Edit' : 'Preview'
+					buttonContent
 				)
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
@@ -38363,13 +38383,15 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						fieldId: 'question-form',
 						fieldName: 'content',
 						id: 'ww-question-form-content',
-						label: 'What is your question?'
+						label: 'What is your question?',
+						labelIsVisible: true
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__["a" /* default */], {
 						fieldId: 'question-form',
 						fieldName: 'tried',
 						id: 'ww-question-form-tried',
-						label: 'Describe what you have tried.'
+						label: 'Describe what you have tried.',
+						labelIsVisible: true
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
 						className: 'button',
@@ -39475,7 +39497,7 @@ class Uploader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					onUploadClick();
 				}
 			},
-			"Add Files ",
+			"Add Images ",
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "fa fa-upload" })
 		);
 	}

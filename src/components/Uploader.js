@@ -11,7 +11,7 @@ export default class Uploader extends Component {
 						e.preventDefault()
 						onUploadClick()
 					}}
-				>Add Files <i className="fa fa-upload"></i>
+				>Add Images <i className="fa fa-upload"></i>
 			</button>
 		)
 	}

@@ -12,7 +12,8 @@ export default class PreviewableField extends Component {
 
 	render() {
 		const {
-			attachments, id, fieldId, fieldName, label, value, isPending, isPreviewVisible,
+			attachments, id, fieldId, fieldName, label, labelIsVisible,
+			value, isPending, isPreviewVisible,
 			onPreviewToggleClick, onTextareaChange
 		} = this.props
 
@@ -67,12 +68,27 @@ export default class PreviewableField extends Component {
 		const labelId = id + '-label'
 		const pfcLabel = '\u00a0'
 
+		let buttonContent
+		if ( isPreviewVisible ) {
+			buttonContent = (
+				<span
+					>Edit <i className="fa fa-pencil"></i></span>
+			)
+		} else {
+			buttonContent = (
+				<span
+					>Preview <i className="fa fa-eye"></i></span>
+			)
+		}
+
+		const labelClass = labelIsVisible ? '' : 'screen-reader-text'
+
 		return (
 			<div className={contentSectionClass}>
 				<label
 					htmlFor={id}
 					id={labelId}
-				>{pfcLabel}<span className='screen-reader-text'>{label}</span></label>
+				>{pfcLabel}<span className={labelClass}>{label}</span></label>
 
 				<div className="edit-action-buttons">
 					{uploadElements}
@@ -84,7 +100,7 @@ export default class PreviewableField extends Component {
 						}}
 						type="button"
 					>
-						{isPreviewVisible ? 'Edit' : 'Preview'}
+						{buttonContent}
 					</button>
 				</div>
 

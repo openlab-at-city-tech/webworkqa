@@ -5,7 +5,7 @@ export default class QuestionForm extends Component {
 	render() {
 		const {
 			content, isCollapsed, isPending,
-			problemId, problemText, problemHasQuestions, tried,
+			problemId, problemText, problemHasQuestions, tried, triedIsEmpty,
 			onAccordionClick, onTextareaChange, onQuestionFormSubmit
 		} = this.props
 
@@ -41,12 +41,26 @@ export default class QuestionForm extends Component {
 			contentSectionClass += ' preview'
 		}
 
+		let triedIsEmptyNotice
+		if ( triedIsEmpty ) {
+			triedIsEmptyNotice = (
+				<div
+				  className="tried-is-empty"
+				>You haven't described what you've tried. Did you know you can upload an image of your work?</div>
+			)
+		}
+
+		let buttonClassName = 'button'
+		if ( triedIsEmpty ) {
+			buttonClassName += ' button-error'
+		}
+
 		return (
 			<div className={divClassName}>
 				<form
 				  className={formClassName}
 				  onSubmit={ e => {
-					  onQuestionFormSubmit( e, content, tried, problemText )
+					  onQuestionFormSubmit( e, content, tried, problemText, triedIsEmpty )
 				  } }
 				>
 					<a
@@ -86,8 +100,10 @@ export default class QuestionForm extends Component {
 							labelIsVisible={true}
 						/>
 
+						{triedIsEmptyNotice}
+
 						<input
-						  className="button"
+						  className={buttonClassName}
 						  disabled={isPending}
 						  type="submit"
 						  value={isPending ? 'Submitting...' : 'Submit'}

@@ -18,6 +18,7 @@ import { responses } from './responses'
 import { routing } from './routing'
 import { scores } from './scores'
 import { subscriptions } from './subscriptions'
+import { triedIsEmpty } from './triedIsEmpty'
 import { votes } from './votes'
 
 const queryString = function() {
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
 	routing,
 	scores,
 	subscriptions,
+	triedIsEmpty,
 	votes
 })
 

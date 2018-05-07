@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import QuestionForm from '../components/QuestionForm'
-import { sendQuestion, setQuestionPending } from '../actions/questions'
+import { sendQuestion, setQuestionPending, setTriedIsEmpty } from '../actions/questions'
 import { setCollapsed } from '../actions/app'
 
 const mapStateToProps = (state, ownProps) => {
-	const { collapsed, formData, questionsById } = state
+	const { collapsed, formData, questionsById, triedIsEmpty } = state
 
 	let questionForm = {
 		content: '',
@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 	}
 
 	if ( formData.hasOwnProperty( 'question-form' ) ) {
-		questionForm = formData['question-form']
+		questionForm = Object.assign( {}, questionForm, formData['question-form'] )
 	}
 
 	const { content, tried, isPending } = questionForm
@@ -29,7 +29,8 @@ const mapStateToProps = (state, ownProps) => {
 		isPending,
 		problemHasQuestions,
 		problemText,
-		tried
+		tried,
+		triedIsEmpty
 	}
 }
 
@@ -39,10 +40,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			dispatch( setCollapsed( 'questionForm' ) )
 		},
 
-		onQuestionFormSubmit: ( e, content, tried, problemText ) => {
+		onQuestionFormSubmit: ( e, content, tried, problemText, triedIsEmpty ) => {
 			e.preventDefault()
-			dispatch( setQuestionPending( true ) )
-			dispatch( sendQuestion( ownProps.problemId ) )
+
+			// Only disable submit if the notice isn't yet showing.
+			if ( 0 === tried.length && ! triedIsEmpty ) {
+				dispatch( setTriedIsEmpty( true ) )
+			} else {
+				dispatch( setTriedIsEmpty( false ) )
+				dispatch( setQuestionPending( true ) )
+				dispatch( sendQuestion( ownProps.problemId ) )
+			}
 		}
 	}
 }

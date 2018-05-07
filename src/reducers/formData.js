@@ -41,8 +41,11 @@ export function formData( state = {}, action ) {
 			return Object.assign( {}, state, values )
 
 		case SET_QUESTION_PENDING :
+			let newQuestionForPending = Object.assign( {}, state['question-form'] )
+			newQuestionForPending.isPending = action.payload.isPending
+
 			return Object.assign( {}, state, {
-				isPending: action.payload.isPending
+				['question-form']: newQuestionForPending
 			} )
 
 		case RECEIVE_QUESTION :

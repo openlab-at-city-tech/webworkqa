@@ -45,10 +45,22 @@
 	border: none;
 	border-radius: 6px;
 	color: #fff;
+	cursor: pointer;
 	font-size: 1.2rem;
 	font-weight: 600;
 	padding: 12px 24px;
 	text-transform: uppercase;
+}
+
+#webwork-app .button:hover,
+#webwork-app .button:disabled {
+	background: #ebebeb;
+	color: #0044af;
+}
+
+#webwork-app .button.button-error {
+	background: #ebebeb;
+	color: #0044af;
 }
 
 #webwork-app .button.edit-save-button {
@@ -364,6 +376,14 @@ h3.ww-collapsible-section-header {
 	font-size: 1rem;
 	margin-top: 8px;
 	height: 80px;
+}
+
+.tried-is-empty {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #0044af;
+    line-height: 1.8rem;
 }
 
 .ww-preview {

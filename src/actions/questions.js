@@ -208,6 +208,16 @@ export const setQuestionPending = ( isPending ) => {
 	}
 }
 
+export const SET_TRIED_IS_EMPTY = 'SET_TRIED_IS_EMPTY'
+export const setTriedIsEmpty = ( isEmpty ) => {
+	return {
+		type: SET_TRIED_IS_EMPTY,
+		payload: {
+			isEmpty
+		}
+	}
+}
+
 export function setScrolledTo( itemId ) {
 	return ( dispatch, getState ) => {
 		const { questionsById } = getState()

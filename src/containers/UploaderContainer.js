@@ -80,7 +80,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 						} )
 
 						toolbarView.$el.find('.alt-tag-warning').remove()
-						sidebar.$el.find('label.setting[data-setting="alt"]').removeClass('has-error')
+
+						if ( sidebar ) {
+							sidebar.$el.find('label.setting[data-setting="alt"]').removeClass('has-error')
+						}
 
 						modal.close()
 						frame.reset()

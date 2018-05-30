@@ -416,6 +416,18 @@ h3.ww-collapsible-section-header {
 	width: 40%;
 }
 
+@media (max-width: 500px) {
+	.edit-action-buttons {
+		margin-top: 5px;
+		position: relative;
+		width: 100%;
+	}
+
+	.response-block .edit-action-buttons {
+		margin-top: -10px;
+	}
+}
+
 .edit-action-buttons button {
 	background: none;
 	color: #0044af;

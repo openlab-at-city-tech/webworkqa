@@ -1059,6 +1059,12 @@ padding: 3px 0px 3px 16px;        /* leave space that would have been triangle *
 	padding: 20px 10px 0 0;
 }
 
+@media (max-width: 500px) {
+	.alt-tag-warning {
+		float: none;
+	}
+}
+
 label.setting.has-error input {
 	box-shadow:
 		0 0 0 1px #f00,

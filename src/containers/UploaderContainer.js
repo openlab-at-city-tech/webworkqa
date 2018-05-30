@@ -55,8 +55,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			frame.views.ready = function() {
 				const toolbarView = frame.views.get('.media-frame-toolbar')[0]
 				const modal = frame.modal
-				const library = frame.library
 				let sidebar
+
+				// Not sure why WP doesn't do this automatically - something to do with model.id === 'insert'.
+				frame.views.get('.media-frame-content')[0].options.selection.on( 'selection:single', function( it ) {
+					frame.views.get('.media-frame-content')[0].sidebar.$el.addClass( 'visible' );
+				});
 
 				toolbarView.controller.on('select',function() {
 					var selected = frame.state().get('selection')

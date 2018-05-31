@@ -413,14 +413,18 @@ h3.ww-collapsible-section-header {
 	right: 0;
 	text-align: right;
 	top: 0;
-	width: 40%;
+}
+
+@media (max-width: 1200px) {
+	.edit-action-buttons {
+		position: relative;
+	}
 }
 
 @media (max-width: 500px) {
 	.edit-action-buttons {
 		margin-top: 5px;
 		position: relative;
-		width: 100%;
 	}
 
 	.response-block .edit-action-buttons {

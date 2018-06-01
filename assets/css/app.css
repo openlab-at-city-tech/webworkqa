@@ -197,6 +197,10 @@ ul.question-list > a {
 	font-weight: bold;
 }
 
+.question-list p.no-results {
+	padding-top: 4rem;
+}
+
 .question-list-loading-more {
 	opacity: .75;
 	font-weight: bold;

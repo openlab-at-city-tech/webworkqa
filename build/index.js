@@ -40094,6 +40094,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 						alert('adding visible class');
 						frame.views.get('.media-frame-content')[0].sidebar.$el.addClass('visible');
 					});
+				} else {
+
+					alert('could not locate frameSelection');
 				}
 
 				toolbarView.controller.on('select', function () {

@@ -62,15 +62,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 					// Not sure why WP doesn't do this automatically - something to do with model.id === 'insert'.
 					var frameSelection = contentView.options.selection
 					if ( undefined !== frameSelection ) {
-						alert( 'located frameSelection' );
 						frameSelection.on( 'selection:single', function( it ) {
-							alert( 'adding visible class' );
 							frame.views.get('.media-frame-content')[0].sidebar.$el.addClass( 'visible' );
 						});
-					} else {
-
-						alert( 'could not locate frameSelection' );
-					}
+					} 
 				});
 
 				toolbarView.controller.on('select',function() {

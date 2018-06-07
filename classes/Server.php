@@ -361,7 +361,7 @@ class Server {
 
 			case 'edit_post' :
 				$post = get_post( $args[0] );
-				$can = $post && $user_id === $post->post_author;
+				$can = $post && (int) $user_id === (int) $post->post_author;
 			break;
 		}
 
@@ -370,7 +370,7 @@ class Server {
 		}
 
 		// @todo Better filtering?
-		return array( 'exist' );
+		return $caps;
 	}
 
 	public function filter_uploads_query_args( $query ) {

@@ -1103,6 +1103,16 @@ label.setting.has-error input {
  * Note: Some of this is handled in the webwork-theme stylesheet.
  * This needs to be untangled at some point.
  */
+@media (max-width: 868px) {
+	.problem-questions {
+		margin-top: 80px;
+	}
+
+	.ww-problem .question-sort {
+		top: -40px;
+	}
+}
+
 @media (max-width: 500px) {
 	.app-content {
 		position: relative;

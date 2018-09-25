@@ -20,6 +20,7 @@ export default class FormattedProblem extends Component {
 		}
 
 		const texRegExp = /\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_((?:OPEN)|(?:CLOSE))\}\}\}/gm
+
 		let markup = content
 		let toQueue = []
 
@@ -59,6 +60,22 @@ export default class FormattedProblem extends Component {
 		} )
 
 		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.</div>' )
+
+		const divRegExp = /<div[^>]*>([\s\S]*?)<\/div>/gm
+		markup = markup.replace( divRegExp, function( div, innerText ) {
+			if ( 0 === innerText.length ) {
+				return ''
+			}
+
+			return div
+		} )
+
+		// Collapse line breaks between elements inside of tables.
+		const tableRegExp = /<table[^>]*>([\s\S]*?)<\/table>/gm
+		const lineBreakRegExp = /(?<=\>)(\r?\n)|(\r?\n)(?=\<\/)/gm
+		markup = markup.replace( tableRegExp, function( table, tableContent ) {
+			return table.replace( lineBreakRegExp, '' )
+		} )
 
 		// Line break substitution must skip <script> tags.
 		markup = markup.replace( /(?!<script[^>]*?>)(?:\r\n|\r|\n)(?![^<]*?<\/script>)/g, '<br />' )

@@ -46,5 +46,5 @@
 }(jQuery))
 
 document.webwork_scaffold_init = function( el ) {
-	jQuery( el ).find( 'h3' ).canopen();
+	jQuery( el ).find( '.section-div h3' ).canopen();
 }

@@ -118,7 +118,10 @@ class ProblemFormatter {
 			$allowed_tags['ul'] = array();
 
 			// Tables.
-			$allowed_tags['table'] = array();
+			$allowed_tags['table'] = array(
+				'border' => true,
+				'style' => true,
+			);
 			$allowed_tags['thead'] = array();
 			$allowed_tags['tbody'] = array();
 			$allowed_tags['tr'] = array();

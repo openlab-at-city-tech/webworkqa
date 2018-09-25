@@ -286,7 +286,17 @@ ul.question-list > a {
 	background: #ededed;
 	font-size: 1rem;
 	padding: 40px;
+}
+
+.formatted-problem h3 {
 	font-weight: 700;
+	font-size: 1.2em;
+	text-align: center;
+}
+
+.formatted-problem .section-div h3 {
+	font-size: inherit;
+	text-align: left;
 }
 
 .formatted-problem .question-swapped {

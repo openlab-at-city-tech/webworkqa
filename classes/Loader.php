@@ -50,6 +50,10 @@ class Loader {
 		$this->includes();
 		$this->register_assets();
 
+		if ( defined( 'WP_CLI' ) ) {
+			$this->set_up_cli();
+		}
+
 		/**
 		 * Fires when the WeBWorK plugin has been set up.
 		 *
@@ -97,5 +101,9 @@ class Loader {
 
 		// Styles.
 		wp_register_style( 'webwork-form-css', WEBWORK_PLUGIN_URL . 'assets/css/webwork-form.css' );
+	}
+
+	protected function set_up_cli() {
+		\WP_CLI::add_command( 'webwork', __NAMESPACE__ . '\CLI\Command' );
 	}
 }

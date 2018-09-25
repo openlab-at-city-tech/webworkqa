@@ -299,6 +299,10 @@ ul.question-list > a {
 	text-align: left;
 }
 
+.formatted-problem ul {
+	list-style: disc;
+}
+
 .formatted-problem .question-swapped {
 	font-size: .8rem;
 	font-style: italic;

@@ -112,15 +112,41 @@ class Endpoint extends \WP_Rest_Controller {
 			}
 		}
 
+		/*
+		 * Sanity check: Don't allow the question to be created if there's already
+		 * one from the same user with the same metadata.
+		 */
+		$query = new Query(
+			[
+				'problem_id'  => $problem_data['problem_id'],
+				'max_results' => 100,
+			]
+		);
+		$existing_items = $query->get();
+		if ( $existing_items ) {
+			foreach ( $existing_items as $existing_item ) {
+				if ( get_current_user_id() !== $existing_item->get_author_id() ) {
+					continue;
+				}
+
+				if ( $content === $existing_item->get_content() && $tried === $existing_item->get_tried() ) {
+					return new \WP_Error( 'webwork_item_exists', __( 'It looks like you are trying to post a duplicate.' ), array( 'status' => 400 ) );
+				}
+			}
+		}
+
 		$question = new \WeBWorK\Server\Question();
+
+		$course  = isset( $problem_data['course'] ) ? $problem_data['course'] : '';
+		$section = isset( $problem_data['section'] ) ? $problem_data['section'] : '';
 
 		$question->set_author_id( get_current_user_id() );
 		$question->set_content( $content );
 		$question->set_tried( $tried );
 		$question->set_problem_id( $problem_data['problem_id'] );
 		$question->set_problem_set( $problem_data['problem_set'] );
-		$question->set_course( $problem_data['course'] );
-		$question->set_section( $problem_data['section'] );
+		$question->set_course( $course );
+		$question->set_section( $section );
 		$question->set_problem_text( $problem_data['problem_text'] );
 		$question->set_client_url( $params['client_url'] );
 		$question->set_client_name( $params['client_name'] );

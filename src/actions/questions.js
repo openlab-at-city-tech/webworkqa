@@ -273,7 +273,11 @@ export function sendQuestion( problemId ) {
 		} )
 		.then( response => response.json() )
 		.then( json => {
+			// If there's a 'message', then it's an error.
 			dispatch( setQuestionPending( false ) )
+			if ( json.hasOwnProperty( 'message' ) ) {
+				return
+			}
 			dispatch( receiveQuestion( json ) )
 			dispatch( receiveQuestionById( json.questionId ) )
 			dispatch( setTextareaValue( 'question-form', 'content', '' ) )

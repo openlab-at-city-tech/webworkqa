@@ -5956,7 +5956,11 @@ function sendQuestion(problemId) {
 				attachments: attachmentIds
 			})
 		}).then(response => response.json()).then(json => {
+			// If there's a 'message', then it's an error.
 			dispatch(setQuestionPending(false));
+			if (json.hasOwnProperty('message')) {
+				return;
+			}
 			dispatch(receiveQuestion(json));
 			dispatch(receiveQuestionById(json.questionId));
 			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__app__["i" /* setTextareaValue */])('question-form', 'content', ''));

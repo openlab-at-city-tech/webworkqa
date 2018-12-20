@@ -135,6 +135,7 @@ class Server {
 		// @todo Check permissions against client site - maybe share logic with endpoints.
 		if ( ! is_user_logged_in() ) {
 			$redirect_to = wp_login_url( $redirect_to );
+			$redirect_to = add_query_arg( 'is-webwork-redirect', '1', $redirect_to );
 		}
 
 		/*

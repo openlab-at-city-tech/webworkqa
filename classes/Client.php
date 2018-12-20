@@ -13,6 +13,7 @@ class Client {
 		$this->rewrites = new \WeBWorK\Client\Rewrites();
 
 		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
+		add_filter( 'login_message', array( $this, 'filter_login_message' ) );
 	}
 
 	public static function set_up_app() {
@@ -166,5 +167,29 @@ class Client {
 		}
 
 		return $content;
+	}
+
+	public function filter_login_message( $message ) {
+		if ( empty( $_GET['is-webwork-redirect'] ) ) {
+			return $message;
+		}
+
+		$site_name = get_option( 'blogname' );
+		$message = sprintf(
+			esc_html__( 'You have been directed to %s from WeBWorK. Before posting a question, you must log in using your %s credentials.' ),
+			esc_html( $site_name ),
+			esc_html( $site_name )
+		);
+
+		/**
+		 * Filters the WeBWorK login redirect message.
+		 *
+		 * @param string $message
+		 */
+		$message = apply_filters( 'webwork_login_redirect_message', $message );
+
+		$retval = '<p class="message">' . $message . '</p>';
+
+		return $retval;
 	}
 }

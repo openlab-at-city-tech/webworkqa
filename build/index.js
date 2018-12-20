@@ -10652,7 +10652,7 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 
 		// Collapse line breaks between elements inside of tables.
 		const tableRegExp = /<table[^>]*>([\s\S]*?)<\/table>/gm;
-		const lineBreakRegExp = /(?<=\>)(\r?\n)|(\r?\n)(?=\<\/)/gm;
+		const lineBreakRegExp = />[(\r?\n)\s]+</gm;
 		markup = markup.replace(tableRegExp, function (table, tableContent) {
 			return table.replace(lineBreakRegExp, '');
 		});

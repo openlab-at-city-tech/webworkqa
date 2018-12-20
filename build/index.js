@@ -7211,7 +7211,7 @@ const removeResponse = (responseId, questionId) => {
 
 function sendResponseAnswered(responseId, isAnswered) {
 	return (dispatch, getState) => {
-		const { rest_api_endpoint, rest_api_nonce } = window.WWData;
+		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
 		const endpoint = rest_api_endpoint + 'responses/' + responseId;
 
 		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
@@ -7222,6 +7222,8 @@ function sendResponseAnswered(responseId, isAnswered) {
 				'X-WP-Nonce': rest_api_nonce
 			},
 			body: JSON.stringify({
+				client_name: client_name,
+				client_url: page_base,
 				is_answer: isAnswered
 			})
 		}).then(response => response.json()).then(json => {

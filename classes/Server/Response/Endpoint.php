@@ -111,6 +111,9 @@ class Endpoint extends \WP_Rest_Controller {
 					$response->set_content( $params['content'] );
 				}
 
+				$response->set_client_url( $params['client_url'] );
+				$response->set_client_name( $params['client_name'] );
+
 				$response->save();
 
 				$r = new \WeBWork\Server\Response\Query( array(

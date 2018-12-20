@@ -143,6 +143,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		}
 
 		$problem_text = $this->pf->strip_illegal_markup( $problem_text, 'extended' );
+		$problem_text = $this->pf->remove_empty_divs( $problem_text );
 
 		return $problem_text;
 	}

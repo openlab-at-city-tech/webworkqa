@@ -140,6 +140,39 @@ class ProblemFormatter {
 		return wp_kses( $text, $allowed_tags );
 	}
 
+	public function remove_empty_divs( $text ) {
+		if ( empty( $text ) ) {
+			return $text;
+		}
+
+		$d = new \DOMDocument();
+		$d->loadHTML( $text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+
+		$divs = $d->getElementsByTagName( 'div' );
+		$changed = false;
+		foreach ( $divs as $div ) {
+			if ( $div->hasChildNodes() ) {
+				continue;
+			}
+
+			if ( 0 !== strlen( $div->nodeValue ) ) {
+				continue;
+			}
+
+			$changed = true;
+			$div->parentNode->removeChild( $div );
+		}
+
+		if ( $changed ) {
+			$text = $d->saveHTML();
+		}
+
+		// Remove white space.
+		$text = preg_replace( '/>\s+</', '><', $text );
+
+		return $text;
+	}
+
 	public function remove_script_tags( $text, $all = '' ) {
 		$text = preg_replace( '|<script type="text[^>]+>[^<]+</script>|m', '', $text );
 		if ( 'all' === $all ) {

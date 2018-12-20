@@ -169,6 +169,9 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 		if ( $saved ) {
 			update_post_meta( $this->get_id(), 'webwork_question_id', $this->get_question_id() );
+
+			$was_answer = get_post_meta( $this->get_id(), 'webwork_question_answer', true );
+			$trigger_answer_notification = ! $was_answer && $this->get_is_answer();
 			update_post_meta( $this->get_id(), 'webwork_question_answer', $this->get_is_answer() );
 
 			$this->get_vote_count();
@@ -183,7 +186,11 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		}
 
 		if ( $is_new ) {
-			$this->send_notifications();
+			$this->send_notifications( 'new' );
+		}
+
+		if ( $trigger_answer_notification ) {
+			$this->send_notifications( 'marked_answered' );
 		}
 
 		return (bool) $saved;
@@ -215,9 +222,17 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	/**
 	 * @todo Abstract when there are more notification types to send.
 	 */
-	protected function send_notifications() {
-		$this->send_notification_to_subscribers();
-		$this->send_notification_to_instructor();
+	protected function send_notifications( $type ) {
+		switch ( $type ) {
+			case 'new' :
+				$this->send_notification_to_subscribers();
+				$this->send_notification_to_instructor();
+			break;
+
+			case 'marked_answered' :
+				$this->send_answered_notification_to_author();
+			break;
+		}
 	}
 
 	/**
@@ -283,6 +298,36 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 To read and reply, visit %3$s.', 'webwork' ),
 			$response_author->display_name,
 			$section,
+			$this->question->get_url( $this->get_client_url() )
+		);
+		$email->set_message( $message );
+
+		$email->send();
+	}
+
+	/**
+	 * Send an email notification to response author when response is marked as the answer.
+	 */
+	protected function send_answered_notification_to_author() {
+		$response_author_id = $this->get_author_id();
+		$response_author = new \WP_User( $response_author_id );
+		if ( ! $response_author->exists() ) {
+			return;
+		}
+
+		$author_email = $response_author->user_email;
+
+		$section = $this->question->get_section();
+
+		$email = new Util\Email();
+		$email->set_client_name( $this->get_client_name() );
+		$email->set_recipient( $author_email );
+		$email->set_subject( sprintf( __( 'Your reply has been marked as the answer to a question in the course %1$s', 'webwork' ), $section ) );
+
+		$message = sprintf(
+			__( 'Your reply to a question has been marked as the correct answer!
+
+To read and reply, visit %1$s.', 'webwork' ),
 			$this->question->get_url( $this->get_client_url() )
 		);
 		$email->set_message( $message );

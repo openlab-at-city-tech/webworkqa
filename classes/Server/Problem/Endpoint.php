@@ -40,6 +40,7 @@ class Endpoint extends \WP_Rest_Controller {
 			'problem_id' => $problem_id,
 			'orderby' => $params['orderby'],
 			'order' => 'DESC',
+			'max_results' => -1,
 		) );
 		$questions = $question_query->get_for_endpoint();
 

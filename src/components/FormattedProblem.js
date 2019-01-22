@@ -92,7 +92,7 @@ export default class FormattedProblem extends Component {
 
 		// But don't allow many breaks in a row :(
 		markup = collapseLinebreaks( markup )
-	
+
 		markup = markup.replace( attachmentShortcodeRegExp(), function( a, attId ) {
 			if ( ! attachments.hasOwnProperty( attId ) ) {
 				return a

@@ -104,6 +104,7 @@ class ProblemFormatter {
 			$allowed_tags['div'] = array(
 				'class' => true,
 				'id' => true,
+				'style' => true,
 			);
 
 			// Headers.
@@ -127,6 +128,9 @@ class ProblemFormatter {
 			$allowed_tags['tr'] = array();
 			$allowed_tags['th'] = array();
 			$allowed_tags['td'] = array();
+			$allowed_tags['section'] = array(
+				'style' => true,
+			);
 
 			$allowed_tags['select'] = array();
 			$allowed_tags['option'] = array();
@@ -137,7 +141,16 @@ class ProblemFormatter {
 			);
 		}
 
-		return wp_kses( $text, $allowed_tags );
+		$callback = function( $styles ) {
+			$styles[] = 'display';
+			return $styles;
+		};
+
+		add_filter( 'safe_style_css', $callback );
+		$stripped = wp_kses( $text, $allowed_tags );
+		remove_filter( 'safe_style_css', $callback );
+
+		return $stripped;
 	}
 
 	public function remove_empty_divs( $text ) {

@@ -37,6 +37,16 @@ export default class FormattedProblem extends Component {
 			)
 		}
 
+		// Remove empty TeX chunks.
+		const texChunkRegExp = /\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\}(.*?)\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_CLOSE\}\}\}/gm
+		markup = markup.replace( texChunkRegExp, function( chunk, mode, contents ) {
+			if ( 0 === contents.length ) {
+				return ''
+			}
+
+			return chunk
+		} )
+
 		markup = markup.replace( texRegExp, function( delim, mode, openOrClose ) {
 			if ( 'CLOSE' == openOrClose ) {
 				return '</script>'
@@ -82,7 +92,7 @@ export default class FormattedProblem extends Component {
 
 		// But don't allow many breaks in a row :(
 		markup = collapseLinebreaks( markup )
-
+	
 		markup = markup.replace( attachmentShortcodeRegExp(), function( a, attId ) {
 			if ( ! attachments.hasOwnProperty( attId ) ) {
 				return a

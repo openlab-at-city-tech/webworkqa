@@ -462,7 +462,7 @@ export default class Question extends Component {
 						>
 							{accordionElement}
 							<span className="ww-question-header-text">
-								{statusText}
+								{responseCountText}
 							</span>
 						</a>
 

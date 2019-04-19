@@ -38017,9 +38017,9 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let aeClass = 'fa accordion-toggle';
 		if (isCollapsed) {
-			aeClass += ' fa-plus-circle';
+			aeClass += ' fa-angle-down';
 		} else {
-			aeClass += ' fa-minus-circle';
+			aeClass += ' fa-angle-up';
 		}
 
 		const accordionElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', {

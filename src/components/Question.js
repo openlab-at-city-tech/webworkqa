@@ -74,9 +74,9 @@ export default class Question extends Component {
 
 		let aeClass = 'fa accordion-toggle'
 		if ( isCollapsed ) {
-			aeClass += ' fa-plus-circle'
+			aeClass += ' fa-angle-down'
 		} else {
-			aeClass += ' fa-minus-circle'
+			aeClass += ' fa-angle-up'
 		}
 
 		const accordionElement = (

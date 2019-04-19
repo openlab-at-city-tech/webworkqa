@@ -375,7 +375,7 @@ export default class Question extends Component {
 					<span
 					  className="ww-my-problem-text"
 					>
-						View My Problem
+						{isProblemSummaryCollapsed ? 'Show WeBWorK Problem' : 'Hide WeBWorK Problem'}
 					</span>
 				</div>
 

@@ -5650,10 +5650,10 @@ module.exports = ExecutionEnvironment;
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = fetchQuestionIndexList;
-/* harmony export (immutable) */ __webpack_exports__["g"] = setScrolledTo;
-/* harmony export (immutable) */ __webpack_exports__["k"] = sendQuestion;
-/* harmony export (immutable) */ __webpack_exports__["h"] = updateQuestion;
-/* harmony export (immutable) */ __webpack_exports__["f"] = deleteQuestion;
+/* harmony export (immutable) */ __webpack_exports__["f"] = setScrolledTo;
+/* harmony export (immutable) */ __webpack_exports__["j"] = sendQuestion;
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateQuestion;
+/* harmony export (immutable) */ __webpack_exports__["e"] = deleteQuestion;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(10);
@@ -5764,7 +5764,6 @@ function standardizeFiltersForEndpoint(filters) {
 			case 'problemSet':
 			case 'course':
 			case 'section':
-			case 'answered':
 				if (filters[filterName]) {
 					s[filterName] = filters[filterName];
 				}
@@ -5780,7 +5779,7 @@ function standardizeFiltersForEndpoint(filters) {
 }
 
 const RECEIVE_QUESTION_IDS = 'RECEIVE_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["p"] = RECEIVE_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["o"] = RECEIVE_QUESTION_IDS;
 
 const receiveQuestionIds = questionIds => {
 	return {
@@ -5790,7 +5789,7 @@ const receiveQuestionIds = questionIds => {
 };
 
 const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
-/* harmony export (immutable) */ __webpack_exports__["r"] = RECEIVE_QUESTION;
+/* harmony export (immutable) */ __webpack_exports__["q"] = RECEIVE_QUESTION;
 
 const receiveQuestion = question => {
 	return {
@@ -5798,11 +5797,11 @@ const receiveQuestion = question => {
 		payload: question
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = receiveQuestion;
+/* unused harmony export receiveQuestion */
 
 
 const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["s"] = RECEIVE_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["r"] = RECEIVE_QUESTIONS;
 
 const receiveQuestions = questions => {
 	return {
@@ -5814,7 +5813,7 @@ const receiveQuestions = questions => {
 
 
 const RESET_QUESTIONS = 'RESET_QUESTIONS';
-/* harmony export (immutable) */ __webpack_exports__["t"] = RESET_QUESTIONS;
+/* harmony export (immutable) */ __webpack_exports__["s"] = RESET_QUESTIONS;
 
 const resetQuestions = () => {
 	return {
@@ -5826,7 +5825,7 @@ const resetQuestions = () => {
 
 
 const RECEIVE_QUESTION_BY_ID = 'RECEIVE_QUESTION_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_QUESTION_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_QUESTION_BY_ID;
 
 const receiveQuestionById = questionId => {
 	return {
@@ -5838,7 +5837,7 @@ const receiveQuestionById = questionId => {
 };
 
 const RECEIVE_QUESTIONS_BY_ID = 'RECEIVE_QUESTIONS_BY_ID';
-/* harmony export (immutable) */ __webpack_exports__["o"] = RECEIVE_QUESTIONS_BY_ID;
+/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_QUESTIONS_BY_ID;
 
 const receiveQuestionsById = questionsById => {
 	return {
@@ -5850,7 +5849,7 @@ const receiveQuestionsById = questionsById => {
 
 
 const RESET_QUESTION_IDS = 'RESET_QUESTION_IDS';
-/* harmony export (immutable) */ __webpack_exports__["q"] = RESET_QUESTION_IDS;
+/* harmony export (immutable) */ __webpack_exports__["p"] = RESET_QUESTION_IDS;
 
 const resetQuestionIds = () => {
 	return {
@@ -5862,7 +5861,7 @@ const resetQuestionIds = () => {
 
 
 const REMOVE_QUESTION = 'REMOVE_QUESTION';
-/* harmony export (immutable) */ __webpack_exports__["m"] = REMOVE_QUESTION;
+/* harmony export (immutable) */ __webpack_exports__["l"] = REMOVE_QUESTION;
 
 const removeQuestion = questionId => {
 	return {
@@ -5876,7 +5875,7 @@ const removeQuestion = questionId => {
 
 
 const SET_QUESTION_PENDING = 'SET_QUESTION_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["u"] = SET_QUESTION_PENDING;
+/* harmony export (immutable) */ __webpack_exports__["t"] = SET_QUESTION_PENDING;
 
 const setQuestionPending = isPending => {
 	return {
@@ -5886,11 +5885,11 @@ const setQuestionPending = isPending => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["j"] = setQuestionPending;
+/* harmony export (immutable) */ __webpack_exports__["i"] = setQuestionPending;
 
 
 const SET_TRIED_IS_EMPTY = 'SET_TRIED_IS_EMPTY';
-/* harmony export (immutable) */ __webpack_exports__["l"] = SET_TRIED_IS_EMPTY;
+/* harmony export (immutable) */ __webpack_exports__["k"] = SET_TRIED_IS_EMPTY;
 
 const setTriedIsEmpty = isEmpty => {
 	return {
@@ -5900,7 +5899,7 @@ const setTriedIsEmpty = isEmpty => {
 		}
 	};
 };
-/* harmony export (immutable) */ __webpack_exports__["i"] = setTriedIsEmpty;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setTriedIsEmpty;
 
 
 function setScrolledTo(itemId) {
@@ -7135,8 +7134,8 @@ module.exports = ReactCurrentOwner;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["e"] = sendResponse;
 /* harmony export (immutable) */ __webpack_exports__["f"] = deleteResponse;
-/* harmony export (immutable) */ __webpack_exports__["g"] = clickAnswered;
-/* harmony export (immutable) */ __webpack_exports__["h"] = updateResponse;
+/* unused harmony export clickAnswered */
+/* harmony export (immutable) */ __webpack_exports__["g"] = updateResponse;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(10);
@@ -7146,7 +7145,7 @@ module.exports = ReactCurrentOwner;
 
 
 const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
-/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_RESPONSE;
+/* harmony export (immutable) */ __webpack_exports__["h"] = RECEIVE_RESPONSE;
 
 const receiveResponse = response => {
 	return {
@@ -7156,7 +7155,7 @@ const receiveResponse = response => {
 };
 
 const RECEIVE_RESPONSES = 'RECEIVE_RESPONSES';
-/* harmony export (immutable) */ __webpack_exports__["j"] = RECEIVE_RESPONSES;
+/* harmony export (immutable) */ __webpack_exports__["i"] = RECEIVE_RESPONSES;
 
 const receiveResponses = responses => {
 	return {
@@ -7168,7 +7167,7 @@ const receiveResponses = responses => {
 
 
 const RECEIVE_RESPONSE_ID_MAP = 'RECEIVE_RESPONSE_ID_MAP';
-/* harmony export (immutable) */ __webpack_exports__["n"] = RECEIVE_RESPONSE_ID_MAP;
+/* harmony export (immutable) */ __webpack_exports__["l"] = RECEIVE_RESPONSE_ID_MAP;
 
 const receiveResponseIdMap = responseIdMap => {
 	return {
@@ -7180,7 +7179,7 @@ const receiveResponseIdMap = responseIdMap => {
 
 
 const RECEIVE_RESPONSE_ID_FOR_MAP = 'RECEIVE_RESPONSE_ID_FOR_MAP';
-/* harmony export (immutable) */ __webpack_exports__["m"] = RECEIVE_RESPONSE_ID_FOR_MAP;
+/* harmony export (immutable) */ __webpack_exports__["k"] = RECEIVE_RESPONSE_ID_FOR_MAP;
 
 const receiveResponseIdForMap = (responseId, questionId) => {
 	return {
@@ -7195,7 +7194,7 @@ const receiveResponseIdForMap = (responseId, questionId) => {
 
 
 const REMOVE_RESPONSE = 'REMOVE_RESPONSE';
-/* harmony export (immutable) */ __webpack_exports__["k"] = REMOVE_RESPONSE;
+/* harmony export (immutable) */ __webpack_exports__["j"] = REMOVE_RESPONSE;
 
 const removeResponse = (responseId, questionId) => {
 	return {
@@ -7209,51 +7208,8 @@ const removeResponse = (responseId, questionId) => {
 /* unused harmony export removeResponse */
 
 
-function sendResponseAnswered(responseId, isAnswered) {
-	return (dispatch, getState) => {
-		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData;
-		const endpoint = rest_api_endpoint + 'responses/' + responseId;
-
-		return __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default()(endpoint, {
-			method: 'POST',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': rest_api_nonce
-			},
-			body: JSON.stringify({
-				client_name: client_name,
-				client_url: page_base,
-				is_answer: isAnswered
-			})
-		}).then(response => response.json()).then(json => {
-			const { questionId } = json;
-			const state = getState();
-
-			const newQuestion = Object.assign({}, state.questions[questionId], {
-				hasAnswer: isAnswered
-			});
-
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__questions__["e" /* receiveQuestion */])(newQuestion));
-		});
-	};
-}
-
-const SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED';
-/* harmony export (immutable) */ __webpack_exports__["l"] = SET_RESPONSE_ANSWERED;
-
-const setResponseAnswered = (responseId, isAnswered) => {
-	return {
-		type: SET_RESPONSE_ANSWERED,
-		payload: {
-			responseId,
-			isAnswered
-		}
-	};
-};
-
 const SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING';
-/* harmony export (immutable) */ __webpack_exports__["o"] = SET_RESPONSE_PENDING;
+/* harmony export (immutable) */ __webpack_exports__["m"] = SET_RESPONSE_PENDING;
 
 const setResponsePending = (questionId, isPending) => {
 	return {
@@ -7268,7 +7224,7 @@ const setResponsePending = (questionId, isPending) => {
 
 
 const SET_RESPONSES_PENDING_BULK = 'SET_RESPONSES_PENDING_BULK';
-/* harmony export (immutable) */ __webpack_exports__["p"] = SET_RESPONSES_PENDING_BULK;
+/* harmony export (immutable) */ __webpack_exports__["n"] = SET_RESPONSES_PENDING_BULK;
 
 const setResponsesPendingBulk = pending => {
 	return {
@@ -8522,8 +8478,7 @@ const getViewFromHash = hash => {
 const indexFilters = {
 	course: 1,
 	section: 1,
-	problemSet: 1,
-	answered: 1
+	problemSet: 1
 };
 
 const buildHashFromFilter = (slug, value, currentLocation) => {
@@ -16521,11 +16476,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 			switch (fieldType) {
 				case 'question':
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["h" /* updateQuestion */])(fieldId));
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["g" /* updateQuestion */])(fieldId));
 					break;
 
 				case 'response':
-					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_responses__["h" /* updateResponse */])(fieldId));
+					dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions_responses__["g" /* updateResponse */])(fieldId));
 					break;
 			}
 		}
@@ -16627,7 +16582,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onDeleteClick: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["f" /* deleteQuestion */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["e" /* deleteQuestion */])(itemId));
 		},
 
 		onEditClick: () => {
@@ -16656,7 +16611,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 
 		onWaypointEnter: () => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["g" /* setScrolledTo */])(itemId));
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions_questions__["f" /* setScrolledTo */])(itemId));
 		}
 	};
 };
@@ -37364,41 +37319,7 @@ define(String.prototype, "padRight", "".padEnd);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(66)))
 
 /***/ }),
-/* 389 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-
-
-class AnsweredDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-	render() {
-		const { responseId, onAnsweredClick, isAnswered } = this.props;
-
-		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			"div",
-			{ className: "ww-answered" },
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				"label",
-				null,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-					type: "checkbox",
-					checked: isAnswered,
-					onChange: e => {
-						onAnsweredClick(responseId, !isAnswered);
-					},
-					value: "1"
-				}),
-				"This response answered my question!"
-			)
-		);
-	}
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = AnsweredDialog;
-
-
-/***/ }),
+/* 389 */,
 /* 390 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -37815,23 +37736,6 @@ class ProblemStats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			}
 		}
 
-		let answered = {};
-		for (var responseId in responses) {
-			if (responses.hasOwnProperty(responseId) && responses[responseId].isAnswer) {
-				// Will be overwritten for other responses to same question
-				answered[responses[responseId].questionId] = responseId;
-			}
-		}
-
-		let answeredCount = 0;
-		for (var questionId in answered) {
-			if (answered.hasOwnProperty(questionId)) {
-				answeredCount++;
-			}
-		}
-
-		const unansweredCount = questionsById.length - answeredCount;
-
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			"div",
 			{ className: "item-stats problem-stats" },
@@ -37851,17 +37755,6 @@ class ProblemStats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				{ className: "ww-subtitle-section" },
 				responseCount,
 				" responses"
-			),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				"span",
-				{ className: "ww-subtitle-sep" },
-				"/"
-			),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				"span",
-				{ className: "ww-subtitle-section" },
-				unansweredCount,
-				" unanswered"
 			)
 		);
 	}
@@ -37991,7 +37884,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const {
 			attachments, feedback, isCurrentQuestion,
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
-			itemId, question, questionLink, questionStatus,
+			itemId, question, questionLink,
 			responseIds, responses, userCanEdit, userCanPostResponse,
 			onAccordionClick, onDeleteClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter,
@@ -38026,17 +37919,6 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			'aria-hidden': 'true',
 			className: aeClass
 		});
-
-		let statusText = 'Unanswered';
-		switch (questionStatus) {
-			case 'answered':
-				statusText = 'Answered!';
-				break;
-
-			case 'in-progress':
-				statusText = 'In-Progress';
-				break;
-		}
 
 		const questionTitleElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'a',
@@ -38939,9 +38821,7 @@ class QuestionSortDropdown extends __WEBPACK_IMPORTED_MODULE_0_react__["Componen
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_EditSaveButtonContainer__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_PreviewableFieldContainer__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_ScoreDialogContainer__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_AnsweredDialogContainer__ = __webpack_require__(413);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__FormattedProblem__ = __webpack_require__(84);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__FormattedProblem__ = __webpack_require__(84);
 
 
 
@@ -38964,10 +38844,8 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			return null;
 		}
 
-		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response;
+		const { content, authorAvatar, authorName, authorUserType } = response;
 		const userIsAdmin = window.WWData.user_is_admin;
-
-		const answeredElement = isMyQuestion || userIsAdmin ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_AnsweredDialogContainer__["a" /* default */], { responseId: responseId }) : '';
 
 		const timestamp = moment(response.postDate).format('MMMM D, YYYY');
 
@@ -39076,7 +38954,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				)
 			));
 		} else {
-			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__FormattedProblem__["a" /* default */], {
+			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__FormattedProblem__["a" /* default */], {
 				attachments: attachments,
 				itemId: contentId,
 				content: content,
@@ -39084,7 +38962,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			}));
 		}
 
-		let liClassName = isAnswer ? 'ww-response is-answer' : 'ww-response';
+		let liClassName = 'ww-response';
 		if (isEditing) {
 			liClassName += ' is-editing';
 		}
@@ -39123,8 +39001,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					),
 					editLinkElements
 				),
-				contentElements,
-				answeredElement
+				contentElements
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -39320,12 +39197,6 @@ class ResultsHeader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			if (currentFilters[filterName]) {
 				active.push(currentFilters[filterName]);
 			}
-		}
-
-		if ('answered' == currentFilters.answered) {
-			active.push('Unanswered');
-		} else if ('unanswered' == currentFilters.answered) {
-			active.push('Answered');
 		}
 
 		let breadcrumbs = '';
@@ -39532,7 +39403,7 @@ class Sidebar extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						{ href: helpURL },
 						'filters'
 					),
-					' below to navigate the questions that have been posted. You can select questions by course, section, a specific WeBWorK problem set, and to select only answered or unanswered questions.'
+					' below to navigate the questions that have been posted. You can select questions by course, section, and a specific WeBWorK problem set.'
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'ul',
@@ -39747,41 +39618,7 @@ class Uploader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 
 /***/ }),
-/* 413 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_redux__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_AnsweredDialog__ = __webpack_require__(389);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_responses__ = __webpack_require__(44);
-
-
-
-
-const mapStateToProps = (state, ownProps) => {
-	const { responses } = state;
-	const { responseId } = ownProps;
-
-	const isAnswered = responseId ? responses[ownProps.responseId].isAnswer : false;
-	return {
-		isAnswered
-	};
-};
-
-const mapDispatchToProps = dispatch => {
-	return {
-		onAnsweredClick: (responseId, isAnswered) => {
-			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_responses__["g" /* clickAnswered */])(responseId, isAnswered));
-		}
-	};
-};
-
-const AnsweredDialogContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react_redux__["connect"])(mapStateToProps, mapDispatchToProps)(__WEBPACK_IMPORTED_MODULE_1__components_AnsweredDialog__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (AnsweredDialogContainer);
-
-/***/ }),
+/* 413 */,
 /* 414 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -39847,22 +39684,6 @@ const mapStateToProps = (state, ownProps) => {
 		}
 	}
 
-	let answered = {};
-	for (var responseId in responses) {
-		if (responses.hasOwnProperty(responseId)) {
-			// Will be overwritten for other responses to same question
-			answered[responses[responseId].questionId] = responseId;
-		}
-	}
-
-	let answeredCount = 0;
-	for (var questionId in answered) {
-		if (answered.hasOwnProperty(questionId)) {
-			answeredCount++;
-		}
-	}
-
-	const unansweredCount = questionsById.length - answeredCount;
 	const userCanAskQuestion = window.WWData.user_can_ask_question;
 
 	return {
@@ -39873,7 +39694,6 @@ const mapStateToProps = (state, ownProps) => {
 		questions,
 		questionsById,
 		responseCount,
-		unansweredCount,
 		userCanAskQuestion
 	};
 };
@@ -39973,11 +39793,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 			// Only disable submit if the notice isn't yet showing.
 			if (0 === tried.length && !triedIsEmpty) {
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["i" /* setTriedIsEmpty */])(true));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["h" /* setTriedIsEmpty */])(true));
 			} else {
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["i" /* setTriedIsEmpty */])(false));
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["j" /* setQuestionPending */])(true));
-				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["k" /* sendQuestion */])(ownProps.problemId));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["h" /* setTriedIsEmpty */])(false));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["i" /* setQuestionPending */])(true));
+				dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions_questions__["j" /* sendQuestion */])(ownProps.problemId));
 			}
 		}
 	};
@@ -40523,7 +40343,6 @@ const initialState = {
 	course: false,
 	section: false,
 	problemSet: false,
-	answered: false,
 
 	orderby: 'post_date',
 	order: 'DESC'
@@ -40703,7 +40522,7 @@ function formData(state = {}, action) {
 			const { values } = action.payload;
 			return Object.assign({}, state, values);
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["u" /* SET_QUESTION_PENDING */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["t" /* SET_QUESTION_PENDING */]:
 			let newQuestionForPending = Object.assign({}, state['question-form']);
 			newQuestionForPending.isPending = action.payload.isPending;
 
@@ -40711,7 +40530,7 @@ function formData(state = {}, action) {
 				['question-form']: newQuestionForPending
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["r" /* RECEIVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["q" /* RECEIVE_QUESTION */]:
 			const newQuestion = {
 				attachments: {},
 				content: action.payload.content,
@@ -40875,23 +40694,23 @@ function problems(state = {}, action) {
 
 function questions(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["r" /* RECEIVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["q" /* RECEIVE_QUESTION */]:
 			return Object.assign({}, state, {
 				[action.payload.questionId]: action.payload
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["s" /* RECEIVE_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["r" /* RECEIVE_QUESTIONS */]:
 			return Object.assign({}, state, action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* REMOVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* REMOVE_QUESTION */]:
 			let newQuestions = Object.assign({}, state);
 			delete newQuestions[action.payload.questionId];
 			return newQuestions;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["t" /* RESET_QUESTIONS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["s" /* RESET_QUESTIONS */]:
 			return {};
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_responses__["m" /* RECEIVE_RESPONSE_ID_FOR_MAP */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_responses__["k" /* RECEIVE_RESPONSE_ID_FOR_MAP */]:
 			let newQuestion = Object.assign({}, state[action.payload.questionId]);
 			newQuestion.responseCount++;
 
@@ -40915,19 +40734,19 @@ function questions(state = {}, action) {
 
 function questionsById(state = [], action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RECEIVE_QUESTION_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* RECEIVE_QUESTION_BY_ID */]:
 			let newState = state;
 			newState.push(action.payload.questionId);
 			return newState;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["o" /* RECEIVE_QUESTIONS_BY_ID */]:
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["p" /* RECEIVE_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["n" /* RECEIVE_QUESTIONS_BY_ID */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["o" /* RECEIVE_QUESTION_IDS */]:
 			return state.concat(action.payload);
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["q" /* RESET_QUESTION_IDS */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["p" /* RESET_QUESTION_IDS */]:
 			return [];
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["m" /* REMOVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* REMOVE_QUESTION */]:
 			let newQuestionIds = state.slice(0);
 
 			const key = newQuestionIds.indexOf(action.payload.questionId);
@@ -40954,14 +40773,14 @@ function questionsById(state = [], action) {
 
 function responseFormPending(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["o" /* SET_RESPONSE_PENDING */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["m" /* SET_RESPONSE_PENDING */]:
 			const { questionId, isPending } = action.payload;
 
 			return Object.assign({}, state, {
 				[questionId]: isPending
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["p" /* SET_RESPONSES_PENDING_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["n" /* SET_RESPONSES_PENDING_BULK */]:
 			return action.payload;
 
 		default:
@@ -40982,7 +40801,7 @@ function responseFormPending(state = {}, action) {
 
 function responseIdMap(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["m" /* RECEIVE_RESPONSE_ID_FOR_MAP */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["k" /* RECEIVE_RESPONSE_ID_FOR_MAP */]:
 			const { questionId, responseId } = action.payload;
 
 			let questionResponseIds = [];
@@ -40998,10 +40817,10 @@ function responseIdMap(state = {}, action) {
 				[questionId]: questionResponseIds
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["n" /* RECEIVE_RESPONSE_ID_MAP */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["l" /* RECEIVE_RESPONSE_ID_MAP */]:
 			return action.payload;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["k" /* REMOVE_RESPONSE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["j" /* REMOVE_RESPONSE */]:
 			let newQuestionResponseIds = state[action.payload.questionId].slice(0);
 			const key = newQuestionResponseIds.indexOf(action.payload.responseId);
 
@@ -41013,7 +40832,7 @@ function responseIdMap(state = {}, action) {
 				[action.payload.questionId]: newQuestionResponseIds
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["m" /* REMOVE_QUESTION */]:
+		case __WEBPACK_IMPORTED_MODULE_1__actions_questions__["l" /* REMOVE_QUESTION */]:
 			let newQuestions = Object.assign({}, state);
 			delete newQuestions[action.payload.questionId];
 			return newQuestions;
@@ -41034,29 +40853,19 @@ function responseIdMap(state = {}, action) {
 
 function responses(state = {}, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["i" /* RECEIVE_RESPONSE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["h" /* RECEIVE_RESPONSE */]:
 			return Object.assign({}, state, {
 				[action.payload.responseId]: action.payload
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["j" /* RECEIVE_RESPONSES */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["i" /* RECEIVE_RESPONSES */]:
 			return action.payload;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["k" /* REMOVE_RESPONSE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["j" /* REMOVE_RESPONSE */]:
 			let newResponses = Object.assign({}, state);
 			delete newResponses[action.payload.responseId];
 			return newResponses;
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_responses__["l" /* SET_RESPONSE_ANSWERED */]:
-			const { responseId, isAnswered } = action.payload;
-
-			const newResponse = Object.assign({}, state[responseId], {
-				isAnswer: isAnswered
-			});
-
-			return Object.assign({}, state, {
-				[responseId]: newResponse
-			});
 		default:
 			return state;
 	}
@@ -41200,7 +41009,7 @@ function subscriptions(state = {}, action) {
 
 function triedIsEmpty(state = false, action) {
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["l" /* SET_TRIED_IS_EMPTY */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_questions__["k" /* SET_TRIED_IS_EMPTY */]:
 			const { isEmpty } = action.payload;
 			return isEmpty;
 

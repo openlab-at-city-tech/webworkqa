@@ -119,7 +119,6 @@ class Query {
 				'authorName' => $r->get_author_name(),
 				'authorUserType' => $r->get_author_type_label(),
 				'content' => $r->get_content(),
-				'isAnswer' => $r->get_is_answer(),
 				'postDate' => $r->get_post_date(),
 				'questionId' => $r->get_question_id(),
 				'responseId' => $response_id,

@@ -15,16 +15,6 @@ export function responses( state = {}, action ) {
 			delete( newResponses[ action.payload.responseId ] )
 			return newResponses
 
-		case SET_RESPONSE_ANSWERED :
-			const { responseId, isAnswered } = action.payload
-
-			const newResponse = Object.assign( {}, state[responseId], {
-				isAnswer: isAnswered
-			} )
-
-			return Object.assign( {}, state, {
-				[responseId]: newResponse
-			} )
 		default :
 			return state
 	}

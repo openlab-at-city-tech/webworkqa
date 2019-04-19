@@ -48,49 +48,6 @@ export const removeResponse = (responseId, questionId) => {
 	}
 }
 
-function sendResponseAnswered( responseId, isAnswered ) {
-	return ( dispatch, getState ) => {
-		const { client_name, page_base, rest_api_endpoint, rest_api_nonce } = window.WWData
-		const endpoint = rest_api_endpoint + 'responses/' + responseId
-
-		return fetch( endpoint, {
-			method: 'POST',
-			credentials: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': rest_api_nonce
-			},
-			body: JSON.stringify({
-				client_name: client_name,
-				client_url: page_base,
-				is_answer: isAnswered
-			})
-		} )
-		.then( response => response.json() )
-		.then( json => {
-			const { questionId } = json
-			const state = getState()
-
-			const newQuestion = Object.assign( {}, state.questions[ questionId ], {
-				hasAnswer: isAnswered
-			} )
-
-			dispatch( receiveQuestion( newQuestion ) )
-		} );
-	}
-}
-
-export const SET_RESPONSE_ANSWERED = 'SET_RESPONSE_ANSWERED'
-const setResponseAnswered = ( responseId, isAnswered ) => {
-	return {
-		type: SET_RESPONSE_ANSWERED,
-		payload: {
-			responseId,
-			isAnswered
-		}
-	}
-}
-
 export const SET_RESPONSE_PENDING = 'SET_RESPONSE_PENDING'
 export const setResponsePending = ( questionId, isPending ) => {
 	return {

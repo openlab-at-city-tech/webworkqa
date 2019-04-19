@@ -115,7 +115,6 @@ function standardizeFiltersForEndpoint( filters ) {
 			case 'problemSet' :
 			case 'course' :
 			case 'section' :
-			case 'answered' :
 				if ( filters[ filterName ] ) {
 					s[ filterName ] = filters[ filterName ]
 				}

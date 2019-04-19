@@ -4,9 +4,9 @@ import { setAppIsLoading } from '../actions/app'
 import { fetchProblem } from '../actions/problems'
 
 const mapStateToProps = ( state, ownProps ) => {
-	const { 
-		appIsLoading, initialLoadComplete, 
-		problems, questions, questionsById, responseIdMap, responses 
+	const {
+		appIsLoading, initialLoadComplete,
+		problems, questions, questionsById, responseIdMap, responses
 	} = state
 
 	// @todo - All of this should be moved out so it doesn't run on every state update
@@ -19,22 +19,6 @@ const mapStateToProps = ( state, ownProps ) => {
 		}
 	}
 
-	let answered = {}
-	for ( var responseId in responses ) {
-		if ( responses.hasOwnProperty( responseId ) ) {
-			// Will be overwritten for other responses to same question
-			answered[ responses[responseId].questionId ] = responseId
-		}
-	}
-
-	let answeredCount = 0
-	for ( var questionId in answered ) {
-		if ( answered.hasOwnProperty( questionId ) ) {
-			answeredCount++
-		}
-	}
-
-	const unansweredCount = questionsById.length - answeredCount
 	const userCanAskQuestion = window.WWData.user_can_ask_question
 
 	return {
@@ -45,7 +29,6 @@ const mapStateToProps = ( state, ownProps ) => {
 		questions,
 		questionsById,
 		responseCount,
-		unansweredCount,
 		userCanAskQuestion
 	}
 }

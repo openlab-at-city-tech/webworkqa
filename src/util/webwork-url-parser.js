@@ -26,10 +26,9 @@ const getViewFromHash = ( hash ) => {
 }
 
 const indexFilters = {
-	course: 1,	
-	section: 1,	
-	problemSet: 1,	
-	answered: 1
+	course: 1,
+	section: 1,
+	problemSet: 1
 }
 
 const buildHashFromFilter = ( slug, value, currentLocation ) => {
@@ -39,7 +38,7 @@ const buildHashFromFilter = ( slug, value, currentLocation ) => {
 	if ( value ) {
 		let newStatelet = {}
 		newStatelet[ slug ] = value
-		newState = Object.assign( {}, currentView, newStatelet ) 
+		newState = Object.assign( {}, currentView, newStatelet )
 	} else {
 		newState = Object.assign( {}, currentView )
 		delete newState[ slug ]
@@ -60,7 +59,7 @@ const buildHashFromState = ( state ) => {
 
 	let hash = ''
 	for ( var i in state ) {
-		hash += ':' + i + '=' + state[i]	
+		hash += ':' + i + '=' + state[i]
 	}
 
 	if ( hash.length ) {

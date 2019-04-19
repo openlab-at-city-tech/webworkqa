@@ -3,7 +3,6 @@ import Scroll from 'react-scroll'
 import EditSaveButtonContainer from '../containers/EditSaveButtonContainer'
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
-import AnsweredDialogContainer from '../containers/AnsweredDialogContainer'
 import FormattedProblem from './FormattedProblem'
 
 var moment = require( 'moment' )
@@ -21,10 +20,8 @@ export default class Response extends Component {
 			return null
 		}
 
-		const { content, authorAvatar, authorName, authorUserType, isAnswer } = response
+		const { content, authorAvatar, authorName, authorUserType } = response
 		const userIsAdmin = window.WWData.user_is_admin
-
-		const answeredElement = ( isMyQuestion || userIsAdmin ) ? <AnsweredDialogContainer responseId={responseId} /> : ''
 
 		const timestamp = moment( response.postDate ).format( 'MMMM D, YYYY' )
 
@@ -129,7 +126,7 @@ export default class Response extends Component {
 			)
 		}
 
-		let liClassName = isAnswer ? 'ww-response is-answer' : 'ww-response'
+		let liClassName = 'ww-response'
 		if ( isEditing ) {
 			liClassName += ' is-editing'
 		}
@@ -153,8 +150,6 @@ export default class Response extends Component {
 					</div>
 
 					{contentElements}
-
-					{answeredElement}
 				</div>
 
 				<div className="item-metadata">

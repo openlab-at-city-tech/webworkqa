@@ -48,7 +48,7 @@ export default class Question extends Component {
 		const {
 			attachments, feedback, isCurrentQuestion,
 			isCollapsed, isEditing, isPending, isProblemSummaryCollapsed, isSingleProblem,
-			itemId, question, questionLink, questionStatus,
+			itemId, question, questionLink,
 			responseIds, responses, userCanEdit, userCanPostResponse,
 			onAccordionClick, onDeleteClick, onEditClick, onEditSaveClick,
 			onProblemSummaryClick, onRespondClick, onWaypointEnter,
@@ -85,17 +85,6 @@ export default class Question extends Component {
 			  className={aeClass}
 			></i>
 		)
-
-		let statusText = 'Unanswered'
-		switch ( questionStatus ) {
-			case 'answered' :
-				statusText = 'Answered!'
-				break;
-
-			case 'in-progress' :
-				statusText = 'In-Progress'
-				break;
-		}
 
 		const questionTitleElement = (
 			<a

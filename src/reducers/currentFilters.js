@@ -6,7 +6,6 @@ const initialState = {
 	course: false,
 	section: false,
 	problemSet: false,
-	answered: false,
 
 	orderby: 'post_date',
 	order: 'DESC'
@@ -16,7 +15,7 @@ export function currentFilters( state = initialState, action ) {
 	switch ( action.type ) {
 		case LOCATION_CHANGE :
 			const currentView = getCurrentView( {
-				locationBeforeTransitions: action.payload	
+				locationBeforeTransitions: action.payload
 			} )
 
 			for ( var i in state ) {

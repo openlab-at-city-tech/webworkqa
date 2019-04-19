@@ -15,12 +15,6 @@ export default class ResultsHeader extends Component {
 			}
 		}
 
-		if ( 'answered' == currentFilters.answered ) {
-			active.push( 'Unanswered' )
-		} else if ( 'unanswered' == currentFilters.answered ) {
-			active.push( 'Answered' )
-		}
-
 		let breadcrumbs = ''
 		if ( active.length ) {
 			const crumbs = active.join( ' / ' )

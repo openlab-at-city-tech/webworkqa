@@ -15,7 +15,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 	protected $question_id;
 	protected $question;
-	protected $is_answer;
 
 	protected $author_id;
 	protected $content;
@@ -67,10 +66,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		}
 	}
 
-	public function set_is_answer( $is_answer ) {
-		$this->is_answer = (bool) $is_answer;
-	}
-
 	public function set_vote_count( $vote_count ) {
 		$this->vote_count = (int) $vote_count;
 	}
@@ -113,10 +108,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function get_question_id() {
 		return $this->question_id;
-	}
-
-	public function get_is_answer() {
-		return $this->is_answer;
 	}
 
 	public function get_author_avatar() {
@@ -170,10 +161,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		if ( $saved ) {
 			update_post_meta( $this->get_id(), 'webwork_question_id', $this->get_question_id() );
 
-			$was_answer = get_post_meta( $this->get_id(), 'webwork_question_answer', true );
-			$trigger_answer_notification = ! $was_answer && $this->get_is_answer();
-			update_post_meta( $this->get_id(), 'webwork_question_answer', $this->get_is_answer() );
-
 			$this->get_vote_count();
 
 			// Bust question caches. (Won't work when mocked in tests.)
@@ -213,9 +200,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		if ( $this->p->populate() ) {
 			$question_id = get_post_meta( $this->get_id(), 'webwork_question_id', true );
 			$this->set_question_id( $question_id );
-
-			$question_answer = get_post_meta( $this->get_id(), 'webwork_question_answer', true );
-			$this->set_is_answer( $question_answer );
 		}
 	}
 
@@ -227,10 +211,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			case 'new' :
 				$this->send_notification_to_subscribers();
 				$this->send_notification_to_instructor();
-			break;
-
-			case 'marked_answered' :
-				$this->send_answered_notification_to_author();
 			break;
 		}
 	}
@@ -298,36 +278,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 To read and reply, visit %3$s.', 'webwork' ),
 			$response_author->display_name,
 			$section,
-			$this->question->get_url( $this->get_client_url() )
-		);
-		$email->set_message( $message );
-
-		$email->send();
-	}
-
-	/**
-	 * Send an email notification to response author when response is marked as the answer.
-	 */
-	protected function send_answered_notification_to_author() {
-		$response_author_id = $this->get_author_id();
-		$response_author = new \WP_User( $response_author_id );
-		if ( ! $response_author->exists() ) {
-			return;
-		}
-
-		$author_email = $response_author->user_email;
-
-		$section = $this->question->get_section();
-
-		$email = new Util\Email();
-		$email->set_client_name( $this->get_client_name() );
-		$email->set_recipient( $author_email );
-		$email->set_subject( sprintf( __( 'Your reply has been marked as the answer to a question in the course %1$s', 'webwork' ), $section ) );
-
-		$message = sprintf(
-			__( 'Your reply to a question has been marked as the correct answer!
-
-To read and reply, visit %1$s.', 'webwork' ),
 			$this->question->get_url( $this->get_client_url() )
 		);
 		$email->set_message( $message );

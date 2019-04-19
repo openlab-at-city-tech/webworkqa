@@ -560,18 +560,27 @@ ul.question-list > li {
 	position: relative;
 }
 
+.ww-question-list > ul > li.has-responses {
+	border-color: #0040b2;
+}
+
 .ww-question {
 	margin-top: 50px;
 }
 
-.ww-question-list > ul > li.question-unanswered,
-ul.question-list > li.question-unanswered {
+.ww-question-list > ul > li,
+ul.question-list > li {
 	border-color: #000;
 }
 
-.ww-question-list > ul > li.question-in-progress,
-ul.question-list > li.question-in-progress {
-	border-color: #476faf;
+.ww-question-list > ul > li.has-responses,
+ul.question-list > li.has-responses {
+	border-color: #0040b2;
+}
+
+.ww-question-list > ul > li.has-responses
+ul.question-list > li.has-responses {
+	border-color: #0040b2;
 }
 
 .ww-response {
@@ -636,12 +645,12 @@ li.is-answer:before {
 	font-weight: bold;
 }
 
-.question-unanswered .ww-question-header {
+.ww-question-header {
 	background: #000;
 }
 
-.question-answered .ww-question-header {
-	background: #0044af;
+.has-responses .ww-question-header {
+	background: #0040b2;
 }
 
 .question-in-progress .ww-question-header {

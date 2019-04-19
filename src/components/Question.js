@@ -16,7 +16,7 @@ export default class Question extends Component {
 	componentDidMount() {
 		const {
 			isCurrentQuestion, isSingleProblem,
-			itemId, initialLoadComplete, 
+			itemId, initialLoadComplete,
 			userCanPostResponse
 		} = this.props
 
@@ -442,7 +442,7 @@ export default class Question extends Component {
 
 		return (
 			<li
-			  className={this.getClassName( isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion )}
+			  className={this.getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount )}
 			>
 
 				{scrollWaypoint}
@@ -491,7 +491,7 @@ export default class Question extends Component {
 	/**
 	 * Get a class name for the <li> element.
 	 */
-	getClassName( isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion ) {
+	getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount ) {
 		let classes = []
 
 		if ( isCollapsed ) {
@@ -504,18 +504,8 @@ export default class Question extends Component {
 			classes.push( 'my-question' )
 		}
 
-		switch ( questionStatus ) {
-			case 'answered' :
-				classes.push( 'question-answered' )
-				break
-
-			case 'unanswered' :
-				classes.push( 'question-unanswered' )
-				break
-
-			case 'in-progress' :
-				classes.push( 'question-in-progress' )
-				break
+		if ( responseCount > 0 ) {
+			classes.push( 'has-responses' )
 		}
 
 		if ( isCurrentQuestion ) {

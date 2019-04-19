@@ -36,13 +36,6 @@ const mapStateToProps = (state, ownProps) => {
 		+ question.problemId + ':questionId='
 		+ itemId
 
-	let questionStatus = 'unanswered'
-	if ( question.hasAnswer ) {
-		questionStatus = 'answered'
-	} else if ( question.responseCount > 0 ) {
-		questionStatus = 'in-progress'
-	}
-
 	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id
 
 	let atts = {}, textAtts
@@ -71,7 +64,6 @@ const mapStateToProps = (state, ownProps) => {
 		isSingleProblem,
 		question,
 		questionLink,
-		questionStatus,
 		responseIds,
 		responseIsPending,
 		responses,

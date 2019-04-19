@@ -16583,13 +16583,6 @@ const mapStateToProps = (state, ownProps) => {
 	const routeBase = window.WWData.route_base;
 	const questionLink = '/' + routeBase + '#:problemId=' + question.problemId + ':questionId=' + itemId;
 
-	let questionStatus = 'unanswered';
-	if (question.hasAnswer) {
-		questionStatus = 'answered';
-	} else if (question.responseCount > 0) {
-		questionStatus = 'in-progress';
-	}
-
 	const userCanEdit = WWData.user_is_admin || question.authorId == WWData.user_id;
 
 	let atts = {},
@@ -16616,7 +16609,6 @@ const mapStateToProps = (state, ownProps) => {
 		isSingleProblem,
 		question,
 		questionLink,
-		questionStatus,
 		responseIds,
 		responseIsPending,
 		responses,
@@ -38427,7 +38419,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
 			{
-				className: this.getClassName(isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion)
+				className: this.getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount)
 			},
 			scrollWaypoint,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -38482,7 +38474,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	/**
   * Get a class name for the <li> element.
   */
-	getClassName(isCollapsed, isMyQuestion, questionStatus, isCurrentQuestion) {
+	getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount) {
 		let classes = [];
 
 		if (isCollapsed) {
@@ -38495,18 +38487,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			classes.push('my-question');
 		}
 
-		switch (questionStatus) {
-			case 'answered':
-				classes.push('question-answered');
-				break;
-
-			case 'unanswered':
-				classes.push('question-unanswered');
-				break;
-
-			case 'in-progress':
-				classes.push('question-in-progress');
-				break;
+		if (responseCount > 0) {
+			classes.push('has-responses');
 		}
 
 		if (isCurrentQuestion) {

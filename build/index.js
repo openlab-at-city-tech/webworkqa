@@ -38279,6 +38279,23 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					'Reply'
 				)
 			);
+		} else {
+			let respondLinkHref = questionLink;
+			if (!userCanPostResponse) {
+				respondLinkHref = window.WWData.route_base + 'wp-login.php?redirect_to=' + respondLinkHref;
+			}
+
+			respondLinkElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ className: 'respond-link hide-when-closed' },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{
+						href: respondLinkHref
+					},
+					'Respond to this question'
+				)
+			);
 		}
 
 		const questionMetadataElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

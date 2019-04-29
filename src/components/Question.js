@@ -272,6 +272,21 @@ export default class Question extends Component {
 					</a>
 				</div>
 			)
+		} else {
+			let respondLinkHref = questionLink
+			if ( ! userCanPostResponse ) {
+				respondLinkHref = window.WWData.route_base + 'wp-login.php?redirect_to=' + respondLinkHref
+			}
+
+			respondLinkElement = (
+				<div className="respond-link hide-when-closed">
+					<a
+					  href={respondLinkHref}
+					>
+						Respond to this question
+					</a>
+				</div>
+			)
 		}
 
 

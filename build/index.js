@@ -38095,18 +38095,27 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			questionTitleText = 'A Question from ' + authorName;
 		}
 
-		const questionTitleElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			'a',
-			{
-				className: 'ww-question-link',
-				href: questionLink
-			},
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+		let questionTitleElement;
+		if (isSingleProblem) {
+			questionTitleElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'ww-author-name' },
 				questionTitleText
-			)
-		);
+			);
+		} else {
+			questionTitleElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'a',
+				{
+					className: 'ww-question-link',
+					href: questionLink
+				},
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'div',
+					{ className: 'ww-author-name' },
+					questionTitleText
+				)
+			);
+		}
 
 		const timestamp = moment(question.postDate).format('MMMM D, YYYY');
 
@@ -38212,8 +38221,12 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				{ className: 'ww-subtitle-section' },
-				'Posted ',
-				timestamp
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'a',
+					{ href: questionLink },
+					'Posted ',
+					timestamp
+				)
 			),
 			responseCountElements,
 			editLinkElements

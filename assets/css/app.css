@@ -746,8 +746,13 @@ li.is-answer:before {
 }
 
 .ww-question-link {
-  color: #0044af;
+	color: #0044af;
 	font-weight: bold;
+	text-decoration: underline;
+}
+
+.ww-question-link:hover {
+	text-decoration: none;
 }
 
 .ww-author-name {

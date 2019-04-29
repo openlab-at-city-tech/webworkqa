@@ -104,14 +104,22 @@ export default class Question extends Component {
 			questionTitleText = 'A Question from ' + authorName
 		}
 
-		const questionTitleElement = (
-			<a
-			  className="ww-question-link"
-			  href={questionLink}
-			>
+		let questionTitleElement
+		if ( isSingleProblem ) {
+			questionTitleElement = (
 				<div className="ww-author-name">{questionTitleText}</div>
-			</a>
-		)
+			)
+
+		} else {
+			questionTitleElement = (
+				<a
+					className="ww-question-link"
+					href={questionLink}
+				>
+					<div className="ww-author-name">{questionTitleText}</div>
+				</a>
+			)
+		}
 
 		const timestamp = moment( question.postDate ).format( 'MMMM D, YYYY' )
 
@@ -208,7 +216,9 @@ export default class Question extends Component {
 		const questionSubtitleElement = (
 			<div className="ww-subtitle ww-question-subtitle">
 				<span className="ww-subtitle-section">
-					Posted {timestamp}
+					<a href={questionLink}>
+						Posted {timestamp}
+					</a>
 				</span>
 				{responseCountElements}
 				{editLinkElements}

@@ -433,13 +433,15 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		$email->set_recipient( $instructor_email );
 		$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webwork' ), $question_author->display_name, $section ) );
 
+		$link_url = wp_login_url( $this->get_url( $this->get_client_url() ) );
+
 		$message = sprintf(
 			__( '%1$s has posted a question in your course %2$s.
 
 To read and reply, visit %3$s.', 'webwork' ),
 			$question_author->display_name,
 			$section,
-			$this->get_url( $this->get_client_url() )
+			$link_url
 		);
 		$email->set_message( $message );
 

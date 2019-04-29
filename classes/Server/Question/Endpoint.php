@@ -143,6 +143,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_author_id( get_current_user_id() );
 		$question->set_content( $content );
 		$question->set_tried( $tried );
+		$question->set_is_anonymous( $params['isAnonymous'] );
 		$question->set_problem_id( $problem_data['problem_id'] );
 		$question->set_problem_set( $problem_data['problem_set'] );
 		$question->set_course( $course );

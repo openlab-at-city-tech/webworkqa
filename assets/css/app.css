@@ -420,6 +420,34 @@ h3.ww-collapsible-section-header {
     line-height: 1.8rem;
 }
 
+.submit-container {
+	display: flex;
+}
+
+.anonymous-toggle {
+	padding-left: 15px;
+/*	margin-left: 180px; */
+}
+
+.anonymous-toggle input {
+	width: 13px;
+	height: 13px;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	top: -3px;
+}
+
+.anonymous-toggle label {
+	display: inline-block;
+	vertical-align: top;
+	width: calc(100% - 25px);
+	line-height: 1.4rem;
+	padding-left: 8px;
+	font-size: 1rem;
+	font-weight: normal;
+}
+
 .ww-preview {
 	border: 2px solid #ebebeb;
 	display: none;

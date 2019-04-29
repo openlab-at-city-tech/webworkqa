@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
+import AnonymousToggleContainer from '../containers/AnonymousToggleContainer'
 
 export default class QuestionForm extends Component {
 	render() {
@@ -102,12 +103,18 @@ export default class QuestionForm extends Component {
 
 						{triedIsEmptyNotice}
 
-						<input
-						  className={buttonClassName}
-						  disabled={isPending}
-						  type="submit"
-						  value={isPending ? 'Submitting...' : 'Submit'}
-						/>
+						<div className="submit-container">
+							<div className="submit-div">
+								<input
+									className={buttonClassName}
+									disabled={isPending}
+									type="submit"
+									value={isPending ? 'Submitting...' : 'Submit'}
+								/>
+							</div>
+
+							<AnonymousToggleContainer />
+						</div>
 					</div>
 				</form>
 			</div>

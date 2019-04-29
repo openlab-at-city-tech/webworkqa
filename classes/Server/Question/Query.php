@@ -163,10 +163,17 @@ class Query {
 		foreach ( $questions as $q ) {
 			$question_id = $q->get_id();
 
+			if ( $q->get_is_anonymous() ) {
+				$author_name = '';
+			} else {
+				$author_name = $q->get_author_name();
+			}
+
 			$formatted[ $question_id ] = array(
 				'questionId' => $question_id,
 				'content' => $q->get_content(),
 				'tried' => $q->get_tried(),
+				'isAnonymous' => $q->get_is_anonymous(),
 				'postDate' => $q->get_post_date(),
 				'problemId' => $q->get_problem_id(),
 				'problemSet' => $q->get_problem_set(),
@@ -176,7 +183,7 @@ class Query {
 				'isMyQuestion' => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
 				'authorAvatar' => $q->get_author_avatar(),
 				'authorId' => $q->get_author_id(),
-				'authorName' => $q->get_author_name(),
+				'authorName' => $author_name,
 				'responseCount' => $q->get_response_count(),
 				'voteCount' => $q->get_vote_count(),
 				'hasAnswer' => $q->get_has_answer(),

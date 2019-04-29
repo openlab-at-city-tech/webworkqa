@@ -57,7 +57,7 @@ export default class Question extends Component {
 
 		const {
 			tried, content, questionId, authorAvatar, authorName,
-			problemText
+			problemText, isAnonymous
 		} = question
 
 		const isMyQuestion = question.isMyQuestion > 0
@@ -97,12 +97,19 @@ export default class Question extends Component {
 				break;
 		}
 
+		let questionTitleText
+		if ( isAnonymous ) {
+			questionTitleText = 'Question from a Student'
+		} else {
+			questionTitleText = 'A Question from ' + authorName
+		}
+
 		const questionTitleElement = (
 			<a
 			  className="ww-question-link"
 			  href={questionLink}
 			>
-				<div className="ww-author-name">A Question from {authorName}</div>
+				<div className="ww-author-name">{questionTitleText}</div>
 			</a>
 		)
 

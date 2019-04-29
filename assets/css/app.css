@@ -866,8 +866,8 @@ li.is-answer:before {
 }
 
 .ww-question-content-text {
-	font-size: 1.2rem;
-	line-height: 1.35rem;
+	font-size: 1rem;
+	line-height: 1.5rem;
 }
 
 .response-form textarea {

@@ -632,8 +632,9 @@ li.is-answer:before {
 }
 
 .response-user-type {
-	font-size: 1.2rem;
-	margin-top: 10px;
+	background: #fff;
+	font-size: .9rem;
+	padding: 10px 0 5px;
 	text-align: center;
 	text-transform: uppercase
 }

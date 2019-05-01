@@ -6,18 +6,19 @@ export default class SubscriptionDialog extends Component {
 
 		let iconClass = 'hover-notice-parent subscription-dialog '
 		let screenReaderText = ''
+		let linkText
 		if ( isSubscribed ) {
 			iconClass += 'subscribed'
 			screenReaderText = 'End email notifications.'
 		} else {
 			iconClass += 'unsubscribed'
-			screenReaderText = 'Get email notifications.'
+			screenReaderText = 'Notify me of future replies to this question.'
 		}
 
 		return (
-			<button 
+			<button
 				aria-label={screenReaderText}
-				className={iconClass} 
+				className={iconClass}
 				onClick={onClick}
 			>
 				<span className="screen-reader-text">{ screenReaderText }</span>

@@ -976,33 +976,59 @@ li.is-answer:before {
 .subscription-dialog {
 	background-color: transparent;
 	bottom: 28px;
+	color: #000;
 	cursor: pointer;
-	font-size: 1.25rem;
+	font-size: .9rem;
 	position: absolute;
 	right: 20px;
 }
 
-.subscription-dialog i:before {
-	font-family: 'FontAwesome';
-	font-style: normal;
-}
-
-.subscription-dialog.subscribed i:before,
-.subscription-dialog.unsubscribed:hover i:before{
+.subscription-dialog.subscribed {
 	color: #0044af;
-	content: "\f0f3"; /* bell */
-}
-
-.subscription-dialog.unsubscribed i:before {
-	content: "\f0a2"; /* bell-o */
 }
 
 .subscription-dialog.subscribed:hover {
-	right: 18px;
+	color: inherit;
 }
 
-.subscription-dialog.subscribed:hover i:before{
-	content: "\f1f6"; /* bell-slash */
+.subscription-dialog.unsubscribed:hover {
+	color: #0044af;
+}
+
+.subscription-dialog:before {
+	text-transform: uppercase;
+	vertical-align: 2px;
+}
+
+.subscription-dialog.subscribed:before {
+	content: 'Following';
+}
+
+.subscription-dialog.subscribed:hover:before {
+	content: 'Unfollow';
+}
+
+.subscription-dialog.unsubscribed:before {
+	content: 'Follow';
+}
+
+.subscription-dialog i:before {
+	font-family: 'FontAwesome';
+	font-size: 1.25rem;
+	font-style: normal;
+	margin-left: 8px;
+}
+
+.subscription-dialog.unsubscribed i:before {
+	content: "\f055"; /* plus-circle */
+}
+
+.subscription-dialog.subscribed:hover i:before {
+	content: "\f056"; /* minus-circle */
+}
+
+.subscription-dialog.subscribed i:before {
+	content: "\f058"; /* check-circle */
 }
 
 .problem-library-id {

@@ -39781,12 +39781,13 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 
 		let iconClass = 'hover-notice-parent subscription-dialog ';
 		let screenReaderText = '';
+		let linkText;
 		if (isSubscribed) {
 			iconClass += 'subscribed';
 			screenReaderText = 'End email notifications.';
 		} else {
 			iconClass += 'unsubscribed';
-			screenReaderText = 'Get email notifications.';
+			screenReaderText = 'Notify me of future replies to this question.';
 		}
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

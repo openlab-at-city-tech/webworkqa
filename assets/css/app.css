@@ -959,6 +959,10 @@ li.is-answer:before {
 	cursor: pointer;
 }
 
+.ww-score button:disabled {
+	cursor: inherit;
+}
+
 .ww-score.has-votes i:before {
 	content: "\f164"; /* fa-thumbs-up */
 }

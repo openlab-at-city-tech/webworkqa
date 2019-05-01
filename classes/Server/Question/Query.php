@@ -164,7 +164,7 @@ class Query {
 			$question_id = $q->get_id();
 
 			if ( $q->get_is_anonymous() ) {
-				$author_name   = '';
+				$author_name   = webwork_user_is_admin() ? $q->get_author_name() : '';
 				$author_avatar = get_avatar_url( 0, array( 'size' => 80 ) );
 				$author_id     = 0;
 			} else {

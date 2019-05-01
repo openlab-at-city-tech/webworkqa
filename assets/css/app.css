@@ -764,6 +764,16 @@ li.is-answer:before {
 	word-wrap: break-word;
 }
 
+.anonymous-tooltip {
+	text-decoration: underline #0043af dotted;
+}
+
+.anonymous-tooltip .__react_component_tooltip {
+	font-size: 13px;
+	font-weight: normal;
+	line-height: 13px;
+}
+
 .ww-subtitle {
 	color: #555;
 	font-size: 0.85rem;

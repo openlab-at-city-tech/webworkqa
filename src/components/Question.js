@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Scroll, { Element } from 'react-scroll'
 import Waypoint from 'react-waypoint'
+import ReactTooltip from 'react-tooltip'
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import SubscriptionDialogContainer from '../containers/SubscriptionDialogContainer'
@@ -99,7 +100,20 @@ export default class Question extends Component {
 
 		let questionTitleText
 		if ( isAnonymous ) {
-			questionTitleText = 'Question from a Student'
+			if ( authorName ) {
+				questionTitleText = (
+					<span className="anonymous-tooltip">
+						<span
+							data-tip={authorName}
+							data-type="info"
+							data-class="login-tooltip"
+							>Question from a Student</span>
+						<ReactTooltip />
+					</span>
+				)
+			} else {
+				questionTitleText = 'Question from a Student'
+			}
 		} else {
 			questionTitleText = 'A Question from ' + authorName
 		}

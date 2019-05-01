@@ -37984,13 +37984,16 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_scroll__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_waypoint__ = __webpack_require__(793);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_waypoint___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_waypoint__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_ScoreDialogContainer__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_SubscriptionDialogContainer__ = __webpack_require__(425);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ResponseList__ = __webpack_require__(407);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__containers_ResponseFormContainer__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__containers_PreviewableFieldContainer__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__FormattedProblem__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__containers_EditSaveButtonContainer__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_tooltip__ = __webpack_require__(787);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_tooltip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_tooltip__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_ScoreDialogContainer__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_SubscriptionDialogContainer__ = __webpack_require__(425);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ResponseList__ = __webpack_require__(407);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__containers_ResponseFormContainer__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__containers_PreviewableFieldContainer__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__FormattedProblem__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__containers_EditSaveButtonContainer__ = __webpack_require__(170);
+
 
 
 
@@ -38090,7 +38093,24 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let questionTitleText;
 		if (isAnonymous) {
-			questionTitleText = 'Question from a Student';
+			if (authorName) {
+				questionTitleText = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'span',
+					{ className: 'anonymous-tooltip' },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'span',
+						{
+							'data-tip': authorName,
+							'data-type': 'info',
+							'data-class': 'login-tooltip'
+						},
+						'Question from a Student'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_tooltip___default.a, null)
+				);
+			} else {
+				questionTitleText = 'Question from a Student';
+			}
 		} else {
 			questionTitleText = 'A Question from ' + authorName;
 		}
@@ -38256,7 +38276,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			);
 		}
 
-		const questionScoreElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_ScoreDialogContainer__["a" /* default */], {
+		const questionScoreElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_ScoreDialogContainer__["a" /* default */], {
 			itemId: itemId,
 			itemType: 'question'
 		});
@@ -38312,14 +38332,14 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		const contentId = 'content-' + itemId;
-		const formattedContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
+		const formattedContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__FormattedProblem__["a" /* default */], {
 			attachments: attachments,
 			itemId: contentId,
 			content: content
 		});
 
 		const triedId = 'tried-' + itemId;
-		const formattedTried = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
+		const formattedTried = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__FormattedProblem__["a" /* default */], {
 			attachments: attachments,
 			itemId: triedId,
 			content: tried
@@ -38337,7 +38357,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content-editable-children-1', className: 'editable-field' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__containers_PreviewableFieldContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__containers_PreviewableFieldContainer__["a" /* default */], {
 					fieldId: 'question-' + itemId,
 					fieldName: 'content',
 					id: 'ww-question-content',
@@ -38348,7 +38368,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content-editable-children-2', className: 'editable-field' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__containers_PreviewableFieldContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__containers_PreviewableFieldContainer__["a" /* default */], {
 					fieldId: 'question-' + itemId,
 					fieldName: 'tried',
 					id: 'ww-question-content',
@@ -38356,7 +38376,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				})
 			));
 
-			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__containers_EditSaveButtonContainer__["a" /* default */], {
+			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__containers_EditSaveButtonContainer__["a" /* default */], {
 				fieldId: itemId,
 				fieldType: 'question',
 				key: 'content-elements-children-3'
@@ -38449,7 +38469,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				{
 					className: 'ww-my-problem-content'
 				},
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__FormattedProblem__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__FormattedProblem__["a" /* default */], {
 					itemId: questionId,
 					content: problemText
 				})
@@ -38476,7 +38496,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			responsesElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__ResponseList__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__ResponseList__["a" /* default */], {
 					isMyQuestion: isMyQuestion,
 					isPending: responseIsPending,
 					questionId: itemId,
@@ -38495,7 +38515,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let subscriptionElement;
 		if (userCanSubscribe && isSingleProblem && !isCollapsed) {
-			subscriptionElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_SubscriptionDialogContainer__["a" /* default */], {
+			subscriptionElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_SubscriptionDialogContainer__["a" /* default */], {
 				itemId: itemId
 			});
 		}

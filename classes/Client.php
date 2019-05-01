@@ -63,8 +63,7 @@ class Client {
 		$clients = get_blog_option( $server_site_id, 'webwork_clients', array() );
 		$remote_course_url = array_search( get_current_blog_id(), $clients );
 
-		$user_is_admin = current_user_can( 'edit_others_posts' );
-		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+		$user_is_admin = webwork_user_is_admin();
 
 		// @todo Truly awful.
 		$switched = false;

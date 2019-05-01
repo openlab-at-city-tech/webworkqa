@@ -60,6 +60,27 @@ function webwork_get_wwclass( $args = array() ) {
 }
 
 /**
+ * Checks whether a user is an "admin".
+ *
+ * "Admins" have instructor-level access.
+ */
+function webwork_user_is_admin( $user_id = null ) {
+	if ( null === $user_id ) {
+		$user_id = get_current_user_id();
+	}
+
+	$is_admin = user_can( $user_id, 'edit_others_posts' );
+
+	/**
+	 * Filters whether the current user is an "admin".
+	 *
+	 * @param bool $is_admin
+	 * @param int  $user_id
+	 */
+	return apply_filters( 'webwork_user_is_admin', $is_admin, $user_id );
+}
+
+/**
  * Register an integration.
  *
  * @since 1.0.0

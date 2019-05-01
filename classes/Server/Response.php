@@ -111,6 +111,10 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->post_date;
 	}
 
+	public function get_question() {
+		return $this->question;
+	}
+
 	public function get_question_id() {
 		return $this->question_id;
 	}

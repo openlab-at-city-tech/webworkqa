@@ -484,7 +484,7 @@ export default class Question extends Component {
 			)
 		}
 
-		const avatarAltText = 'Avatar of ' + authorName
+		const avatarAltText = isAnonymous ? 'Avatar' : 'Avatar of ' + authorName
 
 		return (
 			<li

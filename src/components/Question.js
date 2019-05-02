@@ -87,17 +87,6 @@ export default class Question extends Component {
 			></i>
 		)
 
-		let statusText = 'Unanswered'
-		switch ( questionStatus ) {
-			case 'answered' :
-				statusText = 'Answered!'
-				break;
-
-			case 'in-progress' :
-				statusText = 'In-Progress'
-				break;
-		}
-
 		let questionTitleText
 		if ( isAnonymous ) {
 			if ( authorName ) {

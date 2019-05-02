@@ -11,8 +11,7 @@ export default class Sidebar extends Component {
 
 				<div className="ww-sidebar-widget">
 					<p>
-						Use the <a href={helpURL} >filters</a> below to navigate the questions that have been posted. You can select questions by course, section,
-						and a specific WeBWorK problem set.
+						Use the <a href={helpURL} >filters</a> below to navigate the questions that have been posted. You can select questions by course, section, or a specific WeBWorK problem set.
 					</p>
 
 					<ul className="ww-question-filters">
@@ -31,12 +30,6 @@ export default class Sidebar extends Component {
 							name="Select Problem Set"
 							type="dropdown"
 							slug="problemSet"
-						/>
-
-						<SidebarFilterContainer
-							name="Select Questions"
-							slug="answered"
-							type="dropdown"
 						/>
 					</ul>
 				</div>

@@ -106,6 +106,10 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->post_date;
 	}
 
+	public function get_question() {
+		return $this->question;
+	}
+
 	public function get_question_id() {
 		return $this->question_id;
 	}
@@ -272,13 +276,15 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		$email->set_recipient( $instructor_email );
 		$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webwork' ), $response_author->display_name, $section ) );
 
+		$link_url = wp_login_url( $this->question->get_url( $this->get_client_url() ) );
+
 		$message = sprintf(
 			__( '%1$s has replied to a question in your course %2$s.
 
 To read and reply, visit %3$s.', 'webwork' ),
 			$response_author->display_name,
 			$section,
-			$this->question->get_url( $this->get_client_url() )
+			$link_url
 		);
 		$email->set_message( $message );
 

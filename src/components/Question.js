@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Scroll, { Element } from 'react-scroll'
 import Waypoint from 'react-waypoint'
+import ReactTooltip from 'react-tooltip'
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import SubscriptionDialogContainer from '../containers/SubscriptionDialogContainer'
@@ -57,7 +58,7 @@ export default class Question extends Component {
 
 		const {
 			tried, content, questionId, authorAvatar, authorName,
-			problemText
+			problemText, isAnonymous
 		} = question
 
 		const isMyQuestion = question.isMyQuestion > 0
@@ -74,9 +75,9 @@ export default class Question extends Component {
 
 		let aeClass = 'fa accordion-toggle'
 		if ( isCollapsed ) {
-			aeClass += ' fa-plus-circle'
+			aeClass += ' fa-angle-down'
 		} else {
-			aeClass += ' fa-minus-circle'
+			aeClass += ' fa-angle-up'
 		}
 
 		const accordionElement = (
@@ -86,14 +87,53 @@ export default class Question extends Component {
 			></i>
 		)
 
-		const questionTitleElement = (
-			<a
-			  className="ww-question-link"
-			  href={questionLink}
-			>
-				<div className="ww-author-name">A Question from {authorName}</div>
-			</a>
-		)
+		let statusText = 'Unanswered'
+		switch ( questionStatus ) {
+			case 'answered' :
+				statusText = 'Answered!'
+				break;
+
+			case 'in-progress' :
+				statusText = 'In-Progress'
+				break;
+		}
+
+		let questionTitleText
+		if ( isAnonymous ) {
+			if ( authorName ) {
+				questionTitleText = (
+					<span className="anonymous-tooltip">
+						<span
+							data-tip={authorName}
+							data-type="info"
+							data-class="login-tooltip"
+							>Question from a Student</span>
+						<ReactTooltip />
+					</span>
+				)
+			} else {
+				questionTitleText = 'Question from a Student'
+			}
+		} else {
+			questionTitleText = 'A Question from ' + authorName
+		}
+
+		let questionTitleElement
+		if ( isSingleProblem ) {
+			questionTitleElement = (
+				<div className="ww-author-name">{questionTitleText}</div>
+			)
+
+		} else {
+			questionTitleElement = (
+				<a
+					className="ww-question-link"
+					href={questionLink}
+				>
+					<div className="ww-author-name">{questionTitleText}</div>
+				</a>
+			)
+		}
 
 		const timestamp = moment( question.postDate ).format( 'MMMM D, YYYY' )
 
@@ -190,7 +230,9 @@ export default class Question extends Component {
 		const questionSubtitleElement = (
 			<div className="ww-subtitle ww-question-subtitle">
 				<span className="ww-subtitle-section">
-					Posted {timestamp}
+					<a href={questionLink}>
+						Posted {timestamp}
+					</a>
 				</span>
 				{responseCountElements}
 				{editLinkElements}
@@ -241,6 +283,21 @@ export default class Question extends Component {
 					  } }
 					>
 						Reply
+					</a>
+				</div>
+			)
+		} else {
+			let respondLinkHref = questionLink
+			if ( ! userCanPostResponse ) {
+				respondLinkHref = window.WWData.route_base + 'wp-login.php?redirect_to=' + respondLinkHref
+			}
+
+			respondLinkElement = (
+				<div className="respond-link hide-when-closed">
+					<a
+					  href={respondLinkHref}
+					>
+						Respond to this question
 					</a>
 				</div>
 			)
@@ -364,7 +421,7 @@ export default class Question extends Component {
 					<span
 					  className="ww-my-problem-text"
 					>
-						View My Problem
+						{isProblemSummaryCollapsed ? 'Show WeBWorK Problem' : 'Hide WeBWorK Problem'}
 					</span>
 				</div>
 
@@ -427,7 +484,7 @@ export default class Question extends Component {
 			)
 		}
 
-		const avatarAltText = 'Avatar of ' + authorName
+		const avatarAltText = isAnonymous ? 'Avatar' : 'Avatar of ' + authorName
 
 		return (
 			<li

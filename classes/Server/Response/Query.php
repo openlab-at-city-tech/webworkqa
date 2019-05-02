@@ -112,16 +112,33 @@ class Query {
 
 		$formatted = array();
 		foreach ( $responses as $r ) {
+			$question = $r->get_question();
+
+			// TODO: This is an insufficent amount of info to hide on the front-end
+			if ( $question && $question->get_is_anonymous() && $r->get_author_id() === $question->get_author_id() ) {
+				$author_name      = webwork_user_is_admin() ? $r->get_author_name() : '';
+				$author_avatar    = get_avatar_url( 0, array( 'size' => 80 ) );
+				$author_id        = 0;
+				$obfuscate_author = true;
+			} else {
+				$author_name      = $r->get_author_name();
+				$author_avatar    = $r->get_author_avatar();
+				$author_id        = $r->get_author_id();
+				$obfuscate_author = false;
+			}
+
 			$response_id = $r->get_id();
 			$formatted[ $response_id ] = array(
-				'authorAvatar' => $r->get_author_avatar(),
-				'authorId' => $r->get_author_id(),
-				'authorName' => $r->get_author_name(),
-				'authorUserType' => $r->get_author_type_label(),
-				'content' => $r->get_content(),
-				'postDate' => $r->get_post_date(),
-				'questionId' => $r->get_question_id(),
-				'responseId' => $response_id,
+				'authorAvatar'    => $author_avatar,
+				'authorId'        => $author_id,
+				'authorName'      => $author_name,
+				'authorUserType'  => $r->get_author_type_label(),
+				'content'         => $r->get_content(),
+				'isAnswer'        => $r->get_is_answer(),
+				'postDate'        => $r->get_post_date(),
+				'questionId'      => $r->get_question_id(),
+				'responseId'      => $response_id,
+				'obfuscateAuthor' => $obfuscate_author,
 			);
 		}
 

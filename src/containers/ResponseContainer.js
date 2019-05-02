@@ -5,7 +5,7 @@ import Response from '../components/Response'
 import { attachmentShortcodeRegExp } from '../util/webwork-text-formatter'
 
 const mapStateToProps = (state, ownProps) => {
-	const { attachments, editing, responses } = state
+	const { attachments, editing, questions, responses } = state
 	const { responseId } = ownProps
 
 	const response = responses.hasOwnProperty( responseId ) ? responses[ responseId ] : null
@@ -27,9 +27,15 @@ const mapStateToProps = (state, ownProps) => {
 		} )
 	}
 
+	let questionIsAnonymous = false
+	if ( response ) {
+		questionIsAnonymous = questions[ response.questionId ].isAnonymous
+	}
+
 	return {
 		attachments: atts,
 		isEditing,
+		questionIsAnonymous,
 		response,
 		userCanEdit,
 		userCanPostResponse: window.WWData.user_can_post_response > 0

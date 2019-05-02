@@ -217,6 +217,14 @@ export const setTriedIsEmpty = ( isEmpty ) => {
 	}
 }
 
+export const TOGGLE_ANONYMOUS = 'TOGGLE_ANONYMOUS'
+export const toggleAnonymous = () => {
+	return {
+		type: TOGGLE_ANONYMOUS,
+		payload: {}
+	}
+}
+
 export function setScrolledTo( itemId ) {
 	return ( dispatch, getState ) => {
 		const { questionsById } = getState()
@@ -267,7 +275,8 @@ export function sendQuestion( problemId ) {
 				content: questionForm.content,
 				problem_text: window.WWData.problem_text,
 				tried: questionForm.tried,
-				attachments: attachmentIds
+				attachments: attachmentIds,
+				isAnonymous: questionForm.isAnonymous
 			})
 		} )
 		.then( response => response.json() )

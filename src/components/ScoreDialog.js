@@ -46,12 +46,31 @@ export default class ScoreDialog extends React.Component {
 
 		const iconElement = <i aria-hidden="true" className={iconClass}></i>
 
-		let voteElement
-
 		const voteButtonIsDisabled = ! userCanVote || ! isSingleProblem
 
+		let clickableText
+		if ( isSingleProblem && userCanVote ) {
+			clickableText = (
+				<span>
+					<span className="ww-score-value">This helped me ({score})</span>
+					{iconElement}
+				</span>
+			)
+		} else {
+			clickableText = (
+				<span>
+					<span className="ww-score-value">
+						{score}
+						<span className="screen-reader-text">{scoreText}</span>
+					</span>
+
+					{iconElement}
+				</span>
+			)
+		}
+
 		const srElement = <span className="screen-reader-text">{voteText}</span>
-		voteElement = (
+		const voteElement = (
 			<button
 				aria-label={voteText}
 				disabled={voteButtonIsDisabled}
@@ -63,7 +82,7 @@ export default class ScoreDialog extends React.Component {
 					}
 				} }
 			>
-			{iconElement}
+			{clickableText}
 			<span className="screen-reader-text">{voteText}</span>
 			</button>
 		)
@@ -71,9 +90,9 @@ export default class ScoreDialog extends React.Component {
 		let tooltip
 		if ( ! userCanVote ) {
 			tooltip = (
-				<ReactTooltip 
+				<ReactTooltip
 					id={voteElementId}
-					type='info' 
+					type='info'
 					className='login-tooltip'
 				>{voteText}</ReactTooltip>
 			)
@@ -81,11 +100,6 @@ export default class ScoreDialog extends React.Component {
 
 		return (
 			<div className={scoreClass}>
-				<span className="ww-score-value">
-					{score}
-					<span className="screen-reader-text">{scoreText}</span>
-				</span>
-
 				{/* span wrapper is to allow tooltip on disabled button */}
 				<span data-tip data-for={voteElementId}>
 					{voteElement}

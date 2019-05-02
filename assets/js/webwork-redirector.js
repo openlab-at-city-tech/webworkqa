@@ -46,6 +46,11 @@
 						}
 					}
 				})
+
+				// If there's a hash, store it.
+				if ( 0 === document.location.hash.indexOf( '#:problemId=' ) ) {
+					createCookie( 'webwork-redirect-to', document.location.hash, 1 );
+				}
 			}
 
 			if ( problemId ) {
@@ -61,6 +66,17 @@
 				var newLocation = document.location.href;
 				newLocation += '#:problemId=' + storedProblemId;
 				document.location.href = newLocation
+			}
+		}
+
+		if ( -1 === document.body.className.indexOf( 'login' ) ) {
+			var storedHash = getCookie( 'webwork-redirect-to' );
+			if ( storedHash ) {
+				createCookie( 'webwork-redirect-to', '', -1 );
+				var newLocation = document.location.href;
+				newLocation += storedHash
+				document.location.href = newLocation
+				document.location.reload()
 			}
 		}
 	});

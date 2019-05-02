@@ -1,5 +1,5 @@
 import { SET_TEXTAREA_VALUE, SET_TEXTAREA_VALUES, ADD_ATTACHMENT_TO_ITEM } from '../actions/app'
-import { RECEIVE_QUESTION, SET_QUESTION_PENDING } from '../actions/questions'
+import { RECEIVE_QUESTION, SET_QUESTION_PENDING, TOGGLE_ANONYMOUS } from '../actions/questions'
 
 export function formData( state = {}, action ) {
 	switch ( action.type ) {
@@ -56,6 +56,14 @@ export function formData( state = {}, action ) {
 			}
 			return Object.assign( {}, state, {
 				[ 'question-' + action.payload.questionId ]: newQuestion
+			} )
+
+		case TOGGLE_ANONYMOUS :
+			let newAnonQuestion = Object.assign( {}, state['question-form'] )
+			newAnonQuestion.isAnonymous = ! newAnonQuestion.isAnonymous
+
+			return Object.assign( {}, state, {
+				['question-form']: newAnonQuestion
 			} )
 
 		default :

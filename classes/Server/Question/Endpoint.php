@@ -143,6 +143,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_author_id( get_current_user_id() );
 		$question->set_content( $content );
 		$question->set_tried( $tried );
+		$question->set_is_anonymous( $params['isAnonymous'] );
 		$question->set_problem_id( $problem_data['problem_id'] );
 		$question->set_problem_set( $problem_data['problem_set'] );
 		$question->set_course( $course );
@@ -300,8 +301,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$params = $request->get_params();
 		$post = get_post( $params['id'] );
 
-		$user_is_admin = current_user_can( 'edit_others_posts' );
-		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+		$user_is_admin = webwork_user_is_admin();
 
 		return $user_is_admin || $post->post_author == get_current_user_id();
 	}
@@ -310,8 +310,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$params = $request->get_params();
 		$post = get_post( $params['id'] );
 
-		$user_is_admin = current_user_can( 'edit_others_posts' );
-		$user_is_admin = apply_filters( 'webwork_user_is_admin', $user_is_admin );
+		$user_is_admin = webwork_user_is_admin();
 
 		return $user_is_admin || $post->post_author == get_current_user_id();
 	}

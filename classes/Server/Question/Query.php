@@ -163,10 +163,21 @@ class Query {
 		foreach ( $questions as $q ) {
 			$question_id = $q->get_id();
 
+			if ( $q->get_is_anonymous() ) {
+				$author_name   = webwork_user_is_admin() ? $q->get_author_name() : '';
+				$author_avatar = get_avatar_url( 0, array( 'size' => 80 ) );
+				$author_id     = 0;
+			} else {
+				$author_name   = $q->get_author_name();
+				$author_avatar = $q->get_author_avatar();
+				$author_id     = $q->get_author_id();
+			}
+
 			$formatted[ $question_id ] = array(
 				'questionId' => $question_id,
 				'content' => $q->get_content(),
 				'tried' => $q->get_tried(),
+				'isAnonymous' => $q->get_is_anonymous(),
 				'postDate' => $q->get_post_date(),
 				'problemId' => $q->get_problem_id(),
 				'problemSet' => $q->get_problem_set(),
@@ -174,9 +185,9 @@ class Query {
 				'section' => $q->get_section(),
 				'problemText' => $q->get_problem_text(),
 				'isMyQuestion' => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
-				'authorAvatar' => $q->get_author_avatar(),
-				'authorId' => $q->get_author_id(),
-				'authorName' => $q->get_author_name(),
+				'authorAvatar' => $author_avatar,
+				'authorId' => $author_id,
+				'authorName' => $author_name,
 				'responseCount' => $q->get_response_count(),
 				'voteCount' => $q->get_vote_count(),
 				'hasAnswer' => $q->get_has_answer(),

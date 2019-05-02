@@ -23,6 +23,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $author_id;
 	protected $content;
 	protected $tried;
+	protected $is_anonymous;
 	protected $post_date;
 
 	public function __construct( $id = null ) {
@@ -58,6 +59,10 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function set_tried( $tried ) {
 		$this->tried = $tried;
+	}
+
+	public function set_is_anonymous( $is_anonymous ) {
+		$this->is_anonymous = (bool) $is_anonymous;
 	}
 
 	public function set_post_date( $date ) {
@@ -134,6 +139,10 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		//$content = $this->pf->convert_linebreaks( $content );
 
 		return $tried;
+	}
+
+	public function get_is_anonymous() {
+		return (bool) $this->is_anonymous;
 	}
 
 	public function get_problem_text( $format = 'mathjax' ) {
@@ -318,6 +327,8 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			update_post_meta( $this->get_id(), 'webwork_remote_class_url', $this->get_remote_class_url() );
 			update_post_meta( $this->get_id(), 'webwork_remote_problem_url', $this->get_remote_problem_url() );
 
+			update_post_meta( $this->get_id(), 'webwork_is_anonymous', (int) $this->get_is_anonymous() );
+
 			// Refresh vote count.
 			$this->get_vote_count( true );
 
@@ -381,6 +392,9 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			$problem_text = get_post_meta( $this->get_id(), 'webwork_problem_text', true );
 			$this->set_problem_text( $problem_text );
 
+			$is_anonymous = get_post_meta( $this->get_id(), 'webwork_is_anonymous', true );
+			$this->set_is_anonymous( $is_anonymous );
+
 			$remote_class_url = get_post_meta( $this->get_id(), 'webwork_remote_class_url', true );
 			$this->set_remote_class_url( $remote_class_url );
 
@@ -419,13 +433,15 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		$email->set_recipient( $instructor_email );
 		$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webwork' ), $question_author->display_name, $section ) );
 
+		$link_url = wp_login_url( $this->get_url( $this->get_client_url() ) );
+
 		$message = sprintf(
 			__( '%1$s has posted a question in your course %2$s.
 
 To read and reply, visit %3$s.', 'webwork' ),
 			$question_author->display_name,
 			$section,
-			$this->get_url( $this->get_client_url() )
+			$link_url
 		);
 		$email->set_message( $message );
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Scroll from 'react-scroll'
+import ReactTooltip from 'react-tooltip'
+
 import EditSaveButtonContainer from '../containers/EditSaveButtonContainer'
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
@@ -11,7 +13,7 @@ export default class Response extends Component {
 	render() {
 		const {
 			attachments, isEditing, isMyQuestion,
-			questionId, response, responseId,
+			questionId, questionIsAnonymous, response, responseId,
 			userCanEdit, userCanPostResponse,
 			onDeleteClick, onEditClick
 		} = this.props
@@ -20,7 +22,11 @@ export default class Response extends Component {
 			return null
 		}
 
-		const { content, authorAvatar, authorName, authorUserType } = response
+		const {
+			authorAvatar, authorName, authorUserType, obfuscateAuthor,
+			content, isAnswer
+		} = response
+
 		const userIsAdmin = window.WWData.user_is_admin
 
 		const timestamp = moment( response.postDate ).format( 'MMMM D, YYYY' )
@@ -131,7 +137,28 @@ export default class Response extends Component {
 			liClassName += ' is-editing'
 		}
 
-		const avatarAltText = 'Avatar of ' + authorName
+		const avatarAltText = authorName ? 'Avatar of ' + authorName : 'Avatar'
+
+		let authorNameText
+		if ( obfuscateAuthor ) {
+			if ( authorName ) {
+				authorNameText = (
+					<span className="anonymous-tooltip">
+						<span
+							data-tip={authorName}
+							data-type="info"
+							data-class="login-tooltip"
+							>Question Author</span>
+						<ReactTooltip />
+					</span>
+				)
+			} else {
+				authorNameText = 'Question Author'
+			}
+
+		} else {
+			authorNameText = authorName
+		}
 
 		return (
 			<li className={liClassName}>
@@ -141,7 +168,7 @@ export default class Response extends Component {
 				</div>
 
 				<div className="ww-response-content">
-					<div className="ww-author-name">{authorName}</div>
+					<div className="ww-author-name">{authorNameText}</div>
 					<div className="ww-subtitle ww-response-subtitle">
 						<span className="ww-subtitle-section">
 							Posted {timestamp}

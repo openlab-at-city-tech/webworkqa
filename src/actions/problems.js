@@ -139,7 +139,8 @@ export function fetchProblem( problemId ) {
 				const defaultFormContent = {
 					isPending: false,
 					content: '',
-					tried: ''
+					tried: '',
+					isAnonymous: false,
 				}
 
 				let newFormData = {}
@@ -150,6 +151,7 @@ export function fetchProblem( problemId ) {
 
 					newFormContent.content = json.questions[ j ].content
 					newFormContent.tried = json.questions[ j ].tried
+					newFormContent.isAnonymous = json.questions[ j ].isAnonymous
 
 					newFormData[ 'question-' + j ] = newFormContent
 				}
@@ -165,6 +167,7 @@ export function fetchProblem( problemId ) {
 
 				newFormData['question-form'] = Object.assign( {}, defaultFormContent )
 				newFormData['question-form'].attachments = {}
+				newFormData['question-form'].isAnonymous = false
 
 				dispatch( setTextareaValues( newFormData ) )
 			}

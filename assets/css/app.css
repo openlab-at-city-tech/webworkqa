@@ -104,7 +104,7 @@ h2.ww-header {
 }
 
 h3.ww-header {
-	font-size: 1.55rem;
+	font-size: 1.4rem;
 }
 
 .app-loading-throbber {
@@ -142,8 +142,8 @@ ul.question-list > a {
 }
 
 .index-intro > p {
-	line-height: 2.2rem;
-	font-size: 1.6rem;
+	line-height: 2rem;
+	font-size: 1.4rem;
 }
 
 ul.question-list > a {
@@ -249,7 +249,7 @@ ul.question-list > a {
 .item-stats.problem-stats {
 	border: none;
 	color: #666;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	font-weight: 600;
 	margin: 16px 0 30px 0;
 	padding: 0;
@@ -403,6 +403,7 @@ h3.ww-collapsible-section-header {
 }
 
 .ww-ask-question-form label {
+	font-size: 1.4rem;
 	font-weight: 600;
 }
 
@@ -442,9 +443,10 @@ h3.ww-collapsible-section-header {
 	display: inline-block;
 	vertical-align: top;
 	width: calc(100% - 25px);
+	line-height: 1.2rem;
 	line-height: 1.4rem;
 	padding-left: 8px;
-	font-size: 1rem;
+	font-size: .85rem;
 	font-weight: normal;
 }
 
@@ -642,7 +644,7 @@ li.is-answer:before {
 }
 
 .ww-question-gloss {
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-style: italic;
 	line-height: 1.6rem;
 	margin-bottom: 40px;
@@ -758,8 +760,8 @@ li.is-answer:before {
 }
 
 .ww-author-name {
+	font-size: 1.5rem;
 	font-weight: 700;
-	font-size: 1.55rem;
 	line-height: 1.8rem;
 	margin-bottom: .5em;
 	word-wrap: break-word;

@@ -134,68 +134,6 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 		$this->assertEqualSets( array( $q2 ), $ids );
 	}
 
-	public function test_get_by_answered_true() {
-		$q1 = self::factory()->question->create();
-		$q2 = self::factory()->question->create();
-
-		$r1a = self::factory()->response->create( array(
-			'question_id' => $q1,
-		) );
-		$r1b = self::factory()->response->create( array(
-			'question_id' => $q1,
-		) );
-		$r2a = self::factory()->response->create( array(
-			'question_id' => $q2,
-			'is_answer' => true,
-		) );
-		$r2b = self::factory()->response->create( array(
-			'question_id' => $q2,
-		) );
-
-		$q = new \WeBWorK\Server\Question\Query( array(
-			'answered' => true,
-		) );
-		$found = $q->get();
-
-		$ids = array();
-		foreach ( $found as $f ) {
-			$ids[] = $f->get_id();
-		}
-
-		$this->assertEqualSets( array( $q2 ), $ids );
-	}
-
-	public function test_get_by_answered_false() {
-		$q1 = self::factory()->question->create();
-		$q2 = self::factory()->question->create();
-
-		$r1a = self::factory()->response->create( array(
-			'question_id' => $q1,
-		) );
-		$r1b = self::factory()->response->create( array(
-			'question_id' => $q1,
-		) );
-		$r2a = self::factory()->response->create( array(
-			'question_id' => $q2,
-			'is_answer' => true,
-		) );
-		$r2b = self::factory()->response->create( array(
-			'question_id' => $q2,
-		) );
-
-		$q = new \WeBWorK\Server\Question\Query( array(
-			'answered' => false,
-		) );
-		$found = $q->get();
-
-		$ids = array();
-		foreach ( $found as $f ) {
-			$ids[] = $f->get_id();
-		}
-
-		$this->assertEqualSets( array( $q1 ), $ids );
-	}
-
 	public function test_results_should_be_ordered_by_vote_count() {
 		$q1 = self::factory()->question->create_and_get( array(
 			'problem_id' => 3,

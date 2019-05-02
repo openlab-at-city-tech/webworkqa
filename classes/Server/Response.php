@@ -170,7 +170,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			// Bust question caches. (Won't work when mocked in tests.)
 			if ( $this->question instanceof Question ) {
 				$this->question->get_response_count( true );
-				$this->question->get_has_answer( true );
 			}
 
 			$this->populate();
@@ -178,10 +177,6 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 
 		if ( $is_new ) {
 			$this->send_notifications( 'new' );
-		}
-
-		if ( $trigger_answer_notification ) {
-			$this->send_notifications( 'marked_answered' );
 		}
 
 		return (bool) $saved;

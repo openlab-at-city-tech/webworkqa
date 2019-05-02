@@ -246,7 +246,6 @@ class Endpoint extends \WP_Rest_Controller {
 		$keys = array(
 			'orderby',
 			'order',
-			'answered',
 			'course',
 			'section',
 			'lastQuestion',

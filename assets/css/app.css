@@ -908,15 +908,6 @@ li.is-answer:before {
 	padding: 30px 15px 30px 60px;
 }
 
-.ww-answered {
-	margin-top: 30px;
-}
-
-.ww-answered label {
-	font-size: 1.2rem;
-	font-style: italic;
-}
-
 .ww-score {
 	bottom: 0;
 	font-size: 0.9rem;

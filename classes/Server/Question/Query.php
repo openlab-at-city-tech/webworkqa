@@ -21,7 +21,6 @@ class Query {
 			'offset' => 0,
 			'orderby' => 'votes',
 			'order' => 'ASC',
-			'answered' => null,
 			'last_question' => null,
 			'max_results' => 10,
 		), $args );
@@ -75,43 +74,6 @@ class Query {
 			$q_ids = array_map( 'intval', $q_ids );
 
 			$args['post__in'] = $q_ids;
-		}
-
-		if ( null !== $this->r['answered'] && 'all' !== $this->r['answered'] ) {
-			if ( 'answered' === $this->r['answered'] ) {
-				$args['meta_query']['answered'] = array(
-					'key' => 'webwork_has_answer',
-					'value' => '1',
-				);
-			} elseif ( 'unanswered' === $this->r['answered'] ) {
-				$args['meta_query']['answered'] = array(
-					'relation' => 'AND',
-					array(
-						'key' => 'webwork_response_count',
-						'value' => '0',
-						'compare' => '=',
-						'type' => 'NUMERIC',
-					),
-					array(
-						'key' => 'webwork_has_answer',
-						'value' => '0',
-					),
-				);
-			} elseif ( 'in-progress' === $this->r['answered'] ) {
-				$args['meta_query']['answered'] = array(
-					'relation' => 'AND',
-					array(
-						'key' => 'webwork_response_count',
-						'value' => '1',
-						'compare' => '>=',
-						'type' => 'NUMERIC',
-					),
-					array(
-						'key' => 'webwork_has_answer',
-						'value' => '0',
-					),
-				);
-			}
 		}
 
 		if ( 'votes' === $this->r['orderby'] || 'response_count' === $this->r['orderby'] ) {
@@ -190,7 +152,6 @@ class Query {
 				'authorName' => $author_name,
 				'responseCount' => $q->get_response_count(),
 				'voteCount' => $q->get_vote_count(),
-				'hasAnswer' => $q->get_has_answer(),
 			);
 		}
 
@@ -202,7 +163,6 @@ class Query {
 			'course'     => $this->get_filter_options( 'course' ),
 			'section'    => $this->get_filter_options( 'section' ),
 			'problemSet' => $this->get_filter_options( 'problem_set' ),
-			'answered'   => $this->get_filter_options( 'answered' ),
 		);
 	}
 
@@ -231,27 +191,6 @@ class Query {
 				$options[] = array(
 					'name' => __( 'Show All', 'webwork' ),
 					'value' => '',
-				);
-			break;
-
-			case 'answered' :
-				return array(
-					array(
-						'name' => __( 'Show Answered', 'webwork' ),
-						'value' => 'answered',
-					),
-					array(
-						'name' => __( 'Show Unanswered', 'webwork' ),
-						'value' => 'unanswered',
-					),
-					array(
-						'name' => __( 'Show In-Progress', 'webwork' ),
-						'value' => 'in-progress',
-					),
-					array(
-						'name' => __( 'Show All', 'webwork' ),
-						'value' => 'all',
-					),
 				);
 			break;
 		}

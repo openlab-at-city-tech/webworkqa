@@ -159,7 +159,10 @@ class ProblemFormatter {
 		}
 
 		$d = new \DOMDocument();
+		libxml_use_internal_errors( true );
 		$d->loadHTML( $text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		//libxml_use_internal_errors( false );
+		libxml_clear_errors();
 
 		$divs = $d->getElementsByTagName( 'div' );
 		$changed = false;

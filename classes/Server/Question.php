@@ -501,7 +501,9 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 	public function has_external_assets() {
 		$d = new \DOMDocument();
+		libxml_use_internal_errors( true );
 		$d->loadHTML( $this->get_problem_text() );
+		libxml_clear_errors();
 
 		$imgs = $d->getElementsByTagName( 'img' );
 		$has_external_assets = false;

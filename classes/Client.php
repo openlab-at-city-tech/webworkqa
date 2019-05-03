@@ -79,10 +79,31 @@ class Client {
 			restore_current_blog();
 		}
 
+		/**
+		 * Filters the "intro text" at the top of the directory.
+		 *
+		 * Leave empty to use the default.
+		 *
+		 * @param string
+		 */
+		$intro_text = apply_filters( 'webwork_intro_text', '' );
+
+		/**
+		 * Filters the moment.js "format'.
+		 *
+		 * Defaults to 'MMMM D, YYYY'.
+		 *
+		 * See https://momentjs.com/docs/.
+		 *
+		 * @param string
+		 */
+		$moment_format = apply_filters( 'webwork_moment_format', 'MMMM D, YYYY' );
+
 		wp_localize_script( 'webwork-app', 'WWData', array(
 			'client_name' => get_option( 'blogname' ),
 			'filter_options' => $filter_options,
-			'introText' => apply_filters( 'webwork_intro_text', '' ),
+			'introText' => $intro_text,
+			'momentFormat' => $moment_format,
 			'page_base' => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
 			'problem_id' => $ww_problem,
 			'remote_course_url' => $remote_course_url,

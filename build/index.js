@@ -39537,10 +39537,12 @@ class QuestionSortDropdown extends __WEBPACK_IMPORTED_MODULE_0_react__["Componen
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_scroll__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tooltip__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tooltip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_tooltip__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_EditSaveButtonContainer__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_PreviewableFieldContainer__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_ScoreDialogContainer__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__FormattedProblem__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__ = __webpack_require__(820);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_EditSaveButtonContainer__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_PreviewableFieldContainer__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__containers_ScoreDialogContainer__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__FormattedProblem__ = __webpack_require__(84);
+
 
 
 
@@ -39572,7 +39574,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		const userIsAdmin = window.WWData.user_is_admin;
 
-		const timestamp = moment(response.postDate).format('MMMM D, YYYY');
+		const timestamp = moment(response.postDate).format(window.WWData.momentFormat);
 
 		const editLinkOnclick = function (e) {
 			e.preventDefault();
@@ -39601,7 +39603,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-editing',
 						className: 'ww-edit-link ww-edit-link-editing'
 					},
-					'Editing',
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Editing', 'webwork'),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			} else {
@@ -39613,7 +39615,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-edit',
 						className: 'ww-edit-link ww-edit-link-edit'
 					},
-					'Edit',
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Edit', 'webwork'),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			}
@@ -39645,7 +39647,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content', className: 'editable-field' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_PreviewableFieldContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_PreviewableFieldContainer__["a" /* default */], {
 					fieldId: 'response-' + responseId,
 					fieldName: 'content',
 					key: 'content',
@@ -39653,7 +39655,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				})
 			));
 
-			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_EditSaveButtonContainer__["a" /* default */], {
+			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_EditSaveButtonContainer__["a" /* default */], {
 				fieldId: responseId,
 				fieldType: 'response',
 				key: 'button'
@@ -39665,7 +39667,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
 					{ href: '#', onClick: editLinkOnclick },
-					'Cancel'
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Cancel', 'webwork')
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'span',
@@ -39675,11 +39677,11 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
 					{ href: '#', onClick: deleteLinkOnclick },
-					'Delete'
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Delete', 'webwork')
 				)
 			));
 		} else {
-			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__FormattedProblem__["a" /* default */], {
+			contentElements.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__FormattedProblem__["a" /* default */], {
 				attachments: attachments,
 				itemId: contentId,
 				content: content,
@@ -39692,10 +39694,12 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			liClassName += ' is-editing';
 		}
 
-		const avatarAltText = authorName ? 'Avatar of ' + authorName : 'Avatar';
+		/* translators: Name of author to whom avatar belongs */
+		const avatarAltText = authorName ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Avatar of %s', 'webwork'), authorName) : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Avatar');
 
 		let authorNameText;
 		if (obfuscateAuthor) {
+			const anonTitle = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Question Author', 'webwork');
 			if (authorName) {
 				authorNameText = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'span',
@@ -39707,12 +39711,12 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 							'data-type': 'info',
 							'data-class': 'login-tooltip'
 						},
-						'Question Author'
+						anonTitle
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_tooltip___default.a, null)
 				);
 			} else {
-				authorNameText = 'Question Author';
+				authorNameText = anonTitle;
 			}
 		} else {
 			authorNameText = authorName;
@@ -39745,8 +39749,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'span',
 						{ className: 'ww-subtitle-section' },
-						'Posted ',
-						timestamp
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Posted %s', 'webwork'), timestamp)
 					),
 					editLinkElements
 				),
@@ -39756,7 +39759,7 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				'div',
 				{ className: 'item-metadata' },
 				respondLinkElement,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_ScoreDialogContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_ScoreDialogContainer__["a" /* default */], {
 					itemId: responseId,
 					itemType: 'response'
 				})

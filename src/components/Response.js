@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Scroll from 'react-scroll'
 import ReactTooltip from 'react-tooltip'
+import { __, sprintf } from '@wordpress/i18n';
 
 import EditSaveButtonContainer from '../containers/EditSaveButtonContainer'
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
@@ -29,7 +30,7 @@ export default class Response extends Component {
 
 		const userIsAdmin = window.WWData.user_is_admin
 
-		const timestamp = moment( response.postDate ).format( 'MMMM D, YYYY' )
+		const timestamp = moment( response.postDate ).format( window.WWData.momentFormat )
 
 		const editLinkOnclick = function( e ) {
 			e.preventDefault()
@@ -55,7 +56,7 @@ export default class Response extends Component {
 						key="edit-link-editing"
 						className="ww-edit-link ww-edit-link-editing"
 					>
-						Editing
+						{ __( 'Editing', 'webwork' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -67,7 +68,7 @@ export default class Response extends Component {
 						key="edit-link-edit"
 						className="ww-edit-link ww-edit-link-edit"
 					>
-						Edit
+						{ __( 'Edit', 'webwork' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -116,9 +117,9 @@ export default class Response extends Component {
 
 			contentElements.push(
 				<div className='edit-button-links' key='links'>
-					<a href='#' onClick={editLinkOnclick}>Cancel</a>
+					<a href='#' onClick={editLinkOnclick}>{ __( 'Cancel', 'webwork' ) }</a>
 					<span key="editing-sep" className="ww-subtitle-sep">|</span>
-					<a href='#' onClick={deleteLinkOnclick}>Delete</a>
+					<a href='#' onClick={deleteLinkOnclick}>{ __( 'Delete', 'webwork' ) }</a>
 				</div>
 			)
 		} else {
@@ -137,10 +138,12 @@ export default class Response extends Component {
 			liClassName += ' is-editing'
 		}
 
-		const avatarAltText = authorName ? 'Avatar of ' + authorName : 'Avatar'
+		/* translators: Name of author to whom avatar belongs */
+		const avatarAltText = authorName ? sprintf( __( 'Avatar of %s', 'webwork' ), authorName ) : __( 'Avatar' )
 
 		let authorNameText
 		if ( obfuscateAuthor ) {
+			const anonTitle = __( 'Question Author', 'webwork' )
 			if ( authorName ) {
 				authorNameText = (
 					<span className="anonymous-tooltip">
@@ -148,12 +151,12 @@ export default class Response extends Component {
 							data-tip={authorName}
 							data-type="info"
 							data-class="login-tooltip"
-							>Question Author</span>
+							>{anonTitle}</span>
 						<ReactTooltip />
 					</span>
 				)
 			} else {
-				authorNameText = 'Question Author'
+				authorNameText = anonTitle
 			}
 
 		} else {
@@ -171,7 +174,8 @@ export default class Response extends Component {
 					<div className="ww-author-name">{authorNameText}</div>
 					<div className="ww-subtitle ww-response-subtitle">
 						<span className="ww-subtitle-section">
-							Posted {timestamp}
+							{/* translators: Post timestamp */}
+							{ sprintf( __( 'Posted %s', 'webwork' ), timestamp ) }
 						</span>
 						{editLinkElements}
 					</div>

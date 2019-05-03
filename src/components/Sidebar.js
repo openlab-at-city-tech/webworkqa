@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SidebarFilterContainer from '../containers/SidebarFilterContainer'
+import { __ } from '@wordpress/i18n';
 
 export default class Sidebar extends Component {
 	introText() {

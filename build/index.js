@@ -40155,6 +40155,8 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__ = __webpack_require__(422);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__ = __webpack_require__(820);
+
 
 
 
@@ -40185,17 +40187,17 @@ class Sidebar extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					'ul',
 					{ className: 'ww-question-filters' },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
-						name: __('Select Course', 'webwork'),
+						name: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('Select Course', 'webwork'),
 						type: 'dropdown',
 						slug: 'course'
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
-						name: __('Select Section/Faculty', 'webwork'),
+						name: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('Select Section/Faculty', 'webwork'),
 						type: 'dropdown',
 						slug: 'section'
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
-						name: __('Select Problem Set', 'webwork'),
+						name: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('Select Problem Set', 'webwork'),
 						type: 'dropdown',
 						slug: 'problemSet'
 					})
@@ -40318,6 +40320,8 @@ class SidebarFilter extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
+
 
 
 class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
@@ -40329,10 +40333,10 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 		let linkText;
 		if (isSubscribed) {
 			iconClass += 'subscribed';
-			screenReaderText = 'End email notifications.';
+			screenReaderText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('End email notifications.', 'webwork');
 		} else {
 			iconClass += 'unsubscribed';
-			screenReaderText = 'Notify me of future replies to this question.';
+			screenReaderText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Notify me of future replies to this question.', 'webwork');
 		}
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

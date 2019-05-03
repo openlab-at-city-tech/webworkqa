@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { __ } from '@wordpress/i18n';
 
 export default class SubscriptionDialog extends Component {
 	render() {
@@ -9,10 +10,10 @@ export default class SubscriptionDialog extends Component {
 		let linkText
 		if ( isSubscribed ) {
 			iconClass += 'subscribed'
-			screenReaderText = 'End email notifications.'
+			screenReaderText = __( 'End email notifications.', 'webwork' )
 		} else {
 			iconClass += 'unsubscribed'
-			screenReaderText = 'Notify me of future replies to this question.'
+			screenReaderText = __( 'Notify me of future replies to this question.', 'webwork' )
 		}
 
 		return (

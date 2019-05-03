@@ -38089,6 +38089,8 @@ class EditSaveButton extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormattedProblem__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__ = __webpack_require__(424);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__ = __webpack_require__(176);
+
 
 
 
@@ -38162,14 +38164,16 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			buttonContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				null,
-				'Edit ',
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__["a" /* getString */])('editToggle'),
+				' ',
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil' })
 			);
 		} else {
 			buttonContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				null,
-				'Preview ',
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__["a" /* getString */])('previewToggle'),
+				' ',
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-eye' })
 			);
 		}

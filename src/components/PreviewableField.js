@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormattedProblem from './FormattedProblem'
 import UploaderContainer from '../containers/UploaderContainer'
+import { getString } from '../util/webwork-i18n'
 
 export default class PreviewableField extends Component {
 	componentDidUpdate() {
@@ -72,12 +73,12 @@ export default class PreviewableField extends Component {
 		if ( isPreviewVisible ) {
 			buttonContent = (
 				<span
-					>Edit <i className="fa fa-pencil"></i></span>
+					>{getString('editToggle')} <i className="fa fa-pencil"></i></span>
 			)
 		} else {
 			buttonContent = (
 				<span
-					>Preview <i className="fa fa-eye"></i></span>
+					>{getString('previewToggle')} <i className="fa fa-eye"></i></span>
 			)
 		}
 

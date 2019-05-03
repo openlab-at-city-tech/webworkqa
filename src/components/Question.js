@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Scroll, { Element } from 'react-scroll'
 import Waypoint from 'react-waypoint'
 import ReactTooltip from 'react-tooltip'
+import { __, _n, sprintf } from '@wordpress/i18n';
 
 import ScoreDialogContainer from '../containers/ScoreDialogContainer'
 import SubscriptionDialogContainer from '../containers/SubscriptionDialogContainer'
@@ -89,6 +90,7 @@ export default class Question extends Component {
 
 		let questionTitleText
 		if ( isAnonymous ) {
+			const anonTitle = __( 'Question from a Student', 'webwork' )
 			if ( authorName ) {
 				questionTitleText = (
 					<span className="anonymous-tooltip">
@@ -96,15 +98,16 @@ export default class Question extends Component {
 							data-tip={authorName}
 							data-type="info"
 							data-class="login-tooltip"
-							>Question from a Student</span>
+							>{anonTitle}</span>
 						<ReactTooltip />
 					</span>
 				)
 			} else {
-				questionTitleText = 'Question from a Student'
+				questionTitleText = anonTitle
 			}
 		} else {
-			questionTitleText = 'A Question from ' + authorName
+			/* translators: Name of question poster */
+			questionTitleText = sprintf( __( 'A Question from %s', 'webwork' ), authorName )
 		}
 
 		let questionTitleElement
@@ -154,12 +157,8 @@ export default class Question extends Component {
 
 		const responseCount = question.responseCount
 
-		let responseCountText
-		if ( 1 == responseCount ) {
-			responseCountText = '1 Reply'
-		} else {
-			responseCountText = responseCount + ' Replies'
-		}
+		/* translators: Response count */
+		const responseCountText = sprintf( _n( '%s Reply', '%s Replies', responseCount, 'webwork' ), responseCount )
 
 		let responseCountElements = []
 		if ( ! isSingleProblem || isCollapsed ) {
@@ -178,7 +177,7 @@ export default class Question extends Component {
 
 		const deleteLinkOnclick = function( e ) {
 			e.preventDefault()
-			if ( window.confirm( 'Are you sure you want to delete this question and all its responses?' ) ) {
+			if ( window.confirm( __( 'Are you sure you want to delete this question and all its responses?', 'webwork' ) ) ) {
 				onDeleteClick()
 			}
 		}
@@ -197,7 +196,7 @@ export default class Question extends Component {
 						key="edit-link-editing"
 						className="ww-edit-link ww-edit-link-editing"
 					>
-						Editing
+						{ __( 'Editing', 'webwork' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -209,7 +208,7 @@ export default class Question extends Component {
 						key="edit-link-edit"
 						className="ww-edit-link ww-edit-link-edit"
 					>
-						Edit
+						{ __( 'Edit', 'webwork' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -220,7 +219,8 @@ export default class Question extends Component {
 			<div className="ww-subtitle ww-question-subtitle">
 				<span className="ww-subtitle-section">
 					<a href={questionLink}>
-						Posted {timestamp}
+						{/* translators: Post timestamp */}
+						{ sprintf( __( 'Posted %s', 'webwork' ), timestamp ) }
 					</a>
 				</span>
 				{responseCountElements}
@@ -271,7 +271,7 @@ export default class Question extends Component {
 						  onRespondClick()
 					  } }
 					>
-						Reply
+						{ __( 'Reply', 'webwork' ) }
 					</a>
 				</div>
 			)
@@ -286,7 +286,7 @@ export default class Question extends Component {
 					<a
 					  href={respondLinkHref}
 					>
-						Respond to this question
+						{ __( 'Respond to this question', 'webwork' ) }
 					</a>
 				</div>
 			)
@@ -338,7 +338,7 @@ export default class Question extends Component {
 					  fieldId={'question-' + itemId}
 					  fieldName='content'
 					  id="ww-question-content"
-					  label="My question:"
+					  label={ __( 'My question:', 'webwork' ) }
 					/>
 				</div>
 			)
@@ -349,7 +349,7 @@ export default class Question extends Component {
 					  fieldId={'question-' + itemId}
 					  fieldName='tried'
 					  id="ww-question-content"
-					  label="What I've tried:"
+					  label={ __( 'What I\'ve tried:', 'webwork' ) }
 					/>
 				</div>
 			)
@@ -364,12 +364,12 @@ export default class Question extends Component {
 
 			contentElementsChildren.push(
 				<div className='edit-button-links' key='links'>
-					<a href='#' onClick={editLinkOnclick}>Cancel</a>
+					<a href='#' onClick={editLinkOnclick}>{ __( 'Cancel', 'webwork' ) }</a>
 					<span key="editing-sep" className="ww-subtitle-sep">|</span>
 					<a href='#' className="delete-link hover-notice-parent" onClick={deleteLinkOnclick}>
-						Delete
+						{ __( 'Delete', 'webwork' ) }
 						<div aria-hidden="true" className="hover-notice delete-notice">
-							Delete question and all responses.
+							{ __( 'Delete question and all responses.', 'webwork' ) }
 						</div>
 					</a>
 				</div>
@@ -379,7 +379,7 @@ export default class Question extends Component {
 			if ( isSingleProblem ) {
 				triedElements = (
 					<span key="content-elements-children-3">
-						<div className="ww-question-content-section-header">What I've tried:</div>
+						<div className="ww-question-content-section-header">{ __( 'What I\'ve tried:', 'webwork' ) }</div>
 						<div className="ww-question-content-section ww-question-content-text">
 							{formattedTried}
 						</div>
@@ -387,7 +387,7 @@ export default class Question extends Component {
 				)
 			}
 
-			contentElementsChildren.push( <div key="content-elements-children-1" className="ww-question-content-section-header">My question:</div> )
+			contentElementsChildren.push( <div key="content-elements-children-1" className="ww-question-content-section-header">{ __( 'My question:', 'webwork' ) }</div> )
 			contentElementsChildren.push( <div key="content-elements-children-2" className="ww-question-content-section ww-question-content-text">{formattedContent}</div> )
 			contentElementsChildren.push( triedElements )
 		}
@@ -410,7 +410,7 @@ export default class Question extends Component {
 					<span
 					  className="ww-my-problem-text"
 					>
-						{isProblemSummaryCollapsed ? 'Show WeBWorK Problem' : 'Hide WeBWorK Problem'}
+						{isProblemSummaryCollapsed ? __( 'Show WeBWorK Problem', 'webwork' ) : __( 'Hide WeBWorK Problem', 'webwork' )}
 					</span>
 				</div>
 
@@ -473,7 +473,8 @@ export default class Question extends Component {
 			)
 		}
 
-		const avatarAltText = isAnonymous ? 'Avatar' : 'Avatar of ' + authorName
+		/* translators: Name of author to whom avatar belongs */
+		const avatarAltText = isAnonymous ? __( 'Avatar', 'webwork' ) : sprintf( __( 'Avatar of %s', 'webwork' ), authorName )
 
 		return (
 			<li

@@ -38472,13 +38472,15 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_waypoint___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_waypoint__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_tooltip__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_tooltip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_tooltip__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_ScoreDialogContainer__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_SubscriptionDialogContainer__ = __webpack_require__(423);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ResponseList__ = __webpack_require__(406);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__containers_ResponseFormContainer__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__containers_PreviewableFieldContainer__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__FormattedProblem__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__containers_EditSaveButtonContainer__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__ = __webpack_require__(820);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_ScoreDialogContainer__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__containers_SubscriptionDialogContainer__ = __webpack_require__(423);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ResponseList__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__containers_ResponseFormContainer__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__containers_PreviewableFieldContainer__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__FormattedProblem__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__containers_EditSaveButtonContainer__ = __webpack_require__(170);
+
 
 
 
@@ -38568,6 +38570,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let questionTitleText;
 		if (isAnonymous) {
+			const anonTitle = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Question from a Student', 'webwork');
 			if (authorName) {
 				questionTitleText = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'span',
@@ -38579,15 +38582,16 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 							'data-type': 'info',
 							'data-class': 'login-tooltip'
 						},
-						'Question from a Student'
+						anonTitle
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_tooltip___default.a, null)
 				);
 			} else {
-				questionTitleText = 'Question from a Student';
+				questionTitleText = anonTitle;
 			}
 		} else {
-			questionTitleText = 'A Question from ' + authorName;
+			/* translators: Name of question poster */
+			questionTitleText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('A Question from %s', 'webwork'), authorName);
 		}
 
 		let questionTitleElement;
@@ -38642,12 +38646,8 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		const responseCount = question.responseCount;
 
-		let responseCountText;
-		if (1 == responseCount) {
-			responseCountText = '1 Reply';
-		} else {
-			responseCountText = responseCount + ' Replies';
-		}
+		/* translators: Response count */
+		const responseCountText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["c" /* _n */])('%s Reply', '%s Replies', responseCount, 'webwork'), responseCount);
 
 		let responseCountElements = [];
 		if (!isSingleProblem || isCollapsed) {
@@ -38670,7 +38670,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		const deleteLinkOnclick = function (e) {
 			e.preventDefault();
-			if (window.confirm('Are you sure you want to delete this question and all its responses?')) {
+			if (window.confirm(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Are you sure you want to delete this question and all its responses?', 'webwork'))) {
 				onDeleteClick();
 			}
 		};
@@ -38692,7 +38692,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-editing',
 						className: 'ww-edit-link ww-edit-link-editing'
 					},
-					'Editing',
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Editing', 'webwork'),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			} else {
@@ -38704,7 +38704,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						key: 'edit-link-edit',
 						className: 'ww-edit-link ww-edit-link-edit'
 					},
-					'Edit',
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Edit', 'webwork'),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil', 'aria-hidden': 'true' })
 				));
 			}
@@ -38719,8 +38719,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
 					{ href: questionLink },
-					'Posted ',
-					timestamp
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Posted %s', 'webwork'), timestamp)
 				)
 			),
 			responseCountElements,
@@ -38751,7 +38750,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			);
 		}
 
-		const questionScoreElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_ScoreDialogContainer__["a" /* default */], {
+		const questionScoreElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_ScoreDialogContainer__["a" /* default */], {
 			itemId: itemId,
 			itemType: 'question'
 		});
@@ -38771,7 +38770,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 							onRespondClick();
 						}
 					},
-					'Reply'
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Reply', 'webwork')
 				)
 			);
 		} else {
@@ -38788,7 +38787,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					{
 						href: respondLinkHref
 					},
-					'Respond to this question'
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Respond to this question', 'webwork')
 				)
 			);
 		}
@@ -38807,14 +38806,14 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		const contentId = 'content-' + itemId;
-		const formattedContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__FormattedProblem__["a" /* default */], {
+		const formattedContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__FormattedProblem__["a" /* default */], {
 			attachments: attachments,
 			itemId: contentId,
 			content: content
 		});
 
 		const triedId = 'tried-' + itemId;
-		const formattedTried = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__FormattedProblem__["a" /* default */], {
+		const formattedTried = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__FormattedProblem__["a" /* default */], {
 			attachments: attachments,
 			itemId: triedId,
 			content: tried
@@ -38832,26 +38831,26 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content-editable-children-1', className: 'editable-field' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__containers_PreviewableFieldContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__containers_PreviewableFieldContainer__["a" /* default */], {
 					fieldId: 'question-' + itemId,
 					fieldName: 'content',
 					id: 'ww-question-content',
-					label: 'My question:'
+					label: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('My question:', 'webwork')
 				})
 			));
 
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content-editable-children-2', className: 'editable-field' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__containers_PreviewableFieldContainer__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__containers_PreviewableFieldContainer__["a" /* default */], {
 					fieldId: 'question-' + itemId,
 					fieldName: 'tried',
 					id: 'ww-question-content',
-					label: 'What I\'ve tried:'
+					label: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('What I\'ve tried:', 'webwork')
 				})
 			));
 
-			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__containers_EditSaveButtonContainer__["a" /* default */], {
+			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11__containers_EditSaveButtonContainer__["a" /* default */], {
 				fieldId: itemId,
 				fieldType: 'question',
 				key: 'content-elements-children-3'
@@ -38863,7 +38862,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
 					{ href: '#', onClick: editLinkOnclick },
-					'Cancel'
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Cancel', 'webwork')
 				),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'span',
@@ -38873,11 +38872,11 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'a',
 					{ href: '#', className: 'delete-link hover-notice-parent', onClick: deleteLinkOnclick },
-					'Delete',
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Delete', 'webwork'),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
 						{ 'aria-hidden': 'true', className: 'hover-notice delete-notice' },
-						'Delete question and all responses.'
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Delete question and all responses.', 'webwork')
 					)
 				)
 			));
@@ -38890,7 +38889,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
 						{ className: 'ww-question-content-section-header' },
-						'What I\'ve tried:'
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('What I\'ve tried:', 'webwork')
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
@@ -38903,7 +38902,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ key: 'content-elements-children-1', className: 'ww-question-content-section-header' },
-				'My question:'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('My question:', 'webwork')
 			));
 			contentElementsChildren.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -38936,7 +38935,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					{
 						className: 'ww-my-problem-text'
 					},
-					isProblemSummaryCollapsed ? 'Show WeBWorK Problem' : 'Hide WeBWorK Problem'
+					isProblemSummaryCollapsed ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Show WeBWorK Problem', 'webwork') : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Hide WeBWorK Problem', 'webwork')
 				)
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -38944,7 +38943,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				{
 					className: 'ww-my-problem-content'
 				},
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__FormattedProblem__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_10__FormattedProblem__["a" /* default */], {
 					itemId: questionId,
 					content: problemText
 				})
@@ -38971,7 +38970,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			responsesElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: isCollapsed ? 'accordion-content accordion-closed' : 'accordion-content accordion-open' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__ResponseList__["a" /* default */], {
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__ResponseList__["a" /* default */], {
 					isMyQuestion: isMyQuestion,
 					isPending: responseIsPending,
 					questionId: itemId,
@@ -38990,12 +38989,13 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let subscriptionElement;
 		if (userCanSubscribe && isSingleProblem && !isCollapsed) {
-			subscriptionElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_SubscriptionDialogContainer__["a" /* default */], {
+			subscriptionElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_SubscriptionDialogContainer__["a" /* default */], {
 				itemId: itemId
 			});
 		}
 
-		const avatarAltText = isAnonymous ? 'Avatar' : 'Avatar of ' + authorName;
+		/* translators: Name of author to whom avatar belongs */
+		const avatarAltText = isAnonymous ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Avatar', 'webwork') : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Avatar of %s', 'webwork'), authorName);
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',

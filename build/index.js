@@ -39793,6 +39793,8 @@ class Response extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__ = __webpack_require__(820);
+
 
 
 
@@ -39824,7 +39826,7 @@ class ResponseForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		// Non-breaking space.
-		const pfcLabel = 'Response text';
+		const pfcLabel = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('Response text', 'webwork');
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
@@ -39832,7 +39834,7 @@ class ResponseForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'h3',
 				{ className: 'ww-header' },
-				'Respond to this question'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('Respond to this question', 'webwork')
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -39855,7 +39857,7 @@ class ResponseForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						id: submitName,
 						name: submitName,
 						type: 'submit',
-						value: isPending ? "Submitting..." : "Submit"
+						value: isPending ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('Submitting...', 'webwork') : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('Submit', 'webwork')
 					})
 				)
 			)

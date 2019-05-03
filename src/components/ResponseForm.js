@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
+import { __ } from '@wordpress/i18n';
 
 export default class ResponseForm extends Component {
 	render() {
@@ -29,12 +30,12 @@ export default class ResponseForm extends Component {
 		}
 
 		// Non-breaking space.
-		const pfcLabel = 'Response text'
+		const pfcLabel = __( 'Response text', 'webwork' )
 
 		return (
 			<div className={divClassName}>
 				<h3 className="ww-header">
-					Respond to this question
+					{ __( 'Respond to this question', 'webwork' ) }
 				</h3>
 
 				<div className="response-block">
@@ -55,7 +56,7 @@ export default class ResponseForm extends Component {
 						  id={submitName}
 						  name={submitName}
 						  type="submit"
-						  value={isPending ? "Submitting..." : "Submit"}
+						  value={isPending ? __( 'Submitting...', 'webwork' ) : __( 'Submit', 'webwork' ) }
 						/>
 					</form>
 				</div>

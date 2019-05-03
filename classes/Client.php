@@ -202,6 +202,9 @@ class Client {
 		return array(
 			'anonymousToggleLabel' => __( 'Post this question anonymously. Only your professor will see your name.', 'webwork' ),
 
+			/* Translators: 1. URL of specific question */
+			'deletedImageHelpText' => __( 'The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="%1$s">another question in this thread</a>.', 'webwork' ),
+			'geogebraPlaceholder' => __( 'This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.', 'webwork' ),
 			'loadingSplashText' => __( 'Loading...', 'webwork' ),
 
 			'saveButtonText' => __( 'Save', 'webwork' ),

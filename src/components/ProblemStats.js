@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { _n, sprintf } from '@wordpress/i18n';
+
 export default class ProblemStats extends Component {
 	render() {
 		const { questionsById, responseIdMap, responses } = this.props
@@ -13,11 +15,14 @@ export default class ProblemStats extends Component {
 			}
 		}
 
+		const questionString = _n( '%s question', '%s questions', questionCount, 'webwork' );
+		const responseString = _n( '%s response', '%s responses', responseCount, 'webwork' );
+
 		return (
 			<div className="item-stats problem-stats">
-				<span className="ww-subtitle-section">{questionCount} questions</span>
+				<span className="ww-subtitle-section">{sprintf(questionString, questionCount)}</span>
 				<span className="ww-subtitle-sep">/</span>
-				<span className="ww-subtitle-section">{responseCount} responses</span>
+				<span className="ww-subtitle-section">{sprintf(responseString, responseCount)}</span>
 			</div>
 		)
 	}

@@ -121,7 +121,8 @@ class Client {
 
 		if ( $ww_problem ) {
 			$content = '<div id="webwork-app"></div>';
-			wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js' );
+			wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js', array( 'wp-i18n' ) );
+			wp_set_script_translations( 'webwork-app', 'webwork' );
 
 			$route_base = get_option( 'home' );
 			$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
@@ -215,6 +216,8 @@ class Client {
 
 			/* Translators: 1. Problem name */
 			'problemColon' => __( 'Problem: %1$s', 'webwork' ),
+
+			/* Translators: 1. Question count */
 
 			'saveButtonText' => __( 'Save', 'webwork' ),
 			'saveButtonTextInProgress' => __( 'Saving...', 'webwork' ),

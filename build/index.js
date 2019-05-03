@@ -37996,9 +37996,11 @@ class AnonymousToggle extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_webwork_url_parser__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_ProblemContainer__ = __webpack_require__(416);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_QuestionIndexContainer__ = __webpack_require__(419);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_SidebarContainer__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_i18n__ = __webpack_require__(815);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_ProblemContainer__ = __webpack_require__(416);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_QuestionIndexContainer__ = __webpack_require__(419);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_SidebarContainer__ = __webpack_require__(176);
+
 
 
 
@@ -38021,9 +38023,9 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let rootElement = '';
 		if (problemId) {
-			rootElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_ProblemContainer__["a" /* default */], { problemId: problemId });
+			rootElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_ProblemContainer__["a" /* default */], { problemId: problemId });
 		} else {
-			rootElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_QuestionIndexContainer__["a" /* default */], null);
+			rootElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_QuestionIndexContainer__["a" /* default */], null);
 		}
 
 		const wrapperClassName = appIsLoading && !initialLoadComplete ? 'app-loading' : '';
@@ -38037,7 +38039,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'app-loading-throbber' },
-				'Loading...'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_i18n__["a" /* getString */])('loadingSplashText')
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -38047,7 +38049,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					{ className: 'ww-main' },
 					rootElement
 				),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_SidebarContainer__["a" /* default */], null)
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_SidebarContainer__["a" /* default */], null)
 			)
 		);
 	}

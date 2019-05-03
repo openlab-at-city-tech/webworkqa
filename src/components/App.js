@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { getCurrentView } from '../util/webwork-url-parser'
+import { getString } from '../util/webwork-i18n'
 import ProblemContainer from '../containers/ProblemContainer'
 import QuestionIndexContainer from '../containers/QuestionIndexContainer'
 import SidebarContainer from '../containers/SidebarContainer'
@@ -33,7 +34,7 @@ export default class App extends Component {
 				role='application'
 			>
 				<div className="app-loading-throbber">
-					Loading...
+					{getString('loadingSplashText')}
 				</div>
 
 				<div className="app-content">

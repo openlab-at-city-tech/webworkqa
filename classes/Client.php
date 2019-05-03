@@ -201,6 +201,8 @@ class Client {
 	protected static function get_strings() {
 		return array(
 			'anonymousToggleLabel' => __( 'Post this question anonymously. Only your professor will see your name.', 'webwork' ),
+
+			'loadingSplashText' => __( 'Loading...', 'webwork' ),
 		);
 	}
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import AttachmentContainer from '../containers/AttachmentContainer'
 
 const convertLinebreaks = ( text ) => {
 	let chunkKey = 0

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { collapseLinebreaks, attachmentShortcodeRegExp, attachmentMarkup } from '../util/webwork-text-formatter.js'
-import { AttachmentContainer } from '../containers/AttachmentContainer'
 
 export default class FormattedProblem extends Component {
 	componentDidMount() {

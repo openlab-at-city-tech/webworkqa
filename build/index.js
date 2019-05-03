@@ -39936,6 +39936,8 @@ class ResponseList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
+
 
 
 class ResultsHeader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
@@ -39962,7 +39964,7 @@ class ResultsHeader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'span',
 					{ className: 'results-breadcrumbs-label' },
-					'Filtered by:'
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Filtered by:', 'webwork')
 				),
 				' ',
 				crumbs
@@ -39975,7 +39977,7 @@ class ResultsHeader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'h2',
 				{ className: 'ww-header' },
-				'Questions'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Questions', 'webwork')
 			),
 			breadcrumbs
 		);

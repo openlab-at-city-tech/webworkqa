@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { __ } from '@wordpress/i18n';
 
 export default class ResultsHeader extends Component {
 	render() {
@@ -20,14 +21,14 @@ export default class ResultsHeader extends Component {
 			const crumbs = active.join( ' / ' )
 			breadcrumbs = (
 				<div className="results-breadcrumbs">
-					<span className="results-breadcrumbs-label">Filtered by:</span> {crumbs}
+					<span className="results-breadcrumbs-label">{ __( 'Filtered by:', 'webwork' ) }</span> {crumbs}
 				</div>
 			)
 		}
 
 		return (
 			<div className="results-header">
-				<h2 className="ww-header">Questions</h2>
+				<h2 className="ww-header">{ __( 'Questions', 'webwork' ) }</h2>
 				{breadcrumbs}
 			</div>
 		)

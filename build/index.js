@@ -38254,6 +38254,11 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_QuestionFormContainer__ = __webpack_require__(417);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_QuestionSortDropdownContainer__ = __webpack_require__(172);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_QuestionList__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__util_webwork_i18n__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_sprintf_js__ = __webpack_require__(813);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_sprintf_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_sprintf_js__);
+
+
 
 
 
@@ -38295,7 +38300,7 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let problemTitle = 'Another Math Problem';
 		if (problem && problem.hasOwnProperty('problemSet')) {
-			problemTitle = 'Problem: ' + problem.problemSet;
+			problemTitle = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_sprintf_js__["sprintf"])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__util_webwork_i18n__["a" /* getString */])('problemColon'), problem.problemSet);
 		}
 
 		let element;

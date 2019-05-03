@@ -212,6 +212,9 @@ class Client {
 
 			'previewToggle' => __( 'Preview', 'webwork' ),
 
+			/* Translators: 1. Problem name */
+			'problemColon' => __( 'Problem: %1$s', 'webwork' ),
+
 			'saveButtonText' => __( 'Save', 'webwork' ),
 			'saveButtonTextInProgress' => __( 'Saving...', 'webwork' ),
 		);

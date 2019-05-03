@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { __, sprintf } from '@wordpress/i18n';
 import QuestionIndexListContainer from '../containers/QuestionIndexListContainer'
 import QuestionSortDropdownContainer from '../containers/QuestionSortDropdownContainer'
 import ResultsHeaderContainer from '../containers/ResultsHeaderContainer'
@@ -19,19 +20,26 @@ export default class QuestionIndex extends Component {
 		document.webwork_initialized = false
 	}
 
+	introText() {
+		const { page_base, client_name, introText } = window.WWData
+
+		{/* translators: link to home page */}
+		return {
+			__html: introText.length > 0 ? introText : sprintf( __( 'You are viewing <a href="%1$s">%2$s</a>. Here, you can ask questions and discuss WeBWorK homework problems, and also see what other students have been asking.', 'webwork' ), page_base, client_name )
+		}
+	}
+
 	render() {
 		// All the juggling here is because the Results page looks a bit different.
 		const { isLoading, isResultsPage } = this.props
 
 		const headerElement = isResultsPage ? <ResultsHeaderContainer /> : ''
 
-		const aboutURL = window.WWData.page_base + 'about'
-
 		let introElement = ''
 		if ( ! isResultsPage ) {
 			introElement = (
 				<div className="index-intro">
-					<p>You are viewing <a href={aboutURL}>WeBWorK on the OpenLab</a>. Here, you can ask questions and discuss WeBWorK homework problems, and also see what other students have been asking.</p>
+					<p dangerouslySetInnerHTML={this.introText()} />
 				</div>
 			)
 		}

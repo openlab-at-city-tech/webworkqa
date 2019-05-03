@@ -39249,10 +39249,12 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_QuestionIndexListContainer__ = __webpack_require__(419);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_QuestionSortDropdownContainer__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_ResultsHeaderContainer__ = __webpack_require__(421);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_SidebarContainer__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_QuestionIndexListContainer__ = __webpack_require__(419);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_QuestionSortDropdownContainer__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_ResultsHeaderContainer__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_SidebarContainer__ = __webpack_require__(175);
+
 
 
 
@@ -39274,30 +39276,27 @@ class QuestionIndex extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		document.webwork_initialized = false;
 	}
 
+	introText() {
+		const { page_base, client_name, introText } = window.WWData;
+
+		{/* translators: link to home page */}
+		return {
+			__html: introText.length > 0 ? introText : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('You are viewing <a href="%1$s">%2$s</a>. Here, you can ask questions and discuss WeBWorK homework problems, and also see what other students have been asking.', 'webwork'), page_base, client_name)
+		};
+	}
+
 	render() {
 		// All the juggling here is because the Results page looks a bit different.
 		const { isLoading, isResultsPage } = this.props;
 
-		const headerElement = isResultsPage ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_ResultsHeaderContainer__["a" /* default */], null) : '';
-
-		const aboutURL = window.WWData.page_base + 'about';
+		const headerElement = isResultsPage ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__containers_ResultsHeaderContainer__["a" /* default */], null) : '';
 
 		let introElement = '';
 		if (!isResultsPage) {
 			introElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'index-intro' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'p',
-					null,
-					'You are viewing ',
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'a',
-						{ href: aboutURL },
-						'WeBWorK on the OpenLab'
-					),
-					'. Here, you can ask questions and discuss WeBWorK homework problems, and also see what other students have been asking.'
-				)
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p', { dangerouslySetInnerHTML: this.introText() })
 			);
 		}
 
@@ -39312,7 +39311,7 @@ class QuestionIndex extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let dropdownElement = '';
 		if (isResultsPage) {
-			dropdownElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_QuestionSortDropdownContainer__["a" /* default */], null);
+			dropdownElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_QuestionSortDropdownContainer__["a" /* default */], null);
 		}
 
 		let loadingElement = '';
@@ -39337,7 +39336,7 @@ class QuestionIndex extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					{ className: 'index-list' },
 					listHeaderElement,
 					dropdownElement,
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_QuestionIndexListContainer__["a" /* default */], null)
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_QuestionIndexListContainer__["a" /* default */], null)
 				),
 				loadingElement
 			)

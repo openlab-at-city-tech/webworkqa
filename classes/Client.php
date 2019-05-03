@@ -82,6 +82,7 @@ class Client {
 		wp_localize_script( 'webwork-app', 'WWData', array(
 			'client_name' => get_option( 'blogname' ),
 			'filter_options' => $filter_options,
+			'introText' => apply_filters( 'webwork_intro_text', '' ),
 			'page_base' => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
 			'problem_id' => $ww_problem,
 			'remote_course_url' => $remote_course_url,

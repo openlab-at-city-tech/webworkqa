@@ -6,8 +6,10 @@ const mapStateToProps = (state, ownProps) => {
 	const { itemId } = ownProps
 	const { subscriptions } = state
 
+	const isSubscribed = subscriptions.hasOwnProperty( itemId )
+
 	return {
-		isSubscribed: subscriptions.hasOwnProperty( itemId )
+		isSubscribed
 	}
 }
 

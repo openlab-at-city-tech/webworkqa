@@ -827,6 +827,7 @@ li.is-answer:before {
 .subscription-notice {
 	bottom: -40px;
 	left: 110%;
+	text-transform: none;
 }
 
 .delete-notice {
@@ -1003,21 +1004,9 @@ li.is-answer:before {
 	color: #0044af;
 }
 
-.subscription-dialog:before {
+.subscription-dialog {
 	text-transform: uppercase;
 	vertical-align: 2px;
-}
-
-.subscription-dialog.subscribed:before {
-	content: 'Following';
-}
-
-.subscription-dialog.subscribed:hover:before {
-	content: 'Unfollow';
-}
-
-.subscription-dialog.unsubscribed:before {
-	content: 'Follow';
 }
 
 .subscription-dialog i:before {
@@ -1025,6 +1014,7 @@ li.is-answer:before {
 	font-size: 1.25rem;
 	font-style: normal;
 	margin-left: 8px;
+	vertical-align: -2px;
 }
 
 .subscription-dialog.unsubscribed i:before {

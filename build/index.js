@@ -40324,12 +40324,32 @@ class SidebarFilter extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 
 class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	constructor() {
+		super();
+		this.state = { isHover: false };
+	}
+
+	onMouseover() {
+		this.setState({ isHover: true });
+	}
+
+	onMouseout() {
+		this.setState({ isHover: false });
+	}
+
 	render() {
 		const { isSubscribed, onClick } = this.props;
+		const { isHover } = this.state;
+
+		let buttonText;
+		if (isSubscribed) {
+			buttonText = isHover ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Unfollow', 'webwork') : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Following', 'webwork');
+		} else {
+			buttonText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Follow', 'webwork');
+		}
 
 		let iconClass = 'hover-notice-parent subscription-dialog ';
 		let screenReaderText = '';
-		let linkText;
 		if (isSubscribed) {
 			iconClass += 'subscribed';
 			screenReaderText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('End email notifications.', 'webwork');
@@ -40343,13 +40363,16 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 			{
 				'aria-label': screenReaderText,
 				className: iconClass,
-				onClick: onClick
+				onClick: onClick,
+				onMouseEnter: this.onMouseover.bind(this),
+				onMouseLeave: this.onMouseout.bind(this)
 			},
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				{ className: 'screen-reader-text' },
 				screenReaderText
 			),
+			buttonText,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa' }),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -40851,8 +40874,10 @@ const mapStateToProps = (state, ownProps) => {
 	const { itemId } = ownProps;
 	const { subscriptions } = state;
 
+	const isSubscribed = subscriptions.hasOwnProperty(itemId);
+
 	return {
-		isSubscribed: subscriptions.hasOwnProperty(itemId)
+		isSubscribed
 	};
 };
 

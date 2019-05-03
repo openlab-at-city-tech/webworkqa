@@ -6,7 +6,6 @@ export default class Sidebar extends Component {
 	introText() {
 		const { sidebarIntroText } = window.WWData
 
-		{/* translators: link to home page */}
 		return {
 			__html: sidebarIntroText
 		}

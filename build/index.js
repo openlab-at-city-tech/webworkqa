@@ -40164,7 +40164,6 @@ class Sidebar extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	introText() {
 		const { sidebarIntroText } = window.WWData;
 
-		{/* translators: link to home page */}
 		return {
 			__html: sidebarIntroText
 		};

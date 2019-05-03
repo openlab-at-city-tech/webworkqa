@@ -39353,7 +39353,9 @@ class QuestionIndex extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_QuestionContainer_js__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_QuestionContainer_js__ = __webpack_require__(171);
+
 
 
 
@@ -39378,7 +39380,7 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				return;
 			}
 
-			listItems.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_QuestionContainer_js__["a" /* default */], {
+			listItems.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_QuestionContainer_js__["a" /* default */], {
 				itemId: questionId,
 				key: questionId
 			}));
@@ -39390,7 +39392,7 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			listItems.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'p',
 				{ key: '1', className: 'no-results' },
-				'No results found.'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('No results found.', 'webwork')
 			));
 		}
 

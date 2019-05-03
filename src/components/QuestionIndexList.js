@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { __ } from '@wordpress/i18n';
 import QuestionContainer from '../containers/QuestionContainer.js'
 
 export default class QuestionList extends Component {
@@ -33,11 +34,11 @@ export default class QuestionList extends Component {
 		} )
 
 		if ( ! listItems.length && ! isLoading ) {
-			listItems.push( <p key="1" className="no-results">No results found.</p> )
+			listItems.push( <p key="1" className="no-results">{ __( 'No results found.', 'webwork' ) }</p> )
 		}
 
 		return (
-			<ul 
+			<ul
 			  aria-atomic="false"
 				aria-busy={isLoading}
 				aria-live="polite"

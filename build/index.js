@@ -39997,6 +39997,8 @@ class ResultsHeader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tooltip__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_tooltip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_tooltip__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__ = __webpack_require__(820);
+
 
 
 
@@ -40027,18 +40029,18 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 		scoreClass += score > 0 ? ' has-votes' : ' has-no-votes';
 		scoreClass += 'up' === vote ? ' liked-by-me' : ' not-liked-by-me';
 
-		const scoreText = 'Number of votes: ' + score;
+		const scoreText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Number of votes: %s', 'webwork'), score);
 
 		let iconClass = 'score-icon fa';
 		let voteText;
 		if (userCanVote && isSingleProblem) {
 			if ('up' === vote) {
-				voteText = 'Click to remove vote';
+				voteText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Click to remove vote', 'webwork');
 			} else {
-				voteText = 'Click to vote';
+				voteText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Click to vote', 'webwork');
 			}
 		} else {
-			voteText = 'Join / login to like';
+			voteText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Join / login to like', 'webwork');
 		}
 
 		const voteElementId = 'vote-element-' + itemId;
@@ -40055,7 +40057,8 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'span',
 					{ className: 'ww-score-value' },
-					'This helped me (',
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('This helped me', 'webwork'),
+					' (',
 					score,
 					')'
 				),

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactTooltip from 'react-tooltip'
+import { __, sprintf } from '@wordpress/i18n';
 
 export default class ScoreDialog extends React.Component {
 	constructor(props) {
@@ -28,18 +29,18 @@ export default class ScoreDialog extends React.Component {
 		scoreClass += score > 0 ? ' has-votes' : ' has-no-votes'
 		scoreClass += 'up' === vote ? ' liked-by-me' : ' not-liked-by-me'
 
-		const scoreText = 'Number of votes: ' + score
+		const scoreText = sprintf( __( 'Number of votes: %s', 'webwork' ), score )
 
 		let iconClass = 'score-icon fa'
 		let voteText
 		if ( userCanVote && isSingleProblem ) {
 			if ( 'up' === vote ) {
-				voteText = 'Click to remove vote'
+				voteText = __( 'Click to remove vote', 'webwork' )
 			} else {
-				voteText = 'Click to vote'
+				voteText = __( 'Click to vote', 'webwork' )
 			}
 		} else {
-			voteText = 'Join / login to like'
+			voteText = __( 'Join / login to like', 'webwork' )
 		}
 
 		const voteElementId = 'vote-element-' + itemId
@@ -52,7 +53,7 @@ export default class ScoreDialog extends React.Component {
 		if ( isSingleProblem && userCanVote ) {
 			clickableText = (
 				<span>
-					<span className="ww-score-value">This helped me ({score})</span>
+					<span className="ww-score-value">{ __( 'This helped me', 'webwork' ) } ({score})</span>
 					{iconElement}
 				</span>
 			)

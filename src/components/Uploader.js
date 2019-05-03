@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { __ } from '@wordpress/i18n';
 
 export default class Uploader extends Component {
 	render() {
@@ -11,7 +12,7 @@ export default class Uploader extends Component {
 						e.preventDefault()
 						onUploadClick()
 					}}
-				>Add Images <i className="fa fa-upload"></i>
+				>{ __( 'Add Images', 'webwork' ) } <i className="fa fa-upload"></i>
 			</button>
 		)
 	}

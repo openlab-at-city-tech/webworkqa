@@ -40370,6 +40370,8 @@ class SubscriptionDialog extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
+
 
 
 class Uploader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
@@ -40377,16 +40379,17 @@ class Uploader extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const { onUploadClick } = this.props;
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			"button",
+			'button',
 			{
-				className: "question-form-upload-button",
+				className: 'question-form-upload-button',
 				onClick: function (e) {
 					e.preventDefault();
 					onUploadClick();
 				}
 			},
-			"Add Images ",
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "fa fa-upload" })
+			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Add Images', 'webwork'),
+			' ',
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-upload' })
 		);
 	}
 }

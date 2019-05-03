@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormattedProblem from './FormattedProblem'
+import { __, sprintf } from '@wordpress/i18n';
 
 export default class ProblemSummary extends Component {
 	render() {
@@ -12,7 +13,6 @@ export default class ProblemSummary extends Component {
 		}
 
 		const { content, contentSwappedUrl, libraryId, maths } = problem
-		const nbsp = '\u00a0'
 
 		const itemId = problemId.split( '/' ).join( '-' )
 
@@ -31,7 +31,7 @@ export default class ProblemSummary extends Component {
 					  className="fa fa-folder-open problem-library-id-icon"
 					></i>
 					<div className="problem-library-id-text">
-						ProblemID:{nbsp}{libraryId}
+						{ sprintf( __( 'ProblemID: %s', 'webwork' ), libraryId ) }
 					</div>
 				</div>
 			</div>

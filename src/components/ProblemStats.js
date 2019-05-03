@@ -15,7 +15,10 @@ export default class ProblemStats extends Component {
 			}
 		}
 
+		/* translators: Question count */
 		const questionString = _n( '%s question', '%s questions', questionCount, 'webwork' );
+
+		/* translators: Response count */
 		const responseString = _n( '%s response', '%s responses', responseCount, 'webwork' );
 
 		return (

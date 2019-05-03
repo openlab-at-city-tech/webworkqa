@@ -38376,7 +38376,10 @@ class ProblemStats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			}
 		}
 
+		/* translators: Question count */
 		const questionString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["c" /* _n */])('%s question', '%s questions', questionCount, 'webwork');
+
+		/* translators: Response count */
 		const responseString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["c" /* _n */])('%s response', '%s responses', responseCount, 'webwork');
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -38411,6 +38414,8 @@ class ProblemStats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormattedProblem__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__ = __webpack_require__(820);
+
 
 
 
@@ -38423,7 +38428,6 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		}
 
 		const { content, contentSwappedUrl, libraryId, maths } = problem;
-		const nbsp = '\u00a0';
 
 		const itemId = problemId.split('/').join('-');
 
@@ -38446,9 +38450,7 @@ class ProblemSummary extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
 					{ className: 'problem-library-id-text' },
-					'ProblemID:',
-					nbsp,
-					libraryId
+					__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__wordpress_i18n__["a" /* __ */])('ProblemID: %s', 'webwork'), libraryId)
 				)
 			)
 		);

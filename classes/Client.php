@@ -94,6 +94,7 @@ class Client {
 			'user_can_vote' => is_user_logged_in(), // todo
 			'user_id' => get_current_user_id(),
 			'user_is_admin' => $user_is_admin,
+			'strings' => self::get_strings(),
 		) );
 
 		wp_enqueue_style( 'font-awesome', plugins_url() . '/webwork/lib/font-awesome/css/font-awesome.min.css' );
@@ -190,5 +191,16 @@ class Client {
 		$retval = '<p class="message">' . $message . '</p>';
 
 		return $retval;
+	}
+
+	/**
+	 * Gets localized strings.
+	 *
+	 * @return array
+	 */
+	protected static function get_strings() {
+		return array(
+			'anonymousToggleLabel' => __( 'Post this question anonymously. Only your professor will see your name.', 'webwork' ),
+		);
 	}
 }

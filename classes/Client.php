@@ -203,6 +203,9 @@ class Client {
 			'anonymousToggleLabel' => __( 'Post this question anonymously. Only your professor will see your name.', 'webwork' ),
 
 			'loadingSplashText' => __( 'Loading...', 'webwork' ),
+
+			'saveButtonText' => __( 'Save', 'webwork' ),
+			'saveButtonTextInProgress' => __( 'Saving...', 'webwork' ),
 		);
 	}
 }

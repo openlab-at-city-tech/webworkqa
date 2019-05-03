@@ -46,7 +46,7 @@ export default class QuestionIndex extends Component {
 
 		let listHeaderElement = ''
 		if ( ! isResultsPage ) {
-			listHeaderElement = <h2 className="ww-header">Recent Activity</h2>
+			listHeaderElement = <h2 className="ww-header">{ __( 'Recent Activity', 'webwork' ) }</h2>
 		}
 
 		let dropdownElement = ''
@@ -58,7 +58,7 @@ export default class QuestionIndex extends Component {
 		if ( isLoading ) {
 			loadingElement = (
 				<div className="question-list-loading-more">
-					Loading more...
+					{ __( 'Loading more...', 'webwork' ) }
 				</div>
 			)
 		}

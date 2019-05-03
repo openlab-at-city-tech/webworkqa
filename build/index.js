@@ -39305,7 +39305,7 @@ class QuestionIndex extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			listHeaderElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'h2',
 				{ className: 'ww-header' },
-				'Recent Activity'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Recent Activity', 'webwork')
 			);
 		}
 
@@ -39319,7 +39319,7 @@ class QuestionIndex extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			loadingElement = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'question-list-loading-more' },
-				'Loading more...'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Loading more...', 'webwork')
 			);
 		}
 

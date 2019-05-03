@@ -38241,6 +38241,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_QuestionFormContainer__ = __webpack_require__(417);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_QuestionSortDropdownContainer__ = __webpack_require__(172);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_QuestionList__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_QuestionList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_QuestionList__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__wordpress_i18n__ = __webpack_require__(820);
 
 
@@ -38312,7 +38313,7 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 						itemType: 'problem',
 						problemId: problemId
 					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_QuestionList__["a" /* default */], {
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_QuestionList__["default"], {
 						isLoading: appIsLoading,
 						questionsById: questionsById
 					})
@@ -39413,69 +39414,9 @@ class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 /***/ }),
 /* 402 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_QuestionContainer__ = __webpack_require__(171);
-
-
-
-class QuestionList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
-	render() {
-		const { isLoading, questionsById } = this.props;
-
-		var styles = {
-			ul: {
-				listStyleType: 'none'
-			}
-		};
-		let rows = [];
-
-		let rowKey;
-		let generated = {};
-		questionsById.forEach(function (questionId) {
-			if (generated.hasOwnProperty(questionId)) {
-				return;
-			}
-
-			rows.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_QuestionContainer__["a" /* default */], {
-				itemId: questionId,
-				key: questionId
-			}));
-
-			generated[questionId] = 1;
-		});
-
-		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			'div',
-			{ className: 'ww-question-list' },
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'h2',
-				{ className: 'ww-header' },
-				'Questions & Replies'
-			),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'p',
-				{ className: 'ww-question-gloss ww-qr-gloss' },
-				'NOTE: values may be different than those presented in your problem.'
-			),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				'ul',
-				{
-					'aria-atomic': 'false',
-					'aria-busy': isLoading,
-					'aria-live': 'polite',
-					style: styles.ul
-				},
-				rows
-			)
-		);
-	}
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = QuestionList;
-
+throw new Error("Module build failed: SyntaxError: Unexpected token, expected , (37:92)\n\n\u001b[0m \u001b[90m 35 | \u001b[39m\t\t\t\t\u001b[33m<\u001b[39m\u001b[33mh2\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"ww-header\"\u001b[39m\u001b[33m>\u001b[39m{ __( \u001b[32m'Questions & Replies'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'webwork'\u001b[39m ) }\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mh2\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 36 | \u001b[39m\t\t\t\t\u001b[33m<\u001b[39m\u001b[33mp\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"ww-question-gloss ww-qr-gloss\"\u001b[39m\u001b[33m>\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 | \u001b[39m\t\t\t\t\t{ __( \u001b[32m'NOTE: values may be different than those presented in your problem.'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'webwork'\u001b[39m }\n \u001b[90m    | \u001b[39m\t\t\t\t\t                                                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 38 | \u001b[39m\t\t\t\t\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mp\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 39 | \u001b[39m\t\t\t\t\u001b[33m<\u001b[39m\u001b[33mul\u001b[39m\n \u001b[90m 40 | \u001b[39m\t\t\t\t\taria\u001b[33m-\u001b[39matomic\u001b[33m=\u001b[39m\u001b[32m\"false\"\u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 403 */

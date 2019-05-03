@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { __ } from '@wordpress/i18n';
 import QuestionContainer from '../containers/QuestionContainer'
 
 export default class QuestionList extends Component {
@@ -31,11 +32,11 @@ export default class QuestionList extends Component {
 
 		return (
 			<div className="ww-question-list">
-				<h2 className="ww-header">Questions & Replies</h2>
+				<h2 className="ww-header">{ __( 'Questions & Replies', 'webwork' ) }</h2>
 				<p className="ww-question-gloss ww-qr-gloss">
-					NOTE: values may be different than those presented in your problem.
+					{ __( 'NOTE: values may be different than those presented in your problem.', 'webwork' }
 				</p>
-				<ul 
+				<ul
 					aria-atomic="false"
 					aria-busy={isLoading}
 					aria-live="polite"

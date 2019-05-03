@@ -39104,8 +39104,10 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_AnonymousToggleContainer__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_PreviewableFieldContainer__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_AnonymousToggleContainer__ = __webpack_require__(413);
+
 
 
 
@@ -39140,7 +39142,7 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			questionGloss = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'p',
 				{ className: 'ww-question-gloss' },
-				'Please review the questions below to see if your question has already been answered.'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Please review the questions below to see if your question has already been answered.', 'webwork')
 			);
 		}
 
@@ -39157,7 +39159,7 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 				{
 					className: 'tried-is-empty'
 				},
-				'You haven\'t described what you\'ve tried. Did you know you can upload an image of your work?'
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('You haven\'t described what you\'ve tried. Did you know you can upload an image of your work?', 'webwork')
 			);
 		}
 
@@ -39190,7 +39192,7 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'h3',
 						{ className: 'ww-header ww-collapsible-section-header' },
-						'Ask a Question'
+						__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Ask a Question', 'webwork')
 					),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', {
 						'aria-hidden': 'true',
@@ -39202,18 +39204,18 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 					{ className: 'ww-collapsible-block' },
 					questionGloss,
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'hidden', name: 'ww-problem-id', value: problemId }),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__["a" /* default */], {
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_PreviewableFieldContainer__["a" /* default */], {
 						fieldId: 'question-form',
 						fieldName: 'content',
 						id: 'ww-question-form-content',
-						label: 'What is your question?',
+						label: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('What is your question?', 'webwork'),
 						labelIsVisible: true
 					}),
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_PreviewableFieldContainer__["a" /* default */], {
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_PreviewableFieldContainer__["a" /* default */], {
 						fieldId: 'question-form',
 						fieldName: 'tried',
 						id: 'ww-question-form-tried',
-						label: 'Describe what you have tried.',
+						label: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Describe what you have tried.', 'webwork'),
 						labelIsVisible: true
 					}),
 					triedIsEmptyNotice,
@@ -39227,10 +39229,10 @@ class QuestionForm extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 								className: buttonClassName,
 								disabled: isPending,
 								type: 'submit',
-								value: isPending ? 'Submitting...' : 'Submit'
+								value: isPending ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Submitting...', 'webwork') : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Submit', 'webwork')
 							})
 						),
-						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__containers_AnonymousToggleContainer__["a" /* default */], null)
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_AnonymousToggleContainer__["a" /* default */], null)
 					)
 				)
 			)

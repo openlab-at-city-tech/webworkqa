@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { __ } from '@wordpress/i18n';
 import PreviewableFieldContainer from '../containers/PreviewableFieldContainer'
 import AnonymousToggleContainer from '../containers/AnonymousToggleContainer'
 
@@ -31,7 +32,7 @@ export default class QuestionForm extends Component {
 		if ( problemHasQuestions ) {
 			questionGloss = (
 				<p className="ww-question-gloss">
-					Please review the questions below to see if your question has already been answered.
+					{ __( 'Please review the questions below to see if your question has already been answered.', 'webwork' ) }
 				</p>
 			)
 		}
@@ -47,7 +48,7 @@ export default class QuestionForm extends Component {
 			triedIsEmptyNotice = (
 				<div
 				  className="tried-is-empty"
-				>You haven't described what you've tried. Did you know you can upload an image of your work?</div>
+				>{ __( 'You haven\'t described what you\'ve tried. Did you know you can upload an image of your work?', 'webwork' ) }</div>
 			)
 		}
 
@@ -72,7 +73,7 @@ export default class QuestionForm extends Component {
 						  onAccordionClick()
 					  } }
 					>
-						<h3 className="ww-header ww-collapsible-section-header">Ask a Question</h3>
+						<h3 className="ww-header ww-collapsible-section-header">{ __( 'Ask a Question', 'webwork' ) }</h3>
 
 						<i
 						  aria-hidden="true"
@@ -89,7 +90,7 @@ export default class QuestionForm extends Component {
 						  fieldId='question-form'
 						  fieldName="content"
 						  id="ww-question-form-content"
-						  label="What is your question?"
+						  label={ __( 'What is your question?', 'webwork' ) }
 							labelIsVisible={true}
 						/>
 
@@ -97,7 +98,7 @@ export default class QuestionForm extends Component {
 						  fieldId='question-form'
 						  fieldName="tried"
 						  id="ww-question-form-tried"
-						  label="Describe what you have tried."
+						  label={ __( 'Describe what you have tried.', 'webwork' ) }
 							labelIsVisible={true}
 						/>
 
@@ -109,7 +110,7 @@ export default class QuestionForm extends Component {
 									className={buttonClassName}
 									disabled={isPending}
 									type="submit"
-									value={isPending ? 'Submitting...' : 'Submit'}
+									value={isPending ? __( 'Submitting...', 'webwork' ) : __( 'Submit', 'webwork' )}
 								/>
 							</div>
 

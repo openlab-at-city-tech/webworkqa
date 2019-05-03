@@ -38350,6 +38350,8 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__ = __webpack_require__(176);
+
 
 
 class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
@@ -38357,7 +38359,7 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			null,
-			'No problem found with that ID.'
+			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__["a" /* getString */])('noProblemFound')
 		);
 	}
 }

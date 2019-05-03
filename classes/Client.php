@@ -210,6 +210,7 @@ class Client {
 			'geogebraPlaceholder' => __( 'This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.', 'webwork' ),
 			'loadingSplashText' => __( 'Loading...', 'webwork' ),
 
+			'noProblemFound' => __( 'No problem found with that ID.', 'webwork' ),
 			'previewToggle' => __( 'Preview', 'webwork' ),
 
 			/* Translators: 1. Problem name */

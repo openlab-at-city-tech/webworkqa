@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { getString } from '../util/webwork-i18n'
 
 export default class Problem extends Component {
 	render() {
 		return (
 			<div>
-				No problem found with that ID.
+				{getString('noProblemFound')}
 			</div>
 		)
 	}

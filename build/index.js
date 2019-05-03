@@ -40159,9 +40159,16 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 
 
 class Sidebar extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
-	render() {
-		const helpURL = window.WWData.page_base + 'help/explore-existing-questions-and-replies/#Filters';
+	introText() {
+		const { sidebarIntroText } = window.WWData;
 
+		{/* translators: link to home page */}
+		return {
+			__html: sidebarIntroText
+		};
+	}
+
+	render() {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: 'ww-sidebar' },
@@ -40173,32 +40180,22 @@ class Sidebar extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'ww-sidebar-widget' },
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					'p',
-					null,
-					'Use the ',
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						'a',
-						{ href: helpURL },
-						'filters'
-					),
-					' below to navigate the questions that have been posted. You can select questions by course, section, or a specific WeBWorK problem set.'
-				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('p', { dangerouslySetInnerHTML: this.introText() }),
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'ul',
 					{ className: 'ww-question-filters' },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
-						name: 'Select Course',
+						name: __('Select Course', 'webwork'),
 						type: 'dropdown',
 						slug: 'course'
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
-						name: 'Select Section/Faculty',
+						name: __('Select Section/Faculty', 'webwork'),
 						type: 'dropdown',
 						slug: 'section'
 					}),
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_SidebarFilterContainer__["a" /* default */], {
-						name: 'Select Problem Set',
+						name: __('Select Problem Set', 'webwork'),
 						type: 'dropdown',
 						slug: 'problemSet'
 					})

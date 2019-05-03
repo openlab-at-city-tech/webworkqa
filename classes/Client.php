@@ -89,6 +89,13 @@ class Client {
 		$intro_text = apply_filters( 'webwork_intro_text', '' );
 
 		/**
+		 * Filters the sidebar intro text.
+		 *
+		 * @param string
+		 */
+		$sidebar_intro_text = apply_filters( 'webwork_sidebar_intro_text', 'Use the filters> below to navigate the questions that have been posted. You can select questions by course, section, or a specific WeBWorK problem set.' );
+
+		/**
 		 * Filters the moment.js "format'.
 		 *
 		 * Defaults to 'MMMM D, YYYY'.
@@ -109,6 +116,7 @@ class Client {
 			'remote_course_url' => $remote_course_url,
 			'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
 			'rest_api_endpoint' => $rest_api_endpoint,
+			'sidebarIntroText' => $sidebar_intro_text,
 			'route_base' => trailingslashit( $route_base ),
 			'user_can_ask_question' => is_user_logged_in(), // todo
 			'user_can_post_response' => is_user_logged_in(), // todo

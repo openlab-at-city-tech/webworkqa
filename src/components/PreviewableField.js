@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormattedProblem from './FormattedProblem'
 import UploaderContainer from '../containers/UploaderContainer'
-import { getString } from '../util/webwork-i18n'
+import { __ } from '@wordpress/i18n';
 
 export default class PreviewableField extends Component {
 	componentDidUpdate() {
@@ -73,12 +73,12 @@ export default class PreviewableField extends Component {
 		if ( isPreviewVisible ) {
 			buttonContent = (
 				<span
-					>{getString('editToggle')} <i className="fa fa-pencil"></i></span>
+					>{ __( 'Edit', 'webwork' ) } <i className="fa fa-pencil"></i></span>
 			)
 		} else {
 			buttonContent = (
 				<span
-					>{getString('previewToggle')} <i className="fa fa-eye"></i></span>
+					>{ __( 'Preview', 'webwork' ) } <i className="fa fa-eye"></i></span>
 			)
 		}
 

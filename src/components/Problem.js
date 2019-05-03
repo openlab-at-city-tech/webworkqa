@@ -5,8 +5,7 @@ import ProblemSummary from '../components/ProblemSummary'
 import QuestionFormContainer from '../containers/QuestionFormContainer'
 import QuestionSortDropdownContainer from '../containers/QuestionSortDropdownContainer'
 import QuestionList from '../components/QuestionList'
-import { getString } from '../util/webwork-i18n'
-import { sprintf } from 'sprintf-js'
+import { __, sprintf } from '@wordpress/i18n';
 
 export default class Problem extends Component {
 	componentWillMount() {
@@ -41,7 +40,8 @@ export default class Problem extends Component {
 
 		let problemTitle = 'Another Math Problem'
 		if ( problem && problem.hasOwnProperty( 'problemSet' ) ) {
-			problemTitle = sprintf( getString('problemColon'), problem.problemSet )
+			/* translators: Problem set name */
+			problemTitle = sprintf( __( 'Problem: %s', 'webwork' ), problem.problemSet )
 		}
 
 		let element

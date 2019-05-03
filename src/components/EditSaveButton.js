@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { getString } from '../util/webwork-i18n'
+import { __ } from '@wordpress/i18n';
 
 export default class EditSaveButton extends Component {
 	render() {
 		const { isPending, onClick } = this.props
 
-		let buttonText = getString('saveButtonText')
+		let buttonText = __( 'Save', 'webwork' )
 		if ( isPending ) {
-			buttonText = getString('saveButtonTextInProgress')
+			buttonText = __( 'Saving...', 'webwork' )
 		}
 
 		return (

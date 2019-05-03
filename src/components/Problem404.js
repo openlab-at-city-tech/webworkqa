@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { getString } from '../util/webwork-i18n'
+import { __ } from '@wordpress/i18n';
 
 export default class Problem extends Component {
 	render() {
 		return (
 			<div>
-				{getString('noProblemFound')}
+				{ __( 'No problem found with that ID.', 'webwork' ) }
 			</div>
 		)
 	}

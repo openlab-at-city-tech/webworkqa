@@ -10561,10 +10561,7 @@ exports.default = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_text_formatter_js__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sprintf_js__ = __webpack_require__(813);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sprintf_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_sprintf_js__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__ = __webpack_require__(820);
 
 
 
@@ -10629,7 +10626,7 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			return '<script type="' + typeAttr + '" id="' + cssId + '">';
 		});
 
-		markup = markup.replace('{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__["a" /* getString */])('geogebraPlaceholder') + '</div>');
+		markup = markup.replace('{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.', 'webwork') + '</div>');
 
 		const divRegExp = /<div[^>]*>([\s\S]*?)<\/div>/gm;
 		markup = markup.replace(divRegExp, function (div, innerText) {
@@ -10662,7 +10659,7 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 		});
 
 		if (contentSwappedUrl) {
-			markup += __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_sprintf_js__["sprintf"])('<div class="question-swapped">' + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__["a" /* getString */])('deletedImageHelpText'), contentSwappedUrl) + '</div>';
+			markup += '<div class="question-swapped">' + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="%1$s">another question in this thread</a>', 'webwork'), contentSwappedUrl) + '</div>';
 		}
 
 		if (window.hasOwnProperty('MathJax') && window.MathJax.hasOwnProperty('Hub')) {
@@ -17420,18 +17417,7 @@ const SidebarContainer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_react
 /* harmony default export */ __webpack_exports__["a"] = (SidebarContainer);
 
 /***/ }),
-/* 176 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getString; });
-const getString = index => {
-	return window.WWData.strings.hasOwnProperty(index) ? window.WWData.strings[index] : '';
-};
-
-
-
-/***/ }),
+/* 176 */,
 /* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37948,7 +37934,7 @@ define(String.prototype, "padRight", "".padEnd);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
 
 
 
@@ -37969,7 +37955,7 @@ class AnonymousToggle extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'label',
 				{ htmlFor: 'anonymous-toggle-checkbox' },
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__["a" /* getString */])('anonymousToggleLabel')
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Post this question anonymously. Only your professor will see your name.', 'webwork')
 			)
 		);
 	}
@@ -37984,11 +37970,12 @@ class AnonymousToggle extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_webwork_url_parser__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_i18n__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_ProblemContainer__ = __webpack_require__(415);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_QuestionIndexContainer__ = __webpack_require__(418);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_SidebarContainer__ = __webpack_require__(175);
+
 
 
 
@@ -38007,7 +37994,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		const { route_base } = window.WWData;
 		const { appIsLoading, initialLoadComplete, routing } = this.props;
 
-		const currentView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_webwork_url_parser__["a" /* getCurrentView */])(routing);
+		const currentView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_url_parser__["a" /* getCurrentView */])(routing);
 		const { problemId } = currentView;
 
 		let rootElement = '';
@@ -38028,7 +38015,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
 				{ className: 'app-loading-throbber' },
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_webwork_i18n__["a" /* getString */])('loadingSplashText')
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Loading...', 'webwork')
 			),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
@@ -38053,7 +38040,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
 
 
 
@@ -38061,9 +38048,9 @@ class EditSaveButton extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	render() {
 		const { isPending, onClick } = this.props;
 
-		let buttonText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__["a" /* getString */])('saveButtonText');
+		let buttonText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Save', 'webwork');
 		if (isPending) {
-			buttonText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__["a" /* getString */])('saveButtonTextInProgress');
+			buttonText = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Saving...', 'webwork');
 		}
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -38089,7 +38076,7 @@ class EditSaveButton extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormattedProblem__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_UploaderContainer__ = __webpack_require__(424);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__ = __webpack_require__(820);
 
 
 
@@ -38164,7 +38151,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			buttonContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				null,
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__["a" /* getString */])('editToggle'),
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Edit', 'webwork'),
 				' ',
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil' })
 			);
@@ -38172,7 +38159,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 			buttonContent = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'span',
 				null,
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__util_webwork_i18n__["a" /* getString */])('previewToggle'),
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__wordpress_i18n__["a" /* __ */])('Preview', 'webwork'),
 				' ',
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-eye' })
 			);
@@ -38254,10 +38241,7 @@ class PreviewableField extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_QuestionFormContainer__ = __webpack_require__(417);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_QuestionSortDropdownContainer__ = __webpack_require__(172);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_QuestionList__ = __webpack_require__(402);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__util_webwork_i18n__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_sprintf_js__ = __webpack_require__(813);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_sprintf_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_sprintf_js__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__wordpress_i18n__ = __webpack_require__(820);
 
 
 
@@ -38300,7 +38284,8 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		let problemTitle = 'Another Math Problem';
 		if (problem && problem.hasOwnProperty('problemSet')) {
-			problemTitle = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_sprintf_js__["sprintf"])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__util_webwork_i18n__["a" /* getString */])('problemColon'), problem.problemSet);
+			/* translators: Problem set name */
+			problemTitle = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__wordpress_i18n__["a" /* __ */])('Problem: %s', 'webwork'), problem.problemSet);
 		}
 
 		let element;
@@ -38350,7 +38335,7 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__ = __webpack_require__(820);
 
 
 
@@ -38359,7 +38344,7 @@ class Problem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			null,
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util_webwork_i18n__["a" /* getString */])('noProblemFound')
+			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('No problem found with that ID.', 'webwork')
 		);
 	}
 }
@@ -38391,8 +38376,8 @@ class ProblemStats extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			}
 		}
 
-		const questionString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* _n */])('%s question', '%s questions', questionCount, 'webwork');
-		const responseString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* _n */])('%s response', '%s responses', responseCount, 'webwork');
+		const questionString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["c" /* _n */])('%s question', '%s questions', questionCount, 'webwork');
+		const responseString = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["c" /* _n */])('%s response', '%s responses', responseCount, 'webwork');
 
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
@@ -65745,9 +65730,9 @@ function postfix( expression ) {
 
 "use strict";
 /* unused harmony export setLocaleData */
-/* unused harmony export __ */
+/* harmony export (immutable) */ __webpack_exports__["a"] = __;
 /* unused harmony export _x */
-/* harmony export (immutable) */ __webpack_exports__["a"] = _n;
+/* harmony export (immutable) */ __webpack_exports__["c"] = _n;
 /* unused harmony export _nx */
 /* harmony export (immutable) */ __webpack_exports__["b"] = sprintf;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_runtime_helpers_esm_objectSpread__ = __webpack_require__(815);

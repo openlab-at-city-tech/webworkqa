@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { collapseLinebreaks, attachmentShortcodeRegExp, attachmentMarkup } from '../util/webwork-text-formatter.js'
-import { getString } from '../util/webwork-i18n'
-import { sprintf } from 'sprintf-js'
+import { __, sprintf } from '@wordpress/i18n';
 
 export default class FormattedProblem extends Component {
 	componentDidMount() {
@@ -70,7 +69,7 @@ export default class FormattedProblem extends Component {
 			return '<script type="' + typeAttr + '" id="' + cssId + '">'
 		} )
 
-		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + getString('geogebraPlaceholder') + '</div>' )
+		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + __( 'This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.', 'webwork' ) + '</div>' )
 
 		const divRegExp = /<div[^>]*>([\s\S]*?)<\/div>/gm
 		markup = markup.replace( divRegExp, function( div, innerText ) {
@@ -103,7 +102,7 @@ export default class FormattedProblem extends Component {
 		} )
 
 		if ( contentSwappedUrl ) {
-			markup += sprintf( '<div class="question-swapped">' + getString('deletedImageHelpText'), contentSwappedUrl ) + '</div>';
+			markup += '<div class="question-swapped">' + sprintf( __( 'The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="%1$s">another question in this thread</a>', 'webwork' ), contentSwappedUrl ) + '</div>';
 		}
 
 		if ( window.hasOwnProperty( 'MathJax' ) && window.MathJax.hasOwnProperty( 'Hub' ) ) {

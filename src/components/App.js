@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
+import { __ } from '@wordpress/i18n';
+
 import { getCurrentView } from '../util/webwork-url-parser'
-import { getString } from '../util/webwork-i18n'
 import ProblemContainer from '../containers/ProblemContainer'
 import QuestionIndexContainer from '../containers/QuestionIndexContainer'
 import SidebarContainer from '../containers/SidebarContainer'
@@ -34,7 +35,7 @@ export default class App extends Component {
 				role='application'
 			>
 				<div className="app-loading-throbber">
-					{getString('loadingSplashText')}
+					{ __( 'Loading...', 'webwork' ) }
 				</div>
 
 				<div className="app-content">

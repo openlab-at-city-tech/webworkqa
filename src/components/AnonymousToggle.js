@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getString } from '../util/webwork-i18n'
+import { __ } from '@wordpress/i18n';
 
 export default class AnonymousToggle extends Component {
 	render() {
@@ -15,7 +15,7 @@ export default class AnonymousToggle extends Component {
 					value="1"
 				/>
 
-				<label htmlFor="anonymous-toggle-checkbox">{getString('anonymousToggleLabel')}</label>
+				<label htmlFor="anonymous-toggle-checkbox">{ __( 'Post this question anonymously. Only your professor will see your name.', 'webwork' ) }</label>
 			</div>
 		)
 	}

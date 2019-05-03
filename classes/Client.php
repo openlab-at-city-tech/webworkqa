@@ -94,7 +94,6 @@ class Client {
 			'user_can_vote' => is_user_logged_in(), // todo
 			'user_id' => get_current_user_id(),
 			'user_is_admin' => $user_is_admin,
-			'strings' => self::get_strings(),
 		) );
 
 		wp_enqueue_style( 'font-awesome', plugins_url() . '/webwork/lib/font-awesome/css/font-awesome.min.css' );
@@ -192,35 +191,5 @@ class Client {
 		$retval = '<p class="message">' . $message . '</p>';
 
 		return $retval;
-	}
-
-	/**
-	 * Gets localized strings.
-	 *
-	 * @return array
-	 */
-	protected static function get_strings() {
-		return array(
-			'anonymousToggleLabel' => __( 'Post this question anonymously. Only your professor will see your name.', 'webwork' ),
-
-			/* Translators: 1. URL of specific question */
-			'deletedImageHelpText' => __( 'The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="%1$s">another question in this thread</a>.', 'webwork' ),
-
-			'editToggle' => __( 'Edit', 'webwork' ),
-
-			'geogebraPlaceholder' => __( 'This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.', 'webwork' ),
-			'loadingSplashText' => __( 'Loading...', 'webwork' ),
-
-			'noProblemFound' => __( 'No problem found with that ID.', 'webwork' ),
-			'previewToggle' => __( 'Preview', 'webwork' ),
-
-			/* Translators: 1. Problem name */
-			'problemColon' => __( 'Problem: %1$s', 'webwork' ),
-
-			/* Translators: 1. Question count */
-
-			'saveButtonText' => __( 'Save', 'webwork' ),
-			'saveButtonTextInProgress' => __( 'Saving...', 'webwork' ),
-		);
 	}
 }

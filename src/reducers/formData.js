@@ -1,5 +1,5 @@
 import { SET_TEXTAREA_VALUE, SET_TEXTAREA_VALUES, ADD_ATTACHMENT_TO_ITEM } from '../actions/app'
-import { RECEIVE_QUESTION, SET_QUESTION_PENDING, TOGGLE_ANONYMOUS } from '../actions/questions'
+import { RECEIVE_QUESTION, SET_QUESTION_PENDING, TOGGLE_ANONYMOUS, TOGGLE_INCOMPLETE } from '../actions/questions'
 
 export function formData( state = {}, action ) {
 	switch ( action.type ) {
@@ -64,6 +64,15 @@ export function formData( state = {}, action ) {
 
 			return Object.assign( {}, state, {
 				['question-form']: newAnonQuestion
+			} )
+
+		case TOGGLE_INCOMPLETE :
+			const { incompleteQuestionId, isIncomplete } = action.payload
+			let newIncompleteQuestion = Object.assign( {}, state['question-' + incompleteQuestionId]  )
+			newIncompleteQuestion.isIncomplete = isIncomplete
+
+			return Object.assign( {}, state, {
+				['question-' + incompleteQuestionId]: newIncompleteQuestion
 			} )
 
 		default :

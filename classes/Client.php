@@ -106,9 +106,17 @@ class Client {
 		 */
 		$moment_format = apply_filters( 'webwork_moment_format', 'MMMM D, YYYY' );
 
+		/**
+		 * Filters the "Incomplete" message content.
+		 *
+		 * @param string
+		 */
+		$incomplete_text = apply_filters( 'webwork_incomplete_question_text', 'This question does not contain enough detail for a useful response to be provided.' );
+
 		wp_localize_script( 'webwork-app', 'WWData', array(
 			'client_name' => get_option( 'blogname' ),
 			'filter_options' => $filter_options,
+			'incompleteQuestionText' => $incomplete_text,
 			'introText' => $intro_text,
 			'momentFormat' => $moment_format,
 			'page_base' => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),

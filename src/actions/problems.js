@@ -153,6 +153,8 @@ export function fetchProblem( problemId ) {
 					newFormContent.tried = json.questions[ j ].tried
 					newFormContent.isAnonymous = json.questions[ j ].isAnonymous
 
+					newFormContent.isIncomplete = false
+
 					newFormData[ 'question-' + j ] = newFormContent
 				}
 

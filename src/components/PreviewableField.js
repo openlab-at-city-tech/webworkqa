@@ -14,7 +14,7 @@ export default class PreviewableField extends Component {
 	render() {
 		const {
 			attachments, id, fieldId, fieldName, label, labelIsVisible,
-			value, isPending, isPreviewVisible,
+			value, incompleteText, isIncomplete, isPending, isPreviewVisible,
 			onPreviewToggleClick, onTextareaChange
 		} = this.props
 
@@ -55,8 +55,12 @@ export default class PreviewableField extends Component {
 			return openDelim + math + closeDelim
 		} )
 
+		if ( isIncomplete ) {
+			previewContent = incompleteText
+		}
+
 		let uploadElements = []
-		if ( ! isPreviewVisible ) {
+		if ( ! isPreviewVisible && ! isIncomplete ) {
 			uploadElements.push(
 				<UploaderContainer
 					fieldName={fieldName}
@@ -70,16 +74,18 @@ export default class PreviewableField extends Component {
 		const pfcLabel = '\u00a0'
 
 		let buttonContent
-		if ( isPreviewVisible ) {
-			buttonContent = (
-				<span
-					>{ __( 'Edit', 'webwork' ) } <i className="fa fa-pencil"></i></span>
-			)
-		} else {
-			buttonContent = (
-				<span
-					>{ __( 'Preview', 'webwork' ) } <i className="fa fa-eye"></i></span>
-			)
+		if ( ! isIncomplete ) {
+			if ( isPreviewVisible ) {
+				buttonContent = (
+					<span
+						>{ __( 'Edit', 'webwork' ) } <i className="fa fa-pencil"></i></span>
+				)
+			} else {
+				buttonContent = (
+					<span
+						>{ __( 'Preview', 'webwork' ) } <i className="fa fa-eye"></i></span>
+				)
+			}
 		}
 
 		const labelClass = labelIsVisible ? '' : 'screen-reader-text'

@@ -225,6 +225,17 @@ export const toggleAnonymous = () => {
 	}
 }
 
+export const TOGGLE_INCOMPLETE = 'TOGGLE_INCOMPLETE'
+export const setIncomplete = ( questionId, isIncomplete ) => {
+	return {
+		type: TOGGLE_INCOMPLETE,
+		payload: {
+			incompleteQuestionId: questionId,
+			isIncomplete
+		}
+	}
+}
+
 export function setScrolledTo( itemId ) {
 	return ( dispatch, getState ) => {
 		const { questionsById } = getState()

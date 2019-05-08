@@ -14,7 +14,17 @@ const mapStateToProps = ( state, ownProps ) => {
 		isPending = formData[ fieldId ].isPending
 	}
 
-	const isPreviewVisible = ! collapsed.hasOwnProperty( fieldId + '-' + fieldName )
+	let isIncomplete = false
+	if ( 0 === fieldId.indexOf( 'response-' ) ) {
+		const questionId = fieldId.substr( 9 )
+		if ( formData.hasOwnProperty( 'question-' + questionId ) ) {
+			isIncomplete = formData['question-' + questionId].isIncomplete
+		}
+	}
+
+	const isPreviewVisible = ! collapsed.hasOwnProperty( fieldId + '-' + fieldName ) || isIncomplete
+
+	const incompleteText = window.WWData.incompleteQuestionText
 
 	let atts = {}
 	value.replace( attachmentShortcodeRegExp(), function( a, attId ) {
@@ -26,6 +36,8 @@ const mapStateToProps = ( state, ownProps ) => {
 
 	return {
 		attachments: atts,
+		incompleteText,
+		isIncomplete,
 		isPending,
 		isPreviewVisible,
 		value

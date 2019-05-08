@@ -5,8 +5,9 @@ import { __ } from '@wordpress/i18n';
 export default class ResponseForm extends Component {
 	render() {
 		const {
-			isCollapsed, isPending, questionId, responseText,
-			onAccordionClick, onResponseFormSubmit
+			incompleteText, isCollapsed, isIncomplete, isPending, questionId, responseText,
+			onAccordionClick, onIncompleteToggleChange, onResponseFormSubmit,
+			showIncompleteToggle
 		} = this.props
 
 		const textareaName = 'response-text-' + questionId
@@ -32,6 +33,28 @@ export default class ResponseForm extends Component {
 		// Non-breaking space.
 		const pfcLabel = __( 'Response text', 'webwork' )
 
+		let incompleteToggle = ''
+		if ( showIncompleteToggle ) {
+			const incompleteToggleId = 'incomplete-toggle-checkbox-' + questionId
+			incompleteToggle = (
+				<div className="incomplete-toggle">
+					<input
+						checked={isIncomplete}
+						id={incompleteToggleId}
+						onChange={ (e) => onIncompleteToggleChange( ! isIncomplete ) }
+						type="checkbox"
+						value="1"
+					/>
+
+					<label
+						htmlFor={incompleteToggleId}
+					>{ __( 'Incomplete question? The student will be notified and the default reply posted.' ) }</label>
+				</div>
+			)
+		}
+
+		const textToSubmit = isIncomplete ? incompleteText : responseText
+
 		return (
 			<div className={divClassName}>
 				<h3 className="ww-header">
@@ -41,7 +64,7 @@ export default class ResponseForm extends Component {
 				<div className="response-block">
 					<form
 					  className={formClassName}
-					  onSubmit={ ( e ) => onResponseFormSubmit( e, responseText ) }
+					  onSubmit={ ( e ) => onResponseFormSubmit( e, textToSubmit ) }
 					>
 						<PreviewableFieldContainer
 						  fieldId={'response-' + questionId}
@@ -49,6 +72,8 @@ export default class ResponseForm extends Component {
 						  id={textareaName}
 						  label={pfcLabel}
 						/>
+
+						{incompleteToggle}
 
 						<input
 						  className="button"

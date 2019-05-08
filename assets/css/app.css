@@ -425,6 +425,19 @@ h3.ww-collapsible-section-header {
 	display: flex;
 }
 
+.incomplete-toggle {
+	font-size: .85rem;
+	margin-bottom: 1rem;
+}
+
+.incomplete-toggle input {
+	margin-right: 8px;
+}
+
+.incomplete-toggle label {
+	font-style: italic;
+}
+
 .anonymous-toggle {
 	padding-left: 15px;
 /*	margin-left: 180px; */

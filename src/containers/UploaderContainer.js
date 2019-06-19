@@ -52,21 +52,23 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 				});
 			}, frame )
 
+			const visibleSidebarCallback = function () {
+				// Not sure why WP doesn't do this automatically - something to do with model.id === 'insert'.
+				var frameSelection = frame.views.get('.media-frame-content')[0].options.selection
+				if ( undefined !== frameSelection ) {
+					frameSelection.on( 'selection:single', function( it ) {
+						frame.views.get('.media-frame-content')[0].sidebar.$el.addClass( 'visible' );
+					});
+				} 
+			}
+
 			frame.views.ready = function() {
 				const toolbarView = frame.views.get('.media-frame-toolbar')[0]
 				const contentView = frame.views.get('.media-frame-content')[0]
 				const modal = frame.modal
 				let sidebar
 
-				contentView.on('ready',function() {
-					// Not sure why WP doesn't do this automatically - something to do with model.id === 'insert'.
-					var frameSelection = contentView.options.selection
-					if ( undefined !== frameSelection ) {
-						frameSelection.on( 'selection:single', function( it ) {
-							frame.views.get('.media-frame-content')[0].sidebar.$el.addClass( 'visible' );
-						});
-					} 
-				});
+				contentView.on( 'ready', visibleSidebarCallback );
 
 				toolbarView.controller.on('select',function() {
 					var selected = frame.state().get('selection')
@@ -112,6 +114,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			uploaderView.on('ready', function() {
 				uploaderView.uploader.success = function( attData ) {
 					dispatch( addAttachment( attData ) )
+					visibleSidebarCallback();
+					frame.views.get('.media-frame-content')[0].sidebar.$el.addClass( 'visible' );
 				}
 			})
 

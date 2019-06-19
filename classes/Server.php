@@ -149,7 +149,7 @@ class Server {
 	public function sanitize_post_data() {
 		$data = array(
 			'webwork_user'             => wp_unslash( $_POST['user'] ),
-			'webwork_user_problem_url' => wp_unslash( $_POST['emailURL'] );
+			'webwork_user_problem_url' => wp_unslash( $_POST['emailURL'] ),
 			'problem_set'              => wp_unslash( $_POST['set'] ),
 			'problem_number'           => wp_unslash( $_POST['problem'] ),
 			'problem_id'               => '',

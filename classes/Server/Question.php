@@ -19,6 +19,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $client_url;
 	protected $remote_class_url;
 	protected $remote_problem_url;
+	protected $remote_user_problem_url;
 
 	protected $author_id;
 	protected $content;
@@ -107,6 +108,10 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function set_remote_problem_url( $remote_problem_url ) {
 		$this->remote_problem_url = $remote_problem_url;
+	}
+
+	public function set_remote_user_problem_url( $remote_user_problem_url ) {
+		$this->remote_user_problem_url = $remote_user_problem_url;
 	}
 
 	public function get_id() {
@@ -199,6 +204,10 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function get_remote_problem_url() {
 		return $this->remote_problem_url;
+	}
+
+	public function get_remote_user_problem_url() {
+		return $this->remote_user_problem_url;
 	}
 
 	/**
@@ -326,6 +335,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			update_post_meta( $this->get_id(), 'webwork_remote_class_url', $this->get_remote_class_url() );
 			update_post_meta( $this->get_id(), 'webwork_remote_problem_url', $this->get_remote_problem_url() );
+			update_post_meta( $this->get_id(), 'webwork_remote_user_problem_url', $this->get_remote_user_problem_url() );
 
 			update_post_meta( $this->get_id(), 'webwork_is_anonymous', (int) $this->get_is_anonymous() );
 
@@ -400,6 +410,9 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$remote_problem_url = get_post_meta( $this->get_id(), 'webwork_remote_problem_url', true );
 			$this->set_remote_problem_url( $remote_problem_url );
+
+			$remote_user_problem_url = get_post_meta( $this->get_id(), 'webwork_remote_user_problem_url', true );
+			$this->set_remote_user_problem_url( $remote_user_problem_url );
 		}
 	}
 
@@ -435,14 +448,31 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 		$link_url = wp_login_url( $this->get_url( $this->get_client_url() ) );
 
-		$message = sprintf(
-			__( '%1$s has posted a question in your course %2$s.
+		$remote_text = '';
+		$remote_url  = $this->get_remote_user_problem_url();
 
-To read and reply, visit %3$s.', 'webwork' ),
-			$question_author->display_name,
-			$section,
-			$link_url
-		);
+		if ( $remote_url ) {
+			$message = sprintf(
+				__( '%1$s has posted a question in your course %2$s.
+
+To read and reply to the question, visit %3$s.
+
+To view the student\'s work on this question in WeBWorK, visit %4$s.', 'webwork' ),
+				$question_author->display_name,
+				$section,
+				$link_url,
+				$remote_url
+			);
+		} else {
+			$message = sprintf(
+				__( '%1$s has posted a question in your course %2$s.
+
+	To read and reply, visit %3$s.', 'webwork' ),
+				$question_author->display_name,
+				$section,
+				$link_url
+			);
+		}
 		$email->set_message( $message );
 
 		$email->send();

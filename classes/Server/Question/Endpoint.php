@@ -73,8 +73,10 @@ class Endpoint extends \WP_Rest_Controller {
 		$content = $params['content'];
 		$tried = $params['tried'];
 
-		$problem_data = null;
-		$remote_class_url = $remote_problem_url = null;
+		$problem_data            = null;
+		$remote_class_url        = null;
+		$remote_problem_url      = null;
+		$remote_user_problem_url = null;
 		if ( isset( $params['post_data_key'] ) ) {
 			$post_data_key = $params['post_data_key'];
 			$problem_data = get_option( $post_data_key );
@@ -85,6 +87,10 @@ class Endpoint extends \WP_Rest_Controller {
 
 			if ( isset( $problem_data['remote_problem_url'] ) ) {
 				$remote_problem_url = $problem_data['remote_problem_url'];
+			}
+
+			if ( isset( $problem_data['webwork_user_problem_url'] ) ) {
+				$remote_user_problem_url = $problem_data['webwork_user_problem_url'];
 			}
 
 			// Don't ever keep this data around.
@@ -158,6 +164,10 @@ class Endpoint extends \WP_Rest_Controller {
 
 		if ( $remote_problem_url ) {
 			$question->set_remote_problem_url( $remote_problem_url );
+		}
+
+		if ( $remote_user_problem_url ) {
+			$question->set_remote_user_problem_url( $remote_user_problem_url );
 		}
 
 		// Parse for external images and try to pull them in.

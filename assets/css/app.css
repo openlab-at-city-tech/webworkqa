@@ -411,6 +411,8 @@ h3.ww-collapsible-section-header {
 	font-size: 1rem;
 	margin-top: 8px;
 	height: 80px;
+	resize: vertical;
+	min-height: 80px;
 }
 
 .tried-is-empty {
@@ -928,6 +930,8 @@ li.is-answer:before {
 	height: 120px;
 	margin: 8px 0 20px 0;
 	width: 100%;
+	resize: vertical;
+	min-height: 120px;
 }
 
 .response-form .ww-preview {

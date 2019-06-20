@@ -773,6 +773,7 @@ li.is-answer:before {
 }
 
 #webwork-app a.ww-question-link:hover {
+	color: #000;
 	text-decoration: none;
 }
 

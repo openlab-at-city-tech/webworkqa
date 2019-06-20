@@ -39604,7 +39604,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
 			{
-				className: this.getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount)
+				className: this.getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, isAnonymous)
 			},
 			scrollWaypoint,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -39659,7 +39659,7 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	/**
   * Get a class name for the <li> element.
   */
-	getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount) {
+	getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, isAnonymous) {
 		let classes = [];
 
 		if (isCollapsed) {
@@ -39678,6 +39678,10 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
 		if (isCurrentQuestion) {
 			classes.push('current-question');
+		}
+
+		if (isAnonymous) {
+			classes.push('anonymous-question');
 		}
 
 		return classes.join(' ');

@@ -478,7 +478,7 @@ export default class Question extends Component {
 
 		return (
 			<li
-			  className={this.getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount )}
+			  className={this.getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, isAnonymous )}
 			>
 
 				{scrollWaypoint}
@@ -527,7 +527,7 @@ export default class Question extends Component {
 	/**
 	 * Get a class name for the <li> element.
 	 */
-	getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount ) {
+	getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, isAnonymous ) {
 		let classes = []
 
 		if ( isCollapsed ) {
@@ -546,6 +546,10 @@ export default class Question extends Component {
 
 		if ( isCurrentQuestion ) {
 			classes.push( 'current-question' )
+		}
+
+		if ( isAnonymous ) {
+			classes.push( 'anonymous-question' )
 		}
 
 		return classes.join( ' ' )

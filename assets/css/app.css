@@ -443,6 +443,10 @@ h3.ww-collapsible-section-header {
 /*	margin-left: 180px; */
 }
 
+#webwork-app .anonymous-question a.ww-question-link {
+	text-decoration: none;
+}
+
 .anonymous-toggle input {
 	width: 13px;
 	height: 13px;
@@ -782,6 +786,14 @@ li.is-answer:before {
 
 .anonymous-tooltip {
 	text-decoration: underline #0043af dotted;
+}
+
+.anonymous-tooltip {
+	text-decoration: underline #000 dotted;
+}
+
+.anonymous-tooltip:hover {
+	text-decoration: none;
 }
 
 .anonymous-tooltip .__react_component_tooltip {

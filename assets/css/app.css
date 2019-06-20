@@ -797,7 +797,7 @@ li.is-answer:before {
 	text-decoration: none;
 }
 
-.anonymous-tooltip .__react_component_tooltip {
+.__react_component_tooltip {
 	background-color: #c4c4c4;
 	color: #000;
 	font-size: 13px;
@@ -805,7 +805,12 @@ li.is-answer:before {
 	line-height: 13px;
 }
 
-.anonymous-tooltip .__react_component_tooltip.type-info.place-top:after {
+.__react_component_tooltip.type-info {
+	background-color: #c4c4c4;
+	color: #000;
+}
+
+.__react_component_tooltip.type-info.place-top:after {
 	border-top-color: #c4c4c4;
 }
 

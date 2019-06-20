@@ -39601,10 +39601,12 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		/* translators: Name of author to whom avatar belongs */
 		const avatarAltText = isAnonymous ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Avatar', 'webwork') : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["b" /* sprintf */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__wordpress_i18n__["a" /* __ */])('Avatar of %s', 'webwork'), authorName);
 
+		const showAnonymousClass = isAnonymous && authorName;
+
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'li',
 			{
-				className: this.getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, isAnonymous)
+				className: this.getClassName(isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, showAnonymousClass)
 			},
 			scrollWaypoint,
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

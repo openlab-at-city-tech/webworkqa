@@ -476,9 +476,11 @@ export default class Question extends Component {
 		/* translators: Name of author to whom avatar belongs */
 		const avatarAltText = isAnonymous ? __( 'Avatar', 'webwork' ) : sprintf( __( 'Avatar of %s', 'webwork' ), authorName )
 
+		const showAnonymousClass = isAnonymous && authorName
+
 		return (
 			<li
-			  className={this.getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, isAnonymous )}
+			  className={this.getClassName( isCollapsed, isMyQuestion, isCurrentQuestion, responseCount, showAnonymousClass )}
 			>
 
 				{scrollWaypoint}

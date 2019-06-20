@@ -797,9 +797,15 @@ li.is-answer:before {
 }
 
 .anonymous-tooltip .__react_component_tooltip {
+	background-color: #c4c4c4;
+	color: #000;
 	font-size: 13px;
 	font-weight: normal;
 	line-height: 13px;
+}
+
+.anonymous-tooltip .__react_component_tooltip.type-info.place-top:after {
+	border-top-color: #c4c4c4;
 }
 
 .ww-subtitle {

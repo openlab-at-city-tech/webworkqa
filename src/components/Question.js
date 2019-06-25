@@ -26,13 +26,17 @@ export default class Question extends Component {
 			return
 		}
 
-		if ( initialLoadComplete && userCanPostResponse ) {
-			const responseScrollElementName = 'question-' + itemId
-			Scroll.scroller.scrollTo( responseScrollElementName, {
-				duration: 1000,
-				offset: -80, // for toolbar
-				smooth: true
-			} )
+		if ( userCanPostResponse ) {
+			setTimeout( function() {
+				if ( initialLoadComplete ) {
+					const responseScrollElementName = 'question-' + itemId
+					Scroll.scroller.scrollTo( responseScrollElementName, {
+						duration: 1000,
+						offset: -80, // for toolbar
+						smooth: true
+					} )
+				}
+			}, 500 );
 		}
 
 		if ( isCurrentQuestion ) {

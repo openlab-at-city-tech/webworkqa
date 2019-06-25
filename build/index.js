@@ -39112,13 +39112,17 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			return;
 		}
 
-		if (initialLoadComplete && userCanPostResponse) {
-			const responseScrollElementName = 'question-' + itemId;
-			__WEBPACK_IMPORTED_MODULE_1_react_scroll___default.a.scroller.scrollTo(responseScrollElementName, {
-				duration: 1000,
-				offset: -80, // for toolbar
-				smooth: true
-			});
+		if (userCanPostResponse) {
+			setTimeout(function () {
+				if (initialLoadComplete) {
+					const responseScrollElementName = 'question-' + itemId;
+					__WEBPACK_IMPORTED_MODULE_1_react_scroll___default.a.scroller.scrollTo(responseScrollElementName, {
+						duration: 1000,
+						offset: -80, // for toolbar
+						smooth: true
+					});
+				}
+			}, 500);
 		}
 
 		if (isCurrentQuestion) {

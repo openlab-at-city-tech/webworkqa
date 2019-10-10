@@ -148,6 +148,7 @@ class Server {
 
 	public function sanitize_post_data() {
 		$data = array(
+<<<<<<< HEAD
 			'webwork_user'             => wp_unslash( $_POST['user'] ),
 			'webwork_user_problem_url' => wp_unslash( $_POST['emailURL'] ),
 			'problem_set'              => wp_unslash( $_POST['set'] ),
@@ -156,6 +157,19 @@ class Server {
 			'problem_text'             => '',
 			'course'                   => '',
 			'section'                  => '',
+=======
+			'webwork_user'    => wp_unslash( $_POST['user'] ),
+			'problem_set'     => wp_unslash( $_POST['set'] ),
+			'problem_number'  => wp_unslash( $_POST['problem'] ),
+			'problem_id'      => '',
+			'problem_text'    => '',
+			'course'          => '',
+			'section'         => '',
+			'emailableURL'    => isset( $_POST['emailableURL'] ) ? wp_unslash( $_POST['emailableURL'] ) : '',
+			'randomSeed'      => isset( $_POST['randomSeed'] ) ? wp_unslash( $_POST['randomSeed'] ) : '',
+			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? wp_unslash( $_POST['notifyAddresses'] ) : '',
+			'studentName'     => isset( $_POST['studentName'] ) ? wp_unslash( $_POST['studentName'] ) : '',
+>>>>>>> d35bde0... Accept expanded POST data from WeBWorK.
 		);
 
 		$remote_problem_url = wp_unslash( $_SERVER['HTTP_REFERER'] );
@@ -172,13 +186,17 @@ class Server {
 		// Split pg_object into discreet problem data.
 		$raw_text = $_POST['pg_object'];
 
-		// Do not unslash. wp_insert_post() expocts slashed. A nightmare.
+		// Do not unslash. wp_insert_post() expects slashed. A nightmare.
 		$text = base64_decode( $raw_text );
 
 		$pf = new Server\Util\ProblemFormatter();
 		$text = $pf->clean_problem_from_webwork( $text, $data );
 
-		$data['problem_id'] = $pf->get_library_id_from_text( $text );
+		if ( isset( $_POST['problemPath'] ) ) {
+			$data['problem_id'] = wp_unslash( $_POST['problemPath'] );
+		} else {
+			$data['problem_id'] = $pf->get_library_id_from_text( $text );
+		}
 
 		$text = $pf->strip_library_id_from_text( $text );
 

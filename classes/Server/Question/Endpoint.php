@@ -157,6 +157,11 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_problem_text( $problem_data['problem_text'] );
 		$question->set_client_url( $params['client_url'] );
 		$question->set_client_name( $params['client_name'] );
+		$question->set_emailable_url( $problem_data['emailableURL'] );
+		$question->set_random_seed( $problem_data['randomSeed'] );
+		$question->set_notify_addresses( $problem_data['notifyAddresses'] );
+
+		$question->set_student_name( $problem_data['studentName'] );
 
 		if ( $remote_class_url ) {
 			$question->set_remote_class_url( $remote_class_url );

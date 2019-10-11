@@ -123,7 +123,9 @@ class Client {
 			$post_data       = null;
 			$ww_problem_text = '';
 			if ( ! empty( $_GET['post_data_key'] ) ) {
+				$server_site_id = apply_filters( 'webwork_server_site_id', 1 );
 				$post_data = get_blog_option( 1, $_GET['post_data_key'] );
+
 				$ww_problem_text = base64_decode( $post_data['pg_object'] );
 			}
 

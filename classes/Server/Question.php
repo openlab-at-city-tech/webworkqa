@@ -19,6 +19,10 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $client_url;
 	protected $remote_class_url;
 	protected $remote_problem_url;
+	protected $emailable_url;
+	protected $random_seed;
+	protected $notify_addresses;
+	protected $student_name;
 
 	protected $author_id;
 	protected $content;
@@ -94,6 +98,22 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function set_client_name( $client_name ) {
 		$this->client_name = $client_name;
+	}
+
+	public function set_emailable_url( $emailable_url ) {
+		$this->emailable_url = $emailable_url;
+	}
+
+	public function set_random_seed( $random_seed ) {
+		$this->random_seed = $random_seed;
+	}
+
+	public function set_notify_addresses( $notify_addresses ) {
+		$this->notify_addresses = $notify_addresses;
+	}
+
+	public function set_student_name( $student_name ) {
+		$this->student_name = $student_name;
 	}
 
 	public function set_remote_class_url( $remote_class_url ) {
@@ -183,6 +203,29 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		return $this->client_name;
 	}
 
+	public function get_emailable_url() {
+		return $this->emailable_url;
+	}
+
+	public function get_random_seed() {
+		return $this->random_seed;
+	}
+
+	public function get_notify_addresses() {
+		if ( ! is_array( $this->notify_addresses ) ) {
+			$nas = explode( ';', $this->notify_addresses );
+			$nas = array_map( 'trim', $nas );
+
+			$this->notify_addresses = $nas;
+		}
+
+		return $this->notify_addresses;
+	}
+
+	public function get_student_name() {
+		return $this->student_name;
+	}
+
 	public function get_remote_class_url() {
 		return $this->remote_class_url;
 	}
@@ -258,23 +301,27 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	}
 
 	/**
-	 * Get instructor email.
+	 * Get instructor emails.
 	 *
-	 * Instructor matching currently happens via a hardcoded config list.
+	 * The primary source for email addresses is the 'notifyAddresses' property sent
+	 * from WeBWorK. The fallback is a section-instructor map that must be provided via
+	 * filter. The two are mutually exclusive, to ensure that no duplicate emails are sent.
 	 *
-	 * @return string
+	 * @return array
 	 */
-	public function get_instructor_email() {
-		$email = '';
+	public function get_instructor_emails() {
+		$emails = $this->get_notify_addresses();
 
-		$section = $this->get_section();
+		if ( ! $emails ) {
+			$section = $this->get_section();
 
-		$instructor_map = apply_filters( 'webwork_section_instructor_map', array() );
-		if ( isset( $instructor_map[ $section ] ) ) {
-			$email = $instructor_map[ $section ];
+			$instructor_map = apply_filters( 'webwork_section_instructor_map', array() );
+			if ( isset( $instructor_map[ $section ] ) ) {
+				$emails = [ $instructor_map[ $section ] ];
+			}
 		}
 
-		return $email;
+		return $emails;
 	}
 
 	public function save() {
@@ -292,7 +339,6 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			wp_set_object_terms( $post_id, array( $this->get_course() ), 'webwork_course' );
 			wp_set_object_terms( $post_id, array( $this->get_section() ), 'webwork_section' );
 
-
 			$tried = $this->get_tried();
 			$tried = $this->pf->convert_delims( $tried );
 			$tried = $this->pf->swap_latex_escape_characters( $tried );
@@ -305,6 +351,11 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			update_post_meta( $this->get_id(), 'webwork_remote_class_url', $this->get_remote_class_url() );
 			update_post_meta( $this->get_id(), 'webwork_remote_problem_url', $this->get_remote_problem_url() );
+
+			update_post_meta( $this->get_id(), 'webwork_emailable_url', $this->get_emailable_url() );
+			update_post_meta( $this->get_id(), 'webwork_random_seed', $this->get_random_seed() );
+			update_post_meta( $this->get_id(), 'webwork_notify_addresses', $this->get_notify_addresses() );
+			update_post_meta( $this->get_id(), 'webwork_student_name', $this->get_student_name() );
 
 			// Refresh vote count.
 			$this->get_vote_count( true );
@@ -374,6 +425,18 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$remote_problem_url = get_post_meta( $this->get_id(), 'webwork_remote_problem_url', true );
 			$this->set_remote_problem_url( $remote_problem_url );
+
+			$emailable_url = get_post_meta( $this->get_id(), 'webwork_emailable_url', true );
+			$this->set_emailable_url( $emailable_url );
+
+			$random_seed = get_post_meta( $this->get_id(), 'webwork_random_seed', true );
+			$this->set_random_seed( $random_seed );
+
+			$notify_addresses = get_post_meta( $this->get_id(), 'webwork_notify_addresses', true );
+			$this->set_notify_addresses( $notify_addresses );
+
+			$student_name = get_post_meta( $this->get_id(), 'webwork_student_name', true );
+			$this->set_student_name( $student_name );
 		}
 	}
 
@@ -388,7 +451,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	 * Send an email notification to the course instructor.
 	 */
 	protected function send_notification_to_instructor() {
-		$instructor_email = $this->get_instructor_email();
+		$instructor_emails = $this->get_instructor_emails();
 		$section = $this->get_section();
 
 		$question_author_id = $this->get_author_id();
@@ -397,27 +460,29 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			return;
 		}
 
-		// Don't send instructors an email about their own questions.
-		if ( $question_author->user_email === $instructor_email ) {
-			return;
-		}
+		foreach ( $instructor_emails as $instructor_email ) {
+			// Don't send instructors an email about their own questions.
+			if ( $question_author->user_email === $instructor_email ) {
+				return;
+			}
 
-		$email = new Util\Email();
-		$email->set_client_name( $this->get_client_name() );
-		$email->set_recipient( $instructor_email );
-		$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webwork' ), $question_author->display_name, $section ) );
+			$email = new Util\Email();
+			$email->set_client_name( $this->get_client_name() );
+			$email->set_recipient( $instructor_email );
+			$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webwork' ), $question_author->display_name, $section ) );
 
-		$message = sprintf(
-			__( '%1$s has posted a question in your course %2$s.
+			$message = sprintf(
+				__( '%1$s has posted a question in your course %2$s.
 
 To read and reply, visit %3$s.', 'webwork' ),
-			$question_author->display_name,
-			$section,
-			$this->get_url( $this->get_client_url() )
-		);
-		$email->set_message( $message );
+				$question_author->display_name,
+				$section,
+				$this->get_url( $this->get_client_url() )
+			);
+			$email->set_message( $message );
 
-		$email->send();
+			$email->send();
+		}
 	}
 
 	public function set_subscription( $user_id, $status ) {

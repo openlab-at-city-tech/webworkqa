@@ -249,7 +249,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	 * Send an email notification to the course instructor.
 	 */
 	protected function send_notification_to_instructor() {
-		$instructor_email = $this->question->get_instructor_email();
+		$instructor_emails = $this->question->get_instructor_emails();
 		$section = $this->question->get_section();
 
 		$response_author_id = $this->get_author_id();
@@ -258,26 +258,28 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			return;
 		}
 
-		// Don't send instructors an email about their own replies.
-		if ( $response_author->user_email === $instructor_email ) {
-			return;
-		}
+		foreach ( $instructor_emails as $instructor_email ) {
+			// Don't send instructors an email about their own replies.
+			if ( $response_author->user_email === $instructor_email ) {
+				return;
+			}
 
-		$email = new Util\Email();
-		$email->set_client_name( $this->get_client_name() );
-		$email->set_recipient( $instructor_email );
-		$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webwork' ), $response_author->display_name, $section ) );
+			$email = new Util\Email();
+			$email->set_client_name( $this->get_client_name() );
+			$email->set_recipient( $instructor_email );
+			$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webwork' ), $response_author->display_name, $section ) );
 
-		$message = sprintf(
-			__( '%1$s has replied to a question in your course %2$s.
+			$message = sprintf(
+				__( '%1$s has replied to a question in your course %2$s.
 
 To read and reply, visit %3$s.', 'webwork' ),
-			$response_author->display_name,
-			$section,
-			$this->question->get_url( $this->get_client_url() )
-		);
-		$email->set_message( $message );
+				$response_author->display_name,
+				$section,
+				$this->question->get_url( $this->get_client_url() )
+			);
+			$email->set_message( $message );
 
-		$email->send();
+			$email->send();
+		}
 	}
 }

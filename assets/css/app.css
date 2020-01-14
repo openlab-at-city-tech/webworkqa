@@ -75,6 +75,7 @@
 #webwork-app textarea,
 #webwork-app input[type="text"] {
 	background-color: #fafafa;
+	border: 1px solid rgb(169, 169, 169);
 }
 
 .ww-main {

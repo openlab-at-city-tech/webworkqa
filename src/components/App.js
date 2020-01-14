@@ -13,6 +13,10 @@ export default class App extends Component {
 		this.props.onInit()
 	}
 
+	componentDidMount() {
+		document.body.classList.add('is-webwork-app');
+	}
+
 	render() {
 		const { route_base } = window.WWData
 		const { appIsLoading, initialLoadComplete, routing } = this.props

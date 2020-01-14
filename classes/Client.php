@@ -12,18 +12,12 @@ class Client {
 		$this->api_client = new \WeBWorK\Client\APIClient();
 		$this->rewrites = new \WeBWorK\Client\Rewrites();
 
-		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
+		add_shortcode( 'webwork', array( $this, 'shortcode_cb' ) );
+
 		add_filter( 'login_message', array( $this, 'filter_login_message' ) );
 	}
 
-	public static function set_up_app() {
-		$ww_problem = false;
-		if ( is_page( 'webwork' ) ) {
-			$ww_problem = true;
-		} else {
-			$ww_problem = get_query_var( 'ww_problem' );
-		}
-
+	public function shortcode_cb() {
 		$deps = array();
 		if ( is_user_logged_in() ) {
 			$plupload_settings_filter = function( $params ) {
@@ -41,6 +35,7 @@ class Client {
 
 		wp_enqueue_script( 'webwork-scaffold', plugins_url() . '/webwork/assets/js/webwork-scaffold.js', array( 'jquery' ) );
 		wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js', $deps );
+		wp_set_script_translations( 'webwork-app', 'webwork' );
 
 		$route_base = get_option( 'home' );
 		$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
@@ -146,9 +141,18 @@ class Client {
 		wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );
 
 		wp_enqueue_script( 'webwork-mathjax-loader' );
+
+		$markup  = '<div class="wrapper section-inner">';
+		$markup .=   '<div id="webwork-app" class="webwork-app">';
+		$markup .=     __( 'Loading...', 'webwork' );
+		$markup .=	 '</div><!-- .content-area -->';
+		$markup .= '</div>';
+
+		return $markup;
 	}
 
 	public function filter_the_content( $content ) {
+		return $content;
 		$ww_problem = false;
 		if ( is_page( 'webwork' ) ) {
 			$ww_problem = true;
@@ -159,7 +163,6 @@ class Client {
 		if ( $ww_problem ) {
 			$content = '<div id="webwork-app"></div>';
 			wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js', array( 'wp-i18n' ) );
-			wp_set_script_translations( 'webwork-app', 'webwork' );
 
 			$route_base = get_option( 'home' );
 			$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );

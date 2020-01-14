@@ -681,6 +681,7 @@ li.is-answer:before {
 .ww-question-header {
 	color: #fff;
 	font-size: 1.0rem;
+	line-height: 100%;
 	padding: 10px 8px 10px 16px;
 	position: relative;
 }
@@ -916,6 +917,7 @@ li.is-answer:before {
 .ww-question-content-section-header {
 	font-size: 1.2rem;
 	font-weight: 600;
+	line-height: 100%;
 	margin: 20px 0 15px;
 	padding-top: 0px;
 }
@@ -1094,6 +1096,10 @@ li.is-answer:before {
 }
 
 /** Sidebar ******************************************************************/
+
+.ww-sidebar .ww-header {
+	margin: 0;
+}
 
 .ww-sidebar-widget {
 	background-color: #0044af;

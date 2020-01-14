@@ -88,7 +88,7 @@ class Client {
 		 *
 		 * @param string
 		 */
-		$sidebar_intro_text = apply_filters( 'webwork_sidebar_intro_text', 'Use the filters> below to navigate the questions that have been posted. You can select questions by course, section, or a specific WeBWorK problem set.' );
+		$sidebar_intro_text = apply_filters( 'webwork_sidebar_intro_text', 'Use the filters below to navigate the questions that have been posted. You can select questions by course, section, or a specific WeBWorK problem set.' );
 
 		/**
 		 * Filters the moment.js "format'.

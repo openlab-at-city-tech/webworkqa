@@ -1131,6 +1131,7 @@ li.is-answer:before {
 }
 
 .ww-question-filters > li {
+	list-style: none;
 	margin: 12px 0 0;
 }
 

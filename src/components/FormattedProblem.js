@@ -69,7 +69,7 @@ export default class FormattedProblem extends Component {
 			return '<script type="' + typeAttr + '" id="' + cssId + '">'
 		} )
 
-		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + __( 'This problem contains interactive elements that cannot be displayed on the OpenLab. Please visit your WeBWorK course to see the full problem content.', 'webwork' ) + '</div>' )
+		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + __( 'This problem contains interactive elements that cannot be displayed here. Please visit your WeBWorK course to see the full problem content.', 'webwork' ) + '</div>' )
 
 		const divRegExp = /<div[^>]*>([\s\S]*?)<\/div>/gm
 		markup = markup.replace( divRegExp, function( div, innerText ) {

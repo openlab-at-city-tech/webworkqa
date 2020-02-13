@@ -1139,6 +1139,12 @@ li.is-answer:before {
 	font-weight: bold;
 }
 
+/* Attempt to hide page title */
+body.is-webwork-app h1.entry-title {
+	display: none;
+}
+
+
 /** Select Overrides *********************************************************/
 
 #webwork-app .Select-placeholder,

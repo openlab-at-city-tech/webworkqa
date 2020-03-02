@@ -159,7 +159,6 @@ class Endpoint extends \WP_Rest_Controller {
 			$vq = new \WeBWork\Server\Vote\Query(
 				array(
 					'item_id'         => $qid,
-					'user_id__not_in' => array( get_current_user_id() ),
 				)
 			);
 

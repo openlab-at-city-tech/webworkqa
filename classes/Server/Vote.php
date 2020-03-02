@@ -51,6 +51,10 @@ class Vote {
 		return $this->value;
 	}
 
+	public function get_item_vote_count( $force_query = false ) {
+		return $this->item->get_vote_count( $force_query );
+	}
+
 	public function save() {
 		if ( $this->exists() ) {
 			$saved = $this->update();

@@ -102,10 +102,12 @@ class Endpoint extends \WP_Rest_Controller {
 			// do something
 		} elseif ( $value ) {
 			$vote->set_value( $value );
-			$retval = $vote->save();
+			$vote->save();
 		} elseif ( $vote->exists() ) {
-			$retval = $vote->delete();
+			$vote->delete();
 		}
+
+		$retval = $vote->get_item_vote_count( true );
 
 		$response = rest_ensure_response( $retval );
 

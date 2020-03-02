@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { setScore } from './scores'
 
 export function clickVote( itemId, voteType, itemType ) {
 	return ( dispatch ) => {
@@ -27,6 +28,7 @@ function sendVote(itemId, voteType, itemType) {
 		} )
 		.then( response => response.json() )
 		.then( json => {
+			dispatch( setScore( itemId, json ) )
 		} );
 
 	}

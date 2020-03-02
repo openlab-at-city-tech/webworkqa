@@ -13,16 +13,6 @@ export default class ScoreDialog extends React.Component {
 
 		let score = this.props.score
 
-		switch ( vote ) {
-			case 'up' :
-				score++
-				break
-
-			case 'down' :
-				score--
-				break
-		}
-
 		let scoreClass = 'ww-score'
 
 		scoreClass += userCanVote && isSingleProblem ? ' can-vote' : ' cannot-vote'

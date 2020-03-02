@@ -1,0 +1,10 @@
+{
+    "name": "livinglab/webwork-for-wordpress",
+    "type": "project",
+    "license": "GPLv3",
+    "require": {},
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+        "wp-coding-standards/wpcs": "^2.2"
+    }
+}

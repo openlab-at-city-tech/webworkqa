@@ -287,6 +287,8 @@ ul.question-list > a {
 	background: #ededed;
 	font-size: 1rem;
 	padding: 40px;
+	overflow-y: hidden;
+	overflow-x: auto;
 }
 
 .formatted-problem table {
@@ -332,7 +334,7 @@ ul.question-list > a {
 .ww-question-problem-summary {
 	margin: 16px;
 	padding: 8px 16px;
-	overflow: hidden;
+	overflow: visible;
 	cursor: pointer;
 }
 

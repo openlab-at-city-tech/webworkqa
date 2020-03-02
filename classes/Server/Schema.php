@@ -33,41 +33,47 @@ class Schema {
 	 * @since 1.0.0
 	 */
 	protected function register_post_types() {
-		register_post_type( 'webwork_question', array(
-			'label' => __( 'WebWorK Question', 'webwork' ),
-			'labels' => array(
-				'name' => __( 'WeBWorK Question', 'webwork' ),
-				'singular_name' => __( 'WeBWorK Question', 'webwork' ),
-				'add_new_item' => __( 'Add New WeBWorK Question', 'webwork' ),
-				'edit_item' => __( 'Edit WeBWorK Question', 'webwork' ),
-				'new_item' => __( 'New WeBWorK Question', 'webwork' ),
-				'view_item' => __( 'View WeBWorK Question', 'webwork' ),
-				'search_items' => __( 'Search WeBWorK Questions', 'webwork' ),
-				'not_found' => __( 'No WeBWorK Questions found', 'webwork' ),
-				'not_found_in_trash' => __( 'No WeBWorK Questions found in Trash.', 'webwork' ),
-			),
-			'public' => true, // todo This should be false
-			'show_in_rest' => true,
-			'rest_base' => 'questions',
-		) );
+		register_post_type(
+			'webwork_question',
+			array(
+				'label'        => __( 'WebWorK Question', 'webwork' ),
+				'labels'       => array(
+					'name'               => __( 'WeBWorK Question', 'webwork' ),
+					'singular_name'      => __( 'WeBWorK Question', 'webwork' ),
+					'add_new_item'       => __( 'Add New WeBWorK Question', 'webwork' ),
+					'edit_item'          => __( 'Edit WeBWorK Question', 'webwork' ),
+					'new_item'           => __( 'New WeBWorK Question', 'webwork' ),
+					'view_item'          => __( 'View WeBWorK Question', 'webwork' ),
+					'search_items'       => __( 'Search WeBWorK Questions', 'webwork' ),
+					'not_found'          => __( 'No WeBWorK Questions found', 'webwork' ),
+					'not_found_in_trash' => __( 'No WeBWorK Questions found in Trash.', 'webwork' ),
+				),
+				'public'       => true, // todo This should be false
+				'show_in_rest' => true,
+				'rest_base'    => 'questions',
+			)
+		);
 
-		register_post_type( 'webwork_response', array(
-			'label' => __( 'WebWorK Response', 'webwork' ),
-			'labels' => array(
-				'name' => __( 'WeBWorK Responses', 'webwork' ),
-				'singular_name' => __( 'WeBWorK Response', 'webwork' ),
-				'add_new_item' => __( 'Add New WeBWorK Response', 'webwork' ),
-				'edit_item' => __( 'Edit WeBWorK Response', 'webwork' ),
-				'new_item' => __( 'New WeBWorK Response', 'webwork' ),
-				'view_item' => __( 'View WeBWorK Response', 'webwork' ),
-				'search_items' => __( 'Search WeBWorK Responses', 'webwork' ),
-				'not_found' => __( 'No WeBWorK Responses found', 'webwork' ),
-				'not_found_in_trash' => __( 'No WeBWorK Responses found in Trash.', 'webwork' ),
-			),
-			'public' => true, // todo This should be false
-			'show_in_rest' => true,
-			'rest_base' => 'responses',
-		) );
+		register_post_type(
+			'webwork_response',
+			array(
+				'label'        => __( 'WebWorK Response', 'webwork' ),
+				'labels'       => array(
+					'name'               => __( 'WeBWorK Responses', 'webwork' ),
+					'singular_name'      => __( 'WeBWorK Response', 'webwork' ),
+					'add_new_item'       => __( 'Add New WeBWorK Response', 'webwork' ),
+					'edit_item'          => __( 'Edit WeBWorK Response', 'webwork' ),
+					'new_item'           => __( 'New WeBWorK Response', 'webwork' ),
+					'view_item'          => __( 'View WeBWorK Response', 'webwork' ),
+					'search_items'       => __( 'Search WeBWorK Responses', 'webwork' ),
+					'not_found'          => __( 'No WeBWorK Responses found', 'webwork' ),
+					'not_found_in_trash' => __( 'No WeBWorK Responses found in Trash.', 'webwork' ),
+				),
+				'public'       => true, // todo This should be false
+				'show_in_rest' => true,
+				'rest_base'    => 'responses',
+			)
+		);
 	}
 
 	/**
@@ -80,25 +86,45 @@ class Schema {
 	 * @since 1.0.0
 	 */
 	public function register_taxonomies() {
-		register_taxonomy( 'webwork_problem_id', 'webwork_question', array(
-			'public' => false,
-		) );
+		register_taxonomy(
+			'webwork_problem_id',
+			'webwork_question',
+			array(
+				'public' => false,
+			)
+		);
 
-		register_taxonomy( 'webwork_problem_set', 'webwork_question', array(
-			'public' => true,
-		) );
+		register_taxonomy(
+			'webwork_problem_set',
+			'webwork_question',
+			array(
+				'public' => true,
+			)
+		);
 
-		register_taxonomy( 'webwork_course', 'webwork_question', array(
-			'public' => false,
-		) );
+		register_taxonomy(
+			'webwork_course',
+			'webwork_question',
+			array(
+				'public' => false,
+			)
+		);
 
-		register_taxonomy( 'webwork_section', 'webwork_question', array(
-			'public' => false,
-		) );
+		register_taxonomy(
+			'webwork_section',
+			'webwork_question',
+			array(
+				'public' => false,
+			)
+		);
 
-		register_taxonomy( 'webwork_subscribed_by', 'webwork_question', array(
-			'public' => false,
-		) );
+		register_taxonomy(
+			'webwork_subscribed_by',
+			'webwork_question',
+			array(
+				'public' => false,
+			)
+		);
 	}
 
 	public function get_votes_schema() {

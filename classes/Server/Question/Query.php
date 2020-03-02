@@ -12,18 +12,21 @@ class Query {
 	protected $results;
 
 	public function __construct( $args = array() ) {
-		$this->r = array_merge( array(
-			'problem_id' => null,
-			'problem_set' => null,
-			'course' => null,
-			'section' => null,
-			'question_id' => null,
-			'offset' => 0,
-			'orderby' => 'votes',
-			'order' => 'ASC',
-			'last_question' => null,
-			'max_results' => 10,
-		), $args );
+		$this->r = array_merge(
+			array(
+				'problem_id'    => null,
+				'problem_set'   => null,
+				'course'        => null,
+				'section'       => null,
+				'question_id'   => null,
+				'offset'        => 0,
+				'orderby'       => 'votes',
+				'order'         => 'ASC',
+				'last_question' => null,
+				'max_results'   => 10,
+			),
+			$args
+		);
 	}
 
 	/**
@@ -39,18 +42,18 @@ class Query {
 		}
 
 		$args = array(
-			'post_type' => 'webwork_question',
+			'post_type'              => 'webwork_question',
 			'update_post_term_cache' => false,
-			'meta_query' => array(),
-			'posts_per_page' => -1,
-			'tax_query' => array(),
+			'meta_query'             => array(),
+			'posts_per_page'         => -1,
+			'tax_query'              => array(),
 		);
 
 		if ( $this->r['problem_id'] ) {
 			$args['tax_query']['problem_id'] = array(
 				'taxonomy' => 'webwork_problem_id',
-				'terms' => (array) $this->r['problem_id'],
-				'field' => 'name',
+				'terms'    => (array) $this->r['problem_id'],
+				'field'    => 'name',
 			);
 		}
 
@@ -59,8 +62,8 @@ class Query {
 			if ( null !== $this->r[ $filter_taxonomy ] ) {
 				$args['tax_query'][ $filter_taxonomy ] = array(
 					'taxonomy' => 'webwork_' . $filter_taxonomy,
-					'terms' => (array) $this->r[ $filter_taxonomy ],
-					'field' => 'name',
+					'terms'    => (array) $this->r[ $filter_taxonomy ],
+					'field'    => 'name',
 				);
 			}
 		}
@@ -86,9 +89,9 @@ class Query {
 			$clause_key = "{$this->r['orderby']}_orderby";
 
 			$args['meta_query'][ $clause_key ] = array(
-				'key' => $key,
+				'key'     => $key,
 				'compare' => 'EXISTS',
-				'type' => 'SIGNED',
+				'type'    => 'SIGNED',
 			);
 
 			$args['orderby'] = array(
@@ -103,11 +106,11 @@ class Query {
 			$args['order'] = $this->r['order'];
 		}
 
-		$args['offset'] = $this->r['offset'];
+		$args['offset']         = $this->r['offset'];
 		$args['posts_per_page'] = $this->r['max_results'];
 
 		$question_query = new \WP_Query( $args );
-		$_questions = $question_query->posts;
+		$_questions     = $question_query->posts;
 
 		$questions = array();
 		foreach ( $_questions as $_question ) {
@@ -136,22 +139,22 @@ class Query {
 			}
 
 			$formatted[ $question_id ] = array(
-				'questionId' => $question_id,
-				'content' => $q->get_content(),
-				'tried' => $q->get_tried(),
-				'isAnonymous' => $q->get_is_anonymous(),
-				'postDate' => $q->get_post_date(),
-				'problemId' => $q->get_problem_id(),
-				'problemSet' => $q->get_problem_set(),
-				'course' => $q->get_course(),
-				'section' => $q->get_section(),
-				'problemText' => $q->get_problem_text(),
-				'isMyQuestion' => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
-				'authorAvatar' => $author_avatar,
-				'authorId' => $author_id,
-				'authorName' => $author_name,
+				'questionId'    => $question_id,
+				'content'       => $q->get_content(),
+				'tried'         => $q->get_tried(),
+				'isAnonymous'   => $q->get_is_anonymous(),
+				'postDate'      => $q->get_post_date(),
+				'problemId'     => $q->get_problem_id(),
+				'problemSet'    => $q->get_problem_set(),
+				'course'        => $q->get_course(),
+				'section'       => $q->get_section(),
+				'problemText'   => $q->get_problem_text(),
+				'isMyQuestion'  => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
+				'authorAvatar'  => $author_avatar,
+				'authorId'      => $author_id,
+				'authorName'    => $author_name,
 				'responseCount' => $q->get_response_count(),
-				'voteCount' => $q->get_vote_count(),
+				'voteCount'     => $q->get_vote_count(),
 			);
 		}
 
@@ -171,28 +174,30 @@ class Query {
 
 		switch ( $filter ) {
 			// can repurpose for other taxonomies - concatenate tax name
-			case 'course' :
-			case 'section' :
-			case 'problem_set' :
-				$terms = get_terms( array(
-					'taxonomy' => 'webwork_' . $filter,
-					'hide_empty' => true,
-					'orderby' => 'name',
-					'order' => 'ASC',
-				) );
+			case 'course':
+			case 'section':
+			case 'problem_set':
+				$terms = get_terms(
+					array(
+						'taxonomy'   => 'webwork_' . $filter,
+						'hide_empty' => true,
+						'orderby'    => 'name',
+						'order'      => 'ASC',
+					)
+				);
 
 				foreach ( $terms as $term ) {
 					$options[] = array(
-						'name' => $term->name,
+						'name'  => $term->name,
 						'value' => $term->name,
 					);
 				}
 
 				$options[] = array(
-					'name' => __( 'Show All', 'webwork' ),
+					'name'  => __( 'Show All', 'webwork' ),
 					'value' => '',
 				);
-			break;
+				break;
 		}
 
 		// Custom sort for sections.
@@ -209,35 +214,41 @@ class Query {
 				$semesters[ $semester ][] = $option;
 			}
 
-			uksort( $semesters, function( $a, $b ) {
-				$term_a = substr( $a, 0, 1 );
-				$term_b = substr( $b, 0, 1 );
+			uksort(
+				$semesters,
+				function( $a, $b ) {
+					$term_a = substr( $a, 0, 1 );
+					$term_b = substr( $b, 0, 1 );
 
-				$year_a = substr( $a, 1 );
-				$year_b = substr( $b, 1 );
+					$year_a = substr( $a, 1 );
+					$year_b = substr( $b, 1 );
 
-				if ( $year_a === $year_b ) {
-					if ( 'F' === $a ) {
-						return 1;
+					if ( $year_a === $year_b ) {
+						if ( 'F' === $a ) {
+							return 1;
+						} else {
+							return -1;
+						}
 					} else {
-						return -1;
+						return $year_a < $year_b ? 1 : -1;
 					}
-				} else {
-					return $year_a < $year_b ? 1 : -1;
-				}
 
-				return 0;
-			} );
+					return 0;
+				}
+			);
 
 			$options = array();
 			foreach ( $semesters as &$sections ) {
-				usort( $sections, function( $a, $b ) {
-					if ( $a['name'] === $b['name'] ) {
-						return 0;
-					}
+				usort(
+					$sections,
+					function( $a, $b ) {
+						if ( $a['name'] === $b['name'] ) {
+							return 0;
+						}
 
-					return $a['name'] > $b['name'] ? 1 : -1;
-				} );
+						return $a['name'] > $b['name'] ? 1 : -1;
+					}
+				);
 
 				$options = array_merge( $options, $sections );
 			}

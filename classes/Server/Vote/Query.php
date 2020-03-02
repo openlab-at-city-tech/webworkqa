@@ -11,12 +11,15 @@ class Query {
 	protected $r;
 
 	public function __construct( $args ) {
-		$this->r = array_merge( array(
-			'item_id' => null,
-			'item_id__in' => null,
-			'user_id' => null,
-			'user_id__not_in' => null,
-		), $args );
+		$this->r = array_merge(
+			array(
+				'item_id'         => null,
+				'item_id__in'     => null,
+				'user_id'         => null,
+				'user_id__not_in' => null,
+			),
+			$args
+		);
 	}
 
 	/**
@@ -32,7 +35,7 @@ class Query {
 		$fields = 'count' === $type ? 'COUNT(*)' : '*';
 
 		// todo
-		$root_blog = 1;
+		$root_blog  = 1;
 		$table_name = $wpdb->get_blog_prefix( $root_blog ) . 'webwork_votes';
 
 		$sql = "SELECT $fields FROM $table_name";
@@ -40,11 +43,11 @@ class Query {
 		$where = array();
 
 		if ( null !== $this->r['user_id'] ) {
-			$where[] = $wpdb->prepare( "user_id = %d", $this->r['user_id'] );
+			$where[] = $wpdb->prepare( 'user_id = %d', $this->r['user_id'] );
 		}
 
 		if ( null !== $this->r['item_id'] ) {
-			$where[] = $wpdb->prepare( "item_id = %d", $this->r['item_id'] );
+			$where[] = $wpdb->prepare( 'item_id = %d', $this->r['item_id'] );
 		} elseif ( is_array( $this->r['item_id__in'] ) ) {
 			if ( empty( $this->r['item_id__in'] ) ) {
 				$item_id__in = 0;
@@ -57,7 +60,7 @@ class Query {
 
 		if ( is_array( $this->r['user_id__not_in'] ) ) {
 			$user_id__not_in = implode( ',', array_map( 'intval', $this->r['user_id__not_in'] ) );
-			$where[] = "user_id NOT IN ({$user_id__not_in})";
+			$where[]         = "user_id NOT IN ({$user_id__not_in})";
 		}
 
 		if ( $where ) {

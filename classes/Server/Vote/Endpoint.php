@@ -10,25 +10,29 @@ class Endpoint extends \WP_Rest_Controller {
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
-		$version = '1';
+		$version   = '1';
 		$namespace = 'webwork/v' . $version;
 
 		$base = 'votes';
 
-		register_rest_route( $namespace, '/' . $base, array(
+		register_rest_route(
+			$namespace,
+			'/' . $base,
 			array(
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args' => $this->get_collection_params(),
-			),
-			array(
-				'methods'         => \WP_REST_Server::CREATABLE,
-				'callback'        => array( $this, 'create_item' ),
-				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::CREATABLE ),
-			),
-		) );
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_items' ),
+					'permission_callback' => array( $this, 'get_items_permissions_check' ),
+					'args'                => $this->get_collection_params(),
+				),
+				array(
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'create_item' ),
+					'permission_callback' => array( $this, 'create_item_permissions_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::CREATABLE ),
+				),
+			)
+		);
 	}
 
 	/**
@@ -50,7 +54,7 @@ class Endpoint extends \WP_Rest_Controller {
 				'type'              => 'integer',
 				'sanitize_callback' => 'intval',
 			),
-			'type' => array(
+			'type'    => array(
 				'description'       => 'Vote return type ("count" or "object")',
 				'type'              => 'string',
 				'sanitize_callback' => 'sanitize_text_field',
@@ -77,13 +81,13 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$item = null;
 		switch ( $params['item_type'] ) {
-			case 'question' :
+			case 'question':
 				$item = new \WeBWorK\Server\Question( $item_id );
-			break;
+				break;
 
-			case 'response' :
+			case 'response':
 				$item = new \WeBWorK\Server\Response( $item_id );
-			break;
+				break;
 		}
 
 		$vote = new \WeBWorK\Server\Vote();
@@ -122,7 +126,7 @@ class Endpoint extends \WP_Rest_Controller {
 	public function get_item_schema() {
 		$schema = array(
 			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'type' => 'object',
+			'type'       => 'object',
 			'properties' => array(
 				'user_id' => array(
 					'type' => 'integer',
@@ -130,11 +134,11 @@ class Endpoint extends \WP_Rest_Controller {
 				'item_id' => array(
 					'type' => 'integer',
 				),
-				'value' => array(
+				'value'   => array(
 					'type' => 'string',
 				),
 			),
-			'required' => array(
+			'required'   => array(
 				'item_id',
 				'value',
 			),

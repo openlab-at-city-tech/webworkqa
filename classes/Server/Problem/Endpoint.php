@@ -10,19 +10,23 @@ class Endpoint extends \WP_Rest_Controller {
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
-		$version = '1';
+		$version   = '1';
 		$namespace = 'webwork/v' . $version;
 
 		$base = 'problems';
 
-		register_rest_route( $namespace, '/' . $base . '/?', array(
+		register_rest_route(
+			$namespace,
+			'/' . $base . '/?',
 			array(
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_item' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::READABLE ),
-			),
-		) );
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_item' ),
+					'permission_callback' => array( $this, 'get_items_permissions_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::READABLE ),
+				),
+			)
+		);
 	}
 
 	public function get_item( $request ) {
@@ -36,17 +40,19 @@ class Endpoint extends \WP_Rest_Controller {
 			$post_data = get_option( $params['post_data_key'] );
 		}
 
-		$question_query = new \WeBWork\Server\Question\Query( array(
-			'problem_id' => $problem_id,
-			'orderby' => $params['orderby'],
-			'order' => 'DESC',
-			'max_results' => -1,
-		) );
-		$questions = $question_query->get_for_endpoint();
+		$question_query = new \WeBWork\Server\Question\Query(
+			array(
+				'problem_id'  => $problem_id,
+				'orderby'     => $params['orderby'],
+				'order'       => 'DESC',
+				'max_results' => -1,
+			)
+		);
+		$questions      = $question_query->get_for_endpoint();
 
 		$attachment_ids = array();
 		foreach ( $question_query->get() as $question ) {
-			$q_att_ids = $question->get_attachment_ids();
+			$q_att_ids      = $question->get_attachment_ids();
 			$attachment_ids = array_merge( $q_att_ids, $attachment_ids );
 		}
 
@@ -60,11 +66,11 @@ class Endpoint extends \WP_Rest_Controller {
 			$text = $pf->replace_latex_escape_characters( $text );
 
 			$problem = array(
-				'problemId' => $problem_id,
-				'libraryId' => $problem_id,
-				'content' => $text,
+				'problemId'         => $problem_id,
+				'libraryId'         => $problem_id,
+				'content'           => $text,
 				'contentSwappedUrl' => '',
-				'problemSet' => $post_data['problem_set'],
+				'problemSet'        => $post_data['problem_set'],
 			);
 		} else {
 			/**
@@ -83,22 +89,22 @@ class Endpoint extends \WP_Rest_Controller {
 
 			if ( $my_question && ! empty( $my_question['problemText'] ) ) {
 				$the_question = $my_question;
-				$problem = array(
-					'problemId' => $problem_id,
-					'libraryId' => $problem_id,
-					'content' => $my_question['problemText'],
+				$problem      = array(
+					'problemId'         => $problem_id,
+					'libraryId'         => $problem_id,
+					'content'           => $my_question['problemText'],
 					'contentSwappedUrl' => '',
-					'problemSet' => $my_question['problemSet'],
+					'problemSet'        => $my_question['problemSet'],
 				);
 			} elseif ( ! empty( $questions ) ) {
 				// Just use the first one created.
 				$the_question = end( $questions );
-				$problem = array(
-					'problemId' => $problem_id,
-					'libraryId' => $problem_id,
-					'content' => $the_question['problemText'],
+				$problem      = array(
+					'problemId'         => $problem_id,
+					'libraryId'         => $problem_id,
+					'content'           => $the_question['problemText'],
 					'contentSwappedUrl' => '',
-					'problemSet' => $the_question['problemSet'],
+					'problemSet'        => $the_question['problemSet'],
 				);
 			} else {
 				$problem = null;
@@ -110,15 +116,15 @@ class Endpoint extends \WP_Rest_Controller {
 		 * to swap with a question that does *not*.
 		 */
 		if ( $the_question ) {
-			$swap_text = $swap_url = null;
+			$swap_text      = $swap_url = null;
 			$the_question_o = new \WeBWoRK\Server\Question( $the_question['questionId'] );
 			if ( $the_question_o->has_external_assets() ) {
 				foreach ( $questions as $question ) {
 					$question_o = new \WeBWoRK\Server\Question( $question['questionId'] );
 					if ( ! $question_o->has_external_assets() ) {
-						$swap_url = $question_o->get_url( $client_url );
-						$swap_text = $question_o->get_problem_text();
-						$problem['content'] = $swap_text;
+						$swap_url                     = $question_o->get_url( $client_url );
+						$swap_text                    = $question_o->get_problem_text();
+						$problem['content']           = $swap_text;
 						$problem['contentSwappedUrl'] = $swap_url;
 					}
 				}
@@ -127,34 +133,38 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$questions_by_id = array_keys( $questions );
 
-		$response_query = new \WeBWork\Server\Response\Query( array(
-			'question_id__in' => $questions_by_id,
-		) );
-		$responses = $response_query->get_for_endpoint();
+		$response_query = new \WeBWork\Server\Response\Query(
+			array(
+				'question_id__in' => $questions_by_id,
+			)
+		);
+		$responses      = $response_query->get_for_endpoint();
 
 		$response_id_map = array();
-		$response_ids = $questions_by_id;
+		$response_ids    = $questions_by_id;
 		foreach ( $responses as $response ) {
-			$r_question_id = $response['questionId'];
+			$r_question_id                       = $response['questionId'];
 			$response_id_map[ $r_question_id ][] = $response['responseId'];
-			$response_ids[] = $response['responseId'];
+			$response_ids[]                      = $response['responseId'];
 		}
 
 		foreach ( $response_query->get() as $response ) {
-			$r_att_ids = $response->get_attachment_ids();
+			$r_att_ids      = $response->get_attachment_ids();
 			$attachment_ids = array_merge( $r_att_ids, $attachment_ids );
 		}
 
 		// todo find a better way to do this
 		$scores = array();
 		foreach ( $response_ids as $qid ) {
-			$vq = new \WeBWork\Server\Vote\Query( array(
-				'item_id' => $qid,
-				'user_id__not_in' => array( get_current_user_id() ),
-			) );
+			$vq = new \WeBWork\Server\Vote\Query(
+				array(
+					'item_id'         => $qid,
+					'user_id__not_in' => array( get_current_user_id() ),
+				)
+			);
 
 			$q_votes = $vq->get();
-			$score = 0;
+			$score   = 0;
 			foreach ( $q_votes as $q_vote ) {
 				$score += $q_vote->value;
 			}
@@ -162,11 +172,13 @@ class Endpoint extends \WP_Rest_Controller {
 			$scores[ $qid ] = $score;
 		}
 
-		$vote_query = new \WeBWork\Server\Vote\Query( array(
-			'user_id' => get_current_user_id(),
-			'item_id__in' => array_merge( $questions_by_id, $response_ids ),
-		) );
-		$vote_data = $vote_query->get();
+		$vote_query = new \WeBWork\Server\Vote\Query(
+			array(
+				'user_id'     => get_current_user_id(),
+				'item_id__in' => array_merge( $questions_by_id, $response_ids ),
+			)
+		);
+		$vote_data  = $vote_query->get();
 
 		$votes = array();
 		foreach ( $vote_data as $vote ) {
@@ -184,19 +196,19 @@ class Endpoint extends \WP_Rest_Controller {
 			$problems[ $problem_id ] = $problem;
 		}
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf          = new \WeBWorK\Server\Util\ProblemFormatter();
 		$attachments = $pf->get_attachment_data( $attachment_ids );
 
 		$data = array(
-			'attachments' => $attachments,
+			'attachments'   => $attachments,
 			'filterOptions' => $question_query->get_all_filter_options(),
-			'problems' => $problems,
-			'questions' => $questions,
+			'problems'      => $problems,
+			'questions'     => $questions,
 			'questionsById' => $questions_by_id,
 			'responseIdMap' => $response_id_map,
-			'responses' => $responses,
-			'scores' => $scores,
-			'votes' => $votes,
+			'responses'     => $responses,
+			'scores'        => $scores,
+			'votes'         => $votes,
 		);
 
 		return $data;
@@ -225,8 +237,8 @@ class Endpoint extends \WP_Rest_Controller {
 		$params = $request->get_params();
 
 		$problem_id = $params['problem_id'];
-		$content = $params['content'];
-		$tried = $params['tried'];
+		$content    = $params['content'];
+		$tried      = $params['tried'];
 
 		$question = new \WeBWorK\Server\Question();
 
@@ -237,11 +249,11 @@ class Endpoint extends \WP_Rest_Controller {
 
 		if ( $question->save() ) {
 			$retval = array(
-				'questionId' => $question->get_id(),
-				'content' => $question->get_content(),
-				'tried' => $question->get_tried(),
+				'questionId'   => $question->get_id(),
+				'content'      => $question->get_content(),
+				'tried'        => $question->get_tried(),
 				'authorAvatar' => $question->get_author_avatar(),
-				'authorName' => $question->get_author_name(),
+				'authorName'   => $question->get_author_name(),
 			);
 
 			$r = rest_ensure_response( $retval );
@@ -295,8 +307,8 @@ class Endpoint extends \WP_Rest_Controller {
 	// @todo here and Response
 	public function get_item_schema() {
 		$schema = array(
-			'$schema' => 'http://json-schema.org/draft-04/schema#',
-			'type' => 'object',
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'type'       => 'object',
 			'properties' => array(
 				'is_answer' => array(
 					'type' => 'boolean',

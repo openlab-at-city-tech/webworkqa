@@ -6,7 +6,7 @@ namespace WeBWorK\Server\Util;
  * Problem formatting utilities.
  */
 class ProblemFormatter {
-	protected $mathjax_delim_regex = '|(<script type="math/tex([^"]*)">)(.*?)(</script>)|s';
+	protected $mathjax_delim_regex        = '|(<script type="math/tex([^"]*)">)(.*?)(</script>)|s';
 	protected $attachment_shortcode_regex = '|\[attachment id="([^"]+)"\]|';
 
 	/**
@@ -15,21 +15,21 @@ class ProblemFormatter {
 	 * Some content types may be more permissive.
 	 */
 	protected $allowed_tags = array(
-		'a' => array(
+		'a'      => array(
 			'href' => true,
 		),
-		'b' => array(),
-		'em' => array(),
-		'br' => array(),
-		'i' => array(),
+		'b'      => array(),
+		'em'     => array(),
+		'br'     => array(),
+		'i'      => array(),
 		'strong' => array(),
 	);
 
 	public function clean( $text ) {
 		$parsed = $this->strip_inputs( $text );
 		$parsed = $this->convert_delims( $parsed );
-//		$parsed = $this->replace_latex_escape_characters( $parsed );
-//		$parsed = $this->generate_placeholders( $parsed );
+		//      $parsed = $this->replace_latex_escape_characters( $parsed );
+		//      $parsed = $this->generate_placeholders( $parsed );
 		$parsed = $this->remove_script_tags( $parsed );
 		$parsed = str_replace( '<span class="MathJax_Preview">[math]</span>', '', $parsed );
 
@@ -101,16 +101,16 @@ class ProblemFormatter {
 		if ( 'extended' === $allowed_html_set ) {
 			// Positioning.
 			$allowed_tags['center'] = array();
-			$allowed_tags['div'] = array(
+			$allowed_tags['div']    = array(
 				'class' => true,
-				'id' => true,
+				'id'    => true,
 				'style' => true,
 			);
 
 			// Headers.
 			$allowed_tags['h3'] = array(
 				'class' => true,
-				'id' => true,
+				'id'    => true,
 			);
 
 			// Lists.
@@ -119,15 +119,15 @@ class ProblemFormatter {
 			$allowed_tags['ul'] = array();
 
 			// Tables.
-			$allowed_tags['table'] = array(
+			$allowed_tags['table']   = array(
 				'border' => true,
-				'style' => true,
+				'style'  => true,
 			);
-			$allowed_tags['thead'] = array();
-			$allowed_tags['tbody'] = array();
-			$allowed_tags['tr'] = array();
-			$allowed_tags['th'] = array();
-			$allowed_tags['td'] = array();
+			$allowed_tags['thead']   = array();
+			$allowed_tags['tbody']   = array();
+			$allowed_tags['tr']      = array();
+			$allowed_tags['th']      = array();
+			$allowed_tags['td']      = array();
 			$allowed_tags['section'] = array(
 				'style' => true,
 			);
@@ -164,7 +164,7 @@ class ProblemFormatter {
 		//libxml_use_internal_errors( false );
 		libxml_clear_errors();
 
-		$divs = $d->getElementsByTagName( 'div' );
+		$divs    = $d->getElementsByTagName( 'div' );
 		$changed = false;
 		foreach ( $divs as $div ) {
 			if ( $div->hasChildNodes() ) {
@@ -214,7 +214,7 @@ class ProblemFormatter {
 	public function generate_placeholders( $text ) {
 		$clean_text = $text;
 
-		$retval = $this->generate_placeholders_for_maths( $text );
+		$retval     = $this->generate_placeholders_for_maths( $text );
 		$clean_text = $retval['text'];
 
 		$retval['text'] = $clean_text;
@@ -224,7 +224,7 @@ class ProblemFormatter {
 
 	public function generate_placeholders_for_maths( $text ) {
 		$retval = array(
-			'text' => '',
+			'text'  => '',
 			'maths' => array(),
 		);
 
@@ -252,7 +252,7 @@ class ProblemFormatter {
 
 				$retval['maths'][ $key ] = array(
 					// May be slashed.
-					'math' => str_replace( '\\\\', '\\', $matches_unwrapped[ $key ] ),
+					'math'    => str_replace( '\\\\', '\\', $matches_unwrapped[ $key ] ),
 					'display' => $display,
 				);
 			}
@@ -266,69 +266,85 @@ class ProblemFormatter {
 	public function convert_delims( $text ) {
 		// \begin{math} etc
 		$regex = ';\\\\begin\{(math|displaymath)\}(.*?)\\\\end\{\1\};s';
-		$text = preg_replace_callback( $regex, function( $matches ) {
-			if ( 'displaymath' === $matches[1] ) {
-				$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
-				$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
-			} else {
-				$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
-				$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
-			}
+		$text  = preg_replace_callback(
+			$regex,
+			function( $matches ) {
+				if ( 'displaymath' === $matches[1] ) {
+					$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
+					$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+				} else {
+					$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
+					$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
+				}
 
-			return sprintf(
-				'%s%s%s',
-				$odelim,
-				$matches[2],
-				$cdelim
-			);
-		}, $text );
+				return sprintf(
+					'%s%s%s',
+					$odelim,
+					$matches[2],
+					$cdelim
+				);
+			},
+			$text
+		);
 
 		// <script type="math/jax">
 		$regex = $this->mathjax_delim_regex;
-		$text = preg_replace_callback( $regex, function( $matches ) {
-			if ( false !== strpos( $matches[2], 'mode=display' ) ) {
-				$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
-				$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
-			} else {
-				$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
-				$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
-			}
+		$text  = preg_replace_callback(
+			$regex,
+			function( $matches ) {
+				if ( false !== strpos( $matches[2], 'mode=display' ) ) {
+					$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
+					$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+				} else {
+					$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
+					$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
+				}
 
-			return sprintf(
-				'%s%s%s',
-				$odelim,
-				$matches[3],
-				$cdelim
-			);
-		}, $text );
+				return sprintf(
+					'%s%s%s',
+					$odelim,
+					$matches[3],
+					$cdelim
+				);
+			},
+			$text
+		);
 
 		$regex = ';\$latex([^\$]+)\$;s';
-		$text = preg_replace_callback( $regex, function( $matches ) {
-			if ( false !== strpos( $matches[1], "\n" ) ) {
-				$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
-				$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
-			} else {
-				$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
-				$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
-			}
+		$text  = preg_replace_callback(
+			$regex,
+			function( $matches ) {
+				if ( false !== strpos( $matches[1], "\n" ) ) {
+					$odelim = '{{{LATEX_DELIM_DISPLAY_OPEN}}}';
+					$cdelim = '{{{LATEX_DELIM_DISPLAY_CLOSE}}}';
+				} else {
+					$odelim = '{{{LATEX_DELIM_INLINE_OPEN}}}';
+					$cdelim = '{{{LATEX_DELIM_INLINE_CLOSE}}}';
+				}
 
-			return sprintf(
-				'%s%s%s',
-				$odelim,
-				$matches[1],
-				$cdelim
-			);
-		}, $text );
+				return sprintf(
+					'%s%s%s',
+					$odelim,
+					$matches[1],
+					$cdelim
+				);
+			},
+			$text
+		);
 
 		return $text;
 	}
 
 	public function swap_latex_escape_characters( $text ) {
 		$regex = ';(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})(.*?)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\});s';
-		$text = preg_replace_callback( $regex, function( $matches ) {
-			$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[3] );
-			return $matches[1] . $tex . $matches[4];
-		}, $text );
+		$text  = preg_replace_callback(
+			$regex,
+			function( $matches ) {
+				$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[3] );
+				return $matches[1] . $tex . $matches[4];
+			},
+			$text
+		);
 
 		return $text;
 	}
@@ -373,7 +389,7 @@ class ProblemFormatter {
 		if ( $library_id ) {
 			// Any tags that contain nothing but the ID should be stripped too.
 			$regex = '|(<[^>]+>)*' . preg_quote( $library_id ) . '(</[a-zA-Z0-9]+>)*|';
-			$text = preg_replace( $regex, '', $text );
+			$text  = preg_replace( $regex, '', $text );
 		}
 
 		return $text;
@@ -396,15 +412,15 @@ class ProblemFormatter {
 		$parts = explode( "\r\n", $text );
 
 		$new_parts = array();
-		$emp = true;
+		$emp       = true;
 		foreach ( $parts as $key => $line ) {
 			$line = trim( $line );
 
 			if ( $line ) {
-				$emp = false;
+				$emp         = false;
 				$new_parts[] = $line;
 			} elseif ( ! $emp ) {
-				$emp = true;
+				$emp         = true;
 				$new_parts[] = $line;
 			}
 		}
@@ -417,7 +433,7 @@ class ProblemFormatter {
 	 */
 	public function strip_knowls( $text ) {
 		$regex = '|<a [^>]+ knowl ?=[^>]+>.*?</a>|';
-		$text = preg_replace( $regex, '', $text );
+		$text  = preg_replace( $regex, '', $text );
 
 		return $text;
 	}
@@ -427,7 +443,7 @@ class ProblemFormatter {
 	 */
 	public function convert_anchors( $text ) {
 		$regex = '|<a [^>]+>(.*?)</a>|';
-		$text = preg_replace( $regex, '\1', $text );
+		$text  = preg_replace( $regex, '\1', $text );
 		return $text;
 	}
 
@@ -439,10 +455,14 @@ class ProblemFormatter {
 		$parts = parse_url( $course_url );
 
 		$regex = '/((?:href)|(?:src))\s*=\s*([\'"])\//i';
-		$text = preg_replace_callback( $regex, function( $matches ) use ( $parts ) {
-			$replace = strtolower( $matches[1] ) . '=' . $matches[2] . $parts['scheme'] . '://' . $parts['host'] . '/';
-			return $replace;
-		}, $text );
+		$text  = preg_replace_callback(
+			$regex,
+			function( $matches ) use ( $parts ) {
+				$replace = strtolower( $matches[1] ) . '=' . $matches[2] . $parts['scheme'] . '://' . $parts['host'] . '/';
+				return $replace;
+			},
+			$text
+		);
 
 		return $text;
 	}
@@ -469,12 +489,12 @@ class ProblemFormatter {
 
 			// See reducers/attachments.js
 			$att_data = array(
-				'id' => $id,
-				'caption' => $raw_att_data['caption'],
+				'id'       => $id,
+				'caption'  => $raw_att_data['caption'],
 				'filename' => $raw_att_data['filename'],
-				'urlFull' => $raw_att_data['sizes']['full']['url'],
-				'title' => $raw_att_data['title'],
-				'width' => $raw_att_data['width'],
+				'urlFull'  => $raw_att_data['sizes']['full']['url'],
+				'title'    => $raw_att_data['title'],
+				'width'    => $raw_att_data['width'],
 			);
 
 			$url_thumb = $raw_att_data['sizes']['full']['url'];

@@ -22,7 +22,7 @@ class Command {
 
 		$post = get_post( $item_id );
 
-		if ( ! $post || ! in_array( $post->post_type, [ 'webwork_question', 'webwork_response' ] ) ) {
+		if ( ! $post || ! in_array( $post->post_type, array( 'webwork_question', 'webwork_response' ) ) ) {
 			WP_CLI::error( 'No WeBWorK question or response found by that ID.' );
 		}
 

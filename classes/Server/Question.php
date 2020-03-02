@@ -268,15 +268,17 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	 * @param $force_query Whether to skip metadata cache. Default false.
 	 * @return bool
 	 */
-	public function get_has_answer( $force_query = false) {
+	public function get_has_answer( $force_query = false ) {
 		$question_id = $this->get_id();
-		$has_answer = get_post_meta( $question_id, 'webwork_has_answer', true );
+		$has_answer  = get_post_meta( $question_id, 'webwork_has_answer', true );
 		if ( $force_query || '' === $has_answer ) {
-			$response_query = new Response\Query( array(
-				'question_id__in' => array( $question_id ),
-				'is_answer' => true,
-			) );
-			$responses = $response_query->get();
+			$response_query = new Response\Query(
+				array(
+					'question_id__in' => array( $question_id ),
+					'is_answer'       => true,
+				)
+			);
+			$responses      = $response_query->get();
 
 			$has_answer = ! empty( $responses );
 			update_post_meta( $question_id, 'webwork_has_answer', (int) $has_answer );
@@ -295,12 +297,14 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	 */
 	public function get_response_count( $force_query = false ) {
 		$question_id = $this->get_id();
-		$count = get_post_meta( $question_id, 'webwork_response_count', true );
+		$count       = get_post_meta( $question_id, 'webwork_response_count', true );
 		if ( $force_query || '' === $count ) {
-			$response_query = new Response\Query( array(
-				'question_id__in' => array( $question_id ),
-			) );
-			$responses = $response_query->get();
+			$response_query = new Response\Query(
+				array(
+					'question_id__in' => array( $question_id ),
+				)
+			);
+			$responses      = $response_query->get();
 
 			$count = count( $responses );
 			update_post_meta( $question_id, 'webwork_response_count', $count );
@@ -336,7 +340,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			$instructor_map = apply_filters( 'webwork_section_instructor_map', array() );
 			if ( isset( $instructor_map[ $section ] ) ) {
-				$emails = [ $instructor_map[ $section ] ];
+				$emails = array( $instructor_map[ $section ] );
 			}
 		}
 
@@ -350,7 +354,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	 */
 	public function get_attachment_ids() {
 		$content_ids = $this->pf->get_attachment_ids( $this->get_content() );
-		$tried_ids = $this->pf->get_attachment_ids( $this->get_tried() );
+		$tried_ids   = $this->pf->get_attachment_ids( $this->get_tried() );
 		return array_unique( array_merge( $content_ids, $tried_ids ) );
 	}
 
@@ -491,10 +495,10 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	 */
 	protected function send_notification_to_instructor() {
 		$instructor_emails = $this->get_instructor_emails();
-		$section = $this->get_section();
+		$section           = $this->get_section();
 
 		$question_author_id = $this->get_author_id();
-		$question_author = new \WP_User( $question_author_id );
+		$question_author    = new \WP_User( $question_author_id );
 		if ( ! $question_author->exists() ) {
 			return;
 		}
@@ -517,11 +521,14 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 			if ( $remote_url ) {
 				$message = sprintf(
-					__( '%1$s has posted a question in your course %2$s.
+					__(
+						'%1$s has posted a question in your course %2$s.
 
 To read and reply to the question, visit %3$s.
 
-To view the student\'s work on this question in WeBWorK, visit %4$s.', 'webwork' ),
+To view the student\'s work on this question in WeBWorK, visit %4$s.',
+						'webwork'
+					),
 					$question_author->display_name,
 					$section,
 					$link_url,
@@ -529,9 +536,12 @@ To view the student\'s work on this question in WeBWorK, visit %4$s.', 'webwork'
 				);
 			} else {
 				$message = sprintf(
-					__( '%1$s has posted a question in your course %2$s.
+					__(
+						'%1$s has posted a question in your course %2$s.
 
-To read and reply, visit %3$s.', 'webwork' ),
+To read and reply, visit %3$s.',
+						'webwork'
+					),
 					$question_author->display_name,
 					$section,
 					$link_url
@@ -545,7 +555,7 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 	public function set_subscription( $user_id, $status ) {
 		$tax_slug = 'user_' . $user_id;
-		$item_id = $this->get_id();
+		$item_id  = $this->get_id();
 
 		$subscribed = wp_get_object_terms( $item_id, 'webwork_subscribed_by' );
 
@@ -563,9 +573,13 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 		$term = get_term_by( 'slug', $tax_slug, 'webwork_subscribed_by' );
 		if ( ! $term || is_wp_error( $term ) ) {
-			$created = wp_insert_term( $tax_slug, 'webwork_subscribed_by', array(
-				'slug' => $tax_slug,
-			) );
+			$created = wp_insert_term(
+				$tax_slug,
+				'webwork_subscribed_by',
+				array(
+					'slug' => $tax_slug,
+				)
+			);
 
 			if ( is_wp_error( $term ) ) {
 				return false;
@@ -600,7 +614,7 @@ To read and reply, visit %3$s.', 'webwork' ),
 		$d->loadHTML( $this->get_problem_text() );
 		libxml_clear_errors();
 
-		$imgs = $d->getElementsByTagName( 'img' );
+		$imgs                = $d->getElementsByTagName( 'img' );
 		$has_external_assets = false;
 		foreach ( $imgs as $img ) {
 			$src = $img->getAttribute( 'src' );
@@ -634,7 +648,7 @@ To read and reply, visit %3$s.', 'webwork' ),
 		$d = new \DOMDocument();
 		$d->loadHTML( $text );
 
-		$imgs = $d->getElementsByTagName( 'img' );
+		$imgs    = $d->getElementsByTagName( 'img' );
 		$fetched = array();
 		foreach ( $imgs as $img ) {
 			$src = $img->getAttribute( 'src' );
@@ -651,7 +665,7 @@ To read and reply, visit %3$s.', 'webwork' ),
 			// Only fetch if we haven't already done it.
 			if ( ! isset( $fetched[ $src ] ) ) {
 				if ( ! function_exists( 'download_url' ) ) {
-					require_once( ABSPATH . 'wp-admin/includes/file.php' );
+					require_once ABSPATH . 'wp-admin/includes/file.php';
 				}
 
 				$tmp = download_url( $src );
@@ -661,7 +675,7 @@ To read and reply, visit %3$s.', 'webwork' ),
 
 				$file_array = array(
 					'tmp_name' => $tmp,
-					'name' => basename( $src ),
+					'name'     => basename( $src ),
 				);
 
 				$overrides = array(

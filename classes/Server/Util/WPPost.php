@@ -23,7 +23,7 @@ class WPPost {
 	 * @param \WeBWorK\Server\Util\SaveableAsWPPost
 	 */
 	public function __construct( SaveableAsWPPost $c ) {
-		$this->c = $c;
+		$this->c  = $c;
 		$this->pf = new ProblemFormatter();
 	}
 
@@ -40,7 +40,7 @@ class WPPost {
 	 */
 	public function save() {
 		$args = array(
-			'post_type' => $this->post_type,
+			'post_type'   => $this->post_type,
 			'post_status' => 'publish',
 		);
 
@@ -49,9 +49,9 @@ class WPPost {
 		}
 
 		// WP will gobble up LaTeX escape characters.
-		$content = $this->c->get_content();
-		$content = $this->pf->convert_delims( $content );
-		$content = $this->pf->swap_latex_escape_characters( $content );
+		$content              = $this->c->get_content();
+		$content              = $this->pf->convert_delims( $content );
+		$content              = $this->pf->swap_latex_escape_characters( $content );
 		$args['post_content'] = $content;
 
 		$args['post_author'] = $this->c->get_author_id();
@@ -108,9 +108,12 @@ class WPPost {
 	}
 
 	public function get_author_avatar() {
-		return get_avatar_url( $this->c->get_author_id(), array(
-			'size' => 80,
-		) );
+		return get_avatar_url(
+			$this->c->get_author_id(),
+			array(
+				'size' => 80,
+			)
+		);
 	}
 
 	public function get_author_name() {
@@ -129,9 +132,11 @@ class WPPost {
 
 		$vote_count = get_post_meta( $item_id, 'webwork_vote_count', true );
 		if ( $force_query || '' === $vote_count ) {
-			$vote_query = new \WeBWorK\Server\Vote\Query( array(
-				'item_id' => $item_id,
-			) );
+			$vote_query = new \WeBWorK\Server\Vote\Query(
+				array(
+					'item_id' => $item_id,
+				)
+			);
 
 			$vote_count = $vote_query->get( 'count' );
 			update_post_meta( $item_id, 'webwork_vote_count', $vote_count );

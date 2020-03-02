@@ -51,14 +51,14 @@ class Server {
 		// Mods to default WP behavior to account for uploads.
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
 		add_filter( 'ajax_query_attachments_args', array( $this, 'filter_uploads_query_args' ) );
-//		add_action( 'wp_prepare_attachment_for_js', array( $this
+		//      add_action( 'wp_prepare_attachment_for_js', array( $this
 	}
 
 	private function check_table() {
 		global $wpdb;
 
 		$table_prefix = $wpdb->get_blog_prefix( 1 );
-		$show = $wpdb->get_var( "SHOW TABLES LIKE '{$table_prefix}'" );
+		$show         = $wpdb->get_var( "SHOW TABLES LIKE '{$table_prefix}'" );
 		if ( ! $show ) {
 			$schema = $this->schema->get_votes_schema();
 
@@ -107,7 +107,7 @@ class Server {
 			}
 
 			if ( $this->webwork_user ) {
-				$key = $this->get_post_data_option_key();
+				$key       = $this->get_post_data_option_key();
 				$post_data = get_option( $key );
 
 				if ( $post_data ) {
@@ -123,7 +123,7 @@ class Server {
 		$this->store_post_data();
 
 		$ww_client_site_base = $this->get_client_site_base();
-		$redirect_to = $ww_client_site_base;
+		$redirect_to         = $ww_client_site_base;
 
 		$problem_slug = $post_data['problem_id'];
 		if ( $problem_slug ) {
@@ -165,10 +165,10 @@ class Server {
 
 		$url_parts = $this->sanitize_class_url( $remote_problem_url );
 
-		$data['remote_course_url'] = $url_parts['base'];
+		$data['remote_course_url']  = $url_parts['base'];
 		$data['remote_problem_url'] = remove_query_arg( array( 'user', 'effectiveUser', 'key' ), $remote_problem_url );
-		$data['course'] = $url_parts['course'];
-		$data['section'] = $url_parts['section'];
+		$data['course']             = $url_parts['course'];
+		$data['section']            = $url_parts['section'];
 
 		$data['webwork_user'] = $_POST['user'];
 
@@ -178,7 +178,7 @@ class Server {
 		// Do not unslash. wp_insert_post() expects slashed. A nightmare.
 		$text = base64_decode( $raw_text );
 
-		$pf = new Server\Util\ProblemFormatter();
+		$pf   = new Server\Util\ProblemFormatter();
 		$text = $pf->clean_problem_from_webwork( $text, $data );
 
 		if ( isset( $_POST['problemPath'] ) ) {
@@ -220,31 +220,31 @@ class Server {
 		$this->remote_referer_url = $parts['scheme'] . '://' . $parts['host'] . $parts['path'];
 
 		if ( $subpath && false !== strpos( $parts['path'], $subpath ) ) {
-			$pos = strpos( $parts['path'], $subpath );
+			$pos  = strpos( $parts['path'], $subpath );
 			$base = substr( $parts['path'], 0, $pos );
 		} else {
 			$base = $parts['path'];
 		}
 
-		$course = $section = '';
+		$course     = $section = '';
 		$base_parts = explode( '/', trim( $base ) );
 		$base_parts = array_filter( $base_parts );
 		if ( $base_parts ) {
 			$section = end( $base_parts );
 
 			$section_parts = explode( '-', $section );
-			$course = reset( $section_parts );
+			$course        = reset( $section_parts );
 		}
 
 		$base = trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $base );
 
 		$retval = array(
-			'base' => $base,
+			'base'          => $base,
 			'effectiveUser' => '',
-			'user' => '',
-			'key' => '',
-			'course' => $course,
-			'section' => $section,
+			'user'          => '',
+			'key'           => '',
+			'course'        => $course,
+			'section'       => $section,
 		);
 
 		if ( ! empty( $parts['query'] ) ) {
@@ -265,9 +265,9 @@ class Server {
 	 * @param string $remote_class_url
 	 */
 	public function set_remote_class_url( $remote_class_url ) {
-		$url_parts = $this->sanitize_class_url( $remote_class_url );
+		$url_parts              = $this->sanitize_class_url( $remote_class_url );
 		$this->remote_class_url = $url_parts['base'];
-		$this->webwork_user = $url_parts['user'];
+		$this->webwork_user     = $url_parts['user'];
 	}
 
 	protected function get_client_from_course_url( $course_url ) {
@@ -364,14 +364,14 @@ class Server {
 
 		$can = false;
 		switch ( $cap ) {
-			case 'upload_files' :
+			case 'upload_files':
 				$can = true;
-			break;
+				break;
 
-			case 'edit_post' :
+			case 'edit_post':
 				$post = get_post( $args[0] );
-				$can = $post && (int) $user_id === (int) $post->post_author;
-			break;
+				$can  = $post && (int) $user_id === (int) $post->post_author;
+				break;
 		}
 
 		if ( $can ) {

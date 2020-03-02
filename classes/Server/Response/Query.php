@@ -12,12 +12,15 @@ class Query {
 	protected $results = null;
 
 	public function __construct( $args ) {
-		$this->r = array_merge( array(
-			'question_id__in' => null,
-			'orderby' => 'votes',
-			'response_id__in' => null,
-			'is_answer' => null,
-		), $args );
+		$this->r = array_merge(
+			array(
+				'question_id__in' => null,
+				'orderby'         => 'votes',
+				'response_id__in' => null,
+				'is_answer'       => null,
+			),
+			$args
+		);
 	}
 
 	/**
@@ -33,12 +36,12 @@ class Query {
 		}
 
 		$args = array(
-			'post_type' => 'webwork_response',
+			'post_type'              => 'webwork_response',
 			'update_post_term_cache' => false,
-			'meta_query' => array(),
-			'posts_per_page' => -1,
-			'orderby' => 'post_date',
-			'order' => 'ASC',
+			'meta_query'             => array(),
+			'posts_per_page'         => -1,
+			'orderby'                => 'post_date',
+			'order'                  => 'ASC',
 		);
 
 		if ( null !== $this->r['question_id__in'] ) {
@@ -49,8 +52,8 @@ class Query {
 			}
 
 			$args['meta_query']['question_id__in'] = array(
-				'key' => 'webwork_question_id',
-				'value' => $question_id__in,
+				'key'     => 'webwork_question_id',
+				'value'   => $question_id__in,
 				'compare' => 'IN',
 			);
 		}
@@ -58,16 +61,16 @@ class Query {
 		if ( null !== $this->r['is_answer'] ) {
 			if ( $this->r['is_answer'] ) {
 				$args['meta_query']['is_answer'] = array(
-					'key' => 'webwork_question_answer',
+					'key'   => 'webwork_question_answer',
 					'value' => '1',
 				);
 			} else {
 				// SOS
-				$is_answer_args = $this->r;
+				$is_answer_args              = $this->r;
 				$is_answer_args['is_answer'] = true;
-				$is_answer_args['orderby'] = 'post_date';
-				$is_answer_query = new Query( $is_answer_args );
-				$is_answers = $is_answer_query->get();
+				$is_answer_args['orderby']   = 'post_date';
+				$is_answer_query             = new Query( $is_answer_args );
+				$is_answers                  = $is_answer_query->get();
 
 				$not_in = array();
 				foreach ( $is_answers as $is_answer ) {
@@ -80,14 +83,14 @@ class Query {
 
 		if ( 'votes' === $this->r['orderby'] ) {
 			$args['meta_query']['votes_orderby'] = array(
-				'key' => 'webwork_vote_count',
+				'key'     => 'webwork_vote_count',
 				'compare' => 'EXISTS',
-				'type' => 'SIGNED',
+				'type'    => 'SIGNED',
 			);
 
 			$args['orderby'] = array(
 				'votes_orderby' => 'DESC',
-				'post_date' => 'ASC',
+				'post_date'     => 'ASC',
 			);
 		}
 
@@ -96,7 +99,7 @@ class Query {
 		}
 
 		$response_query = new \WP_Query( $args );
-		$_responses = $response_query->posts;
+		$_responses     = $response_query->posts;
 
 		$responses = array();
 		foreach ( $_responses as $_response ) {
@@ -127,7 +130,7 @@ class Query {
 				$obfuscate_author = false;
 			}
 
-			$response_id = $r->get_id();
+			$response_id               = $r->get_id();
 			$formatted[ $response_id ] = array(
 				'authorAvatar'    => $author_avatar,
 				'authorId'        => $author_id,

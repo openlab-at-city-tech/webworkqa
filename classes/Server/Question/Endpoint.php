@@ -10,41 +10,49 @@ class Endpoint extends \WP_Rest_Controller {
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
-		$version = '1';
+		$version   = '1';
 		$namespace = 'webwork/v' . $version;
 
 		$base = 'questions';
 
-		register_rest_route( $namespace, '/' . $base, array(
+		register_rest_route(
+			$namespace,
+			'/' . $base,
 			array(
-				'methods'         => \WP_REST_Server::CREATABLE,
-				'callback'        => array( $this, 'create_item' ),
-				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::CREATABLE ),
-			),
-			array(
-				'methods' => \WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::READABLE ),
-			),
-		) );
+				array(
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'create_item' ),
+					'permission_callback' => array( $this, 'create_item_permissions_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::CREATABLE ),
+				),
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_items' ),
+					'permission_callback' => array( $this, 'get_items_permissions_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::READABLE ),
+				),
+			)
+		);
 
-		register_rest_route( $namespace, '/' . $base . '/(?P<id>[\d]+)', array(
+		register_rest_route(
+			$namespace,
+			'/' . $base . '/(?P<id>[\d]+)',
 			array(
-				'methods'         => \WP_REST_Server::EDITABLE,
-				'callback'        => array( $this, 'update_item' ),
-				'permission_callback' => array( $this, 'update_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::EDITABLE ),
-			),
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_item' ),
+					'permission_callback' => array( $this, 'update_item_permissions_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::EDITABLE ),
+				),
 
-			array(
-				'methods'         => \WP_REST_Server::DELETABLE,
-				'callback'        => array( $this, 'delete_item' ),
-				'permission_callback' => array( $this, 'delete_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::DELETABLE ),
-			),
-		) );
+				array(
+					'methods'             => \WP_REST_Server::DELETABLE,
+					'callback'            => array( $this, 'delete_item' ),
+					'permission_callback' => array( $this, 'delete_item_permissions_check' ),
+					'args'                => $this->get_endpoint_args_for_item_schema( \WP_REST_Server::DELETABLE ),
+				),
+			)
+		);
 	}
 
 	/**
@@ -70,8 +78,8 @@ class Endpoint extends \WP_Rest_Controller {
 		$params = $request->get_params();
 
 		$problem_id = $params['problem_id'];
-		$content = $params['content'];
-		$tried = $params['tried'];
+		$content    = $params['content'];
+		$tried      = $params['tried'];
 
 		$problem_data            = null;
 		$remote_class_url        = null;
@@ -79,7 +87,7 @@ class Endpoint extends \WP_Rest_Controller {
 		$remote_user_problem_url = null;
 		if ( isset( $params['post_data_key'] ) ) {
 			$post_data_key = $params['post_data_key'];
-			$problem_data = get_option( $post_data_key );
+			$problem_data  = get_option( $post_data_key );
 
 			if ( isset( $problem_data['remote_class_url'] ) ) {
 				$remote_class_url = $problem_data['remote_class_url'];
@@ -99,17 +107,19 @@ class Endpoint extends \WP_Rest_Controller {
 
 		// Try fetching another question from the same problem.
 		if ( ! $problem_data ) {
-			$query = new Query( array(
-				'problem_id' => $problem_id,
-			) );
+			$query = new Query(
+				array(
+					'problem_id' => $problem_id,
+				)
+			);
 
 			$questions = $query->get();
 
 			foreach ( $questions as $q ) {
 				if ( $q->get_problem_text() ) {
 					$problem_data = array(
-						'problem_id' => $q->get_problem_id(),
-						'problem_set' => $q->get_problem_set(),
+						'problem_id'   => $q->get_problem_id(),
+						'problem_set'  => $q->get_problem_set(),
 						'problem_text' => $q->get_problem_text(),
 					);
 
@@ -122,11 +132,11 @@ class Endpoint extends \WP_Rest_Controller {
 		 * Sanity check: Don't allow the question to be created if there's already
 		 * one from the same user with the same metadata.
 		 */
-		$query = new Query(
-			[
+		$query          = new Query(
+			array(
 				'problem_id'  => $problem_data['problem_id'],
 				'max_results' => 100,
-			]
+			)
 		);
 		$existing_items = $query->get();
 		if ( $existing_items ) {
@@ -179,9 +189,11 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->fetch_external_assets();
 
 		if ( $question->save() ) {
-			$query = new Query( array(
-				'question_id' => $question->get_id(),
-			) );
+			$query = new Query(
+				array(
+					'question_id' => $question->get_id(),
+				)
+			);
 
 			$results = $query->get_for_endpoint();
 
@@ -218,9 +230,11 @@ class Endpoint extends \WP_Rest_Controller {
 			$retval = $question->save();
 
 			if ( $retval ) {
-				$query = new Query( array(
-					'question_id' => $question->get_id(),
-				) );
+				$query = new Query(
+					array(
+						'question_id' => $question->get_id(),
+					)
+				);
 
 				$results = $query->get_for_endpoint();
 				$results = reset( $results );
@@ -241,9 +255,9 @@ class Endpoint extends \WP_Rest_Controller {
 	}
 
 	public function delete_item( $request ) {
-		$params = $request->get_params();
+		$params   = $request->get_params();
 		$question = new \WeBWorK\Server\Question( $params['id'] );
-		$retval = $question->delete();
+		$retval   = $question->delete();
 
 		$response = rest_ensure_response( '' );
 
@@ -258,7 +272,7 @@ class Endpoint extends \WP_Rest_Controller {
 
 	public function get_items( $request ) {
 		$params = $request->get_params();
-		$keys = array(
+		$keys   = array(
 			'orderby',
 			'order',
 			'course',
@@ -279,7 +293,7 @@ class Endpoint extends \WP_Rest_Controller {
 			$args['problem_set'] = $params['problemSet'];
 		}
 
-		$args['offset'] = (int) $params['offset'];
+		$args['offset']      = (int) $params['offset'];
 		$args['max_results'] = (int) $params['maxResults'];
 
 		$q = new Query( $args );
@@ -288,17 +302,17 @@ class Endpoint extends \WP_Rest_Controller {
 
 		$attachments = $attachment_ids = array();
 		foreach ( $q->get() as $question ) {
-			$q_att_ids = $question->get_attachment_ids();
+			$q_att_ids      = $question->get_attachment_ids();
 			$attachment_ids = array_merge( $q_att_ids, $attachment_ids );
 		}
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf          = new \WeBWorK\Server\Util\ProblemFormatter();
 		$attachments = $pf->get_attachment_data( $attachment_ids );
 
 		$retval = array(
 			'attachments' => $attachments,
 			'questionIds' => array_keys( $questions ),
-			'questions' => $questions,
+			'questions'   => $questions,
 		);
 
 		$response = rest_ensure_response( $retval );
@@ -313,7 +327,7 @@ class Endpoint extends \WP_Rest_Controller {
 
 	public function update_item_permissions_check( $request ) {
 		$params = $request->get_params();
-		$post = get_post( $params['id'] );
+		$post   = get_post( $params['id'] );
 
 		$user_is_admin = webwork_user_is_admin();
 
@@ -322,7 +336,7 @@ class Endpoint extends \WP_Rest_Controller {
 
 	public function delete_item_permissions_check( $request ) {
 		$params = $request->get_params();
-		$post = get_post( $params['id'] );
+		$post   = get_post( $params['id'] );
 
 		$user_is_admin = webwork_user_is_admin();
 
@@ -332,8 +346,8 @@ class Endpoint extends \WP_Rest_Controller {
 	// @todo here and Response
 	public function get_item_schema() {
 		$schema = array(
-			'$schema' => 'http://json-schema.org/draft-04/schema#',
-			'type' => 'object',
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'type'       => 'object',
 			'properties' => array(
 				'is_answer' => array(
 					'type' => 'boolean',

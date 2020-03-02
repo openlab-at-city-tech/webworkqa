@@ -10,7 +10,7 @@ namespace WeBWorK;
 class Client {
 	public function __construct() {
 		$this->api_client = new \WeBWorK\Client\APIClient();
-		$this->rewrites = new \WeBWorK\Client\Rewrites();
+		$this->rewrites   = new \WeBWorK\Client\Rewrites();
 
 		add_shortcode( 'webwork', array( $this, 'shortcode_cb' ) );
 
@@ -21,7 +21,7 @@ class Client {
 		$deps = array();
 		if ( is_user_logged_in() ) {
 			$plupload_settings_filter = function( $params ) {
-				$extensions = array( 'jpg', 'jpeg', 'jpe', 'png', 'gif' );
+				$extensions                                       = array( 'jpg', 'jpeg', 'jpe', 'png', 'gif' );
 				$params['filters']['mime_types'][0]['extensions'] = implode( ',', $extensions );
 				return $params;
 			};
@@ -49,7 +49,7 @@ class Client {
 		$server_site_id = apply_filters( 'webwork_server_site_id', get_current_blog_id() );
 
 		// @todo Centralize this logic.
-		$main_site_url = apply_filters( 'webwork_server_site_base', get_option( 'home' ) );
+		$main_site_url     = apply_filters( 'webwork_server_site_base', get_option( 'home' ) );
 		$rest_api_endpoint = set_url_scheme( trailingslashit( $main_site_url ) . 'wp-json/webwork/v1/' );
 
 		// @todo Abstract.
@@ -61,7 +61,7 @@ class Client {
 		}
 
 		// @todo This is awful.
-		$clients = get_blog_option( $server_site_id, 'webwork_clients', array() );
+		$clients           = get_blog_option( $server_site_id, 'webwork_clients', array() );
 		$remote_course_url = array_search( get_current_blog_id(), $clients );
 
 		$user_is_admin = webwork_user_is_admin();
@@ -73,7 +73,7 @@ class Client {
 			$switched = true;
 		}
 
-		$q = new \WeBWorK\Server\Question\Query();
+		$q              = new \WeBWorK\Server\Question\Query();
 		$filter_options = $q->get_all_filter_options();
 
 		if ( $switched ) {
@@ -114,26 +114,30 @@ class Client {
 		 */
 		$incomplete_text = apply_filters( 'webwork_incomplete_question_text', 'This question does not contain enough detail for a useful response to be provided.' );
 
-		wp_localize_script( 'webwork-app', 'WWData', array(
-			'client_name' => get_option( 'blogname' ),
-			'filter_options' => $filter_options,
-			'incompleteQuestionText' => $incomplete_text,
-			'introText' => $intro_text,
-			'momentFormat' => $moment_format,
-			'page_base' => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
-			'problem_id' => $ww_problem,
-			'remote_course_url' => $remote_course_url,
-			'rest_api_nonce' => wp_create_nonce( 'wp_rest' ),
-			'rest_api_endpoint' => $rest_api_endpoint,
-			'sidebarIntroText' => $sidebar_intro_text,
-			'route_base' => trailingslashit( $route_base ),
-			'user_can_ask_question' => is_user_logged_in(), // todo
-			'user_can_post_response' => is_user_logged_in(), // todo
-			'user_can_subscribe' => is_user_logged_in(), // todo
-			'user_can_vote' => is_user_logged_in(), // todo
-			'user_id' => get_current_user_id(),
-			'user_is_admin' => $user_is_admin,
-		) );
+		wp_localize_script(
+			'webwork-app',
+			'WWData',
+			array(
+				'client_name'            => get_option( 'blogname' ),
+				'filter_options'         => $filter_options,
+				'incompleteQuestionText' => $incomplete_text,
+				'introText'              => $intro_text,
+				'momentFormat'           => $moment_format,
+				'page_base'              => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
+				'problem_id'             => $ww_problem,
+				'remote_course_url'      => $remote_course_url,
+				'rest_api_nonce'         => wp_create_nonce( 'wp_rest' ),
+				'rest_api_endpoint'      => $rest_api_endpoint,
+				'sidebarIntroText'       => $sidebar_intro_text,
+				'route_base'             => trailingslashit( $route_base ),
+				'user_can_ask_question'  => is_user_logged_in(), // todo
+				'user_can_post_response' => is_user_logged_in(), // todo
+				'user_can_subscribe'     => is_user_logged_in(), // todo
+				'user_can_vote'          => is_user_logged_in(), // todo
+				'user_id'                => get_current_user_id(),
+				'user_is_admin'          => $user_is_admin,
+			)
+		);
 
 		wp_enqueue_style( 'font-awesome', plugins_url() . '/webwork/lib/font-awesome/css/font-awesome.min.css' );
 		wp_enqueue_style( 'webwork-app', plugins_url() . '/webwork/assets/css/app.css', array( 'font-awesome' ) );
@@ -149,9 +153,9 @@ class Client {
 		wp_enqueue_script( 'webwork-mathjax-loader' );
 
 		$markup  = '<div class="wrapper section-inner">';
-		$markup .=   '<div id="webwork-app" class="webwork-app">';
-		$markup .=     __( 'Loading...', 'webwork' );
-		$markup .=	 '</div><!-- .content-area -->';
+		$markup .= '<div id="webwork-app" class="webwork-app">';
+		$markup .= __( 'Loading...', 'webwork' );
+		$markup .= '</div><!-- .content-area -->';
 		$markup .= '</div>';
 
 		return $markup;

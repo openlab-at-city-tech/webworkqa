@@ -93,12 +93,13 @@ class Vote {
 		global $wpdb;
 
 		$table_name = $this->get_table_name();
-		$row = $wpdb->get_row( $wpdb->prepare(
-			"SELECT * FROM $table_name WHERE user_id = %d AND item_id = %d",
-			$this->get_user_id(),
-			$this->get_item_id()
-		) );
-
+		$row        = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * FROM $table_name WHERE user_id = %d AND item_id = %d",
+				$this->get_user_id(),
+				$this->get_item_id()
+			)
+		);
 
 		if ( $row ) {
 			$this->set_id( $row->id );
@@ -114,7 +115,7 @@ class Vote {
 			array(
 				'user_id' => $this->get_user_id(),
 				'item_id' => $this->get_item_id(),
-				'value' => $this->get_value(),
+				'value'   => $this->get_value(),
 			),
 			array(
 				'id' => $this->get_id(),
@@ -134,7 +135,7 @@ class Vote {
 			array(
 				'user_id' => $this->get_user_id(),
 				'item_id' => $this->get_item_id(),
-				'value' => $this->get_value(),
+				'value'   => $this->get_value(),
 			),
 			array( '%d', '%d', '%d' )
 		);

@@ -62,7 +62,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	public function set_question_id( $question_id ) {
 		if ( $question_id ) {
 			$this->question_id = (int) $question_id;
-			$this->question = new Question( $question_id );
+			$this->question    = new Question( $question_id );
 		}
 	}
 
@@ -207,10 +207,10 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	 */
 	protected function send_notifications( $type ) {
 		switch ( $type ) {
-			case 'new' :
+			case 'new':
 				$this->send_notification_to_subscribers();
 				$this->send_notification_to_instructor();
-			break;
+				break;
 		}
 	}
 
@@ -221,7 +221,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 		$subscribers = $this->question->get_subscribers();
 
 		$response_author_id = $this->get_author_id();
-		$response_author = new \WP_User( $response_author_id );
+		$response_author    = new \WP_User( $response_author_id );
 		if ( ! $response_author->exists() ) {
 			return;
 		}
@@ -235,9 +235,12 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			$email->set_subject( sprintf( __( '%1$s has replied to a question', 'webwork' ), $response_author->display_name ) );
 
 			$message = sprintf(
-				__( '%1$s has replied to a question you are subscribed to on %2$s.
+				__(
+					'%1$s has replied to a question you are subscribed to on %2$s.
 
-To read and reply, visit %3$s.', 'webwork' ),
+To read and reply, visit %3$s.',
+					'webwork'
+				),
 				$response_author->display_name,
 				$this->get_client_name(),
 				$this->question->get_url( $this->get_client_url() )
@@ -253,10 +256,10 @@ To read and reply, visit %3$s.', 'webwork' ),
 	 */
 	protected function send_notification_to_instructor() {
 		$instructor_emails = $this->question->get_instructor_emails();
-		$section = $this->question->get_section();
+		$section           = $this->question->get_section();
 
 		$response_author_id = $this->get_author_id();
-		$response_author = new \WP_User( $response_author_id );
+		$response_author    = new \WP_User( $response_author_id );
 		if ( ! $response_author->exists() ) {
 			return;
 		}
@@ -275,9 +278,12 @@ To read and reply, visit %3$s.', 'webwork' ),
 			$link_url = wp_login_url( $this->question->get_url( $this->get_client_url() ) );
 
 			$message = sprintf(
-				__( '%1$s has replied to a question in your course %2$s.
+				__(
+					'%1$s has replied to a question in your course %2$s.
 
-To read and reply, visit %3$s.', 'webwork' ),
+To read and reply, visit %3$s.',
+					'webwork'
+				),
 				$response_author->display_name,
 				$section,
 				$link_url

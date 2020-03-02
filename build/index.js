@@ -9384,7 +9384,11 @@ class FormattedProblem extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] 
 		const { attachments, isVisible, itemId, content, contentSwappedUrl } = this.props;
 
 		if (!content) {
-			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', null);
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'span',
+				null,
+				' '
+			);
 		}
 
 		const texRegExp = /\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_((?:OPEN)|(?:CLOSE))\}\}\}/gm;
@@ -11347,7 +11351,7 @@ module.exports = warning;
 
 "use strict";
 const SET_SCORE = 'SET_SCORE';
-/* harmony export (immutable) */ __webpack_exports__["b"] = SET_SCORE;
+/* harmony export (immutable) */ __webpack_exports__["c"] = SET_SCORE;
 
 const setScore = (itemId, score) => {
 	return {
@@ -11358,11 +11362,11 @@ const setScore = (itemId, score) => {
 		}
 	};
 };
-/* unused harmony export setScore */
+/* harmony export (immutable) */ __webpack_exports__["b"] = setScore;
 
 
 const SET_SCORES_BULK = 'SET_SCORES_BULK';
-/* harmony export (immutable) */ __webpack_exports__["c"] = SET_SCORES_BULK;
+/* harmony export (immutable) */ __webpack_exports__["d"] = SET_SCORES_BULK;
 
 const setScoresBulk = scores => {
 	return {
@@ -11381,6 +11385,8 @@ const setScoresBulk = scores => {
 /* harmony export (immutable) */ __webpack_exports__["b"] = clickVote;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_isomorphic_fetch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scores__ = __webpack_require__(53);
+
 
 
 function clickVote(itemId, voteType, itemType) {
@@ -11407,7 +11413,9 @@ function sendVote(itemId, voteType, itemType) {
 				item_type: itemType,
 				value: voteType
 			})
-		}).then(response => response.json()).then(json => {});
+		}).then(response => response.json()).then(json => {
+			dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__scores__["b" /* setScore */])(itemId, json));
+		});
 	};
 }
 
@@ -34896,7 +34904,9 @@ class AnonymousToggle extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'label',
 				{ htmlFor: 'anonymous-toggle-checkbox' },
-				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Post this question anonymously. Only your professor will see your name.', 'webwork')
+				' ',
+				__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wordpress_i18n__["a" /* __ */])('Post this question anonymously. Only your professor will see your name.', 'webwork'),
+				' '
 			)
 		);
 	}
@@ -37001,16 +37011,6 @@ class ScoreDialog extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
 
 		let score = this.props.score;
 
-		switch (vote) {
-			case 'up':
-				score++;
-				break;
-
-			case 'down':
-				score--;
-				break;
-		}
-
 		let scoreClass = 'ww-score';
 
 		scoreClass += userCanVote && isSingleProblem ? ' can-vote' : ' cannot-vote';
@@ -38804,13 +38804,13 @@ function scores(state = {}, action) {
 	let itemId = 0;
 
 	switch (action.type) {
-		case __WEBPACK_IMPORTED_MODULE_0__actions_scores__["b" /* SET_SCORE */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_scores__["c" /* SET_SCORE */]:
 			itemId = action.payload.itemId;
 			return Object.assign({}, state, {
 				[itemId]: action.payload.score
 			});
 
-		case __WEBPACK_IMPORTED_MODULE_0__actions_scores__["c" /* SET_SCORES_BULK */]:
+		case __WEBPACK_IMPORTED_MODULE_0__actions_scores__["d" /* SET_SCORES_BULK */]:
 			return Object.assign({}, state, action.payload);
 
 		default:

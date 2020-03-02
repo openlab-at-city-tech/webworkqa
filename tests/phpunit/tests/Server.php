@@ -9,15 +9,15 @@ class WeBWorK_Tests_Server extends WeBWorK_UnitTestCase {
 
 		// Cool
 		$old_post = $_POST;
-		$_POST = array(
-			'set' => 'problemSetName',
+		$_POST    = array(
+			'set'     => 'problemSetName',
 			'problem' => 'problemNumber',
 		);
 
 		$expected = 'MAT1234-S16-Plum';
 
 		$server = new \WeBWorK\Server();
-		$found = $server->sanitize_class_url( $url );
+		$found  = $server->sanitize_class_url( $url );
 
 		$_POST = $old_post;
 
@@ -29,15 +29,15 @@ class WeBWorK_Tests_Server extends WeBWorK_UnitTestCase {
 
 		// Cool
 		$old_post = $_POST;
-		$_POST = array(
-			'set' => 'problemSetName',
+		$_POST    = array(
+			'set'     => 'problemSetName',
 			'problem' => 'problemNumber',
 		);
 
 		$expected = 'MAT1234';
 
 		$server = new \WeBWorK\Server();
-		$found = $server->sanitize_class_url( $url );
+		$found  = $server->sanitize_class_url( $url );
 
 		$_POST = $old_post;
 

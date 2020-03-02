@@ -17,22 +17,22 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$expected_maths = array(
 			0 => array(
-				'math' => '\frac{\frac{4}{x-1}-\frac{1}{x+1}}{\frac{x}{x-1}+\frac{1}{x+1}}',
+				'math'    => '\frac{\frac{4}{x-1}-\frac{1}{x+1}}{\frac{x}{x-1}+\frac{1}{x+1}}',
 				'display' => 'block',
 			),
 
 			1 => array(
-				'math' => '\frac{f(x)}{g(x)}.',
+				'math'    => '\frac{f(x)}{g(x)}.',
 				'display' => 'block',
 			),
 
 			2 => array(
-				'math' => 'f(x)',
+				'math'    => 'f(x)',
 				'display' => 'inline',
 			),
 
 			3 => array(
-				'math' => 'g(x)',
+				'math'    => 'g(x)',
 				'display' => 'inline',
 			),
 		);
@@ -40,11 +40,11 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$expected_inputs = array(
 			0 => array(
-				'type' => 'text',
+				'type'  => 'text',
 				'value' => '',
 			),
 			2 => array(
-				'type' => 'text',
+				'type'  => 'text',
 				'value' => '',
 			),
 		);
@@ -59,22 +59,22 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$expected_maths = array(
 			0 => array(
-				'math' => '\frac{\frac{4}{x-1}-\frac{1}{x+1}}{\frac{x}{x-1}+\frac{1}{x+1}}',
+				'math'    => '\frac{\frac{4}{x-1}-\frac{1}{x+1}}{\frac{x}{x-1}+\frac{1}{x+1}}',
 				'display' => 'block',
 			),
 
 			1 => array(
-				'math' => '\frac{f(x)}{g(x)}.',
+				'math'    => '\frac{f(x)}{g(x)}.',
 				'display' => 'block',
 			),
 
 			2 => array(
-				'math' => 'f(x)',
+				'math'    => 'f(x)',
 				'display' => 'inline',
 			),
 
 			3 => array(
-				'math' => 'g(x)',
+				'math'    => 'g(x)',
 				'display' => 'inline',
 			),
 		);
@@ -92,7 +92,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_convert_delims() {
-		$text = '\foo \bar \begin{math} \foo \bar\end{math} \begin{displaymath}\foo \bar\end{displaymath} foo';
+		$text     = '\foo \bar \begin{math} \foo \bar\end{math} \begin{displaymath}\foo \bar\end{displaymath} foo';
 		$expected = '\foo \bar {{{LATEX_DELIM_INLINE_OPEN}}} \foo \bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}\foo \bar{{{LATEX_DELIM_DISPLAY_CLOSE}}} foo';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -103,7 +103,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	 * @group bbg
 	 */
 	public function test_convert_shorthand_delims() {
-		$text = '\foo \bar $latex \foo \bar$ $latex\foo
+		$text     = '\foo \bar $latex \foo \bar$ $latex\foo
 \bar$ foo';
 		$expected = '\foo \bar {{{LATEX_DELIM_INLINE_OPEN}}} \foo \bar{{{LATEX_DELIM_INLINE_CLOSE}}} {{{LATEX_DELIM_DISPLAY_OPEN}}}\foo
 \bar{{{LATEX_DELIM_DISPLAY_CLOSE}}} foo';
@@ -183,7 +183,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_get_library_id_from_text() {
-		$text = 'foo bar <b>Test/foo/bar/baz.pg</b> baz';
+		$text     = 'foo bar <b>Test/foo/bar/baz.pg</b> baz';
 		$expected = 'Test/foo/bar/baz.pg';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -191,7 +191,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_strip_library_id_from_text() {
-		$text = 'foo bar <i><b>Test/foo/bar/baz.pg</b></i> baz';
+		$text     = 'foo bar <i><b>Test/foo/bar/baz.pg</b></i> baz';
 		$expected = 'foo bar  baz';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -199,7 +199,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_strip_p_tags_should_remove_simple_opening_tags() {
-		$text = 'foo <p> bar';
+		$text     = 'foo <p> bar';
 		$expected = 'foo  bar';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -207,7 +207,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_strip_p_tags_should_remove_complex_opening_tags() {
-		$text = 'foo <p attr="value"> bar';
+		$text     = 'foo <p attr="value"> bar';
 		$expected = 'foo  bar';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -215,7 +215,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_strip_p_tags_should_remove_closing_tags() {
-		$text = 'foo </p> bar';
+		$text     = 'foo </p> bar';
 		$expected = 'foo  bar';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -223,7 +223,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_strip_knowls() {
-		$text = 'foo <a href="#" knowl = "" class = "internal" value = "PEJSLz48ST4gIChJbnN0cnVjdG9yIGhpbnQgcHJldmlldzogc2hvdyB0aGUgc3R1ZGVudCBoaW50 IGFmdGVyIDcgYXR0ZW1wdHMuIFRoZSBjdXJyZW50IG51bWJlciBvZiBhdHRlbXB0cyBpcyAwLiAp PEJSLz4gPC9JPiA8QlIvPgo8QlIvPgpGb3IgdGhpcyBxdWVzdGlvbiwgPHNwYW4gY2xhc3M9Ik1h dGhKYXhfUHJldmlldyI+W21hdGhdPC9zcGFuPjxzY3JpcHQgdHlwZT0ibWF0aC90ZXgiPmEgPSAt MTUsIGIgPSAtMTU8L3NjcmlwdD4gYW5kIDxzcGFuIGNsYXNzPSJNYXRoSmF4X1ByZXZpZXciPltt YXRoXTwvc3Bhbj48c2NyaXB0IHR5cGU9Im1hdGgvdGV4Ij5jID0gMzA8L3NjcmlwdD4uCgo8UD4= " base64 = "1" >Hint: </a> bar';
+		$text     = 'foo <a href="#" knowl = "" class = "internal" value = "PEJSLz48ST4gIChJbnN0cnVjdG9yIGhpbnQgcHJldmlldzogc2hvdyB0aGUgc3R1ZGVudCBoaW50 IGFmdGVyIDcgYXR0ZW1wdHMuIFRoZSBjdXJyZW50IG51bWJlciBvZiBhdHRlbXB0cyBpcyAwLiAp PEJSLz4gPC9JPiA8QlIvPgo8QlIvPgpGb3IgdGhpcyBxdWVzdGlvbiwgPHNwYW4gY2xhc3M9Ik1h dGhKYXhfUHJldmlldyI+W21hdGhdPC9zcGFuPjxzY3JpcHQgdHlwZT0ibWF0aC90ZXgiPmEgPSAt MTUsIGIgPSAtMTU8L3NjcmlwdD4gYW5kIDxzcGFuIGNsYXNzPSJNYXRoSmF4X1ByZXZpZXciPltt YXRoXTwvc3Bhbj48c2NyaXB0IHR5cGU9Im1hdGgvdGV4Ij5jID0gMzA8L3NjcmlwdD4uCgo8UD4= " base64 = "1" >Hint: </a> bar';
 		$expected = 'foo  bar';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -231,7 +231,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_convert_anchors() {
-		$text = 'foo <a href="#">bar baz</a> quz <a href="#>chort</a> chop';
+		$text     = 'foo <a href="#">bar baz</a> quz <a href="#>chort</a> chop';
 		$expected = 'foo bar baz quz chort chop';
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
@@ -239,64 +239,64 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_convert_image_urls_should_convert_relative_href() {
-		$text =	'This is a <a href="/link">link</a>';
-		$course_url = "http://example.com/testcourse";
+		$text       = 'This is a <a href="/link">link</a>';
+		$course_url = 'http://example.com/testcourse';
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
 		$this->assertContains( 'href="http://example.com/link"', $found );
 	}
 
 	public function test_convert_image_urls_should_convert_relative_src() {
-		$text =	'This is a <img src="/image.jpg" />';
-		$course_url = "http://example.com/testcourse";
+		$text       = 'This is a <img src="/image.jpg" />';
+		$course_url = 'http://example.com/testcourse';
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
 		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
 	}
 
 	public function test_convert_image_urls_should_be_case_insensitive_for_tag_match() {
-		$text =	'This is a <IMG SRC="/image.jpg" />';
-		$course_url = "http://example.com/testcourse";
+		$text       = 'This is a <IMG SRC="/image.jpg" />';
+		$course_url = 'http://example.com/testcourse';
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
 		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
 	}
 
 	public function test_convert_image_urls_should_recognize_single_quotes() {
-		$text =	'This is a <img src=\'/image.jpg\' />';
-		$course_url = "http://example.com/testcourse";
+		$text       = 'This is a <img src=\'/image.jpg\' />';
+		$course_url = 'http://example.com/testcourse';
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
 		$this->assertContains( 'src=\'http://example.com/image.jpg\'', $found );
 	}
 
 	public function test_convert_image_urls_should_ignore_absolute_href() {
-		$text =	'This is a <a href="http://foo.bar/link">link</a>';
-		$course_url = "http://example.com/testcourse";
+		$text       = 'This is a <a href="http://foo.bar/link">link</a>';
+		$course_url = 'http://example.com/testcourse';
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
 		$this->assertContains( 'href="http://foo.bar/link"', $found );
 	}
 
 	public function test_convert_image_urls_should_ignore_absolute_src() {
-		$text =	'This is a <img src="http://foo.bar/image.jpg" />';
-		$course_url = "http://example.com/testcourse";
+		$text       = 'This is a <img src="http://foo.bar/image.jpg" />';
+		$course_url = 'http://example.com/testcourse';
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
 		$this->assertContains( 'src="http://foo.bar/image.jpg"', $found );
 	}
 
 	public function test_convert_image_urls_should_ignore_spaces_after_attribute_names() {
-		$text =	'This is a <a href = "/link">link</a> and <img src = "/image.jpg" />';
-		$course_url = "http://example.com/testcourse";
+		$text       = 'This is a <a href = "/link">link</a> and <img src = "/image.jpg" />';
+		$course_url = 'http://example.com/testcourse';
 
-		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
 		$this->assertContains( 'href="http://example.com/link"', $found );
 		$this->assertContains( 'src="http://example.com/image.jpg"', $found );

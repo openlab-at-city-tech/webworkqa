@@ -5,8 +5,8 @@ class WeBWorK_Tests_Factory_For_Vote extends WP_UnitTest_Factory_For_Thing {
 		parent::__construct( $factory );
 		$this->default_generation_definitions = array(
 			'user_id' => new WP_UnitTest_Generator_Sequence( '%d' ),
-			'item' => null,
-			'value' => new WP_UnitTest_Generator_Sequence( '%d' ),
+			'item'    => null,
+			'value'   => new WP_UnitTest_Generator_Sequence( '%d' ),
 		);
 	}
 
@@ -33,7 +33,7 @@ class WeBWorK_Tests_Factory_For_Vote extends WP_UnitTest_Factory_For_Thing {
 class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
 	public function create_object( $args ) {
 		$args['post_type'] = 'webwork_response';
-		$post_id = parent::create_object( $args );
+		$post_id           = parent::create_object( $args );
 
 		if ( ! $post_id || is_wp_error( $post_id ) ) {
 			return $post_id;
@@ -67,13 +67,13 @@ class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
 class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
 	public function create_object( $args ) {
 		$args['post_type'] = 'webwork_question';
-		$post_id = parent::create_object( $args );
+		$post_id           = parent::create_object( $args );
 
 		if ( ! $post_id || is_wp_error( $post_id ) ) {
 			return $post_id;
 		}
 
-		$question = new \WeBWorK\Server\Question( $post_id );
+		$question       = new \WeBWorK\Server\Question( $post_id );
 		$clean_question = clone $question;
 
 		$problem_id = isset( $args['problem_id'] ) ? $args['problem_id'] : false;
@@ -107,13 +107,13 @@ class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
 class WeBWorK_Tests_Factory_For_Problem extends WP_UnitTest_Factory_For_Post {
 	public function create_object( $args ) {
 		$args['post_type'] = 'webwork_problem';
-		$post_id = parent::create_object( $args );
+		$post_id           = parent::create_object( $args );
 
 		if ( ! $post_id || is_wp_error( $post_id ) ) {
 			return $post_id;
 		}
 
-		$problem = new \WeBWorK\Server\Problem( $post_id );
+		$problem       = new \WeBWorK\Server\Problem( $post_id );
 		$clean_problem = clone $problem;
 
 		$content = isset( $args['content'] ) ? $args['content'] : '';
@@ -142,13 +142,13 @@ class WeBWorK_Tests_Factory_For_Problem extends WP_UnitTest_Factory_For_Post {
 class WeBWorK_Tests_Factory_For_ProblemInstance extends WP_UnitTest_Factory_For_Post {
 	public function create_object( $args ) {
 		$args['post_type'] = 'webwork_probinstance';
-		$post_id = parent::create_object( $args );
+		$post_id           = parent::create_object( $args );
 
 		if ( ! $post_id || is_wp_error( $post_id ) ) {
 			return $post_id;
 		}
 
-		$pi = new \WeBWorK\Server\ProblemInstance( $post_id );
+		$pi       = new \WeBWorK\Server\ProblemInstance( $post_id );
 		$clean_pi = clone $pi;
 
 		$problem_id = isset( $args['problem_id'] ) ? $args['problem_id'] : '';

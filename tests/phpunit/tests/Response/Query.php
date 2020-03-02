@@ -5,14 +5,16 @@
  */
 class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 	public function test_results_should_be_response_objects() {
-		$r = self::factory()->response->create( array(
-			'post_content' => 'foo',
-			'post_author' => 123,
-			'is_answer' => true,
-			'question_id' => 456,
-		) );
+		$r = self::factory()->response->create(
+			array(
+				'post_content' => 'foo',
+				'post_author'  => 123,
+				'is_answer'    => true,
+				'question_id'  => 456,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Response\Query( array() );
+		$q     = new \WeBWorK\Server\Response\Query( array() );
 		$found = $q->get();
 
 		$this->assertNotEmpty( $found );
@@ -27,21 +29,29 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_get_by_question_id__in() {
-		$r1 = self::factory()->response->create( array(
-			'question_id' => 3,
-		) );
+		$r1 = self::factory()->response->create(
+			array(
+				'question_id' => 3,
+			)
+		);
 
-		$r2 = self::factory()->response->create( array(
-			'question_id' => 4,
-		) );
+		$r2 = self::factory()->response->create(
+			array(
+				'question_id' => 4,
+			)
+		);
 
-		$r3 = self::factory()->response->create( array(
-			'question_id' => 5,
-		) );
+		$r3 = self::factory()->response->create(
+			array(
+				'question_id' => 5,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Response\Query( array(
-			'question_id__in' => array( 3, 5 ),
-		) );
+		$q     = new \WeBWorK\Server\Response\Query(
+			array(
+				'question_id__in' => array( 3, 5 ),
+			)
+		);
 		$found = $q->get();
 
 		$ids = array();
@@ -53,17 +63,23 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_get_by_is_answer_true() {
-		$r1 = self::factory()->response->create( array(
-			'is_answer' => false,
-		) );
+		$r1 = self::factory()->response->create(
+			array(
+				'is_answer' => false,
+			)
+		);
 
-		$r2 = self::factory()->response->create( array(
-			'is_answer' => true,
-		) );
+		$r2 = self::factory()->response->create(
+			array(
+				'is_answer' => true,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Response\Query( array(
-			'is_answer' => true,
-		) );
+		$q     = new \WeBWorK\Server\Response\Query(
+			array(
+				'is_answer' => true,
+			)
+		);
 		$found = $q->get();
 
 		$ids = array();
@@ -75,17 +91,23 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_get_by_is_answer_false() {
-		$r1 = self::factory()->response->create( array(
-			'is_answer' => false,
-		) );
+		$r1 = self::factory()->response->create(
+			array(
+				'is_answer' => false,
+			)
+		);
 
-		$r2 = self::factory()->response->create( array(
-			'is_answer' => true,
-		) );
+		$r2 = self::factory()->response->create(
+			array(
+				'is_answer' => true,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Response\Query( array(
-			'is_answer' => false,
-		) );
+		$q     = new \WeBWorK\Server\Response\Query(
+			array(
+				'is_answer' => false,
+			)
+		);
 		$found = $q->get();
 
 		$ids = array();
@@ -97,25 +119,33 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_results_should_be_ordered_by_vote_count() {
-		$r1 = self::factory()->response->create_and_get( array(
-			'question_id' => 3,
-		) );
+		$r1 = self::factory()->response->create_and_get(
+			array(
+				'question_id' => 3,
+			)
+		);
 
-		$r2 = self::factory()->response->create_and_get( array(
-			'question_id' => 3,
-		) );
+		$r2 = self::factory()->response->create_and_get(
+			array(
+				'question_id' => 3,
+			)
+		);
 
-		$r3 = self::factory()->response->create_and_get( array(
-			'question_id' => 3,
-		) );
+		$r3 = self::factory()->response->create_and_get(
+			array(
+				'question_id' => 3,
+			)
+		);
 
 		self::factory()->vote->create_many( 2, array( 'item' => $r1 ) );
 		self::factory()->vote->create_many( 1, array( 'item' => $r2 ) );
 		self::factory()->vote->create_many( 3, array( 'item' => $r3 ) );
 
-		$q = new \WeBWorK\Server\Response\Query( array(
-			'question_id' => 3,
-		) );
+		$q     = new \WeBWorK\Server\Response\Query(
+			array(
+				'question_id' => 3,
+			)
+		);
 		$found = $q->get();
 
 		$ids = array();
@@ -129,34 +159,44 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 	public function test_results_should_be_ordered_by_post_date_when_vote_counts_are_the_same() {
 		$now = time();
 
-		$r1 = self::factory()->response->create_and_get( array(
-			'question_id' => 3,
-			'post_date' => date( 'Y-m-d H:i:s', $now - 50 ),
-		) );
+		$r1 = self::factory()->response->create_and_get(
+			array(
+				'question_id' => 3,
+				'post_date'   => date( 'Y-m-d H:i:s', $now - 50 ),
+			)
+		);
 
-		$r2 = self::factory()->response->create_and_get( array(
-			'question_id' => 3,
-			'post_date' => date( 'Y-m-d H:i:s', $now - 40 ),
-		) );
+		$r2 = self::factory()->response->create_and_get(
+			array(
+				'question_id' => 3,
+				'post_date'   => date( 'Y-m-d H:i:s', $now - 40 ),
+			)
+		);
 
-		$r3 = self::factory()->response->create_and_get( array(
-			'question_id' => 3,
-			'post_date' => date( 'Y-m-d H:i:s', $now - 60 ),
-		) );
+		$r3 = self::factory()->response->create_and_get(
+			array(
+				'question_id' => 3,
+				'post_date'   => date( 'Y-m-d H:i:s', $now - 60 ),
+			)
+		);
 
-		$r4 = self::factory()->response->create_and_get( array(
-			'question_id' => 3,
-			'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
-		) );
+		$r4 = self::factory()->response->create_and_get(
+			array(
+				'question_id' => 3,
+				'post_date'   => date( 'Y-m-d H:i:s', $now - 30 ),
+			)
+		);
 
 		self::factory()->vote->create_many( 1, array( 'item' => $r1 ) );
 		self::factory()->vote->create_many( 2, array( 'item' => $r2 ) );
 		self::factory()->vote->create_many( 1, array( 'item' => $r3 ) );
 		self::factory()->vote->create_many( 1, array( 'item' => $r4 ) );
 
-		$q = new \WeBWorK\Server\Response\Query( array(
-			'question_id' => 3,
-		) );
+		$q     = new \WeBWorK\Server\Response\Query(
+			array(
+				'question_id' => 3,
+			)
+		);
 		$found = $q->get();
 
 		$ids = array();

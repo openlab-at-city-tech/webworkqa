@@ -3,16 +3,21 @@ window.wp = window.wp || {};
 ( function( $ ) {
 	var $section_toggle = $( '.section-toggle' );
 
-	$( document ).ready( function() {
-		$section_toggle.on( 'click', function( e ) {
-			e.preventDefault();
-			toggle_section( e.target );
-		} );
-	} );
+	$( document ).ready(
+		function() {
+			$section_toggle.on(
+				'click',
+				function( e ) {
+					e.preventDefault();
+					toggle_section( e.target );
+				}
+			);
+		}
+	);
 
 	toggle_section = function( clicked ) {
-		var $clicked = $( clicked );
-		var $content = $clicked.siblings( '.section-content' );
+		var $clicked     = $( clicked );
+		var $content     = $clicked.siblings( '.section-content' );
 		var content_type = $clicked.data( 'content-type' );
 		var string_key;
 

@@ -6,11 +6,13 @@
 class WeBWork_Tests_Vote extends WeBWorK_UnitTestCase {
 	public function test_successful_save_for_existing_item() {
 		$i = new MockVoteable( 10 );
-		self::factory()->vote->create( array(
-			'user_id' => 5,
-			'item' => $i,
-			'value' => 15,
-		) );
+		self::factory()->vote->create(
+			array(
+				'user_id' => 5,
+				'item'    => $i,
+				'value'   => 15,
+			)
+		);
 
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );
@@ -34,7 +36,7 @@ class WeBWork_Tests_Vote extends WeBWorK_UnitTestCase {
 	public function test_successful_save_for_new_item() {
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );
-		$v->set_item( new MockVoteable( 10 ));
+		$v->set_item( new MockVoteable( 10 ) );
 		$v->set_value( 15 );
 
 		$saved = $v->save();
@@ -45,18 +47,20 @@ class WeBWork_Tests_Vote extends WeBWorK_UnitTestCase {
 	public function test_exists_false() {
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );
-		$v->set_item( new MockVoteable( 10 ));
+		$v->set_item( new MockVoteable( 10 ) );
 		$v->populate();
 
 		$this->assertFalse( $v->exists() );
 	}
 
 	public function test_exists_true() {
-		self::factory()->vote->create( array(
-			'user_id' => 5,
-			'item' => new MockVoteable( 10 ),
-			'value' => 15,
-		) );
+		self::factory()->vote->create(
+			array(
+				'user_id' => 5,
+				'item'    => new MockVoteable( 10 ),
+				'value'   => 15,
+			)
+		);
 
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );
@@ -67,15 +71,17 @@ class WeBWork_Tests_Vote extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_creation_sets_values_properly() {
-		self::factory()->vote->create( array(
-			'user_id' => 5,
-			'item' => new MockVoteable( 10 ),
-			'value' => 15,
-		) );
+		self::factory()->vote->create(
+			array(
+				'user_id' => 5,
+				'item'    => new MockVoteable( 10 ),
+				'value'   => 15,
+			)
+		);
 
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );
-		$v->set_item( new MockVoteable( 10 ));
+		$v->set_item( new MockVoteable( 10 ) );
 		$v->populate();
 
 		$this->assertSame( 5, $v->get_user_id() );
@@ -86,7 +92,7 @@ class WeBWork_Tests_Vote extends WeBWorK_UnitTestCase {
 	public function test_delete_should_fail_when_vote_does_not_exist() {
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );
-		$v->set_item( new MockVoteable( 10 ));
+		$v->set_item( new MockVoteable( 10 ) );
 		$v->populate();
 
 		$this->assertFalse( $v->exists() );
@@ -94,11 +100,13 @@ class WeBWork_Tests_Vote extends WeBWorK_UnitTestCase {
 	}
 
 	public function test_delete_success() {
-		self::factory()->vote->create( array(
-			'user_id' => 5,
-			'item' => new MockVoteable( 10 ),
-			'value' => 15,
-		) );
+		self::factory()->vote->create(
+			array(
+				'user_id' => 5,
+				'item'    => new MockVoteable( 10 ),
+				'value'   => 15,
+			)
+		);
 
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );

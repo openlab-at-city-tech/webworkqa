@@ -11,19 +11,25 @@ class WeBWorK_Tests_Vote_Query extends WeBWorK_UnitTestCase {
 		$u1 = 8;
 		$u2 = 9;
 
-		$v1 = self::factory()->vote->create( array(
-			'item' => $i1,
-			'user_id' => $u1,
-		) );
+		$v1 = self::factory()->vote->create(
+			array(
+				'item'    => $i1,
+				'user_id' => $u1,
+			)
+		);
 
-		$v2 = self::factory()->vote->create( array(
-			'item' => $i2,
-			'user_id' => $u2,
-		) );
+		$v2 = self::factory()->vote->create(
+			array(
+				'item'    => $i2,
+				'user_id' => $u2,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Vote\Query( array(
-			'item_id' => $i2->get_id(),
-		) );
+		$q = new \WeBWorK\Server\Vote\Query(
+			array(
+				'item_id' => $i2->get_id(),
+			)
+		);
 
 		$found = $q->get();
 
@@ -41,24 +47,32 @@ class WeBWorK_Tests_Vote_Query extends WeBWorK_UnitTestCase {
 		$u1 = 8;
 		$u2 = 9;
 
-		$v1 = self::factory()->vote->create( array(
-			'item' => $i1,
-			'user_id' => $u1,
-		) );
+		$v1 = self::factory()->vote->create(
+			array(
+				'item'    => $i1,
+				'user_id' => $u1,
+			)
+		);
 
-		$v2 = self::factory()->vote->create( array(
-			'item' => $i2,
-			'user_id' => $u2,
-		) );
+		$v2 = self::factory()->vote->create(
+			array(
+				'item'    => $i2,
+				'user_id' => $u2,
+			)
+		);
 
-		$v3 = self::factory()->vote->create( array(
-			'item' => $i3,
-			'user_id' => $u2,
-		) );
+		$v3 = self::factory()->vote->create(
+			array(
+				'item'    => $i3,
+				'user_id' => $u2,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Vote\Query( array(
-			'item_id__in' => array( $i1->get_id(), $i3->get_id() ),
-		) );
+		$q = new \WeBWorK\Server\Vote\Query(
+			array(
+				'item_id__in' => array( $i1->get_id(), $i3->get_id() ),
+			)
+		);
 
 		$found = $q->get();
 
@@ -79,19 +93,25 @@ class WeBWorK_Tests_Vote_Query extends WeBWorK_UnitTestCase {
 		$u1 = 8;
 		$u2 = 9;
 
-		$v1 = self::factory()->vote->create( array(
-			'item' => $i1,
-			'user_id' => $u1,
-		) );
+		$v1 = self::factory()->vote->create(
+			array(
+				'item'    => $i1,
+				'user_id' => $u1,
+			)
+		);
 
-		$v2 = self::factory()->vote->create( array(
-			'item' => $i2,
-			'user_id' => $u2,
-		) );
+		$v2 = self::factory()->vote->create(
+			array(
+				'item'    => $i2,
+				'user_id' => $u2,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Vote\Query( array(
-			'user_id' => $u1,
-		) );
+		$q = new \WeBWorK\Server\Vote\Query(
+			array(
+				'user_id' => $u1,
+			)
+		);
 
 		$found = $q->get();
 
@@ -108,19 +128,25 @@ class WeBWorK_Tests_Vote_Query extends WeBWorK_UnitTestCase {
 		$u1 = 8;
 		$u2 = 9;
 
-		$v1 = self::factory()->vote->create( array(
-			'item' => $i1,
-			'user_id' => $u1,
-		) );
+		$v1 = self::factory()->vote->create(
+			array(
+				'item'    => $i1,
+				'user_id' => $u1,
+			)
+		);
 
-		$v2 = self::factory()->vote->create( array(
-			'item' => $i2,
-			'user_id' => $u2,
-		) );
+		$v2 = self::factory()->vote->create(
+			array(
+				'item'    => $i2,
+				'user_id' => $u2,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Vote\Query( array(
-			'user_id' => $u1,
-		) );
+		$q = new \WeBWorK\Server\Vote\Query(
+			array(
+				'user_id' => $u1,
+			)
+		);
 
 		$found = $q->get( 'count' );
 
@@ -134,19 +160,25 @@ class WeBWorK_Tests_Vote_Query extends WeBWorK_UnitTestCase {
 		$u1 = 8;
 		$u2 = 9;
 
-		$v1 = self::factory()->vote->create( array(
-			'item' => $i1,
-			'user_id' => $u1,
-		) );
+		$v1 = self::factory()->vote->create(
+			array(
+				'item'    => $i1,
+				'user_id' => $u1,
+			)
+		);
 
-		$v2 = self::factory()->vote->create( array(
-			'item' => $i2,
-			'user_id' => $u2,
-		) );
+		$v2 = self::factory()->vote->create(
+			array(
+				'item'    => $i2,
+				'user_id' => $u2,
+			)
+		);
 
-		$q = new \WeBWorK\Server\Vote\Query( array(
-			'user_id__not_in' => array( $u1 ),
-		) );
+		$q = new \WeBWorK\Server\Vote\Query(
+			array(
+				'user_id__not_in' => array( $u1 ),
+			)
+		);
 
 		$found = $q->get();
 

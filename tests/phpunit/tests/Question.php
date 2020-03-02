@@ -5,10 +5,12 @@
  */
 class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 	public function test_successful_save_for_existing_item() {
-		$q = self::factory()->question->create( array(
-			'problem_id' => 15,
-			'tried' => 'foo tried',
-		) );
+		$q = self::factory()->question->create(
+			array(
+				'problem_id' => 15,
+				'tried'      => 'foo tried',
+			)
+		);
 
 		$question = new \WeBWorK\Server\Question( $q );
 
@@ -84,11 +86,13 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 	public function test_vote_count() {
 		$q = self::factory()->question->create_and_get();
 
-		self::factory()->vote->create( array(
-			'user_id' => 5,
-			'item' => $q,
-			'value' => 1,
-		) );
+		self::factory()->vote->create(
+			array(
+				'user_id' => 5,
+				'item'    => $q,
+				'value'   => 1,
+			)
+		);
 
 		$this->assertSame( 1, $q->get_vote_count() );
 	}
@@ -96,11 +100,13 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 	public function test_vote_count_should_be_cached_in_meta() {
 		$q = self::factory()->question->create_and_get();
 
-		self::factory()->vote->create( array(
-			'user_id' => 5,
-			'item' => $q,
-			'value' => 1,
-		) );
+		self::factory()->vote->create(
+			array(
+				'user_id' => 5,
+				'item'    => $q,
+				'value'   => 1,
+			)
+		);
 
 		// Danger - testing implementation details :-/
 		$this->assertEquals( 1, get_post_meta( $q->get_id(), 'webwork_vote_count', true ) );
@@ -109,11 +115,13 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 	public function test_deleting_vote_should_invalidate_cache() {
 		$q = self::factory()->question->create_and_get();
 
-		self::factory()->vote->create( array(
-			'user_id' => 5,
-			'item' => $q,
-			'value' => 1,
-		) );
+		self::factory()->vote->create(
+			array(
+				'user_id' => 5,
+				'item'    => $q,
+				'value'   => 1,
+			)
+		);
 
 		$v = new \WeBWorK\Server\Vote();
 		$v->set_user_id( 5 );
@@ -280,18 +288,22 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 
 	public function test_get_url() {
 		$problem_id = 'foo-bar';
-		$q = self::factory()->question->create_and_get( array(
-			'problem_id' => $problem_id,
-		) );
+		$q          = self::factory()->question->create_and_get(
+			array(
+				'problem_id' => $problem_id,
+			)
+		);
 
 		$expected = 'http://' . WP_TESTS_DOMAIN . '/#/problem/foo-bar/question-' . $q->get_id();
 		$this->assertSame( $expected, $q->get_url( 'http://' . WP_TESTS_DOMAIN ) );
 	}
 
 	public function test_fetch_external_assets_for_text() {
-		$q = self::factory()->question->create_and_get( array(
-			'problem_id' => 15,
-		) );
+		$q = self::factory()->question->create_and_get(
+			array(
+				'problem_id' => 15,
+			)
+		);
 
 		$upload_dir = wp_upload_dir();
 
@@ -299,7 +311,7 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$this->deleteDir( $upload_dir['path'] );
 		wp_mkdir_p( $upload_dir['path'] );
 
-		$src = 'https://teleogistic.net/files/2016/09/output.gif';
+		$src  = 'https://teleogistic.net/files/2016/09/output.gif';
 		$text = sprintf( 'Foo bar <a href="%s"><img src="%s" /></a> foo bar', $src, $src );
 		$q->set_problem_text( $text );
 

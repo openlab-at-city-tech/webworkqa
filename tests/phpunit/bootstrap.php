@@ -15,7 +15,7 @@ function _manually_load_plugin() {
 
 	require_once ABSPATH . '/wp-admin/includes/upgrade.php';
 
-	$schema = new \WeBWorK\Server\Schema();
+	$schema       = new \WeBWorK\Server\Schema();
 	$votes_schema = $schema->get_votes_schema();
 	dbDelta( $votes_schema );
 

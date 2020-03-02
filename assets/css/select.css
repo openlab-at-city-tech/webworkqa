@@ -212,18 +212,18 @@
 }
 @-webkit-keyframes Select-animation-fadeIn {
   from {
-    opacity: 0;
+	opacity: 0;
   }
   to {
-    opacity: 1;
+	opacity: 1;
   }
 }
 @keyframes Select-animation-fadeIn {
   from {
-    opacity: 0;
+	opacity: 0;
   }
   to {
-    opacity: 1;
+	opacity: 1;
   }
 }
 .Select-menu-outer {
@@ -361,11 +361,11 @@
 }
 @keyframes Select-animation-spin {
   to {
-    transform: rotate(1turn);
+	transform: rotate(1turn);
   }
 }
 @-webkit-keyframes Select-animation-spin {
   to {
-    -webkit-transform: rotate(1turn);
+	-webkit-transform: rotate(1turn);
   }
 }

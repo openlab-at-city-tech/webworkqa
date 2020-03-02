@@ -419,11 +419,11 @@ h3.ww-collapsible-section-header {
 }
 
 .tried-is-empty {
-    font-weight: 700;
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #0044af;
-    line-height: 1.8rem;
+	font-weight: 700;
+	font-size: 20px;
+	margin-bottom: 20px;
+	color: #0044af;
+	line-height: 1.8rem;
 }
 
 .submit-container {
@@ -890,9 +890,9 @@ li.is-answer:before {
 }
 
 .editable-field label {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 20px 0 15px;
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin: 20px 0 15px;
 }
 
 .editable-field textarea {

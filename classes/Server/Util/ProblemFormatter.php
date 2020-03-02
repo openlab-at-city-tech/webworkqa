@@ -126,8 +126,12 @@ class ProblemFormatter {
 			$allowed_tags['thead']   = array();
 			$allowed_tags['tbody']   = array();
 			$allowed_tags['tr']      = array();
-			$allowed_tags['th']      = array();
-			$allowed_tags['td']      = array();
+			$allowed_tags['th']      = array(
+				'colspan' => true,
+			);
+			$allowed_tags['td']      = array(
+				'colspan' => true,
+			);
 			$allowed_tags['section'] = array(
 				'style' => true,
 			);

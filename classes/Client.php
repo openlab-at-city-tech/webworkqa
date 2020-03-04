@@ -79,7 +79,7 @@ class Client {
 
 		// @todo Truly awful.
 		$switched = false;
-		if ( get_current_blog_id() !== $server_site_id ) {
+		if ( is_multisite() && get_current_blog_id() !== $server_site_id ) {
 			switch_to_blog( $server_site_id );
 			$switched = true;
 		}

@@ -62,7 +62,7 @@ class Client {
 			if ( is_multisite() ) {
 				$post_data = get_blog_option( $server_site_id, $_GET['post_data_key'] );
 			} else {
-				$post_data = get_option( $_GET['post_data_key' );
+				$post_data = get_option( $_GET['post_data_key'] );
 			}
 			//$ww_problem_text = base64_decode( $post_data['pg_object'] );
 		}

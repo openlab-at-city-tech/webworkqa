@@ -47,22 +47,32 @@ class Client {
 			$ww_problem = get_query_var( 'ww_problem' );
 		}
 
-		$server_site_id = apply_filters( 'webwork_server_site_id', get_current_blog_id() );
-
 		// @todo Centralize this logic.
 		$main_site_url     = apply_filters( 'webwork_server_site_base', get_option( 'home' ) );
 		$rest_api_endpoint = set_url_scheme( trailingslashit( $main_site_url ) . 'wp-json/webwork/v1/' );
+
+		if ( is_multisite() ) {
+			$server_site_id = apply_filters( 'webwork_server_site_id', get_current_blog_id() );
+		}
 
 		// @todo Abstract.
 		$post_data       = null;
 		$ww_problem_text = '';
 		if ( ! empty( $_GET['post_data_key'] ) ) {
-			$post_data = get_blog_option( $server_site_id, $_GET['post_data_key'] );
+			if ( is_multisite() ) {
+				$post_data = get_blog_option( $server_site_id, $_GET['post_data_key'] );
+			} else {
+				$post_data = get_option( $_GET['post_data_key' );
+			}
 			//$ww_problem_text = base64_decode( $post_data['pg_object'] );
 		}
 
 		// @todo This is awful.
-		$clients           = get_blog_option( $server_site_id, 'webwork_clients', array() );
+		if ( is_multisite() ) {
+			$clients = get_blog_option( $server_site_id, 'webwork_clients', array() );
+		} else {
+			$clients = get_option( 'webwork_clients', array() );
+		}
 		$remote_course_url = array_search( get_current_blog_id(), $clients );
 
 		$user_is_admin = webwork_user_is_admin();

@@ -73,11 +73,13 @@ var webpackConfig = {
 if ( NODE_ENV === 'production' ) {
 
 	// When running in production, we want to use the minified script so that the file is smaller
+	/*
 	webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin({
 		compress: {
 			warnings: false
 		}
 	}) );
+	*/
 }
 
 module.exports = webpackConfig;

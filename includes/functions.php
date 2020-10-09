@@ -28,20 +28,20 @@ function webwork_get_wwclass( $args = array() ) {
 	}
 
 	$qargs = array(
-		'post_type' => 'webwork_class',
-		'no_found_rows' => true,
+		'post_type'              => 'webwork_class',
+		'no_found_rows'          => true,
 		'update_post_term_cache' => false,
-		'fields' => 'ids',
+		'fields'                 => 'ids',
 	);
 
 	$qargs['meta_query'] = array(
-		'relation' => 'OR',
-		'webwork_object_id' => array(
-			'key' => 'webwork_object_id',
+		'relation'            => 'OR',
+		'webwork_object_id'   => array(
+			'key'   => 'webwork_object_id',
 			'value' => $args['object_id'],
 		),
 		'webwork_object_type' => array(
-			'key' => 'webwork_object_type',
+			'key'   => 'webwork_object_type',
 			'value' => $args['object_type'],
 		),
 	);

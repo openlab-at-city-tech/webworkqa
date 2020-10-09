@@ -178,8 +178,8 @@ class Client {
 		}
 
 		$site_name = get_option( 'blogname' );
-		$message = sprintf(
-			esc_html__( 'You have been directed to %s from WeBWorK. Before posting a question, you must log in using your %s credentials.' ),
+		$message   = sprintf(
+			esc_html__( 'You have been directed to %1$s from WeBWorK. Before posting a question, you must log in using your %2$s credentials.' ),
 			esc_html( $site_name ),
 			esc_html( $site_name )
 		);

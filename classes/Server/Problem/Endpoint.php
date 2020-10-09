@@ -158,7 +158,7 @@ class Endpoint extends \WP_Rest_Controller {
 		foreach ( $response_ids as $qid ) {
 			$vq = new \WeBWork\Server\Vote\Query(
 				array(
-					'item_id'         => $qid,
+					'item_id' => $qid,
 				)
 			);
 

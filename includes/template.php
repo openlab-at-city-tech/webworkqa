@@ -56,7 +56,7 @@ function webwork_get_current_wwclass() {
 	static $wwclass;
 
 	if ( empty( $wwclass ) ) {
-		$current_object_id = 0;
+		$current_object_id   = 0;
 		$current_object_type = '';
 		foreach ( webwork()->get_integrations() as $key => $class ) {
 			$current_object_id = $class::get_current_object_id();
@@ -70,10 +70,12 @@ function webwork_get_current_wwclass() {
 			return false;
 		}
 
-		$wwclass = webwork_get_wwclass( array(
-			'object_type' => $current_object_id,
-			'object_id' => $current_object_id,
-		) );
+		$wwclass = webwork_get_wwclass(
+			array(
+				'object_type' => $current_object_id,
+				'object_id'   => $current_object_id,
+			)
+		);
 	}
 
 	return $wwclass;

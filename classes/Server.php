@@ -15,8 +15,12 @@ class Server {
 
 	public function __construct() {
 		if ( ! class_exists( 'WP_REST_Controller' ) ) {
-			add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires the WP-API plugin to function properly. Please install WP-API or deactivate WeBWorK for WordPress.', 'webworkqa' ) . "</p></div>';" ) );
-			return;
+			add_action(
+				'admin_notices',
+				function() {
+					echo '<div class=\"error\"><p>' . esc_html__( 'WeBWorK for WordPress requires the WP-API plugin to function properly. Please install WP-API or deactivate WeBWorK for WordPress.', 'webworkqa' ) . '</p></div>';
+				}
+			);
 		}
 
 		$this->schema = new Server\Schema();
@@ -76,7 +80,7 @@ class Server {
 	 */
 	public function catch_post() {
 		// @todo
-		if ( empty( $_GET['webwork'] ) || '1' != $_GET['webwork'] ) {
+		if ( empty( $_GET['webwork'] ) || '1' !== $_GET['webwork'] ) {
 			return;
 		}
 

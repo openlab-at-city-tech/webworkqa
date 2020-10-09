@@ -1,4 +1,4 @@
-=== WeBWorK for WordPress ===
+=== WeBWorK Q&A ===
 Contributors: boonebgorges
 Tags: webwork, math, homework, q&a
 Requires at least: 5.0

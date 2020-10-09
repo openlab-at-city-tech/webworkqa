@@ -73,7 +73,10 @@ class Client {
 		} else {
 			$clients = get_option( 'webwork_clients', array() );
 		}
-		$remote_course_url = array_search( get_current_blog_id(), $clients );
+
+		$clients = array_map( 'intval', $clients );
+
+		$remote_course_url = array_search( get_current_blog_id(), $clients, true );
 
 		$user_is_admin = webwork_user_is_admin();
 
@@ -179,6 +182,7 @@ class Client {
 
 		$site_name = get_option( 'blogname' );
 		$message   = sprintf(
+			// translators: 1. site name, 2. site name
 			esc_html__( 'You have been directed to %1$s from WeBWorK. Before posting a question, you must log in using your %2$s credentials.' ),
 			esc_html( $site_name ),
 			esc_html( $site_name )

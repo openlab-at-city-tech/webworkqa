@@ -15,6 +15,9 @@
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="Generic.Commenting.Todo.CommentFound"/>
+		<exclude name="Generic.Commenting.Todo.TaskFound"/>
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 	</rule>
 
 	<!-- Add in some extra rules from other standards. -->

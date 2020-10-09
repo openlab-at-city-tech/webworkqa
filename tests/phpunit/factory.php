@@ -91,6 +91,7 @@ class WeBWorK_Tests_Factory_For_Question extends WP_UnitTest_Factory_For_Post {
 			$question->set_post_date( $args['post_date'] );
 		}
 
+		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 		if ( $clean_question != $question ) {
 			$question->save();
 		}
@@ -126,6 +127,7 @@ class WeBWorK_Tests_Factory_For_Problem extends WP_UnitTest_Factory_For_Post {
 			$problem->set_post_date( $args['post_date'] );
 		}
 
+		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 		if ( $clean_problem != $problem ) {
 			$problem->save();
 		}
@@ -172,6 +174,7 @@ class WeBWorK_Tests_Factory_For_ProblemInstance extends WP_UnitTest_Factory_For_
 			$pi->set_post_date( $args['post_date'] );
 		}
 
+		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 		if ( $clean_pi != $pi ) {
 			$pi->save();
 		}

@@ -162,28 +162,28 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 		$r1 = self::factory()->response->create_and_get(
 			array(
 				'question_id' => 3,
-				'post_date'   => date( 'Y-m-d H:i:s', $now - 50 ),
+				'post_date'   => gmdate( 'Y-m-d H:i:s', $now - 50 ),
 			)
 		);
 
 		$r2 = self::factory()->response->create_and_get(
 			array(
 				'question_id' => 3,
-				'post_date'   => date( 'Y-m-d H:i:s', $now - 40 ),
+				'post_date'   => gmdate( 'Y-m-d H:i:s', $now - 40 ),
 			)
 		);
 
 		$r3 = self::factory()->response->create_and_get(
 			array(
 				'question_id' => 3,
-				'post_date'   => date( 'Y-m-d H:i:s', $now - 60 ),
+				'post_date'   => gmdate( 'Y-m-d H:i:s', $now - 60 ),
 			)
 		);
 
 		$r4 = self::factory()->response->create_and_get(
 			array(
 				'question_id' => 3,
-				'post_date'   => date( 'Y-m-d H:i:s', $now - 30 ),
+				'post_date'   => gmdate( 'Y-m-d H:i:s', $now - 30 ),
 			)
 		);
 

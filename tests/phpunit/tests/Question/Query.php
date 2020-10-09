@@ -195,21 +195,21 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 		$q1 = self::factory()->question->create_and_get(
 			array(
 				'problem_id' => 3,
-				'post_date'  => date( 'Y-m-d H:i:s', $now - 50 ),
+				'post_date'  => gmdate( 'Y-m-d H:i:s', $now - 50 ),
 			)
 		);
 
 		$q2 = self::factory()->question->create_and_get(
 			array(
 				'problem_id' => 3,
-				'post_date'  => date( 'Y-m-d H:i:s', $now - 40 ),
+				'post_date'  => gmdate( 'Y-m-d H:i:s', $now - 40 ),
 			)
 		);
 
 		$q3 = self::factory()->question->create_and_get(
 			array(
 				'problem_id' => 3,
-				'post_date'  => date( 'Y-m-d H:i:s', $now - 60 ),
+				'post_date'  => gmdate( 'Y-m-d H:i:s', $now - 60 ),
 			)
 		);
 
@@ -218,7 +218,7 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 				'problem_id' => 3,
 				'orderby'    => 'votes',
 				'order'      => 'DESC',
-				'post_date'  => date( 'Y-m-d H:i:s', $now - 30 ),
+				'post_date'  => gmdate( 'Y-m-d H:i:s', $now - 30 ),
 			)
 		);
 
@@ -249,25 +249,25 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 
 		$q1 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 50 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 50 ),
 			)
 		);
 
 		$q2 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 40 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 40 ),
 			)
 		);
 
 		$q3 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 60 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 60 ),
 			)
 		);
 
 		$q4 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 30 ),
 			)
 		);
 
@@ -292,25 +292,25 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 
 		$q1 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 50 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 50 ),
 			)
 		);
 
 		$q2 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 40 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 40 ),
 			)
 		);
 
 		$q3 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 60 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 60 ),
 			)
 		);
 
 		$q4 = self::factory()->question->create_and_get(
 			array(
-				'post_date' => date( 'Y-m-d H:i:s', $now - 30 ),
+				'post_date' => gmdate( 'Y-m-d H:i:s', $now - 30 ),
 			)
 		);
 

@@ -157,14 +157,19 @@ class Client {
 		wp_enqueue_style( 'webwork-app', WEBWORK_PLUGIN_URL . 'assets/css/app.css', array( 'font-awesome' ) );
 		wp_enqueue_style( 'webwork-react-select', WEBWORK_PLUGIN_URL . 'assets/css/select.css' );
 
-		wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . '/assets/js/webwork-mathjax-loader.js' );
+		wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . 'assets/js/webwork-mathjax-loader.js' );
 
-		$webwork_mathjax_loader_strings = array(
-			'mathjax_src' => esc_url( WEBWORK_PLUGIN_URL . '/lib/MathJax/tex-chtml.js' ),
-		);
+		$webwork_mathjax_loader_strings = [
+			'mathjax_src' => esc_url( WEBWORK_PLUGIN_URL . 'lib/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' ),
+		];
+
 		wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );
 
 		wp_enqueue_script( 'webwork-mathjax-loader' );
+
+
+
+//		wp_enqueue_script( 'webwork-mathjax' );
 
 		$markup  = '<div class="wrapper section-inner">';
 		$markup .= '<div id="webwork-app" class="webwork-app">';

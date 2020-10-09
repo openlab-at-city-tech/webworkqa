@@ -33,8 +33,8 @@ class Client {
 			remove_filter( 'plupload_default_settings', $plupload_settings_filter );
 		}
 
-		wp_enqueue_script( 'webwork-scaffold', plugins_url() . '/webwork/assets/js/webwork-scaffold.js', array( 'jquery' ) );
-		wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js', $deps );
+		wp_enqueue_script( 'webwork-scaffold', WEBWORK_PLUGIN_URL . 'assets/js/webwork-scaffold.js', array( 'jquery' ) );
+		wp_enqueue_script( 'webwork-app', WEBWORK_PLUGIN_URL . 'build/index.js', $deps );
 		wp_set_script_translations( 'webwork-app', 'webworkqa' );
 
 		$route_base = get_option( 'home' );
@@ -153,14 +153,14 @@ class Client {
 			)
 		);
 
-		wp_enqueue_style( 'font-awesome', plugins_url() . '/webwork/lib/font-awesome/css/font-awesome.min.css' );
-		wp_enqueue_style( 'webwork-app', plugins_url() . '/webwork/assets/css/app.css', array( 'font-awesome' ) );
-		wp_enqueue_style( 'webwork-react-select', plugins_url() . '/webwork/assets/css/select.css' );
+		wp_enqueue_style( 'font-awesome', WEBWORK_PLUGIN_URL . 'lib/font-awesome/css/font-awesome.min.css' );
+		wp_enqueue_style( 'webwork-app', WEBWORK_PLUGIN_URL . 'assets/css/app.css', array( 'font-awesome' ) );
+		wp_enqueue_style( 'webwork-react-select', WEBWORK_PLUGIN_URL . 'assets/css/select.css' );
 
 		wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . '/assets/js/webwork-mathjax-loader.js' );
 
 		$webwork_mathjax_loader_strings = array(
-			'mathjax_src' => esc_url( 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' ),
+			'mathjax_src' => esc_url( WEBWORK_PLUGIN_URL . '/lib/MathJax/tex-chtml.js' ),
 		);
 		wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );
 

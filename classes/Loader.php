@@ -91,11 +91,6 @@ class Loader {
 
 		wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . '/assets/js/webwork-mathjax-loader.js' );
 
-		$webwork_mathjax_loader_strings = array(
-			'mathjax_src' => esc_url( 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' ),
-		);
-		//wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );
-
 		wp_register_script( 'webwork-redirector', WEBWORK_PLUGIN_URL . 'assets/js/webwork-redirector.js' );
 
 		// Styles.

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="webwork-for-wordpress">
-	<description>A custom set of rules for webwork-for-wordpress</description>
+<ruleset name="webworkqa">
+	<description>A custom set of rules for webworkqa</description>
 
 	<exclude-pattern>/lib/</exclude-pattern>
 	<exclude-pattern>/docroot/wp-includes/*</exclude-pattern>

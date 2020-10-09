@@ -5,7 +5,7 @@ export default class Problem extends Component {
 	render() {
 		return (
 			<div>
-				{ __( 'No problem found with that ID.', 'webwork' ) }
+				{ __( 'No problem found with that ID.', 'webworkqa' ) }
 			</div>
 		)
 	}

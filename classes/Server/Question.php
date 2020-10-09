@@ -512,7 +512,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			$email = new Util\Email();
 			$email->set_client_name( $this->get_client_name() );
 			$email->set_recipient( $instructor_email );
-			$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webwork' ), $question_author->display_name, $section ) );
+			$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webworkqa' ), $question_author->display_name, $section ) );
 
 			$link_url = wp_login_url( $this->get_url( $this->get_client_url() ) );
 
@@ -527,7 +527,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 To read and reply to the question, visit %3$s.
 
 To view the student\'s work on this question in WeBWorK, visit %4$s.',
-						'webwork'
+						'webworkqa'
 					),
 					$question_author->display_name,
 					$section,
@@ -540,7 +540,7 @@ To view the student\'s work on this question in WeBWorK, visit %4$s.',
 						'%1$s has posted a question in your course %2$s.
 
 To read and reply, visit %3$s.',
-						'webwork'
+						'webworkqa'
 					),
 					$question_author->display_name,
 					$section,

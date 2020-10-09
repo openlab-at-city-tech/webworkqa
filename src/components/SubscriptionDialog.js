@@ -22,19 +22,19 @@ export default class SubscriptionDialog extends Component {
 
 		let buttonText
 		if ( isSubscribed ) {
-			buttonText = isHover ? __( 'Unfollow', 'webwork' ) : __( 'Following', 'webwork' )
+			buttonText = isHover ? __( 'Unfollow', 'webworkqa' ) : __( 'Following', 'webworkqa' )
 		} else {
-			buttonText = __( 'Follow', 'webwork' )
+			buttonText = __( 'Follow', 'webworkqa' )
 		}
 
 		let iconClass = 'hover-notice-parent subscription-dialog '
 		let screenReaderText = ''
 		if ( isSubscribed ) {
 			iconClass += 'subscribed'
-			screenReaderText = __( 'End email notifications.', 'webwork' )
+			screenReaderText = __( 'End email notifications.', 'webworkqa' )
 		} else {
 			iconClass += 'unsubscribed'
-			screenReaderText = __( 'Notify me of future replies to this question.', 'webwork' )
+			screenReaderText = __( 'Notify me of future replies to this question.', 'webworkqa' )
 		}
 
 		return (

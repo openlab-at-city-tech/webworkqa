@@ -232,14 +232,14 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 			$email = new Util\Email();
 			$email->set_client_name( $this->get_client_name() );
 			$email->set_recipient( $subscriber->user_email );
-			$email->set_subject( sprintf( __( '%1$s has replied to a question', 'webwork' ), $response_author->display_name ) );
+			$email->set_subject( sprintf( __( '%1$s has replied to a question', 'webworkqa' ), $response_author->display_name ) );
 
 			$message = sprintf(
 				__(
 					'%1$s has replied to a question you are subscribed to on %2$s.
 
 To read and reply, visit %3$s.',
-					'webwork'
+					'webworkqa'
 				),
 				$response_author->display_name,
 				$this->get_client_name(),
@@ -273,7 +273,7 @@ To read and reply, visit %3$s.',
 			$email = new Util\Email();
 			$email->set_client_name( $this->get_client_name() );
 			$email->set_recipient( $instructor_email );
-			$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webwork' ), $response_author->display_name, $section ) );
+			$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webworkqa' ), $response_author->display_name, $section ) );
 
 			$link_url = wp_login_url( $this->question->get_url( $this->get_client_url() ) );
 
@@ -282,7 +282,7 @@ To read and reply, visit %3$s.',
 					'%1$s has replied to a question in your course %2$s.
 
 To read and reply, visit %3$s.',
-					'webwork'
+					'webworkqa'
 				),
 				$response_author->display_name,
 				$section,

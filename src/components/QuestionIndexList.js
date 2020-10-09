@@ -34,7 +34,7 @@ export default class QuestionList extends Component {
 		} )
 
 		if ( ! listItems.length && ! isLoading ) {
-			listItems.push( <p key="1" className="no-results">{ __( 'No results found.', 'webwork' ) }</p> )
+			listItems.push( <p key="1" className="no-results">{ __( 'No results found.', 'webworkqa' ) }</p> )
 		}
 
 		return (

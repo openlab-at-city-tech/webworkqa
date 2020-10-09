@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'webwork',
+				textdomain: 'webworkqa',
 			},
 			target: {
 				files: {

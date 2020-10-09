@@ -15,7 +15,7 @@ class Server {
 
 	public function __construct() {
 		if ( ! class_exists( 'WP_REST_Controller' ) ) {
-			add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires the WP-API plugin to function properly. Please install WP-API or deactivate WeBWorK for WordPress.', 'webwork' ) . "</p></div>';" ) );
+			add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires the WP-API plugin to function properly. Please install WP-API or deactivate WeBWorK for WordPress.', 'webworkqa' ) . "</p></div>';" ) );
 			return;
 		}
 

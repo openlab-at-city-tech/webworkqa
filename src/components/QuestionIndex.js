@@ -25,7 +25,7 @@ export default class QuestionIndex extends Component {
 
 		{/* translators: link to home page */}
 		return {
-			__html: introText.length > 0 ? introText : sprintf( __( 'You are viewing <a href="%1$s">%2$s</a>. Here, you can ask questions and discuss WeBWorK homework problems, and also see what other students have been asking.', 'webwork' ), page_base, client_name )
+			__html: introText.length > 0 ? introText : sprintf( __( 'You are viewing <a href="%1$s">%2$s</a>. Here, you can ask questions and discuss WeBWorK homework problems, and also see what other students have been asking.', 'webworkqa' ), page_base, client_name )
 		}
 	}
 
@@ -46,7 +46,7 @@ export default class QuestionIndex extends Component {
 
 		let listHeaderElement = ''
 		if ( ! isResultsPage ) {
-			listHeaderElement = <h2 className="ww-header">{ __( 'Recent Activity', 'webwork' ) }</h2>
+			listHeaderElement = <h2 className="ww-header">{ __( 'Recent Activity', 'webworkqa' ) }</h2>
 		}
 
 		let dropdownElement = ''
@@ -58,7 +58,7 @@ export default class QuestionIndex extends Component {
 		if ( isLoading ) {
 			loadingElement = (
 				<div className="question-list-loading-more">
-					{ __( 'Loading more...', 'webwork' ) }
+					{ __( 'Loading more...', 'webworkqa' ) }
 				</div>
 			)
 		}

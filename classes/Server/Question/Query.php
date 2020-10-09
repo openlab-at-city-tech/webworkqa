@@ -194,7 +194,7 @@ class Query {
 				}
 
 				$options[] = array(
-					'name'  => __( 'Show All', 'webwork' ),
+					'name'  => __( 'Show All', 'webworkqa' ),
 					'value' => '',
 				);
 				break;

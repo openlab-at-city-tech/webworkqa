@@ -22,12 +22,12 @@ define( 'WEBWORK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  */
 function webwork_init() {
 	if ( version_compare( phpversion(), '5.3', '<' ) ) {
-		add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires PHP 5.3 to function properly. Please upgrade PHP or deactivate WeBWorK for WordPress.', 'webwork' ) . "</p></div>';" ) );
+		add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires PHP 5.3 to function properly. Please upgrade PHP or deactivate WeBWorK for WordPress.', 'webworkqa' ) . "</p></div>';" ) );
 		return;
 	}
 
 	if ( version_compare( $GLOBALS['wp_version'], '4.4', '<' ) ) {
-		add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires WordPress 4.4 to function properly. Please upgrade WordPress or deactivate WeBWorK for WordPress.', 'webwork' ) . "</p></div>';" ) );
+		add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires WordPress 4.4 to function properly. Please upgrade WordPress or deactivate WeBWorK for WordPress.', 'webworkqa' ) . "</p></div>';" ) );
 		return;
 	}
 

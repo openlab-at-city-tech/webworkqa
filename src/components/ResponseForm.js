@@ -31,7 +31,7 @@ export default class ResponseForm extends Component {
 		}
 
 		// Non-breaking space.
-		const pfcLabel = __( 'Response text', 'webwork' )
+		const pfcLabel = __( 'Response text', 'webworkqa' )
 
 		let incompleteToggle = ''
 		if ( showIncompleteToggle ) {
@@ -58,7 +58,7 @@ export default class ResponseForm extends Component {
 		return (
 			<div className={divClassName}>
 				<h3 className="ww-header">
-					{ __( 'Respond to this question', 'webwork' ) }
+					{ __( 'Respond to this question', 'webworkqa' ) }
 				</h3>
 
 				<div className="response-block">
@@ -81,7 +81,7 @@ export default class ResponseForm extends Component {
 						  id={submitName}
 						  name={submitName}
 						  type="submit"
-						  value={isPending ? __( 'Submitting...', 'webwork' ) : __( 'Submit', 'webwork' ) }
+						  value={isPending ? __( 'Submitting...', 'webworkqa' ) : __( 'Submit', 'webworkqa' ) }
 						/>
 					</form>
 				</div>

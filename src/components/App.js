@@ -39,7 +39,7 @@ export default class App extends Component {
 				role='application'
 			>
 				<div className="app-loading-throbber">
-					{ __( 'Loading...', 'webwork' ) }
+					{ __( 'Loading...', 'webworkqa' ) }
 				</div>
 
 				<div className="app-content">

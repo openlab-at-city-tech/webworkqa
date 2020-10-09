@@ -35,7 +35,7 @@ class Client {
 
 		wp_enqueue_script( 'webwork-scaffold', plugins_url() . '/webwork/assets/js/webwork-scaffold.js', array( 'jquery' ) );
 		wp_enqueue_script( 'webwork-app', plugins_url() . '/webwork/build/index.js', $deps );
-		wp_set_script_translations( 'webwork-app', 'webwork' );
+		wp_set_script_translations( 'webwork-app', 'webworkqa' );
 
 		$route_base = get_option( 'home' );
 		$route_base = preg_replace( '|https?://[^/]+/|', '', $route_base );
@@ -165,7 +165,7 @@ class Client {
 
 		$markup  = '<div class="wrapper section-inner">';
 		$markup .= '<div id="webwork-app" class="webwork-app">';
-		$markup .= __( 'Loading...', 'webwork' );
+		$markup .= __( 'Loading...', 'webworkqa' );
 		$markup .= '</div><!-- .content-area -->';
 		$markup .= '</div>';
 

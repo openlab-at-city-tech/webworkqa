@@ -41,7 +41,7 @@ export default class Problem extends Component {
 		let problemTitle = 'Another Math Problem'
 		if ( problem && problem.hasOwnProperty( 'problemSet' ) ) {
 			/* translators: Problem set name */
-			problemTitle = sprintf( __( 'Problem: %s', 'webwork' ), problem.problemSet )
+			problemTitle = sprintf( __( 'Problem: %s', 'webworkqa' ), problem.problemSet )
 		}
 
 		let element

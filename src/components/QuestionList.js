@@ -32,9 +32,9 @@ export default class QuestionList extends Component {
 
 		return (
 			<div className="ww-question-list">
-				<h2 className="ww-header">{ __( 'Questions & Replies', 'webwork' ) }</h2>
+				<h2 className="ww-header">{ __( 'Questions & Replies', 'webworkqa' ) }</h2>
 				<p className="ww-question-gloss ww-qr-gloss">
-					{ __( 'NOTE: values may be different than those presented in your problem.', 'webwork' ) }
+					{ __( 'NOTE: values may be different than those presented in your problem.', 'webworkqa' ) }
 				</p>
 				<ul
 					aria-atomic="false"

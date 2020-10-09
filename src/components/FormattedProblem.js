@@ -69,7 +69,7 @@ export default class FormattedProblem extends Component {
 			return '<script type="' + typeAttr + '" id="' + cssId + '">'
 		} )
 
-		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + __( 'This problem contains interactive elements that cannot be displayed here. Please visit your WeBWorK course to see the full problem content.', 'webwork' ) + '</div>' )
+		markup = markup.replace( '{{{GEOGEBRA_PROBLEM}}}', '<div class="geogebra-placeholder">' + __( 'This problem contains interactive elements that cannot be displayed here. Please visit your WeBWorK course to see the full problem content.', 'webworkqa' ) + '</div>' )
 
 		const divRegExp = /<div[^>]*>([\s\S]*?)<\/div>/gm
 		markup = markup.replace( divRegExp, function( div, innerText ) {
@@ -102,7 +102,7 @@ export default class FormattedProblem extends Component {
 		} )
 
 		if ( contentSwappedUrl ) {
-			markup += '<div class="question-swapped">' + sprintf( __( 'The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="%1$s">another question in this thread</a>', 'webwork' ), contentSwappedUrl ) + '</div>';
+			markup += '<div class="question-swapped">' + sprintf( __( 'The problem text stored with this question contains references to deleted images. In order to provide a more accurate visual record, we\'ve provided the problem text from <a href="%1$s">another question in this thread</a>', 'webworkqa' ), contentSwappedUrl ) + '</div>';
 		}
 
 		if ( window.hasOwnProperty( 'MathJax' ) && window.MathJax.hasOwnProperty( 'Hub' ) ) {

@@ -82,10 +82,10 @@ class Loader {
 		wp_register_script( 'webwork-form-js', WEBWORK_PLUGIN_URL . 'assets/js/webwork-form.js', array( 'jquery' ) );
 
 		$webwork_form_js_strings = array(
-			'hide_problem' => esc_html__( 'Hide problem', 'webwork' ),
-			'show_problem' => esc_html__( 'Show problem', 'webwork' ),
-			'hide_related' => esc_html__( 'Hide related questions', 'webwork' ),
-			'show_related' => esc_html__( 'Show related questions', 'webwork' ),
+			'hide_problem' => esc_html__( 'Hide problem', 'webworkqa' ),
+			'show_problem' => esc_html__( 'Show problem', 'webworkqa' ),
+			'hide_related' => esc_html__( 'Hide related questions', 'webworkqa' ),
+			'show_related' => esc_html__( 'Show related questions', 'webworkqa' ),
 		);
 		wp_localize_script( 'webwork-form-js', 'WeBWorK', $webwork_form_js_strings );
 
@@ -103,6 +103,6 @@ class Loader {
 	}
 
 	protected function set_up_cli() {
-		\WP_CLI::add_command( 'webwork', __NAMESPACE__ . '\CLI\Command' );
+		\WP_CLI::add_command( 'webworkqa', __NAMESPACE__ . '\CLI\Command' );
 	}
 }

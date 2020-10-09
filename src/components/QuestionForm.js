@@ -32,7 +32,7 @@ export default class QuestionForm extends Component {
 		if ( problemHasQuestions ) {
 			questionGloss = (
 				<p className="ww-question-gloss">
-					{ __( 'Please review the questions below to see if your question has already been answered.', 'webwork' ) }
+					{ __( 'Please review the questions below to see if your question has already been answered.', 'webworkqa' ) }
 				</p>
 			)
 		}
@@ -48,7 +48,7 @@ export default class QuestionForm extends Component {
 			triedIsEmptyNotice = (
 				<div
 				  className="tried-is-empty"
-				>{ __( 'You haven\'t described what you\'ve tried. Did you know you can upload an image of your work?', 'webwork' ) }</div>
+				>{ __( 'You haven\'t described what you\'ve tried. Did you know you can upload an image of your work?', 'webworkqa' ) }</div>
 			)
 		}
 
@@ -73,7 +73,7 @@ export default class QuestionForm extends Component {
 						  onAccordionClick()
 					  } }
 					>
-						<h3 className="ww-header ww-collapsible-section-header">{ __( 'Ask a Question', 'webwork' ) }</h3>
+						<h3 className="ww-header ww-collapsible-section-header">{ __( 'Ask a Question', 'webworkqa' ) }</h3>
 
 						<i
 						  aria-hidden="true"
@@ -90,7 +90,7 @@ export default class QuestionForm extends Component {
 						  fieldId='question-form'
 						  fieldName="content"
 						  id="ww-question-form-content"
-						  label={ __( 'What is your question?', 'webwork' ) }
+						  label={ __( 'What is your question?', 'webworkqa' ) }
 							labelIsVisible={true}
 						/>
 
@@ -98,7 +98,7 @@ export default class QuestionForm extends Component {
 						  fieldId='question-form'
 						  fieldName="tried"
 						  id="ww-question-form-tried"
-						  label={ __( 'Describe what you have tried.', 'webwork' ) }
+						  label={ __( 'Describe what you have tried.', 'webworkqa' ) }
 							labelIsVisible={true}
 						/>
 
@@ -110,7 +110,7 @@ export default class QuestionForm extends Component {
 									className={buttonClassName}
 									disabled={isPending}
 									type="submit"
-									value={isPending ? __( 'Submitting...', 'webwork' ) : __( 'Submit', 'webwork' )}
+									value={isPending ? __( 'Submitting...', 'webworkqa' ) : __( 'Submit', 'webworkqa' )}
 								/>
 							</div>
 

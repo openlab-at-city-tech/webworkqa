@@ -31,7 +31,7 @@ export default class ProblemSummary extends Component {
 					  className="fa fa-folder-open problem-library-id-icon"
 					></i>
 					<div className="problem-library-id-text">
-						{ sprintf( __( 'ProblemID: %s', 'webwork' ), libraryId ) }
+						{ sprintf( __( 'ProblemID: %s', 'webworkqa' ), libraryId ) }
 					</div>
 				</div>
 			</div>

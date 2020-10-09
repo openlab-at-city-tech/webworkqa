@@ -21,18 +21,18 @@ export default class Sidebar extends Component {
 
 					<ul className="ww-question-filters">
 						<SidebarFilterContainer
-							name={ __( 'Select Course', 'webwork' ) }
+							name={ __( 'Select Course', 'webworkqa' ) }
 							type="dropdown"
 							slug="course"
 						/>
 						<SidebarFilterContainer
-							name={ __( 'Select Section/Faculty', 'webwork' ) }
+							name={ __( 'Select Section/Faculty', 'webworkqa' ) }
 							type="dropdown"
 							slug="section"
 						/>
 
 						<SidebarFilterContainer
-							name={ __( 'Select Problem Set', 'webwork' ) }
+							name={ __( 'Select Problem Set', 'webworkqa' ) }
 							type="dropdown"
 							slug="problemSet"
 						/>

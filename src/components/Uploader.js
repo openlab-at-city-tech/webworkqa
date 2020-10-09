@@ -12,7 +12,7 @@ export default class Uploader extends Component {
 						e.preventDefault()
 						onUploadClick()
 					}}
-				>{ __( 'Add Images', 'webwork' ) } <i className="fa fa-upload"></i>
+				>{ __( 'Add Images', 'webworkqa' ) } <i className="fa fa-upload"></i>
 			</button>
 		)
 	}

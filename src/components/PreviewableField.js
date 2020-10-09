@@ -78,12 +78,12 @@ export default class PreviewableField extends Component {
 			if ( isPreviewVisible ) {
 				buttonContent = (
 					<span
-						>{ __( 'Edit', 'webwork' ) } <i className="fa fa-pencil"></i></span>
+						>{ __( 'Edit', 'webworkqa' ) } <i className="fa fa-pencil"></i></span>
 				)
 			} else {
 				buttonContent = (
 					<span
-						>{ __( 'Preview', 'webwork' ) } <i className="fa fa-eye"></i></span>
+						>{ __( 'Preview', 'webworkqa' ) } <i className="fa fa-eye"></i></span>
 				)
 			}
 		}

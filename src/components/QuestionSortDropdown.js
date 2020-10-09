@@ -7,9 +7,9 @@ export default class QuestionSortDropdown extends Component {
 		const { orderby, onSortChange } = this.props
 
 		const options = [
-			{ value: 'post_date', label: __( 'Most Recent', 'webwork' ) },
-			{ value: 'response_count', label: __( 'Most Replies', 'webwork' ) },
-			{ value: 'votes', label: __( 'Most Votes', 'webwork' ) }
+			{ value: 'post_date', label: __( 'Most Recent', 'webworkqa' ) },
+			{ value: 'response_count', label: __( 'Most Replies', 'webworkqa' ) },
+			{ value: 'votes', label: __( 'Most Votes', 'webworkqa' ) }
 		]
 
 		return (
@@ -18,7 +18,7 @@ export default class QuestionSortDropdown extends Component {
 					className='screen-reader-text'
 				  htmlFor='question-sort'
 					id='question-sort-label'
-				>{ __( 'Sort results by', 'webwork' ) }</label>
+				>{ __( 'Sort results by', 'webworkqa' ) }</label>
 
 				<Select
 					aria-labelledby='question-sort-label'

@@ -15,7 +15,7 @@ export default class AnonymousToggle extends Component {
 					value="1"
 				/>
 
-				<label htmlFor="anonymous-toggle-checkbox">{ __( 'Post this question anonymously. Only your professor will see your name.', 'webwork' ) }</label>
+				<label htmlFor="anonymous-toggle-checkbox">{ __( 'Post this question anonymously. Only your professor will see your name.', 'webworkqa' ) }</label>
 			</div>
 		)
 	}

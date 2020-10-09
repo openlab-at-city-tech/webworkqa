@@ -94,7 +94,7 @@ export default class Question extends Component {
 
 		let questionTitleText
 		if ( isAnonymous ) {
-			const anonTitle = __( 'Question from a Student', 'webwork' )
+			const anonTitle = __( 'Question from a Student', 'webworkqa' )
 			if ( authorName ) {
 				questionTitleText = (
 					<span className="anonymous-tooltip">
@@ -111,7 +111,7 @@ export default class Question extends Component {
 			}
 		} else {
 			/* translators: Name of question poster */
-			questionTitleText = sprintf( __( 'A Question from %s', 'webwork' ), authorName )
+			questionTitleText = sprintf( __( 'A Question from %s', 'webworkqa' ), authorName )
 		}
 
 		let questionTitleElement
@@ -162,7 +162,7 @@ export default class Question extends Component {
 		const responseCount = question.responseCount
 
 		/* translators: Response count */
-		const responseCountText = sprintf( _n( '%s Reply', '%s Replies', responseCount, 'webwork' ), responseCount )
+		const responseCountText = sprintf( _n( '%s Reply', '%s Replies', responseCount, 'webworkqa' ), responseCount )
 
 		let responseCountElements = []
 		if ( ! isSingleProblem || isCollapsed ) {
@@ -181,7 +181,7 @@ export default class Question extends Component {
 
 		const deleteLinkOnclick = function( e ) {
 			e.preventDefault()
-			if ( window.confirm( __( 'Are you sure you want to delete this question and all its responses?', 'webwork' ) ) ) {
+			if ( window.confirm( __( 'Are you sure you want to delete this question and all its responses?', 'webworkqa' ) ) ) {
 				onDeleteClick()
 			}
 		}
@@ -200,7 +200,7 @@ export default class Question extends Component {
 						key="edit-link-editing"
 						className="ww-edit-link ww-edit-link-editing"
 					>
-						{ __( 'Editing', 'webwork' ) }
+						{ __( 'Editing', 'webworkqa' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -212,7 +212,7 @@ export default class Question extends Component {
 						key="edit-link-edit"
 						className="ww-edit-link ww-edit-link-edit"
 					>
-						{ __( 'Edit', 'webwork' ) }
+						{ __( 'Edit', 'webworkqa' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -224,7 +224,7 @@ export default class Question extends Component {
 				<span className="ww-subtitle-section">
 					<a href={questionLink}>
 						{/* translators: Post timestamp */}
-						{ sprintf( __( 'Posted %s', 'webwork' ), timestamp ) }
+						{ sprintf( __( 'Posted %s', 'webworkqa' ), timestamp ) }
 					</a>
 				</span>
 				{responseCountElements}
@@ -275,7 +275,7 @@ export default class Question extends Component {
 						  onRespondClick()
 					  } }
 					>
-						{ __( 'Reply', 'webwork' ) }
+						{ __( 'Reply', 'webworkqa' ) }
 					</a>
 				</div>
 			)
@@ -290,7 +290,7 @@ export default class Question extends Component {
 					<a
 					  href={respondLinkHref}
 					>
-						{ __( 'Respond to this question', 'webwork' ) }
+						{ __( 'Respond to this question', 'webworkqa' ) }
 					</a>
 				</div>
 			)
@@ -342,7 +342,7 @@ export default class Question extends Component {
 					  fieldId={'question-' + itemId}
 					  fieldName='content'
 					  id="ww-question-content"
-					  label={ __( 'My question:', 'webwork' ) }
+					  label={ __( 'My question:', 'webworkqa' ) }
 					/>
 				</div>
 			)
@@ -353,7 +353,7 @@ export default class Question extends Component {
 					  fieldId={'question-' + itemId}
 					  fieldName='tried'
 					  id="ww-question-content"
-					  label={ __( 'What I\'ve tried:', 'webwork' ) }
+					  label={ __( 'What I\'ve tried:', 'webworkqa' ) }
 					/>
 				</div>
 			)
@@ -368,12 +368,12 @@ export default class Question extends Component {
 
 			contentElementsChildren.push(
 				<div className='edit-button-links' key='links'>
-					<a href='#' onClick={editLinkOnclick}>{ __( 'Cancel', 'webwork' ) }</a>
+					<a href='#' onClick={editLinkOnclick}>{ __( 'Cancel', 'webworkqa' ) }</a>
 					<span key="editing-sep" className="ww-subtitle-sep">|</span>
 					<a href='#' className="delete-link hover-notice-parent" onClick={deleteLinkOnclick}>
-						{ __( 'Delete', 'webwork' ) }
+						{ __( 'Delete', 'webworkqa' ) }
 						<div aria-hidden="true" className="hover-notice delete-notice">
-							{ __( 'Delete question and all responses.', 'webwork' ) }
+							{ __( 'Delete question and all responses.', 'webworkqa' ) }
 						</div>
 					</a>
 				</div>
@@ -383,7 +383,7 @@ export default class Question extends Component {
 			if ( isSingleProblem ) {
 				triedElements = (
 					<span key="content-elements-children-3">
-						<div className="ww-question-content-section-header">{ __( 'What I\'ve tried:', 'webwork' ) }</div>
+						<div className="ww-question-content-section-header">{ __( 'What I\'ve tried:', 'webworkqa' ) }</div>
 						<div className="ww-question-content-section ww-question-content-text">
 							{formattedTried}
 						</div>
@@ -391,7 +391,7 @@ export default class Question extends Component {
 				)
 			}
 
-			contentElementsChildren.push( <div key="content-elements-children-1" className="ww-question-content-section-header">{ __( 'My question:', 'webwork' ) }</div> )
+			contentElementsChildren.push( <div key="content-elements-children-1" className="ww-question-content-section-header">{ __( 'My question:', 'webworkqa' ) }</div> )
 			contentElementsChildren.push( <div key="content-elements-children-2" className="ww-question-content-section ww-question-content-text">{formattedContent}</div> )
 			contentElementsChildren.push( triedElements )
 		}
@@ -414,7 +414,7 @@ export default class Question extends Component {
 					<span
 					  className="ww-my-problem-text"
 					>
-						{isProblemSummaryCollapsed ? __( 'Show WeBWorK Problem', 'webwork' ) : __( 'Hide WeBWorK Problem', 'webwork' )}
+						{isProblemSummaryCollapsed ? __( 'Show WeBWorK Problem', 'webworkqa' ) : __( 'Hide WeBWorK Problem', 'webworkqa' )}
 					</span>
 				</div>
 
@@ -478,7 +478,7 @@ export default class Question extends Component {
 		}
 
 		/* translators: Name of author to whom avatar belongs */
-		const avatarAltText = isAnonymous ? __( 'Avatar', 'webwork' ) : sprintf( __( 'Avatar of %s', 'webwork' ), authorName )
+		const avatarAltText = isAnonymous ? __( 'Avatar', 'webworkqa' ) : sprintf( __( 'Avatar of %s', 'webworkqa' ), authorName )
 
 		const showAnonymousClass = isAnonymous && authorName
 

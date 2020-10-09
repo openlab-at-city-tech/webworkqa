@@ -56,7 +56,7 @@ export default class Response extends Component {
 						key="edit-link-editing"
 						className="ww-edit-link ww-edit-link-editing"
 					>
-						{ __( 'Editing', 'webwork' ) }
+						{ __( 'Editing', 'webworkqa' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -68,7 +68,7 @@ export default class Response extends Component {
 						key="edit-link-edit"
 						className="ww-edit-link ww-edit-link-edit"
 					>
-						{ __( 'Edit', 'webwork' ) }
+						{ __( 'Edit', 'webworkqa' ) }
 						<i className="fa fa-pencil" aria-hidden="true"></i>
 					</a>
 				)
@@ -117,9 +117,9 @@ export default class Response extends Component {
 
 			contentElements.push(
 				<div className='edit-button-links' key='links'>
-					<a href='#' onClick={editLinkOnclick}>{ __( 'Cancel', 'webwork' ) }</a>
+					<a href='#' onClick={editLinkOnclick}>{ __( 'Cancel', 'webworkqa' ) }</a>
 					<span key="editing-sep" className="ww-subtitle-sep">|</span>
-					<a href='#' onClick={deleteLinkOnclick}>{ __( 'Delete', 'webwork' ) }</a>
+					<a href='#' onClick={deleteLinkOnclick}>{ __( 'Delete', 'webworkqa' ) }</a>
 				</div>
 			)
 		} else {
@@ -139,11 +139,11 @@ export default class Response extends Component {
 		}
 
 		/* translators: Name of author to whom avatar belongs */
-		const avatarAltText = authorName ? sprintf( __( 'Avatar of %s', 'webwork' ), authorName ) : __( 'Avatar' )
+		const avatarAltText = authorName ? sprintf( __( 'Avatar of %s', 'webworkqa' ), authorName ) : __( 'Avatar' )
 
 		let authorNameText
 		if ( obfuscateAuthor ) {
-			const anonTitle = __( 'Question Author', 'webwork' )
+			const anonTitle = __( 'Question Author', 'webworkqa' )
 			if ( authorName ) {
 				authorNameText = (
 					<span className="anonymous-tooltip">
@@ -175,7 +175,7 @@ export default class Response extends Component {
 					<div className="ww-subtitle ww-response-subtitle">
 						<span className="ww-subtitle-section">
 							{/* translators: Post timestamp */}
-							{ sprintf( __( 'Posted %s', 'webwork' ), timestamp ) }
+							{ sprintf( __( 'Posted %s', 'webworkqa' ), timestamp ) }
 						</span>
 						{editLinkElements}
 					</div>

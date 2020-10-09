@@ -5,9 +5,9 @@ export default class EditSaveButton extends Component {
 	render() {
 		const { isPending, onClick } = this.props
 
-		let buttonText = __( 'Save', 'webwork' )
+		let buttonText = __( 'Save', 'webworkqa' )
 		if ( isPending ) {
-			buttonText = __( 'Saving...', 'webwork' )
+			buttonText = __( 'Saving...', 'webworkqa' )
 		}
 
 		return (

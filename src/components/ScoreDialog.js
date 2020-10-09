@@ -19,18 +19,18 @@ export default class ScoreDialog extends React.Component {
 		scoreClass += score > 0 ? ' has-votes' : ' has-no-votes'
 		scoreClass += 'up' === vote ? ' liked-by-me' : ' not-liked-by-me'
 
-		const scoreText = sprintf( __( 'Number of votes: %s', 'webwork' ), score )
+		const scoreText = sprintf( __( 'Number of votes: %s', 'webworkqa' ), score )
 
 		let iconClass = 'score-icon fa'
 		let voteText
 		if ( userCanVote && isSingleProblem ) {
 			if ( 'up' === vote ) {
-				voteText = __( 'Click to remove vote', 'webwork' )
+				voteText = __( 'Click to remove vote', 'webworkqa' )
 			} else {
-				voteText = __( 'Click to vote', 'webwork' )
+				voteText = __( 'Click to vote', 'webworkqa' )
 			}
 		} else {
-			voteText = __( 'Join / login to like', 'webwork' )
+			voteText = __( 'Join / login to like', 'webworkqa' )
 		}
 
 		const voteElementId = 'vote-element-' + itemId
@@ -43,7 +43,7 @@ export default class ScoreDialog extends React.Component {
 		if ( isSingleProblem && userCanVote ) {
 			clickableText = (
 				<span>
-					<span className="ww-score-value">{ __( 'This helped me', 'webwork' ) } ({score})</span>
+					<span className="ww-score-value">{ __( 'This helped me', 'webworkqa' ) } ({score})</span>
 					{iconElement}
 				</span>
 			)

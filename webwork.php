@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: WeBWorK for WordPress
+Plugin Name: WeBWorK Q&A
 Version: 0.1-alpha
 Description: Integration between WeBWorK and WordPress
 Author: Boone Gorges
 Author URI: https://boone.gorg.es
 Plugin URI: https://openlab.citytech.cuny.edu
-Text Domain: webwork
+Text Domain: webworkqa
 Domain Path: /languages
 */
 

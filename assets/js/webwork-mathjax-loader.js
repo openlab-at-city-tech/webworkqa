@@ -1,4 +1,9 @@
 window.MathJax = {
+	"HTML-CSS": {
+		availableFonts: [ 'TeX', 'STIX' ],
+		preferredFont: 'TeX',
+		webFont: 'STIX',
+	},
 	MathMenu: {
 		showContext: true
 	}

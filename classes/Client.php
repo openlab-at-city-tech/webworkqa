@@ -9,8 +9,7 @@ namespace WeBWorK;
  */
 class Client {
 	public function __construct() {
-		$this->api_client = new \WeBWorK\Client\APIClient();
-		$this->rewrites   = new \WeBWorK\Client\Rewrites();
+		$this->rewrites = new \WeBWorK\Client\Rewrites();
 
 		add_shortcode( 'webwork', array( $this, 'shortcode_cb' ) );
 

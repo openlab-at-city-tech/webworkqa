@@ -55,7 +55,6 @@ class Server {
 		// Mods to default WP behavior to account for uploads.
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
 		add_filter( 'ajax_query_attachments_args', array( $this, 'filter_uploads_query_args' ) );
-		//      add_action( 'wp_prepare_attachment_for_js', array( $this
 	}
 
 	private function check_table() {
@@ -80,6 +79,7 @@ class Server {
 	 */
 	public function catch_post() {
 		// @todo
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( empty( $_GET['webwork'] ) || '1' !== $_GET['webwork'] ) {
 			return;
 		}
@@ -96,17 +96,22 @@ class Server {
 		 * 4. Be sure to store post_data key when processing question, because that metadata must be saved with the question item.
 		 */
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( ! empty( $_POST ) ) {
 			$post_data = $this->sanitize_post_data();
 			$this->set_remote_class_url( $post_data['remote_problem_url'] );
 			$this->set_post_data( $post_data );
 			$this->webwork_user = $post_data['webwork_user'];
 		} else {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['remote_class_url'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$this->set_remote_class_url( sanitize_text_field( wp_unslash( $_GET['remote_class_url'] ) ) );
 			}
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['webwork_user'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$this->webwork_user = sanitize_text_field( wp_unslash( $_GET['webwork_user'] ) );
 			}
 
@@ -146,11 +151,12 @@ class Server {
 		 * Redirect must happen via JS. Sending 302 Redirect header strips
 		 * URL fragment on iOS.
 		 */
-		echo '<script type="text/javascript">window.location.replace("' . $redirect_to . '");</script>';
+		echo '<script type="text/javascript">window.location.replace("' . esc_url( $redirect_to ) . '");</script>';
 		die;
 	}
 
 	public function sanitize_post_data() {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$data = array(
 			'webwork_user'    => sanitize_text_field( wp_unslash( $_POST['user'] ) ),
 			'problem_set'     => sanitize_text_field( wp_unslash( $_POST['set'] ) ),
@@ -164,6 +170,7 @@ class Server {
 			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? sanitize_text_field( wp_unslash( $_POST['notifyAddresses'] ) ) : '',
 			'studentName'     => isset( $_POST['studentName'] ) ? sanitize_text_field( wp_unslash( $_POST['studentName'] ) ) : '',
 		);
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		$remote_problem_url = wp_unslash( $_SERVER['HTTP_REFERER'] );
 
@@ -175,19 +182,24 @@ class Server {
 		$data['section']            = $url_parts['section'];
 
 		// 'user' is a string - WeBWoRK user name.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$data['webwork_user'] = sanitize_text_field( wp_unslash( $_POST['user'] ) );
 
 		// Split pg_object into discreet problem data. Sanitized in clean_problem_from_webwork().
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$raw_text = $_POST['pg_object'];
 
 		// Do not unslash. wp_insert_post() expects slashed. A nightmare.
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		$text = base64_decode( $raw_text );
 
 		$pf   = new Server\Util\ProblemFormatter();
 		$text = $pf->clean_problem_from_webwork( $text, $data );
 
-		if ( isset( $_POST['problemPath'] ) ) {
-			$data['problem_id'] = sanitize_text_field( wp_unslash( $_POST['problemPath'] ) );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$raw_problem_path = isset( $_POST['problemPath'] ) ? wp_unslash( $_POST['problemPath'] ) : '';
+		if ( $raw_problem_path ) {
+			$data['problem_id'] = sanitize_text_field( $raw_problem_path );
 		} else {
 			$data['problem_id'] = $pf->get_library_id_from_text( $text );
 		}
@@ -212,14 +224,16 @@ class Server {
 	 * @return array URL parts.
 	 */
 	public function sanitize_class_url( $raw_url ) {
-		$parts = parse_url( $raw_url );
+		$parts = wp_parse_url( $raw_url );
 
 		// Raw URL may contain a set and problem subpath.
 		$subpath = '';
 		foreach ( array( 'set', 'problem' ) as $key ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			if ( ! empty( $_POST[ $key ] ) ) {
-				$path_part  = sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
-				$subpath   .= trailingslashit( $path_part );
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing
+				$path_part = sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
+				$subpath  .= trailingslashit( $path_part );
 			}
 		}
 
@@ -232,7 +246,8 @@ class Server {
 			$base = $parts['path'];
 		}
 
-		$course     = $section = '';
+		$course     = '';
+		$section    = '';
 		$base_parts = explode( '/', trim( $base ) );
 		$base_parts = array_filter( $base_parts );
 		if ( $base_parts ) {

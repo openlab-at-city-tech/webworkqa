@@ -103,11 +103,11 @@ class Server {
 			$this->webwork_user = $post_data['webwork_user'];
 		} else {
 			if ( isset( $_GET['remote_class_url'] ) ) {
-				$this->set_remote_class_url( wp_unslash( $_GET['remote_class_url'] ) );
+				$this->set_remote_class_url( sanitize_text_field( wp_unslash( $_GET['remote_class_url'] ) ) );
 			}
 
 			if ( isset( $_GET['webwork_user'] ) ) {
-				$this->webwork_user = wp_unslash( $_GET['webwork_user'] );
+				$this->webwork_user = sanitize_text_field( wp_unslash( $_GET['webwork_user'] ) );
 			}
 
 			if ( $this->webwork_user ) {
@@ -152,17 +152,17 @@ class Server {
 
 	public function sanitize_post_data() {
 		$data = array(
-			'webwork_user'    => wp_unslash( $_POST['user'] ),
-			'problem_set'     => wp_unslash( $_POST['set'] ),
-			'problem_number'  => wp_unslash( $_POST['problem'] ),
+			'webwork_user'    => sanitize_text_field( wp_unslash( $_POST['user'] ) ),
+			'problem_set'     => sanitize_text_field( wp_unslash( $_POST['set'] ) ),
+			'problem_number'  => sanitize_text_field( wp_unslash( $_POST['problem'] ) ),
 			'problem_id'      => '',
 			'problem_text'    => '',
 			'course'          => '',
 			'section'         => '',
-			'emailableURL'    => isset( $_POST['emailableURL'] ) ? wp_unslash( $_POST['emailableURL'] ) : '',
-			'randomSeed'      => isset( $_POST['randomSeed'] ) ? wp_unslash( $_POST['randomSeed'] ) : '',
-			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? wp_unslash( $_POST['notifyAddresses'] ) : '',
-			'studentName'     => isset( $_POST['studentName'] ) ? wp_unslash( $_POST['studentName'] ) : '',
+			'emailableURL'    => isset( $_POST['emailableURL'] ) ? sanitize_text_field( wp_unslash( $_POST['emailableURL'] ) ) : '',
+			'randomSeed'      => isset( $_POST['randomSeed'] ) ? sanitize_text_field( wp_unslash( $_POST['randomSeed'] ) ) : '',
+			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? sanitize_text_field( wp_unslash( $_POST['notifyAddresses'] ) ) : '',
+			'studentName'     => isset( $_POST['studentName'] ) ? sanitize_text_field( wp_unslash( $_POST['studentName'] ) ) : '',
 		);
 
 		$remote_problem_url = wp_unslash( $_SERVER['HTTP_REFERER'] );
@@ -174,9 +174,10 @@ class Server {
 		$data['course']             = $url_parts['course'];
 		$data['section']            = $url_parts['section'];
 
-		$data['webwork_user'] = $_POST['user'];
+		// 'user' is a string - WeBWoRK user name.
+		$data['webwork_user'] = sanitize_text_field( wp_unslash( $_POST['user'] ) );
 
-		// Split pg_object into discreet problem data.
+		// Split pg_object into discreet problem data. Sanitized in clean_problem_from_webwork().
 		$raw_text = $_POST['pg_object'];
 
 		// Do not unslash. wp_insert_post() expects slashed. A nightmare.
@@ -186,7 +187,7 @@ class Server {
 		$text = $pf->clean_problem_from_webwork( $text, $data );
 
 		if ( isset( $_POST['problemPath'] ) ) {
-			$data['problem_id'] = wp_unslash( $_POST['problemPath'] );
+			$data['problem_id'] = sanitize_text_field( wp_unslash( $_POST['problemPath'] ) );
 		} else {
 			$data['problem_id'] = $pf->get_library_id_from_text( $text );
 		}
@@ -217,7 +218,8 @@ class Server {
 		$subpath = '';
 		foreach ( array( 'set', 'problem' ) as $key ) {
 			if ( ! empty( $_POST[ $key ] ) ) {
-				$subpath .= trailingslashit( $_POST[ $key ] );
+				$path_part  = sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
+				$subpath   .= trailingslashit( $path_part );
 			}
 		}
 

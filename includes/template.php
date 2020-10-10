@@ -17,9 +17,11 @@ function webwork_get_current_post_data() {
 	$data = false;
 
 	if ( isset( $_GET['post_data_key'] ) ) {
+		$post_data_key = sanitize_text_field( wp_unslash( $_GET['post_data_key'] ) );
+
 		// Todo need a way to clean up old values from options table.
 		// Maybe: put in non-persistent cache, and delete immediately.
-		$data = get_option( wp_unslash( $_GET['post_data_key'] ) );
+		$data = get_option( $post_data_key );
 		if ( ! $data ) {
 			$data = false;
 		}

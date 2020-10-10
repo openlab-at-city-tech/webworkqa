@@ -16,7 +16,9 @@
 function webwork_get_current_post_data() {
 	$data = false;
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['post_data_key'] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$post_data_key = sanitize_text_field( wp_unslash( $_GET['post_data_key'] ) );
 
 		// Todo need a way to clean up old values from options table.
@@ -28,6 +30,7 @@ function webwork_get_current_post_data() {
 
 		// Decode 'pg_object', which is an HTML representation of the question.
 		if ( isset( $data['pg_object'] ) ) {
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 			$data['pg_object'] = base64_decode( $data['pg_object'] );
 		}
 	}

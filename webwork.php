@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WeBWorK Q&A
-Version: 0.1-alpha
+Version: 1.0
 Description: Integration between WeBWorK and WordPress
 Author: Boone Gorges
 Author URI: https://boone.gorg.es
@@ -12,6 +12,7 @@ Domain Path: /languages
 
 define( 'WEBWORK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WEBWORK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'WEBWORK_PLUGIN_VER', '1.0' );
 
 /**
  * Bootstrap.

@@ -155,7 +155,6 @@ class Vote {
 
 	protected function get_table_name() {
 		global $wpdb;
-		$root_blog = 1;
-		return $wpdb->get_blog_prefix( $root_blog ) . 'webwork_votes';
+		return $wpdb->get_blog_prefix() . 'webwork_votes';
 	}
 }

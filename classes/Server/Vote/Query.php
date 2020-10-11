@@ -34,9 +34,7 @@ class Query {
 
 		$fields = 'count' === $type ? 'COUNT(*)' : '*';
 
-		// todo
-		$root_blog  = 1;
-		$table_name = $wpdb->get_blog_prefix( $root_blog ) . 'webwork_votes';
+		$table_name = $wpdb->get_blog_prefix() . 'webwork_votes';
 
 		$sql = "SELECT $fields FROM $table_name";
 

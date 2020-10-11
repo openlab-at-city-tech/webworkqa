@@ -130,11 +130,8 @@ class Schema {
 	public function get_votes_schema() {
 		global $wpdb;
 
-		// todo
-		$root_site = 1;
-
 		$charset_collate = $wpdb->get_charset_collate();
-		$table_prefix    = $wpdb->get_blog_prefix( $root_site );
+		$table_prefix    = $wpdb->get_blog_prefix();
 
 		$sql = "CREATE TABLE {$table_prefix}webwork_votes (
 			id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,

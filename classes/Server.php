@@ -60,7 +60,7 @@ class Server {
 	private function check_table() {
 		global $wpdb;
 
-		$table_prefix = $wpdb->get_blog_prefix( 1 );
+		$table_prefix = $wpdb->get_blog_prefix();
 		$show         = $wpdb->get_var( "SHOW TABLES LIKE '{$table_prefix}'" );
 		if ( ! $show ) {
 			$schema = $this->schema->get_votes_schema();

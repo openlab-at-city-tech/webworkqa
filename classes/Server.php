@@ -29,9 +29,6 @@ class Server {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_redirector_script' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'enqueue_redirector_script' ) );
 
-		// temp
-		$this->check_table();
-
 		$app_endpoint = new Server\App\Endpoint();
 		add_action( 'rest_api_init', array( $app_endpoint, 'register_routes' ) );
 
@@ -55,22 +52,6 @@ class Server {
 		// Mods to default WP behavior to account for uploads.
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
 		add_filter( 'ajax_query_attachments_args', array( $this, 'filter_uploads_query_args' ) );
-	}
-
-	private function check_table() {
-		global $wpdb;
-
-		$table_prefix = $wpdb->get_blog_prefix();
-		$show         = $wpdb->get_var( "SHOW TABLES LIKE '{$table_prefix}'" );
-		if ( ! $show ) {
-			$schema = $this->schema->get_votes_schema();
-
-			if ( ! function_exists( 'dbDelta' ) ) {
-				require ABSPATH . '/wp-admin/includes/upgrade.php';
-			}
-
-			dbDelta( array( $schema ) );
-		}
 	}
 
 	/**

@@ -65,3 +65,23 @@ function webwork_autoload_register( $class ) {
 		require $file;
 	}
 }
+
+register_activation_hook( __FILE__, 'webwork_activation' );
+
+/**
+ * Activation routine.
+ *
+ * @since 1.0.0
+ */
+function webwork_activation() {
+	spl_autoload_register( 'webwork_autoload_register' );
+
+	$schema_obj = new \WeBWorK\Server\Schema();
+	$schema     = $schema_obj->get_votes_schema();
+
+	if ( ! function_exists( 'dbDelta' ) ) {
+		require ABSPATH . '/wp-admin/includes/upgrade.php';
+	}
+
+	dbDelta( array( $schema ) );
+}

@@ -68,17 +68,6 @@ class Client {
 			}
 		}
 
-		// @todo This is awful.
-		if ( is_multisite() ) {
-			$clients = get_blog_option( $server_site_id, 'webwork_clients', array() );
-		} else {
-			$clients = get_option( 'webwork_clients', array() );
-		}
-
-		$clients = array_map( 'intval', $clients );
-
-		$remote_course_url = array_search( get_current_blog_id(), $clients, true );
-
 		$user_is_admin = webwork_user_is_admin();
 
 		// @todo Truly awful.
@@ -140,7 +129,6 @@ class Client {
 				'momentFormat'           => $moment_format,
 				'page_base'              => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
 				'problem_id'             => $ww_problem,
-				'remote_course_url'      => $remote_course_url,
 				'rest_api_nonce'         => wp_create_nonce( 'wp_rest' ),
 				'rest_api_endpoint'      => $rest_api_endpoint,
 				'sidebarIntroText'       => $sidebar_intro_text,

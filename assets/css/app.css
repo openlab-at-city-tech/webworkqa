@@ -967,6 +967,10 @@ li.is-answer:before {
 	right: 0;
 }
 
+.ww-score button {
+	color: #4e4e4e;
+}
+
 .ww-score.cannot-vote.has-votes,
 .ww-score.cannot-vote.has-votes button:disabled {
 	color: #000;

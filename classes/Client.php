@@ -160,8 +160,51 @@ class Client {
 
 		wp_register_script( 'webwork-mathjax-loader', WEBWORK_PLUGIN_URL . 'assets/js/webwork-mathjax-loader.js', [], WEBWORK_PLUGIN_VER, false );
 
+		/**
+		 * Filters the URL of the MathJax loader file.
+		 *
+		 * webworkqa ships with a pared-down version of MathJax 2.7.x, which contains
+		 * only the STIX web font. If you would like to use a CDN or another installation
+		 * that has a broader variety of fonts, use this filter. Be sure that you
+		 * use version 2.7.x of MathJax; version 3.x is not yet supported.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $mathjax_url
+		 */
+		$mathjax_url = apply_filters( 'webwork_mathjax_url', WEBWORK_PLUGIN_URL . 'lib/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' );
+
+		/**
+		 * Filters the default MathJax configuration.
+		 *
+		 * See http://docs.mathjax.org/en/v2.7-latest/configuration.html#using-in-line-configuration-options
+		 * for more details.
+		 *
+		 * Note that you cannot specify more fonts than STIX unless you are using
+		 * a different version of MathJax than the one that ships with the plugin.
+		 * See the 'webwork_mathjax_url' above.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $mathjax_config
+		 */
+		$mathjax_config = apply_filters(
+			'webwork_mathjax_config',
+			[
+				'HTML-CSS' => [
+					'availableFonts' => [ 'TeX', 'STIX' ],
+					'preferredFont'  => 'TeX',
+					'webFont'        => 'STIX',
+				],
+				'MathMenu' => [
+					'showContext' => true,
+				],
+			]
+		);
+
 		$webwork_mathjax_loader_strings = [
-			'mathjax_src' => esc_url( WEBWORK_PLUGIN_URL . 'lib/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML-full' ),
+			'mathjax_src'    => esc_url( $mathjax_url ),
+			'mathjax_config' => $mathjax_config,
 		];
 
 		wp_localize_script( 'webwork-mathjax-loader', 'WeBWorK_MathJax', $webwork_mathjax_loader_strings );

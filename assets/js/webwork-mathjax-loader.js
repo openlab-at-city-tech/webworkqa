@@ -1,13 +1,4 @@
-window.MathJax = {
-	"HTML-CSS": {
-		availableFonts: [ 'TeX', 'STIX' ],
-		preferredFont: 'TeX',
-		webFont: 'STIX',
-	},
-	MathMenu: {
-		showContext: true
-	}
-}
+window.MathJax = WeBWorK_MathJax.mathjax_config;
 
 var script  = document.createElement( 'script' );
 script.type = 'text/javascript';

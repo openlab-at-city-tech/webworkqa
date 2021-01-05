@@ -330,7 +330,7 @@ class Server {
 		$this->post_data['remote_class_url']   = $this->remote_class_url;
 		$this->post_data['remote_referer_url'] = $this->remote_referer_url;
 
-		update_option( $this->post_data_key, $this->post_data );
+		update_option( $this->post_data_key, $this->post_data, false );
 	}
 
 	public function get_server_site_base() {

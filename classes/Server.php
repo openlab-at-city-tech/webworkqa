@@ -137,6 +137,12 @@ class Server {
 	}
 
 	public function sanitize_post_data() {
+		$filtered_data = apply_filters( 'webwork_pre_sanitize_post_data', null );
+
+		if ( null !== $filtered_data ) {
+			return $filtered_data;
+		}
+
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$data = array(
 			'webwork_user'    => sanitize_text_field( wp_unslash( $_POST['user'] ) ),

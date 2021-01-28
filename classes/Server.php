@@ -15,8 +15,12 @@ class Server {
 
 	public function __construct() {
 		if ( ! class_exists( 'WP_REST_Controller' ) ) {
-			add_action( 'admin_notices', create_function( '', "echo '<div class=\"error\"><p>" . __( 'WeBWorK for WordPress requires the WP-API plugin to function properly. Please install WP-API or deactivate WeBWorK for WordPress.', 'webwork' ) . "</p></div>';" ) );
-			return;
+			add_action(
+				'admin_notices',
+				function() {
+					echo '<div class=\"error\"><p>' . esc_html__( 'WeBWorK for WordPress requires the WP-API plugin to function properly. Please install WP-API or deactivate WeBWorK for WordPress.', 'webworkqa' ) . '</p></div>';
+				}
+			);
 		}
 
 		$this->schema = new Server\Schema();
@@ -24,9 +28,6 @@ class Server {
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_redirector_script' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'enqueue_redirector_script' ) );
-
-		// temp
-		$this->check_table();
 
 		$app_endpoint = new Server\App\Endpoint();
 		add_action( 'rest_api_init', array( $app_endpoint, 'register_routes' ) );
@@ -51,23 +52,6 @@ class Server {
 		// Mods to default WP behavior to account for uploads.
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
 		add_filter( 'ajax_query_attachments_args', array( $this, 'filter_uploads_query_args' ) );
-//		add_action( 'wp_prepare_attachment_for_js', array( $this
-	}
-
-	private function check_table() {
-		global $wpdb;
-
-		$table_prefix = $wpdb->get_blog_prefix( 1 );
-		$show = $wpdb->get_var( "SHOW TABLES LIKE '{$table_prefix}'" );
-		if ( ! $show ) {
-			$schema = $this->schema->get_votes_schema();
-
-			if ( ! function_exists( 'dbDelta' ) ) {
-				require ABSPATH . '/wp-admin/includes/upgrade.php';
-			}
-
-			dbDelta( array( $schema ) );
-		}
 	}
 
 	/**
@@ -76,7 +60,8 @@ class Server {
 	 */
 	public function catch_post() {
 		// @todo
-		if ( empty( $_GET['webwork'] ) || '1' != $_GET['webwork'] ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( empty( $_GET['webwork'] ) || '1' !== $_GET['webwork'] ) {
 			return;
 		}
 
@@ -92,22 +77,27 @@ class Server {
 		 * 4. Be sure to store post_data key when processing question, because that metadata must be saved with the question item.
 		 */
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( ! empty( $_POST ) ) {
 			$post_data = $this->sanitize_post_data();
 			$this->set_remote_class_url( $post_data['remote_problem_url'] );
 			$this->set_post_data( $post_data );
 			$this->webwork_user = $post_data['webwork_user'];
 		} else {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['remote_class_url'] ) ) {
-				$this->set_remote_class_url( wp_unslash( $_GET['remote_class_url'] ) );
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$this->set_remote_class_url( sanitize_text_field( wp_unslash( $_GET['remote_class_url'] ) ) );
 			}
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['webwork_user'] ) ) {
-				$this->webwork_user = wp_unslash( $_GET['webwork_user'] );
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$this->webwork_user = sanitize_text_field( wp_unslash( $_GET['webwork_user'] ) );
 			}
 
 			if ( $this->webwork_user ) {
-				$key = $this->get_post_data_option_key();
+				$key       = $this->get_post_data_option_key();
 				$post_data = get_option( $key );
 
 				if ( $post_data ) {
@@ -123,7 +113,7 @@ class Server {
 		$this->store_post_data();
 
 		$ww_client_site_base = $this->get_client_site_base();
-		$redirect_to = $ww_client_site_base;
+		$redirect_to         = $ww_client_site_base;
 
 		$problem_slug = $post_data['problem_id'];
 		if ( $problem_slug ) {
@@ -142,43 +132,58 @@ class Server {
 		 * Redirect must happen via JS. Sending 302 Redirect header strips
 		 * URL fragment on iOS.
 		 */
-		echo '<script type="text/javascript">window.location.replace("' . $redirect_to . '");</script>';
+		echo '<script type="text/javascript">window.location.replace("' . esc_url( $redirect_to ) . '");</script>';
 		die;
 	}
 
 	public function sanitize_post_data() {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$data = array(
-			'webwork_user'             => wp_unslash( $_POST['user'] ),
-			'webwork_user_problem_url' => wp_unslash( $_POST['emailURL'] ),
-			'problem_set'              => wp_unslash( $_POST['set'] ),
-			'problem_number'           => wp_unslash( $_POST['problem'] ),
-			'problem_id'               => '',
-			'problem_text'             => '',
-			'course'                   => '',
-			'section'                  => '',
+			'webwork_user'    => sanitize_text_field( wp_unslash( $_POST['user'] ) ),
+			'problem_set'     => sanitize_text_field( wp_unslash( $_POST['set'] ) ),
+			'problem_number'  => sanitize_text_field( wp_unslash( $_POST['problem'] ) ),
+			'problem_id'      => '',
+			'problem_text'    => '',
+			'course'          => '',
+			'section'         => '',
+			'emailableURL'    => isset( $_POST['emailableURL'] ) ? sanitize_text_field( wp_unslash( $_POST['emailableURL'] ) ) : '',
+			'randomSeed'      => isset( $_POST['randomSeed'] ) ? sanitize_text_field( wp_unslash( $_POST['randomSeed'] ) ) : '',
+			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? sanitize_text_field( wp_unslash( $_POST['notifyAddresses'] ) ) : '',
+			'studentName'     => isset( $_POST['studentName'] ) ? sanitize_text_field( wp_unslash( $_POST['studentName'] ) ) : '',
 		);
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		$remote_problem_url = wp_unslash( $_SERVER['HTTP_REFERER'] );
 
 		$url_parts = $this->sanitize_class_url( $remote_problem_url );
 
-		$data['remote_course_url'] = $url_parts['base'];
+		$data['remote_course_url']  = $url_parts['base'];
 		$data['remote_problem_url'] = remove_query_arg( array( 'user', 'effectiveUser', 'key' ), $remote_problem_url );
-		$data['course'] = $url_parts['course'];
-		$data['section'] = $url_parts['section'];
+		$data['course']             = $url_parts['course'];
+		$data['section']            = $url_parts['section'];
 
-		$data['webwork_user'] = $_POST['user'];
+		// 'user' is a string - WeBWoRK user name.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$data['webwork_user'] = sanitize_text_field( wp_unslash( $_POST['user'] ) );
 
-		// Split pg_object into discreet problem data.
+		// Split pg_object into discreet problem data. Sanitized in clean_problem_from_webwork().
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$raw_text = $_POST['pg_object'];
 
-		// Do not unslash. wp_insert_post() expocts slashed. A nightmare.
+		// Do not unslash. wp_insert_post() expects slashed. A nightmare.
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		$text = base64_decode( $raw_text );
 
-		$pf = new Server\Util\ProblemFormatter();
+		$pf   = new Server\Util\ProblemFormatter();
 		$text = $pf->clean_problem_from_webwork( $text, $data );
 
-		$data['problem_id'] = $pf->get_library_id_from_text( $text );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$raw_problem_path = isset( $_POST['problemPath'] ) ? wp_unslash( $_POST['problemPath'] ) : '';
+		if ( $raw_problem_path ) {
+			$data['problem_id'] = sanitize_text_field( $raw_problem_path );
+		} else {
+			$data['problem_id'] = $pf->get_library_id_from_text( $text );
+		}
 
 		$text = $pf->strip_library_id_from_text( $text );
 
@@ -200,44 +205,48 @@ class Server {
 	 * @return array URL parts.
 	 */
 	public function sanitize_class_url( $raw_url ) {
-		$parts = parse_url( $raw_url );
+		$parts = wp_parse_url( $raw_url );
 
 		// Raw URL may contain a set and problem subpath.
 		$subpath = '';
 		foreach ( array( 'set', 'problem' ) as $key ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			if ( ! empty( $_POST[ $key ] ) ) {
-				$subpath .= trailingslashit( $_POST[ $key ] );
+				// phpcs:ignore WordPress.Security.NonceVerification.Missing
+				$path_part = sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
+				$subpath  .= trailingslashit( $path_part );
 			}
 		}
 
 		$this->remote_referer_url = $parts['scheme'] . '://' . $parts['host'] . $parts['path'];
 
 		if ( $subpath && false !== strpos( $parts['path'], $subpath ) ) {
-			$pos = strpos( $parts['path'], $subpath );
+			$pos  = strpos( $parts['path'], $subpath );
 			$base = substr( $parts['path'], 0, $pos );
 		} else {
 			$base = $parts['path'];
 		}
 
-		$course = $section = '';
+		$course     = '';
+		$section    = '';
 		$base_parts = explode( '/', trim( $base ) );
 		$base_parts = array_filter( $base_parts );
 		if ( $base_parts ) {
 			$section = end( $base_parts );
 
 			$section_parts = explode( '-', $section );
-			$course = reset( $section_parts );
+			$course        = reset( $section_parts );
 		}
 
 		$base = trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $base );
 
 		$retval = array(
-			'base' => $base,
+			'base'          => $base,
 			'effectiveUser' => '',
-			'user' => '',
-			'key' => '',
-			'course' => $course,
-			'section' => $section,
+			'user'          => '',
+			'key'           => '',
+			'course'        => $course,
+			'section'       => $section,
 		);
 
 		if ( ! empty( $parts['query'] ) ) {
@@ -258,9 +267,9 @@ class Server {
 	 * @param string $remote_class_url
 	 */
 	public function set_remote_class_url( $remote_class_url ) {
-		$url_parts = $this->sanitize_class_url( $remote_class_url );
+		$url_parts              = $this->sanitize_class_url( $remote_class_url );
 		$this->remote_class_url = $url_parts['base'];
-		$this->webwork_user = $url_parts['user'];
+		$this->webwork_user     = $url_parts['user'];
 	}
 
 	protected function get_client_from_course_url( $course_url ) {
@@ -321,7 +330,7 @@ class Server {
 		$this->post_data['remote_class_url']   = $this->remote_class_url;
 		$this->post_data['remote_referer_url'] = $this->remote_referer_url;
 
-		update_option( $this->post_data_key, $this->post_data );
+		update_option( $this->post_data_key, $this->post_data, false );
 	}
 
 	public function get_server_site_base() {
@@ -357,14 +366,14 @@ class Server {
 
 		$can = false;
 		switch ( $cap ) {
-			case 'upload_files' :
+			case 'upload_files':
 				$can = true;
-			break;
+				break;
 
-			case 'edit_post' :
+			case 'edit_post':
 				$post = get_post( $args[0] );
-				$can = $post && (int) $user_id === (int) $post->post_author;
-			break;
+				$can  = $post && (int) $user_id === (int) $post->post_author;
+				break;
 		}
 
 		if ( $can ) {

@@ -14,6 +14,6 @@ Key | Content
 `pg_object` | The problem content, rendered in HTML and then base64-encoded. Ideally, this problem should contain only the markup for the problem, and not be a full HTML document (containing `<head>`, `<script>`, etc), though WeBWorK Q&A will attempt to strip extraneous elements. Where possible, static assets in the post content (such as images) should use absolute paths, as the WordPress plugin will attempt to grab these images and copy them to the WP site.
 `problemPath` | The unique identifier for the problem. Example: `'Library/ASU-topics/setDerivativeFunction/3-3-05.pg'`
 `notifyAddresses` | The email address of the course instructor. This is the email address that will receive email notifications about relevant student activity in WordPress. Supports the "angle bracket" format, i.e. `'Professor Foo <foo@example.com>'`. Supports multiple addresses, separated by `;`.
-`randomSeed` |
+`randomSeed` | The `randomSeed` property from WeBWorK.
 `emailableURL` | URL of the student's version of the WW problem. Example: `'http://example.com/webwork/CourseID/problemSetName/problemNumber/?showOldAnswers=1&effectiveUser=student&displayMode=MathJax'`
 `studentName` | The display name of the student from WW. Example: `'John Smith'`.

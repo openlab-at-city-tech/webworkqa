@@ -154,7 +154,6 @@ class Endpoint extends \WP_Rest_Controller {
 		$question = new \WeBWorK\Server\Question();
 
 		$course  = isset( $problem_data['course'] ) ? $problem_data['course'] : '';
-		$section = isset( $problem_data['section'] ) ? $problem_data['section'] : '';
 
 		$question->set_author_id( get_current_user_id() );
 		$question->set_content( $content );
@@ -163,7 +162,6 @@ class Endpoint extends \WP_Rest_Controller {
 		$question->set_problem_id( $problem_data['problem_id'] );
 		$question->set_problem_set( $problem_data['problem_set'] );
 		$question->set_course( $course );
-		$question->set_section( $section );
 		$question->set_problem_text( $problem_data['problem_text'] );
 		$question->set_client_url( $params['client_url'] );
 		$question->set_client_name( $params['client_name'] );
@@ -276,7 +274,6 @@ class Endpoint extends \WP_Rest_Controller {
 			'orderby',
 			'order',
 			'course',
-			'section',
 			'lastQuestion',
 			'maxResults',
 		);

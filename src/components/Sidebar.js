@@ -26,12 +26,6 @@ export default class Sidebar extends Component {
 							slug="course"
 						/>
 						<SidebarFilterContainer
-							name={ __( 'Select Section/Faculty', 'webworkqa' ) }
-							type="dropdown"
-							slug="section"
-						/>
-
-						<SidebarFilterContainer
 							name={ __( 'Select Problem Set', 'webworkqa' ) }
 							type="dropdown"
 							slug="problemSet"

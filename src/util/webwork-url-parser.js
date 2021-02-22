@@ -27,7 +27,6 @@ const getViewFromHash = ( hash ) => {
 
 const indexFilters = {
 	course: 1,
-	section: 1,
 	problemSet: 1
 }
 

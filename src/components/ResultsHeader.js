@@ -5,7 +5,7 @@ export default class ResultsHeader extends Component {
 	render() {
 		const { currentFilters } = this.props
 
-		const displayFilters = [ 'course', 'section', 'problemSet' ]
+		const displayFilters = [ 'course', 'problemSet' ]
 
 		let active = []
 		let filterName = ''

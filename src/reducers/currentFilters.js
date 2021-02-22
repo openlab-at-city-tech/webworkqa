@@ -4,7 +4,6 @@ import { getCurrentView } from '../util/webwork-url-parser'
 
 const initialState = {
 	course: false,
-	section: false,
 	problemSet: false,
 
 	orderby: 'post_date',

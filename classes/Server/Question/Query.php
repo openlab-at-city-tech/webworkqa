@@ -17,7 +17,6 @@ class Query {
 				'problem_id'    => null,
 				'problem_set'   => null,
 				'course'        => null,
-				'section'       => null,
 				'question_id'   => null,
 				'offset'        => 0,
 				'orderby'       => 'votes',
@@ -57,7 +56,7 @@ class Query {
 			);
 		}
 
-		$filter_taxonomies = array( 'problem_set', 'course', 'section' );
+		$filter_taxonomies = array( 'problem_set', 'course' );
 		foreach ( $filter_taxonomies as $filter_taxonomy ) {
 			if ( null !== $this->r[ $filter_taxonomy ] ) {
 				$args['tax_query'][ $filter_taxonomy ] = array(
@@ -147,7 +146,6 @@ class Query {
 				'problemId'     => $q->get_problem_id(),
 				'problemSet'    => $q->get_problem_set(),
 				'course'        => $q->get_course(),
-				'section'       => $q->get_section(),
 				'problemText'   => $q->get_problem_text(),
 				'isMyQuestion'  => is_user_logged_in() && $q->get_author_id() == get_current_user_id(),
 				'authorAvatar'  => $author_avatar,
@@ -164,7 +162,6 @@ class Query {
 	public function get_all_filter_options() {
 		return array(
 			'course'     => $this->get_filter_options( 'course' ),
-			'section'    => $this->get_filter_options( 'section' ),
 			'problemSet' => $this->get_filter_options( 'problem_set' ),
 		);
 	}
@@ -175,7 +172,6 @@ class Query {
 		switch ( $filter ) {
 			// can repurpose for other taxonomies - concatenate tax name
 			case 'course':
-			case 'section':
 			case 'problem_set':
 				$terms = get_terms(
 					array(

@@ -14,7 +14,6 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $problem_id;
 	protected $problem_set;
 	protected $course;
-	protected $section;
 	protected $problem_text;
 	protected $client_url;
 	protected $remote_class_url;
@@ -84,10 +83,6 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function set_course( $course ) {
 		$this->course = $course;
-	}
-
-	public function set_section( $section ) {
-		$this->section = $section;
 	}
 
 	public function set_problem_text( $problem_text ) {
@@ -196,10 +191,6 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 
 	public function get_course() {
 		return (string) $this->course;
-	}
-
-	public function get_section() {
-		return (string) $this->section;
 	}
 
 	public function get_author_avatar() {
@@ -327,7 +318,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	 * Get instructor emails.
 	 *
 	 * The primary source for email addresses is the 'notifyAddresses' property sent
-	 * from WeBWorK. The fallback is a section-instructor map that must be provided via
+	 * from WeBWorK. The fallback is a course-instructor map that must be provided via
 	 * filter. The two are mutually exclusive, to ensure that no duplicate emails are sent.
 	 *
 	 * @return array
@@ -336,11 +327,11 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 		$emails = $this->get_notify_addresses();
 
 		if ( ! $emails ) {
-			$section = $this->get_section();
+			$course = $this->get_course();
 
 			$instructor_map = apply_filters( 'webwork_section_instructor_map', array() );
-			if ( isset( $instructor_map[ $section ] ) ) {
-				$emails = array( $instructor_map[ $section ] );
+			if ( isset( $instructor_map[ $course ] ) ) {
+				$emails = array( $instructor_map[ $course ] );
 			}
 		}
 
@@ -371,7 +362,6 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			wp_set_object_terms( $post_id, array( $this->get_problem_id() ), 'webwork_problem_id' );
 			wp_set_object_terms( $post_id, array( $this->get_problem_set() ), 'webwork_problem_set' );
 			wp_set_object_terms( $post_id, array( $this->get_course() ), 'webwork_course' );
-			wp_set_object_terms( $post_id, array( $this->get_section() ), 'webwork_section' );
 
 			$tried = $this->get_tried();
 			$tried = $this->pf->convert_delims( $tried );
@@ -442,14 +432,6 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 				$course = '';
 			}
 			$this->set_course( $course );
-
-			$sections = get_the_terms( $post_id, 'webwork_section' );
-			if ( $sections ) {
-				$section = reset( $sections )->name;
-			} else {
-				$section = '';
-			}
-			$this->set_section( $section );
 
 			$tried = get_post_meta( $this->get_id(), 'webwork_tried', true );
 			$this->set_tried( $tried );

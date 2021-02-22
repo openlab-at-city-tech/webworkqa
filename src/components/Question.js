@@ -243,10 +243,6 @@ export default class Question extends Component {
 				courseData.push( question.course );
 			}
 
-			if ( question.section ) {
-				courseData.push( question.section );
-			}
-
 			const courseDataString = courseData.join( ' | ' )
 
 			questionCourseElement = (

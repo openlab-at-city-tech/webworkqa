@@ -111,14 +111,6 @@ class Schema {
 		);
 
 		register_taxonomy(
-			'webwork_section',
-			'webwork_question',
-			array(
-				'public' => false,
-			)
-		);
-
-		register_taxonomy(
 			'webwork_subscribed_by',
 			'webwork_question',
 			array(

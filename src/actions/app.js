@@ -94,9 +94,6 @@ export const resetCurrentFilters = () => {
 export const SET_FILTER_TOGGLE = 'SET_FILTER_TOGGLE'
 export const setFilterToggle = ( slug, value ) => {
 	// Don't tell the Redux gods about this.
-//	window.location.hash = 'results'
-
-	// Or this.
 	if ( '' == value ) {
 		value = false
 	}

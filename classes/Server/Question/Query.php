@@ -200,60 +200,6 @@ class Query {
 				break;
 		}
 
-		// Custom sort for sections.
-		if ( 'section' === $filter ) {
-			$semesters = array();
-			foreach ( $options as $option ) {
-				$parts = explode( '-', $option['name'] );
-				if ( 3 > count( $parts ) ) {
-					$semester = 'S10';
-				} else {
-					$semester = $parts[1];
-				}
-
-				$semesters[ $semester ][] = $option;
-			}
-
-			uksort(
-				$semesters,
-				function( $a, $b ) {
-					$term_a = substr( $a, 0, 1 );
-					$term_b = substr( $b, 0, 1 );
-
-					$year_a = substr( $a, 1 );
-					$year_b = substr( $b, 1 );
-
-					if ( $year_a === $year_b ) {
-						if ( 'F' === $a ) {
-							return 1;
-						} else {
-							return -1;
-						}
-					} else {
-						return $year_a < $year_b ? 1 : -1;
-					}
-
-					return 0;
-				}
-			);
-
-			$options = array();
-			foreach ( $semesters as &$sections ) {
-				usort(
-					$sections,
-					function( $a, $b ) {
-						if ( $a['name'] === $b['name'] ) {
-							return 0;
-						}
-
-						return $a['name'] > $b['name'] ? 1 : -1;
-					}
-				);
-
-				$options = array_merge( $options, $sections );
-			}
-		}
-
 		return $options;
 	}
 }

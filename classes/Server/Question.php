@@ -495,7 +495,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	 */
 	protected function send_notification_to_instructor() {
 		$instructor_emails = $this->get_instructor_emails();
-		$section           = $this->get_section();
+		$course            = $this->get_course();
 
 		$question_author_id = $this->get_author_id();
 		$question_author    = new \WP_User( $question_author_id );
@@ -512,7 +512,7 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 			$email = new Util\Email();
 			$email->set_client_name( $this->get_client_name() );
 			$email->set_recipient( $instructor_email );
-			$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webworkqa' ), $question_author->display_name, $section ) );
+			$email->set_subject( sprintf( __( '%1$s has posted a question in the course %2$s', 'webworkqa' ), $question_author->display_name, $course ) );
 
 			$link_url = wp_login_url( $this->get_url( $this->get_client_url() ) );
 
@@ -530,7 +530,7 @@ To view the student\'s work on this question in WeBWorK, visit %4$s.',
 						'webworkqa'
 					),
 					$question_author->display_name,
-					$section,
+					$course,
 					$link_url,
 					$remote_url
 				);
@@ -543,7 +543,7 @@ To read and reply, visit %3$s.',
 						'webworkqa'
 					),
 					$question_author->display_name,
-					$section,
+					$course,
 					$link_url
 				);
 			}

@@ -256,7 +256,7 @@ To read and reply, visit %3$s.',
 	 */
 	protected function send_notification_to_instructor() {
 		$instructor_emails = $this->question->get_instructor_emails();
-		$section           = $this->question->get_section();
+		$course            = $this->question->get_course();
 
 		$response_author_id = $this->get_author_id();
 		$response_author    = new \WP_User( $response_author_id );
@@ -273,7 +273,7 @@ To read and reply, visit %3$s.',
 			$email = new Util\Email();
 			$email->set_client_name( $this->get_client_name() );
 			$email->set_recipient( $instructor_email );
-			$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webworkqa' ), $response_author->display_name, $section ) );
+			$email->set_subject( sprintf( __( '%1$s has replied to a question in the course %2$s', 'webworkqa' ), $response_author->display_name, $course ) );
 
 			$link_url = wp_login_url( $this->question->get_url( $this->get_client_url() ) );
 
@@ -285,7 +285,7 @@ To read and reply, visit %3$s.',
 					'webworkqa'
 				),
 				$response_author->display_name,
-				$section,
+				$course,
 				$link_url
 			);
 			$email->set_message( $message );

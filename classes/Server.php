@@ -150,8 +150,7 @@ class Server {
 			'problem_number'  => sanitize_text_field( wp_unslash( $_POST['problem'] ) ),
 			'problem_id'      => '',
 			'problem_text'    => '',
-			'course'          => '',
-			'section'         => '',
+			'course'          => isset( $_POST['courseId'] ) ? sanitize_text_field( wp_unslash( $_POST['courseId'] ) ) : '',
 			'emailableURL'    => isset( $_POST['emailableURL'] ) ? sanitize_text_field( wp_unslash( $_POST['emailableURL'] ) ) : '',
 			'randomSeed'      => isset( $_POST['randomSeed'] ) ? sanitize_text_field( wp_unslash( $_POST['randomSeed'] ) ) : '',
 			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? sanitize_text_field( wp_unslash( $_POST['notifyAddresses'] ) ) : '',
@@ -165,8 +164,6 @@ class Server {
 
 		$data['remote_course_url']  = $url_parts['base'];
 		$data['remote_problem_url'] = remove_query_arg( array( 'user', 'effectiveUser', 'key' ), $remote_problem_url );
-		$data['course']             = $url_parts['course'];
-		$data['section']            = $url_parts['section'];
 
 		// 'user' is a string - WeBWoRK user name.
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -233,17 +230,6 @@ class Server {
 			$base = $parts['path'];
 		}
 
-		$course     = '';
-		$section    = '';
-		$base_parts = explode( '/', trim( $base ) );
-		$base_parts = array_filter( $base_parts );
-		if ( $base_parts ) {
-			$section = end( $base_parts );
-
-			$section_parts = explode( '-', $section );
-			$course        = reset( $section_parts );
-		}
-
 		$base = trailingslashit( $parts['scheme'] . '://' . $parts['host'] . $base );
 
 		$retval = array(
@@ -251,8 +237,6 @@ class Server {
 			'effectiveUser' => '',
 			'user'          => '',
 			'key'           => '',
-			'course'        => $course,
-			'section'       => $section,
 		);
 
 		if ( ! empty( $parts['query'] ) ) {

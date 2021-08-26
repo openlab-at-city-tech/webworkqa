@@ -141,6 +141,8 @@ export default class Response extends Component {
 		/* translators: Name of author to whom avatar belongs */
 		const avatarAltText = authorName ? sprintf( __( 'Avatar of %s', 'webworkqa' ), authorName ) : __( 'Avatar' )
 
+		const authorUserTypeEl = authorUserType ? <div className="response-user-type">{authorUserType}</div> : <span></span>
+
 		let authorNameText
 		if ( obfuscateAuthor ) {
 			const anonTitle = __( 'Question Author', 'webworkqa' )
@@ -167,7 +169,7 @@ export default class Response extends Component {
 			<li className={liClassName}>
 				<div className="ww-author-avatar">
 					<img src={authorAvatar} alt={avatarAltText} />
-					<div className="response-user-type">{authorUserType}</div>
+					{authorUserTypeEl}
 				</div>
 
 				<div className="ww-response-content">

@@ -462,7 +462,7 @@ h3.ww-collapsible-section-header {
 	top: -3px;
 }
 
-input[type="checkbox"] + .anonymous-toggle label,
+.anonymous-toggle input[type="checkbox"] + label,
 .anonymous-toggle label {
 	display: inline-block;
 	vertical-align: top;

@@ -1054,6 +1054,7 @@ li.is-answer:before {
 }
 
 .subscription-dialog.unsubscribed:hover {
+	background-color: inherit;
 	color: #0044af;
 }
 

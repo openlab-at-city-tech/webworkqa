@@ -278,7 +278,7 @@ export default class Question extends Component {
 		} else {
 			let respondLinkHref = questionLink
 			if ( ! userCanPostResponse ) {
-				respondLinkHref = window.WWData.route_base + 'wp-login.php?redirect_to=' + respondLinkHref
+				respondLinkHref = window.WWData.loginURL + '?redirect_to=' + respondLinkHref
 			}
 
 			respondLinkElement = (

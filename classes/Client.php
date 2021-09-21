@@ -126,6 +126,7 @@ class Client {
 				'filter_options'         => $filter_options,
 				'incompleteQuestionText' => $incomplete_text,
 				'introText'              => $intro_text,
+				'loginURL'               => wp_login_url(),
 				'momentFormat'           => $moment_format,
 				'page_base'              => trailingslashit( set_url_scheme( get_option( 'home' ) ) ),
 				'problem_id'             => $ww_problem,

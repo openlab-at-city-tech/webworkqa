@@ -153,7 +153,7 @@ class Server {
 			'course'          => isset( $_POST['courseId'] ) ? sanitize_text_field( wp_unslash( $_POST['courseId'] ) ) : '',
 			'emailableURL'    => isset( $_POST['emailableURL'] ) ? sanitize_text_field( wp_unslash( $_POST['emailableURL'] ) ) : '',
 			'randomSeed'      => isset( $_POST['randomSeed'] ) ? sanitize_text_field( wp_unslash( $_POST['randomSeed'] ) ) : '',
-			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? sanitize_text_field( wp_unslash( $_POST['notifyAddresses'] ) ) : '',
+			'notifyAddresses' => isset( $_POST['notifyAddresses'] ) ? wp_unslash( $_POST['notifyAddresses'] ) : '',
 			'studentName'     => isset( $_POST['studentName'] ) ? sanitize_text_field( wp_unslash( $_POST['studentName'] ) ) : '',
 		);
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
@@ -164,6 +164,15 @@ class Server {
 
 		$data['remote_course_url']  = $url_parts['base'];
 		$data['remote_problem_url'] = remove_query_arg( array( 'user', 'effectiveUser', 'key' ), $remote_problem_url );
+
+		// notifyAddresses may be MIME-encoded.
+		if ( function_exists( 'mb_decode_mimeheader' ) ) {
+			$data['notifyAddresses'] = mb_decode_mimeheader( $data['notifyAddresses'] );
+		} elseif ( function_exists( 'imap_utf8' ) ) {
+			$data['notifyAddresses'] = imap_utf8( $data['notifyAddresses'] );
+		} elseif ( function_exists( 'iconv_mime_decode' ) ) {
+			$data['notifyAddresses'] = iconv_mime_decode( $data['notifyAddresses'] );
+		}
 
 		// 'user' is a string - WeBWoRK user name.
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing

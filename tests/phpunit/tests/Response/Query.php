@@ -24,7 +24,6 @@ class WeBWorK_Tests_Vote_Response extends WeBWorK_UnitTestCase {
 		$this->assertSame( $r, $response->get_id() );
 		$this->assertSame( 'foo', $response->get_content() );
 		$this->assertSame( 123, $response->get_author_id() );
-		$this->assertTrue( $response->get_is_answer() );
 		$this->assertSame( 456, $response->get_question_id() );
 	}
 

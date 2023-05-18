@@ -16,7 +16,6 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 
 		$response->set_content( 'foo' );
 		$response->set_question_id( 20 );
-		$response->set_is_answer( false );
 
 		$saved = $response->save();
 
@@ -25,7 +24,6 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 		$new_response = new \WeBWorK\Server\Response( $r );
 		$this->assertSame( 'foo', $new_response->get_content() );
 		$this->assertSame( 20, $new_response->get_question_id() );
-		$this->assertFalse( $new_response->get_is_answer() );
 	}
 
 	public function test_successful_save_for_new_item() {
@@ -33,7 +31,6 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 
 		$response->set_content( 'foo' );
 		$response->set_question_id( 20 );
-		$response->set_is_answer( false );
 
 		$saved = $response->save();
 
@@ -42,7 +39,6 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 		$new_response = new \WeBWorK\Server\Response( $response->get_id() );
 		$this->assertSame( 'foo', $new_response->get_content() );
 		$this->assertSame( 20, $new_response->get_question_id() );
-		$this->assertFalse( $new_response->get_is_answer() );
 	}
 
 	public function test_exists_false() {

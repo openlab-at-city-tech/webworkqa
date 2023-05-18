@@ -273,15 +273,6 @@ class Endpoint extends \WP_Rest_Controller {
 	public function update_item( $request ) {
 		$retval = false;
 
-		$params = $request->get_params();
-		if ( isset( $params['id'] ) && isset( $params['is_answer'] ) ) {
-			$response = new \WeBWorK\Server\Response( $params['id'] );
-			if ( $response->exists() ) {
-				$response->set_is_answer( $params['is_answer'] );
-				$retval = $response->save();
-			}
-		}
-
 		$response = rest_ensure_response( $retval );
 
 		if ( $retval ) {

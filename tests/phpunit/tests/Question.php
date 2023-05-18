@@ -241,37 +241,6 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$this->assertFalse( $q->get_has_answer() );
 	}
 
-	public function test_get_has_answer_true() {
-		$q = self::factory()->question->create_and_get();
-
-		$r1 = new \WeBWorK\Server\Response();
-		$r1->set_question_id( $q->get_id() );
-		$r1->set_is_answer( false );
-		$r1->save();
-
-		$r2 = new \WeBWorK\Server\Response();
-		$r2->set_question_id( $q->get_id() );
-		$r2->set_is_answer( true );
-		$r2->save();
-
-		$this->assertTrue( $q->get_has_answer() );
-	}
-
-	public function test_get_has_answer_cache_should_be_busted_after_response_save() {
-		$q = self::factory()->question->create_and_get();
-
-		$r = new \WeBWorK\Server\Response();
-		$r->set_question_id( $q->get_id() );
-		$r->save();
-
-		$this->assertFalse( $q->get_has_answer() );
-
-		$r->set_is_answer( true );
-		$r->save();
-
-		$this->assertTrue( $q->get_has_answer() );
-	}
-
 	public function test_get_url() {
 		$problem_id = 'foo-bar';
 		$q          = self::factory()->question->create_and_get(

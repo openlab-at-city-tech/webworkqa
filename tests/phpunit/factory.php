@@ -49,9 +49,6 @@ class WeBWorK_Tests_Factory_For_Response extends WP_UnitTest_Factory_For_Post {
 
 		$response = new \WeBWorK\Server\Response( $post_id );
 
-		$is_answer = isset( $args['is_answer'] ) ? (bool) $args['is_answer'] : false;
-		$response->set_is_answer( $is_answer );
-
 		$question_id = isset( $args['question_id'] ) ? (int) $args['question_id'] : false;
 		if ( $question_id ) {
 			$response->set_question_id( $question_id );

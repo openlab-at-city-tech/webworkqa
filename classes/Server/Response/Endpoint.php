@@ -113,10 +113,6 @@ class Endpoint extends \WP_Rest_Controller {
 		if ( isset( $params['id'] ) ) {
 			$response = new \WeBWorK\Server\Response( $params['id'] );
 			if ( $response->exists() ) {
-				if ( isset( $params['is_answer'] ) ) {
-					$response->set_is_answer( $params['is_answer'] );
-				}
-
 				if ( isset( $params['content'] ) ) {
 					$response->set_content( $params['content'] );
 				}

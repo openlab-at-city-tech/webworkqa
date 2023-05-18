@@ -273,8 +273,8 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 		$q->fetch_external_assets();
 
 		$expected_url = str_replace( 'https://teleogistic.net/files/2016/09', $upload_dir['url'], $src );
-		$this->assertContains( $expected_url, $q->get_problem_text() );
-		$this->assertNotContains( $src, $q->get_problem_text() );
+		$this->assertStringContainsString( $expected_url, $q->get_problem_text() );
+		$this->assertStringNotContainsString( $src, $q->get_problem_text() );
 		$this->assertFileExists( $upload_dir['path'] . '/' . basename( $src ) );
 	}
 

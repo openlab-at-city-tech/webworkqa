@@ -244,7 +244,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
-		$this->assertContains( 'href="http://example.com/link"', $found );
+		$this->assertStringContainsString( 'href="http://example.com/link"', $found );
 	}
 
 	public function test_convert_image_urls_should_convert_relative_src() {
@@ -253,7 +253,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
-		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
+		$this->assertStringContainsString( 'src="http://example.com/image.jpg"', $found );
 	}
 
 	public function test_convert_image_urls_should_be_case_insensitive_for_tag_match() {
@@ -262,7 +262,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
-		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
+		$this->assertStringContainsString( 'src="http://example.com/image.jpg"', $found );
 	}
 
 	public function test_convert_image_urls_should_recognize_single_quotes() {
@@ -271,7 +271,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
-		$this->assertContains( 'src=\'http://example.com/image.jpg\'', $found );
+		$this->assertStringContainsString( 'src=\'http://example.com/image.jpg\'', $found );
 	}
 
 	public function test_convert_image_urls_should_ignore_absolute_href() {
@@ -280,7 +280,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
-		$this->assertContains( 'href="http://foo.bar/link"', $found );
+		$this->assertStringContainsString( 'href="http://foo.bar/link"', $found );
 	}
 
 	public function test_convert_image_urls_should_ignore_absolute_src() {
@@ -289,7 +289,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
-		$this->assertContains( 'src="http://foo.bar/image.jpg"', $found );
+		$this->assertStringContainsString( 'src="http://foo.bar/image.jpg"', $found );
 	}
 
 	public function test_convert_image_urls_should_ignore_spaces_after_attribute_names() {
@@ -298,7 +298,7 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf    = new \WeBWorK\Server\Util\ProblemFormatter();
 		$found = $pf->convert_image_urls( $text, $course_url );
-		$this->assertContains( 'href="http://example.com/link"', $found );
-		$this->assertContains( 'src="http://example.com/image.jpg"', $found );
+		$this->assertStringContainsString( 'href="http://example.com/link"', $found );
+		$this->assertStringContainsString( 'src="http://example.com/image.jpg"', $found );
 	}
 }

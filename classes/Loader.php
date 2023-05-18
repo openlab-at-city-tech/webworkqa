@@ -16,6 +16,9 @@ class Loader {
 	 */
 	protected $integrations = array();
 
+	protected $server;
+	protected $client;
+
 	/**
 	 * Singleton bootstrap.
 	 *

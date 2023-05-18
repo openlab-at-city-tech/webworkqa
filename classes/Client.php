@@ -8,6 +8,8 @@ namespace WeBWorK;
  * @since 1.0.0
  */
 class Client {
+	protected $rewrites;
+
 	public function __construct() {
 		$this->rewrites = new \WeBWorK\Client\Rewrites();
 

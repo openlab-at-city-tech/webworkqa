@@ -11,7 +11,9 @@ class Server {
 	protected $post_data;
 	protected $remote_problem_url;
 	protected $remote_class_url;
+	protected $remote_referer_url = '';
 	protected $webwork_user;
+	protected $schema;
 
 	public function __construct() {
 		if ( ! class_exists( 'WP_REST_Controller' ) ) {

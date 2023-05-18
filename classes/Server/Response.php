@@ -17,7 +17,7 @@ class Response implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $question;
 
 	protected $author_id;
-	protected $content;
+	protected $content = '';
 	protected $post_date;
 
 	protected $client_url;

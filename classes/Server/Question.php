@@ -14,19 +14,19 @@ class Question implements Util\SaveableAsWPPost, Util\Voteable {
 	protected $problem_id;
 	protected $problem_set;
 	protected $course;
-	protected $problem_text;
+	protected $problem_text = '';
 	protected $client_url;
 	protected $remote_class_url;
 	protected $remote_problem_url;
 	protected $emailable_url;
 	protected $random_seed;
-	protected $notify_addresses;
+	protected $notify_addresses = '';
 	protected $student_name;
 	protected $remote_user_problem_url;
 
 	protected $author_id;
-	protected $content;
-	protected $tried;
+	protected $content = '';
+	protected $tried = '';
 	protected $is_anonymous;
 	protected $post_date;
 

@@ -1,18 +1,18 @@
 <?php
 /*
 Plugin Name: WeBWorK Q&A
-Version: 1.0
+Version: 1.0.0
 Description: Integration between WeBWorK and WordPress
-Author: Boone Gorges
-Author URI: https://boone.gorg.es
-Plugin URI: https://openlab.citytech.cuny.edu
+Author: OpenLab at City Tech
+Author URI: https://openlab.citytech.cuny.edu
+Plugin URI: https://openlab.citytech.cuny.edu/webwork-qa-plugin
 Text Domain: webworkqa
 Domain Path: /languages
 */
 
 define( 'WEBWORK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WEBWORK_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'WEBWORK_PLUGIN_VER', '1.0' );
+define( 'WEBWORK_PLUGIN_VER', '1.0.0' );
 
 /**
  * Bootstrap.

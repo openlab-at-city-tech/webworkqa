@@ -1,5 +1,13 @@
 <?php
 
+class WeBWorK_Tests_Factory extends WP_UnitTest_Factory {
+	public $vote;
+	public $problem;
+	public $problem_instance;
+	public $question;
+	public $response;
+}
+
 class WeBWorK_Tests_Factory_For_Vote extends WP_UnitTest_Factory_For_Thing {
 	public function __construct( $factory = null ) {
 		parent::__construct( $factory );

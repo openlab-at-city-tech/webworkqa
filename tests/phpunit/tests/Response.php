@@ -7,7 +7,6 @@ class WeBWork_Tests_Response extends WeBWorK_UnitTestCase {
 	public function test_successful_save_for_existing_item() {
 		$r = self::factory()->response->create(
 			array(
-				'is_answer'   => true,
 				'question_id' => 15,
 			)
 		);

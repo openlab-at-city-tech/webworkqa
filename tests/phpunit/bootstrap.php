@@ -5,6 +5,11 @@ if ( ! $_tests_dir ) {
 	$_tests_dir = '/tmp/wordpress-tests-lib';
 }
 
+$github_temp = getenv( 'RUNNER_TEMP' );
+if ( $github_temp ) {
+	$_tests_dir = $github_temp . '/wordpress-tests-lib';
+}
+
 require_once $_tests_dir . '/includes/functions.php';
 
 function _manually_load_plugin() {

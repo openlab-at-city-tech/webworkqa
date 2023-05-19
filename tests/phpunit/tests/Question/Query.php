@@ -361,7 +361,7 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 			),
 			array(
 				'name'  => 'Show All',
-				'value' => 'foo',
+				'value' => '',
 			),
 		);
 

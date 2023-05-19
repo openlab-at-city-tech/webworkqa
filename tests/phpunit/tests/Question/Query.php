@@ -359,6 +359,10 @@ class WeBWorK_Tests_Question_Query extends WeBWorK_UnitTestCase {
 				'name'  => 'foo',
 				'value' => 'foo',
 			),
+			array(
+				'name'  => 'Show All',
+				'value' => 'foo',
+			),
 		);
 
 		$this->assertSame( $expected, $found );

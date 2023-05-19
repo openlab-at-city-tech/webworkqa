@@ -249,7 +249,7 @@ class WeBWork_Tests_Question extends WeBWorK_UnitTestCase {
 			)
 		);
 
-		$expected = 'http://' . WP_TESTS_DOMAIN . '/#/problem/foo-bar/question-' . $q->get_id();
+		$expected = 'http://' . WP_TESTS_DOMAIN . '/#:problemId=foo-bar:questionId=' . $q->get_id();
 		$this->assertSame( $expected, $q->get_url( 'http://' . WP_TESTS_DOMAIN ) );
 	}
 

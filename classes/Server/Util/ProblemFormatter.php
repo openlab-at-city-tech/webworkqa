@@ -8,6 +8,7 @@ namespace WeBWorK\Server\Util;
 class ProblemFormatter {
 	protected $mathjax_delim_regex        = '|(<script type="math/tex([^"]*)">)(.*?)(</script>)|s';
 	protected $attachment_shortcode_regex = '|\[attachment id="([^"]+)"\]|';
+	protected $inner_latex_regex          = ';(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})(.*?)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\});s';
 
 	/**
 	 * Default allowed tags for content.
@@ -97,6 +98,8 @@ class ProblemFormatter {
 		$text = $this->remove_script_tags( $text, 'all' );
 		$text = $this->remove_style_tags( $text );
 
+		$text = $this->swap_latex_vector_characters( $text );
+
 		$allowed_tags = $this->allowed_tags;
 		if ( 'extended' === $allowed_html_set ) {
 			// Positioning.
@@ -154,7 +157,65 @@ class ProblemFormatter {
 		$stripped = wp_kses( $text, $allowed_tags );
 		remove_filter( 'safe_style_css', $callback );
 
+		$stripped = $this->replace_latex_vector_characters( $stripped );
+
 		return $stripped;
+	}
+
+	/**
+	 * Detects vectors of the form < ... , ... , ... > and swaps out the delimiters.
+	 *
+	 * This prevents the vector from being detected by KSES as an invalid HTML tag and
+	 * thus being stripped.
+	 *
+	 * Searches only inside of LaTeX delimiters.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @param string $text Text to search.
+	 * @return string
+	 */
+	protected function swap_latex_vector_characters( $text ) {
+		$regex = $this->inner_latex_regex;
+
+		return preg_replace_callback(
+			$regex,
+			function( $matches ) {
+				$swapped_vectors = preg_replace_callback(
+					':<(([^"\'>]+,)+[^"\'>]+)>:',
+					function( $vector_matches ) {
+						return '{{{LATEX_VECTOR_OPEN}}}' . $vector_matches[1] . '{{{LATEX_VECTOR_CLOSE}}}';
+					},
+					$matches[3]
+				);
+
+				return $matches[1] . $swapped_vectors . $matches[4];
+			},
+			$text
+		);
+	}
+
+	/**
+	 * Replaces LATEX_VECTOR_ delimiters with the open/close brackets.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @param string $text Text to process.
+	 * @return string
+	 */
+	protected function replace_latex_vector_characters( $text ) {
+		$replaced =  str_replace(
+			[
+				'{{{LATEX_VECTOR_OPEN}}}',
+				'{{{LATEX_VECTOR_CLOSE}}}',
+			],
+			[
+				'<',
+				'>',
+			],
+			$text
+		);
+		return $replaced;
 	}
 
 	public function remove_empty_divs( $text ) {
@@ -340,8 +401,9 @@ class ProblemFormatter {
 	}
 
 	public function swap_latex_escape_characters( $text ) {
-		$regex = ';(\{\{\{LATEX_DELIM_((?:DISPLAY)|(?:INLINE))_OPEN\}\}\})(.*?)(\{\{\{LATEX_DELIM_\2_CLOSE\}\}\});s';
-		$text  = preg_replace_callback(
+		$regex = $this->inner_latex_regex;
+
+		$text = preg_replace_callback(
 			$regex,
 			function( $matches ) {
 				$tex = str_replace( '\\', '{{{LATEX_ESCAPE_CHARACTER}}}', $matches[3] );

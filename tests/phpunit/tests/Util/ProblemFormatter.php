@@ -99,9 +99,6 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 		$this->assertSame( $expected, $pf->convert_delims( $text ) );
 	}
 
-	/**
-	 * @group bbg
-	 */
 	public function test_convert_shorthand_delims() {
 		$text     = '\foo \bar $latex \foo \bar$ $latex\foo
 \bar$ foo';
@@ -154,6 +151,14 @@ class WeBWork_Tests_Util_ProblemFormatter extends WeBWorK_UnitTestCase {
 
 		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
 		$this->assertSame( $expected, $pf->replace_latex_escape_characters( $text ) );
+	}
+
+	public function test_strip_illegal_markup_should_not_remove_vectors() {
+		$text = 'Example: {{{LATEX_DELIM_INLINE_OPEN}}}2\cdot\left< 3, 7, 5\right> = \left< 3, 5\right> + \left< 3, 5\right> = \left< 6, 10\right>{{{LATEX_DELIM_INLINE_CLOSE}}}';
+
+		$pf = new \WeBWorK\Server\Util\ProblemFormatter();
+
+		$found = $this->assertSame( $text, $pf->strip_illegal_markup( $text ) );
 	}
 
 	public function test_strip_inputs() {
